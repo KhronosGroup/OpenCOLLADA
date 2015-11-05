@@ -367,9 +367,6 @@
     <ClInclude Include="..\include\COLLADASWVertices.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\COLLADASWTagType.h">
-      <Filter>Header Files</Filter>
-	</ClInclude>
     <ClInclude Include="..\include\COLLADASWLibraryPhysicsModels.h">
       <Filter>Header Files</Filter>
     </ClInclude>

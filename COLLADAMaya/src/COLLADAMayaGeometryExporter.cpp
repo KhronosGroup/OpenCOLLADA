@@ -14,6 +14,7 @@
 */
 
 #include "COLLADAMayaStableHeaders.h"
+#include "COLLADAMayaAttributeParser.h"
 #include "COLLADAMayaGeometryExporter.h"
 #include "COLLADAMayaPhysXExporter.h"
 #include "COLLADAMayaGeometryPolygonExporter.h"
@@ -30,6 +31,7 @@
 #include <algorithm>
 
 #include <maya/MItDependencyNodes.h>
+#include <maya/MFnAttribute.h>
 #include <maya/MFnMesh.h>
 #include <maya/MItMeshPolygon.h>
 #include <maya/MItMeshVertex.h>
@@ -405,6 +407,159 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------------------
+    class Element
+    {
+    public:
+        Element(COLLADASW::StreamWriter& streamWriter, const String& mName, const String& mSID = "")
+            : mStreamWriter(streamWriter)
+        {
+            mStreamWriter.openElement(mName);
+            if (!mSID.empty()) {
+                mStreamWriter.appendAttribute(COLLADASW::CSWC::CSW_ATTRIBUTE_SID, mSID);
+            }
+        }
+
+        ~Element()
+        {
+            mStreamWriter.closeElement();
+        }
+
+    private:
+        COLLADASW::StreamWriter& mStreamWriter;
+    };
+
+    class ExtraAttributeExporter : public AttributeParser
+    {
+    public:
+		ExtraAttributeExporter(COLLADASW::Technique& technique)
+            : mTechnique(technique)
+        {}
+
+	private:
+		COLLADASW::Technique& mTechnique;
+
+        // AttributeParser overrides
+        
+        virtual bool onBeforeAttribute(MFnDependencyNode & fnNode, MObject & attr) override
+        {
+            MStatus status;
+            MFnAttribute fnAttr(attr, &status);
+            if (!status) return false;
+
+            MString attrName = fnAttr.name(&status);
+            if (!status) return false;
+
+            bool isDynamic = fnAttr.isDynamic(&status);
+            if (!status) return false;
+
+            if (!isDynamic)
+                return false;
+
+            bool isHidden = fnAttr.isHidden(&status);
+            if (!status) return false;
+
+            if (isHidden)
+                return false;
+
+            return true;
+        }
+
+        virtual void onBoolean(MPlug & plug, const MString & name, bool value) override
+        {
+			mTechnique.addParameter(name.asChar(), value, "", PARAM_TYPE_BOOL, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
+        }
+
+        virtual void onByte(MPlug & plug, const MString & name, char value) override
+        {
+			const size_t size = 5;
+            char text[size];
+            snprintf(text, size, "0x%X", value);
+			mTechnique.addParameter(name.asChar(), COLLADABU::StringUtils::translateToXML(text), "", PARAM_TYPE_BYTE, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
+        }
+
+        virtual void onChar(MPlug & plug, const MString & name, char value) override
+        {
+            char text[2] = { value, '\0' };
+			mTechnique.addParameter(name.asChar(), COLLADABU::StringUtils::translateToXML(text), "", PARAM_TYPE_CHAR, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
+        }
+
+        virtual void onShort(MPlug & plug, const MString & name, short value) override
+        {
+			mTechnique.addParameter(name.asChar(), value, "", PARAM_TYPE_SHORT, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
+        }
+
+        virtual void onShort2(MPlug & plug, const MString & name, short value[2]) override
+        {
+			mTechnique.addParameter(name.asChar(), value[0], value[1], "", PARAM_TYPE_SHORT2, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
+        }
+
+        virtual void onShort3(MPlug & plug, const MString & name, short value[3]) override
+        {
+			mTechnique.addParameter(name.asChar(), value[0], value[1], value[2], "", PARAM_TYPE_SHORT3, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
+        }
+
+        virtual void onInteger(MPlug & plug, const MString & name, int value) override
+        {
+			mTechnique.addParameter(name.asChar(), value, "", PARAM_TYPE_LONG, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
+        }
+
+        virtual void onInteger2(MPlug & plug, const MString & name, int value[2]) override
+        {
+			mTechnique.addParameter(name.asChar(), value[0], value[1], "", PARAM_TYPE_LONG2, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
+        }
+
+        virtual void onInteger3(MPlug & plug, const MString & name, int value[3]) override
+        {
+			mTechnique.addParameter(name.asChar(), value[0], value[1], value[2], "", PARAM_TYPE_LONG3, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
+        }
+
+        virtual void onFloat(MPlug & plug, const MString & name, float value) override
+        {
+			mTechnique.addParameter(name.asChar(), value, "", "float", COLLADASW::CSWC::CSW_ELEMENT_PARAM);
+        }
+
+        virtual void onFloat2(MPlug & plug, const MString & name, float value[2]) override
+        {
+			mTechnique.addParameter(name.asChar(), value[0], value[1], "", PARAM_TYPE_FLOAT2, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
+        }
+
+        virtual void onFloat3(MPlug & plug, const MString & name, float value[3]) override
+        {
+			mTechnique.addParameter(name.asChar(), value[0], value[1], value[2], "", PARAM_TYPE_FLOAT3, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
+        }
+
+        virtual void onDouble(MPlug & plug, const MString & name, double value) override
+        {
+			mTechnique.addParameter(name.asChar(), value, "", PARAM_TYPE_DOUBLE, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
+        }
+
+        virtual void onDouble2(MPlug & plug, const MString & name, double value[2]) override
+        {
+			mTechnique.addParameter(name.asChar(), value[0], value[1], "", PARAM_TYPE_DOUBLE2, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
+        }
+
+        virtual void onDouble3(MPlug & plug, const MString & name, double value[3]) override
+        {
+			mTechnique.addParameter(name.asChar(), value[0], value[1], value[2], "", PARAM_TYPE_DOUBLE3, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
+        }
+
+        virtual void onDouble4(MPlug & plug, const MString & name, double value[4]) override
+        {
+			mTechnique.addParameter(name.asChar(), value[0], value[1], value[2], value[3], "", PARAM_TYPE_DOUBLE4, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
+        }
+
+        virtual void onString(MPlug & plug, const MString & name, const MString & value) override
+        {
+			mTechnique.addParameter(name.asChar(), COLLADABU::StringUtils::translateToXML(value.asChar()), "", PARAM_TYPE_STRING, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
+        }
+
+        virtual void onEnum(MPlug & plug, const MString & name, int enumValue, const MString & enumName) override
+        {
+			mTechnique.addParameter(name.asChar(), COLLADABU::StringUtils::translateToXML(enumName.asChar()), "", PARAM_TYPE_ENUM, COLLADASW::CSWC::CSW_ELEMENT_PARAM);
+        }
+    };
+
+    // --------------------------------------------------------
     void GeometryExporter::exportExtraTechniqueParameters ( 
         const MObject& mesh,
         const String& mayaMeshName )
@@ -418,6 +573,12 @@ namespace COLLADAMaya
         techniqueSource.openTechnique ( PROFILE_MAYA );
         techniqueSource.addParameter ( PARAMETER_MAYA_ID, mayaMeshName );
         techniqueSource.addParameter ( PARAMETER_DOUBLE_SIDED, doubleSided );
+        
+        // Also export extra attributes
+        MFnDependencyNode fnDependencyNode(mesh);
+		ExtraAttributeExporter extraAttributeExporter(techniqueSource);
+        AttributeParser::parseAttributes(fnDependencyNode, extraAttributeExporter);
+
         techniqueSource.closeTechnique();
 
         extraSource.closeExtra();

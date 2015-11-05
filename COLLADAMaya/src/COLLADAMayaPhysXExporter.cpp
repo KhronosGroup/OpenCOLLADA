@@ -110,258 +110,190 @@ namespace COLLADAMaya
         {}
 
     protected:
-        virtual MStatus onBeforeAttribute(MFnDependencyNode & node, MObject & attr) override
+        virtual bool onBeforeAttribute(MFnDependencyNode & node, MObject & attr) override
         {
             MStatus status;
             MFnAttribute fnAttr(attr, &status);
-            if (!status) return status;
+            if (!status) return false;
 
             MString attrName = fnAttr.name(&status);
-            if (!status) return status;
-
-            if (mOpenCompoundAttributes.size() > 0) {
-                return MS::kSuccess;
-            }
+            if (!status) return false;
 
             std::set<MString, MStringComp>::const_iterator it = mAttributes.find(attrName);
             if (it == mAttributes.end()) {
-                return MS::kFailure;
+                return false;
             }
 
-            return MS::kSuccess;
+            return true;
         }
 
-        virtual MStatus onAfterAttribute(MFnDependencyNode& node, MObject& attr) override
-        {
-            MStatus status;
-            MFnAttribute fnAttr(attr, &status);
-            if (!status) return status;
-
-            MString attrName = fnAttr.name(&status);
-            if (!status) return status;
-
-            String attrNameStr(attrName.asChar());
-
-            if (mOpenCompoundAttributes.size() > 0 &&
-                attrNameStr == mOpenCompoundAttributes.top()) {
-                mPhysXExporter.getStreamWriter().closeElement();
-                mOpenCompoundAttributes.pop();
-            }
-
-            return MS::kSuccess;
-        }
-
-        virtual MStatus onBoolean(MPlug & plug, const MString & name, bool value) override
+        virtual void onBoolean(MPlug & plug, const MString & name, bool value) override
         {
             String nameStr(name.asChar());
             Element e(mPhysXExporter, nameStr);
             mPhysXExporter.getStreamWriter().appendValues(value);
-            return MS::kSuccess;
         }
 
-        virtual MStatus onByte(MPlug & plug, const MString & name, char value) override
+        virtual void onByte(MPlug & plug, const MString & name, char value) override
         {
             String nameStr(name.asChar());
-            char text[5];
-            sprintf(text, "0x%X", value);
+			const size_t size = 5;
+			char text[size];
+			snprintf(text, size, "0x%X", value);
             Element e(mPhysXExporter, nameStr);
             mPhysXExporter.getStreamWriter().appendValues(text);
-            return MS::kSuccess;
         }
 
-        virtual MStatus onChar(MPlug & plug, const MString & name, char value) override
+        virtual void onChar(MPlug & plug, const MString & name, char value) override
         {
             String nameStr(name.asChar());
             char text[] = { value, '\0' };
             Element e(mPhysXExporter, nameStr);
             mPhysXExporter.getStreamWriter().appendValues(text);
-            return MS::kSuccess;
         }
 
-        virtual MStatus onShort(MPlug & plug, const MString & name, short value) override
+        virtual void onShort(MPlug & plug, const MString & name, short value) override
         {
             String nameStr(name.asChar());
             Element e(mPhysXExporter, nameStr);
             mPhysXExporter.getStreamWriter().appendValues(value);
-            return MS::kSuccess;
         }
 
-        virtual MStatus onShort2(MPlug & plug, const MString & name, short value[2]) override
+        virtual void onShort2(MPlug & plug, const MString & name, short value[2]) override
         {
             String nameStr(name.asChar());
             int values[3] = { value[0], value[1] };
             Element e(mPhysXExporter, nameStr);
             mPhysXExporter.getStreamWriter().appendValues(values, 2);
-            return MS::kSuccess;
         }
 
-        virtual MStatus onShort3(MPlug & plug, const MString & name, short value[3]) override
+        virtual void onShort3(MPlug & plug, const MString & name, short value[3]) override
         {
 
             String nameStr(name.asChar());
             int values[3] = { value[0], value[1], value[2] };
             Element e(mPhysXExporter, nameStr);
             mPhysXExporter.getStreamWriter().appendValues(values, 3);
-            return MS::kSuccess;
         }
 
-        virtual MStatus onLong(MPlug & plug, const MString & name, int value) override
+        virtual void onInteger(MPlug & plug, const MString & name, int value) override
         {
             String nameStr(name.asChar());
             Element e(mPhysXExporter, nameStr);
             mPhysXExporter.getStreamWriter().appendValues(value);
-            return MS::kSuccess;
         }
 
-        virtual MStatus onLong2(MPlug & plug, const MString & name, int value[2]) override
+        virtual void onInteger2(MPlug & plug, const MString & name, int value[2]) override
         {
             String nameStr(name.asChar());
             Element e(mPhysXExporter, nameStr);
             mPhysXExporter.getStreamWriter().appendValues(value, 2);
-            return MS::kSuccess;
         }
 
-        virtual MStatus onLong3(MPlug & plug, const MString & name, int value[3]) override
+        virtual void onInteger3(MPlug & plug, const MString & name, int value[3]) override
         {
             String nameStr(name.asChar());
             Element e(mPhysXExporter, nameStr);
             mPhysXExporter.getStreamWriter().appendValues(value, 3);
-            return MS::kSuccess;
         }
 
-        virtual MStatus onFloat(MPlug & plug, const MString & name, float value) override
+        virtual void onFloat(MPlug & plug, const MString & name, float value) override
         {
             String nameStr(name.asChar());
             Element e(mPhysXExporter, nameStr);
             mPhysXExporter.getStreamWriter().appendValues(value);
-            return MS::kSuccess;
         }
 
-        virtual MStatus onFloat2(MPlug & plug, const MString & name, float value[2]) override
+        virtual void onFloat2(MPlug & plug, const MString & name, float value[2]) override
         {
             String nameStr(name.asChar());
             Element e(mPhysXExporter, nameStr);
             mPhysXExporter.getStreamWriter().appendValues(value, 2);
-            return MS::kSuccess;
         }
 
-        virtual MStatus onFloat3(MPlug & plug, const MString & name, float value[3]) override
+        virtual void onFloat3(MPlug & plug, const MString & name, float value[3]) override
         {
             String nameStr(name.asChar());
             Element e(mPhysXExporter, nameStr);
             mPhysXExporter.getStreamWriter().appendValues(value, 3);
-            return MS::kSuccess;
         }
 
-        virtual MStatus onDouble(MPlug & plug, const MString & name, double value) override
+        virtual void onDouble(MPlug & plug, const MString & name, double value) override
         {
             String nameStr(name.asChar());
             Element e(mPhysXExporter, nameStr);
             mPhysXExporter.getStreamWriter().appendValues(value);
-            return MS::kSuccess;
         }
 
-        virtual MStatus onDouble2(MPlug & plug, const MString & name, double value[2]) override
+        virtual void onDouble2(MPlug & plug, const MString & name, double value[2]) override
         {
             String nameStr(name.asChar());
             Element e(mPhysXExporter, nameStr);
             mPhysXExporter.getStreamWriter().appendValues(value, 2);
-            return MS::kSuccess;
         }
 
-        virtual MStatus onDouble3(MPlug & plug, const MString & name, double value[3]) override
+        virtual void onDouble3(MPlug & plug, const MString & name, double value[3]) override
         {
             String nameStr(name.asChar());
             Element e(mPhysXExporter, nameStr);
             mPhysXExporter.getStreamWriter().appendValues(value, 3);
-            return MS::kSuccess;
         }
 
-        virtual MStatus onDouble4(MPlug & plug, const MString & name, double value[4]) override
+        virtual void onDouble4(MPlug & plug, const MString & name, double value[4]) override
         {
             String nameStr(name.asChar());
             Element e(mPhysXExporter, nameStr);
             mPhysXExporter.getStreamWriter().appendValues(value, 4);
-            return MS::kSuccess;
         }
 
-        virtual MStatus onString(MPlug & plug, const MString & name, const MString & value) override
+        virtual void onString(MPlug & plug, const MString & name, const MString & value) override
         {
             String nameStr(name.asChar());
             Element e(mPhysXExporter, nameStr);
             mPhysXExporter.getStreamWriter().appendText(value.asChar());
-            return MS::kSuccess;
         }
 
-        virtual MStatus onEnum(MPlug & plug, const MString & name, int enumValue, const MString & enumName) override
+        virtual void onEnum(MPlug & plug, const MString & name, int enumValue, const MString & enumName) override
         {
             String nameStr(name.asChar());
             Element e(mPhysXExporter, nameStr);
             mPhysXExporter.getStreamWriter().appendText(enumName.asChar());
-            return MS::kSuccess;
         }
 
-        virtual MStatus onMesh(MPlug & plug, const MString & name, MObject & meshObject) override
+        virtual void onMesh(MPlug & plug, const MString & name, MObject & meshObject) override
         {
             String nameStr(name.asChar());
             URI meshURI;
             mPhysXExporter.getMeshURI(meshObject, meshURI);
             Element e(mPhysXExporter, nameStr);
             mPhysXExporter.getStreamWriter().appendURIAttribute(CSWC::CSW_ATTRIBUTE_URL, meshURI);
-            return MS::kSuccess;
         }
 
-        // TODO if needed
-        //virtual MStatus onConnection(MPlug & plug, const MString & name, MPlug & externalPlug) override
-        //{
-        //    //String nameStr(name.asChar());
-        //    //URI objectURI;
-        //    //MObject attr = externalPlug.attribute();
-        //    //MFnAttribute fnAttr(attr);
-        //    //MString attrName = fnAttr.name();
-        //    //Element e(mPhysXExporter, nameStr);
-        //    //mPhysXExporter.getStreamWriter().appendURIAttribute(CSWC::CSW_ATTRIBUTE_URL, objectURI);
-        //    //mPhysXExporter.getStreamWriter().appendText(attrName.asChar());
-        //    return MS::kSuccess;
-        //}
-
-        virtual MStatus onCompoundAttribute(MPlug & plug, const MString & name) override
-        {
-            String nameStr(name.asChar());
-            mOpenCompoundAttributes.push(nameStr);
-            // openElement requires a String object as parameter that is not a temporary.
-            mPhysXExporter.getStreamWriter().openElement(mOpenCompoundAttributes.top());
-            return MS::kSuccess;
-        }
-
-        virtual MStatus onAngle(MPlug & plug, const MString & name, MAngle & angle) override
+        virtual void onAngle(MPlug & plug, const MString & name, MAngle & angle) override
         {
             String nameStr(name.asChar());
             Element e(mPhysXExporter, nameStr);
             mPhysXExporter.getStreamWriter().appendValues(angle.asDegrees());
-            return MS::kSuccess;
         }
 
-        virtual MStatus onDistance(MPlug & plug, const MString & name, MDistance & distance) override
+        virtual void onDistance(MPlug & plug, const MString & name, MDistance & distance) override
         {
             String nameStr(name.asChar());
             Element e(mPhysXExporter, nameStr);
             mPhysXExporter.getStreamWriter().appendValues(MDistance::internalToUI(distance.asCentimeters()));
-            return MS::kSuccess;
         }
 
-        virtual MStatus onTime(MPlug & plug, const MString & name, MTime & time) override
+        virtual void onTime(MPlug & plug, const MString & name, MTime & time) override
         {
             String nameStr(name.asChar());
             Element e(mPhysXExporter, nameStr);
             mPhysXExporter.getStreamWriter().appendValues(time.as(MTime::kSeconds));
-            return MS::kSuccess;
         }
 
     private:
         PhysXExporter& mPhysXExporter;
         const std::set<MString, MStringComp>& mAttributes;
-        std::stack<String> mOpenCompoundAttributes;
+        int mAttributeLevel;
     };
 
     void PhysXRigidConstraint::GetSwingConeAndTwistMinLimit(const MObject & rigidConstraint, MVector & min)

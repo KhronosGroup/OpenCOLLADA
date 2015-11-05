@@ -67,6 +67,8 @@ namespace COLLADAMaya
         /** Exports the geometry data of the current object, if it is a valid mesh object to export. */
         bool exportLight ( const MDagPath& dagPath );
 
+        void exportExtraAttributes(const SceneElement* sceneElement, COLLADASW::Light* light);
+
     };
 
 }
