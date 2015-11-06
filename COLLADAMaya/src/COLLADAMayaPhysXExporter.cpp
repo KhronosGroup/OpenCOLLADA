@@ -693,6 +693,7 @@ namespace COLLADAMaya
         {
             double inflate = 0.0;
             DagHelper::getPlugValue(shape, ATTR_INFLATE, inflate);
+            inflate = MDistance::internalToUI(inflate);
 
             MVector size;
             DagHelper::getPlugValue(shape, ATTR_SIZE, size);
@@ -727,6 +728,7 @@ namespace COLLADAMaya
         {
             double inflate = 0.0;
             DagHelper::getPlugValue(shape, ATTR_INFLATE, inflate);
+            inflate = MDistance::internalToUI(inflate);
 
             double radius;
             DagHelper::getPlugValue(shape, ATTR_RADIUS, radius);
@@ -760,6 +762,7 @@ namespace COLLADAMaya
         {
             double inflate = 0.0;
             DagHelper::getPlugValue(shape, ATTR_INFLATE, inflate);
+            inflate = MDistance::internalToUI(inflate);
 
             double radius;
             DagHelper::getPlugValue(shape, ATTR_RADIUS, radius);
