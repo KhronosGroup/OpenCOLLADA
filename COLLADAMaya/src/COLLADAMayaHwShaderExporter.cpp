@@ -155,7 +155,6 @@ namespace COLLADAMaya
         if( cgEffect.isNull() )
         {
             MGlobal::displayError ("cgEffect is null.");
-            throw "cgEffect is null.";
             return;
         }
 
