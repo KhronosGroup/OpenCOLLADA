@@ -85,6 +85,8 @@ namespace COLLADAMaya
         virtual void onAngle                (MPlug & plug, const MString & name, MAngle & angle)                            { }
         virtual void onDistance             (MPlug & plug, const MString & name, MDistance & distance)                      { }
         virtual void onTime                 (MPlug & plug, const MString & name, MTime & time)                              { }
+        virtual void onMessage              (MPlug & plug, const MString & name)                                            { }
+        virtual void onMatrix               (MPlug & plug, const MString & name, const MMatrix& value)                      { }
 
 	private:
         void parseAttribute         (MFnDependencyNode & fnNode, MObject & attribute, std::set<String>& parsedAttributes);
@@ -95,10 +97,13 @@ namespace COLLADAMaya
         void parseMatrixAttribute   (MFnDependencyNode & fnNode, MObject & attribute);
         void parseCompoundAttribute (MFnDependencyNode & fnNode, MObject & attribute, std::set<String>& parsedAttributes);
         void parseUnitAttribute     (MFnDependencyNode & fnNode, MObject & attribute);
+        void parseGenericAttribute  (MFnDependencyNode & fnNode, MObject & attribute);
+	    void parseLightDataAttribute(MFnDependencyNode & fnNode, MObject & attribute);
 		void parseNumericData       (MFnDependencyNode & fnNode, MObject & attribute);
 		void parseNumeric           (MPlug plug, MFnNumericData::Type type);
 		void parseStringData        (MFnDependencyNode & fnNode, MObject & attribute);
         void parseMeshData          (MFnDependencyNode & fnNode, MObject & attribute);
+        void parseComponentListData (MFnDependencyNode & fnNode, MObject & attribute);
 
 		static bool IsNumericCompoundAttribute(const MObject& attribute, MFnNumericData::Type& type);
 
