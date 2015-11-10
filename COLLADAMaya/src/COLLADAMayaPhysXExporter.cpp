@@ -664,8 +664,8 @@ namespace COLLADAMaya
 
                 const char* blockStart = reinterpret_cast<const char*>(address);
                 const char* blockEnd = reinterpret_cast<const char*>(address) + size;
-                const void* pageStart = reinterpret_cast<const void*>(istart);
-                const void* pageEnd = reinterpret_cast<const void*>(iend);
+                const char* pageStart = reinterpret_cast<const char*>(istart);
+                const char* pageEnd = reinterpret_cast<const char*>(iend);
 
                 if (blockStart >= pageStart && blockStart < pageEnd)
                 {
