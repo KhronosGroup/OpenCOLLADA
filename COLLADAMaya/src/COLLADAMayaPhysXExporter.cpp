@@ -706,10 +706,10 @@ namespace COLLADAMaya
     class Radius : public Element
     {
     public:
-        Radius(PhysXExporter& exporter, double radius)
+        Radius(PhysXExporter& exporter, double radiusX, double radiusZ)
             : Element(exporter, CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_CAPSULE_RADIUS)
         {
-            getStreamWriter().appendValues(radius);
+            getStreamWriter().appendValues(radiusX, radiusZ);
         }
     };
 
@@ -731,7 +731,7 @@ namespace COLLADAMaya
             double radius;
             DagHelper::getPlugValue(shape, ATTR_RADIUS, radius);
             radius = MDistance::internalToUI(radius) + inflate;
-            Radius e(getPhysXExporter(), radius);
+            Radius e(getPhysXExporter(), radius, radius);
         }
     };
 
@@ -764,7 +764,7 @@ namespace COLLADAMaya
             double radius;
             DagHelper::getPlugValue(shape, ATTR_RADIUS, radius);
             radius = MDistance::internalToUI(radius) + inflate;
-            Radius e(getPhysXExporter(), radius);
+            Radius e(getPhysXExporter(), radius, radius);
         }
 
         void exportHeight(const MObject & shape)
