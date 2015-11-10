@@ -39,6 +39,8 @@
 
 #if COLLADAMaya_PLATFORM == COLLADAMaya_PLATFORM_APPLE
 #include <mach/mach_vm.h>
+#elif COLLADAMaya_PLATFORM == COLLADAMaya_PLATFORM_WIN32
+#include <Windows.h>
 #endif
 
 double infinite()
