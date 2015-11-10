@@ -37,6 +37,10 @@
 #include <maya/MString.h>
 #include <maya/MTime.h>
 
+#if COLLADAMaya_PLATFORM == COLLADAMaya_PLATFORM_APPLE
+#include <mach/mach_vm.h>
+#endif
+
 double infinite()
 {
     union ieee754 {
@@ -578,15 +582,41 @@ namespace COLLADAMaya
 
         return true;
 #elif COLLADAMaya_PLATFORM == COLLADAMaya_PLATFORM_APPLE
-        // TODO test
-        kern_return_t result = vm_region(
-            vm_task_t                    target_task,
-                  vm_address_t                     address,
-                  vm_size_t                           size,
-                  vm_region_flavor_t                flavor,
-                  vm_region_info_t                    info,
-                  mach_msg_type_number_t        info_count,
-                  memory_object_name_t         object_name);
+        vm_map_t target_task = current_task();
+        mach_vm_address_t pageAddress = reinterpret_cast<size_t>(address);
+        mach_vm_size_t regionSize = 0;
+        vm_region_basic_info_data_64_t regionBasicInfo;
+        mach_msg_type_number_t regionBasicInfoCount = sizeof(vm_region_basic_info_data_64_t);
+        mach_port_t object_name;
+
+        kern_return_t ret = mach_vm_region(target_task,
+                             &pageAddress,
+                             &regionSize,
+                             VM_REGION_BASIC_INFO,
+                             (vm_region_info_t)&regionBasicInfo,
+                             &regionBasicInfoCount,
+                             &object_name);
+        
+        if (ret != KERN_SUCCESS || regionSize == 0)
+        {
+            return false;
+        }
+        
+        if (!(regionBasicInfo.protection & VM_PROT_READ))
+        {
+            return false;
+        }
+        
+        const char* blockStart = reinterpret_cast<const char*>(address);
+        const char* blockEnd = blockStart + size;
+        const char* pageStart = reinterpret_cast<const char*>(pageAddress);
+        const char* pageEnd = pageStart + regionSize;
+        
+        if (blockEnd > pageEnd) {
+            return IsMemoryReadable(pageEnd, size - (pageEnd - blockStart));
+        }
+        
+        return true;
 #elif COLLADAMaya_PLATFORM == COLLADAMaya_PLATFORM_LINUX
         // TODO test
         std::ifstream maps("/proc/self/maps");
@@ -674,7 +704,7 @@ namespace COLLADAMaya
 
         const MMatrix* localPoseAddress = reinterpret_cast<const MMatrix*>((reinterpret_cast<const char*>(pxNode) + offset));
 
-        // Check memory is readable to avoid potential crash
+        // Be sure memory is readable to avoid any crash.
         if (!IsMemoryReadable(localPoseAddress, sizeof(MMatrix))) {
             return false;
         }
@@ -2627,6 +2657,11 @@ namespace COLLADAMaya
     {
         // Check PhysX plugin version.
         MObject pluginObject = MFnPlugin::findPlugin("physx");
+        
+        if (pluginObject.isNull()) {
+            return false;
+        }
+        
         MFnPlugin fnPlugin(pluginObject);
 
         // TODO check required apiVersion?
@@ -2644,7 +2679,7 @@ namespace COLLADAMaya
         std::map<std::string, size_t>::const_iterator itOffset = mLocalPoseOffsets.find(version.asChar());
         if (itOffset == mLocalPoseOffsets.end()) {
             MGlobal::displayWarning("PhysX plugin version not supported: " + version);
-            MGlobal::displayInfo("Shape local pose may be incorrect.");
+            MGlobal::displayInfo("Shape local pose won't be exported.");
             MGlobal::displayInfo("Supported versions:");
             for (std::map<std::string, size_t>::const_iterator it = mLocalPoseOffsets.begin(); it != mLocalPoseOffsets.end(); ++it) {
                 MGlobal::displayInfo(it->first.c_str());
@@ -2822,8 +2857,10 @@ namespace COLLADAMaya
     {
         std::map<String, size_t>::const_iterator it = mLocalPoseOffsets.find(physxPluginVersion);
         if (it == mLocalPoseOffsets.end()) {
+            return 0;
+            
             // Try "PhysxForMaya (3.3.10709.02272) , compiled 7/9/2015 2:27:07 AM" offset.
-            it = mLocalPoseOffsets.find("PhysxForMaya (3.3.10709.02272) , compiled 7/9/2015 2:27:07 AM");
+            //it = mLocalPoseOffsets.find("PhysxForMaya (3.3.10709.02272) , compiled 7/9/2015 2:27:07 AM");
         }
         return it->second;
     }
