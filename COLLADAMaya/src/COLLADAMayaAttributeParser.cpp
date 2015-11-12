@@ -595,83 +595,320 @@ namespace COLLADAMaya
 		break;
 		case MFnNumericData::kFloat:				//!< One float.
 		{
-			float value;
-			status = plug.getValue(value);
-			if (!status) return;
-			onFloat(plug, name, value);
+            MFn::Type apiType = attrObj.apiType();
+            switch (apiType)
+            {
+            case MFn::kFloatAngleAttribute:
+            {
+                MAngle angle = plug.asMAngle(MDGContext::fsNormal, &status);
+                if (!status) return;
+                onAngle(plug, name, angle);
+            }
+            break;
+            case MFn::kFloatLinearAttribute:
+            {
+                MDistance distance = plug.asMDistance(MDGContext::fsNormal, &status);
+                if (!status) return;
+                onDistance(plug, name, distance);
+            }
+            break;
+            default:
+            {
+                float value = plug.asFloat(MDGContext::fsNormal, &status);
+                if (!status) return;
+                onFloat(plug, name, value);
+            }
+            break;
+            }
 		}
 		break;
 		case MFnNumericData::k2Float:			//!< Two floats.
 		{
-			MObject object;
-			status = plug.getValue(object);
-			if (!status) return;
-			MFnNumericData fnNumericData(object, &status);
-			if (!status) return;
-			float value[2];
-			status = fnNumericData.getData(value[0], value[1]);
-			if (!status) return;
-			onFloat2(plug, name, value);
+            const unsigned int numChildren = 2;
+
+			MPlug childPlugs[numChildren];
+            for (unsigned int i = 0; i < numChildren; ++i) {
+                childPlugs[i] = plug.child(i, &status);
+                if (!status) return;
+            }
+
+            MObject childAttr[numChildren];
+            for (unsigned int i = 0; i < numChildren; ++i) {
+                childAttr[i] = childPlugs[i].attribute(&status);
+                if (!status) return;
+            }
+
+            MFn::Type apiType = childAttr[0].apiType();
+            switch (apiType)
+            {
+            case MFn::kFloatAngleAttribute:
+            {
+                MAngle angles[numChildren];
+                for (unsigned int i = 0; i < numChildren; ++i) {
+                    angles[i] = childPlugs[i].asMAngle(MDGContext::fsNormal, &status);
+                    if (!status) return;
+                }
+                onAngle2(plug, name, angles);
+            }
+            break;
+            case MFn::kFloatLinearAttribute:
+            {
+                MDistance distances[numChildren];
+                for (unsigned int i = 0; i < numChildren; ++i) {
+                    distances[i] = childPlugs[i].asMDistance(MDGContext::fsNormal, &status);
+                    if (!status) return;
+                }
+                onDistance2(plug, name, distances);
+            }
+            break;
+            default:
+            {
+                float values[numChildren];
+                for (unsigned int i = 0; i < numChildren; ++i) {
+                    values[i] = childPlugs[i].asFloat(MDGContext::fsNormal, &status);
+                    if (!status) return;
+                }
+                onFloat2(plug, name, values);
+            }
+            break;
+            }
 		}
 		break;
 		case MFnNumericData::k3Float:			//!< Three floats.
 		{
-			MObject object;
-			status = plug.getValue(object);
-			if (!status) return;
-			MFnNumericData fnNumericData(object, &status);
-			if (!status) return;
-			float value[3];
-			status = fnNumericData.getData(value[0], value[1], value[2]);
-			if (!status) return;
-			onFloat3(plug, name, value);
+            const unsigned int numChildren = 3;
+
+			MPlug childPlugs[numChildren];
+            for (unsigned int i = 0; i < numChildren; ++i) {
+                childPlugs[i] = plug.child(i, &status);
+                if (!status) return;
+            }
+
+            MObject childAttr[numChildren];
+            for (unsigned int i = 0; i < numChildren; ++i) {
+                childAttr[i] = childPlugs[i].attribute(&status);
+                if (!status) return;
+            }
+
+            MFn::Type apiType = childAttr[0].apiType();
+            switch (apiType)
+            {
+            case MFn::kFloatAngleAttribute:
+            {
+                MAngle angles[numChildren];
+                for (unsigned int i = 0; i < numChildren; ++i) {
+                    angles[i] = childPlugs[i].asMAngle(MDGContext::fsNormal, &status);
+                    if (!status) return;
+                }
+                onAngle3(plug, name, angles);
+            }
+            break;
+            case MFn::kFloatLinearAttribute:
+            {
+                MDistance distances[numChildren];
+                for (unsigned int i = 0; i < numChildren; ++i) {
+                    distances[i] = childPlugs[i].asMDistance(MDGContext::fsNormal, &status);
+                    if (!status) return;
+                }
+                onDistance3(plug, name, distances);
+            }
+            break;
+            default:
+            {
+                float values[numChildren];
+                for (unsigned int i = 0; i < numChildren; ++i) {
+                    values[i] = childPlugs[i].asFloat(MDGContext::fsNormal, &status);
+                    if (!status) return;
+                }
+                onFloat3(plug, name, values);
+            }
+            break;
+            }
 		}
 		break;
 		case MFnNumericData::kDouble:			//!< One double.
 		{
-			double value;
-			status = plug.getValue(value);
-			if (!status) return;
-			onDouble(plug, name, value);
+            MFn::Type apiType = attrObj.apiType();
+            switch (apiType)
+            {
+            case MFn::kDoubleAngleAttribute:
+            {
+                MAngle angle = plug.asMAngle(MDGContext::fsNormal, &status);
+                if (!status) return;
+                onAngle(plug, name, angle);
+            }
+            break;
+            case MFn::kDoubleLinearAttribute:
+            {
+                MDistance distance = plug.asMDistance(MDGContext::fsNormal, &status);
+                if (!status) return;
+                onDistance(plug, name, distance);
+            }
+            break;
+            default:
+            {
+                double value = plug.asDouble(MDGContext::fsNormal, &status);
+                if (!status) return;
+                onDouble(plug, name, value);
+            }
+            break;
+            }
 		}
 		break;
 		case MFnNumericData::k2Double:			//!< Two doubles.
 		{
-			MObject object;
-			status = plug.getValue(object);
-			if (!status) return;
-			MFnNumericData fnNumericData(object, &status);
-			if (!status) return;
-			double value[2];
-			status = fnNumericData.getData(value[0], value[1]);
-			if (!status) return;
-			onDouble2(plug, name, value);
+			const unsigned int numChildren = 2;
+
+			MPlug childPlugs[numChildren];
+            for (unsigned int i = 0; i < numChildren; ++i) {
+                childPlugs[i] = plug.child(i, &status);
+                if (!status) return;
+            }
+
+            MObject childAttr[numChildren];
+            for (unsigned int i = 0; i < numChildren; ++i) {
+                childAttr[i] = childPlugs[i].attribute(&status);
+                if (!status) return;
+            }
+
+            MFn::Type apiType = childAttr[0].apiType();
+            switch (apiType)
+            {
+            case MFn::kDoubleAngleAttribute:
+            {
+                MAngle angles[numChildren];
+                for (unsigned int i = 0; i < numChildren; ++i) {
+                    angles[i] = childPlugs[i].asMAngle(MDGContext::fsNormal, &status);
+                    if (!status) return;
+                }
+                onAngle2(plug, name, angles);
+            }
+            break;
+            case MFn::kDoubleLinearAttribute:
+            {
+                MDistance distances[numChildren];
+                for (unsigned int i = 0; i < numChildren; ++i) {
+                    distances[i] = childPlugs[i].asMDistance(MDGContext::fsNormal, &status);
+                    if (!status) return;
+                }
+                onDistance2(plug, name, distances);
+            }
+            break;
+            default:
+            {
+                double values[numChildren];
+                for (unsigned int i = 0; i < numChildren; ++i) {
+                    values[i] = childPlugs[i].asDouble(MDGContext::fsNormal, &status);
+                    if (!status) return;
+                }
+                onDouble2(plug, name, values);
+            }
+            break;
+            }
 		}
 		break;
 		case MFnNumericData::k3Double:			//!< Three doubles.
 		{
-			MObject object;
-			status = plug.getValue(object);
-			if (!status) return;
-			MFnNumericData fnNumericData(object, &status);
-			if (!status) return;
-			double value[3];
-			status = fnNumericData.getData(value[0], value[1], value[2]);
-			if (!status) return;
-			onDouble3(plug, name, value);
+			const unsigned int numChildren = 3;
+
+			MPlug childPlugs[numChildren];
+            for (unsigned int i = 0; i < numChildren; ++i) {
+                childPlugs[i] = plug.child(i, &status);
+                if (!status) return;
+            }
+
+            MObject childAttr[numChildren];
+            for (unsigned int i = 0; i < numChildren; ++i) {
+                childAttr[i] = childPlugs[i].attribute(&status);
+                if (!status) return;
+            }
+
+            MFn::Type apiType = childAttr[0].apiType();
+            switch (apiType)
+            {
+            case MFn::kDoubleAngleAttribute:
+            {
+                MAngle angles[numChildren];
+                for (unsigned int i = 0; i < numChildren; ++i) {
+                    angles[i] = childPlugs[i].asMAngle(MDGContext::fsNormal, &status);
+                    if (!status) return;
+                }
+                onAngle3(plug, name, angles);
+            }
+            break;
+            case MFn::kDoubleLinearAttribute:
+            {
+                MDistance distances[numChildren];
+                for (unsigned int i = 0; i < numChildren; ++i) {
+                    distances[i] = childPlugs[i].asMDistance(MDGContext::fsNormal, &status);
+                    if (!status) return;
+                }
+                onDistance3(plug, name, distances);
+            }
+            break;
+            default:
+            {
+                double values[numChildren];
+                for (unsigned int i = 0; i < numChildren; ++i) {
+                    values[i] = childPlugs[i].asDouble(MDGContext::fsNormal, &status);
+                    if (!status) return;
+                }
+                onDouble3(plug, name, values);
+            }
+            break;
+            }
 		}
 		break;
 		case MFnNumericData::k4Double:			//!< Four doubles.
 		{
-			MObject object;
-			status = plug.getValue(object);
-			if (!status) return;
-			MFnNumericData fnNumericData(object, &status);
-			if (!status) return;
-			double value[4];
-			status = fnNumericData.getData(value[0], value[1], value[2], value[3]);
-			if (!status) return;
-			onDouble4(plug, name, value);
+			const unsigned int numChildren = 4;
+
+			MPlug childPlugs[numChildren];
+            for (unsigned int i = 0; i < numChildren; ++i) {
+                childPlugs[i] = plug.child(i, &status);
+                if (!status) return;
+            }
+
+            MObject childAttr[numChildren];
+            for (unsigned int i = 0; i < numChildren; ++i) {
+                childAttr[i] = childPlugs[i].attribute(&status);
+                if (!status) return;
+            }
+
+            MFn::Type apiType = childAttr[0].apiType();
+            switch (apiType)
+            {
+            case MFn::kDoubleAngleAttribute:
+            {
+                MAngle angles[numChildren];
+                for (unsigned int i = 0; i < numChildren; ++i) {
+                    angles[i] = childPlugs[i].asMAngle(MDGContext::fsNormal, &status);
+                    if (!status) return;
+                }
+                onAngle4(plug, name, angles);
+            }
+            break;
+            case MFn::kDoubleLinearAttribute:
+            {
+                MDistance distances[numChildren];
+                for (unsigned int i = 0; i < numChildren; ++i) {
+                    distances[i] = childPlugs[i].asMDistance(MDGContext::fsNormal, &status);
+                    if (!status) return;
+                }
+                onDistance4(plug, name, distances);
+            }
+            break;
+            default:
+            {
+                double values[numChildren];
+                for (unsigned int i = 0; i < numChildren; ++i) {
+                    values[i] = childPlugs[i].asDouble(MDGContext::fsNormal, &status);
+                    if (!status) return;
+                }
+                onDouble4(plug, name, values);
+            }
+            break;
+            }
 		}
 		break;
 		case MFnNumericData::kAddr:				//!< An address.
