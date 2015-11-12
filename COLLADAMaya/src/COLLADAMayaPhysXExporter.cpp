@@ -693,6 +693,7 @@ namespace COLLADAMaya
         {
             double inflate = 0.0;
             DagHelper::getPlugValue(shape, ATTR_INFLATE, inflate);
+            inflate = MDistance::internalToUI(inflate);
 
             MVector size;
             DagHelper::getPlugValue(shape, ATTR_SIZE, size);
@@ -703,10 +704,20 @@ namespace COLLADAMaya
         }
     };
 
-    class Radius : public Element
+    class CapsuleRadius : public Element
     {
     public:
-        Radius(PhysXExporter& exporter, double radius)
+        CapsuleRadius(PhysXExporter& exporter, double radiusX, double radiusZ)
+            : Element(exporter, CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_CAPSULE_RADIUS)
+        {
+            getStreamWriter().appendValues(radiusX, radiusZ);
+        }
+    };
+
+    class SphereRadius : public Element
+    {
+    public:
+        SphereRadius(PhysXExporter& exporter, double radius)
             : Element(exporter, CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_CAPSULE_RADIUS)
         {
             getStreamWriter().appendValues(radius);
@@ -727,11 +738,12 @@ namespace COLLADAMaya
         {
             double inflate = 0.0;
             DagHelper::getPlugValue(shape, ATTR_INFLATE, inflate);
+            inflate = MDistance::internalToUI(inflate);
 
             double radius;
             DagHelper::getPlugValue(shape, ATTR_RADIUS, radius);
             radius = MDistance::internalToUI(radius) + inflate;
-            Radius e(getPhysXExporter(), radius);
+            SphereRadius e(getPhysXExporter(), radius);
         }
     };
 
@@ -760,11 +772,12 @@ namespace COLLADAMaya
         {
             double inflate = 0.0;
             DagHelper::getPlugValue(shape, ATTR_INFLATE, inflate);
+            inflate = MDistance::internalToUI(inflate);
 
             double radius;
             DagHelper::getPlugValue(shape, ATTR_RADIUS, radius);
             radius = MDistance::internalToUI(radius) + inflate;
-            Radius e(getPhysXExporter(), radius);
+            CapsuleRadius e(getPhysXExporter(), radius, radius);
         }
 
         void exportHeight(const MObject & shape)
