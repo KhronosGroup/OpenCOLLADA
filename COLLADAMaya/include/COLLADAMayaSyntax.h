@@ -475,6 +475,7 @@ namespace COLLADAMaya
     static const char* FREE                                         = "free";
     static const char* CENTERED                                     = "Centered";
     static const char* TARGET_ORIGIN                                = "Target Origin";
+    static const String LOCAL_POSE                                  = "localPose";
 
 	static const char* ATTR_ACTIVE									= "active";
 	static const char* ATTR_COLLISION_SHAPE							= "collision_shape";
