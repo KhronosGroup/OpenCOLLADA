@@ -82,8 +82,14 @@ namespace COLLADAMaya
         virtual void onMesh                 (MPlug & plug, const MString & name, MObject & meshObject)                      { }
         virtual void onConnection           (MPlug & plug, const MString & name, MPlug & externalPlug)                      { }
         virtual void onCompoundAttribute    (MPlug & plug, const MString & name)                                            { }
-        virtual void onAngle                (MPlug & plug, const MString & name, MAngle & angle)                            { }
-        virtual void onDistance             (MPlug & plug, const MString & name, MDistance & distance)                      { }
+        virtual void onAngle                (MPlug & plug, const MString & name, const MAngle & angle)                      { }
+        virtual void onAngle2               (MPlug & plug, const MString & name, const MAngle angles[2])                    { }
+        virtual void onAngle3               (MPlug & plug, const MString & name, const MAngle angles[3])                    { }
+        virtual void onAngle4               (MPlug & plug, const MString & name, const MAngle angles[4])                    { }
+        virtual void onDistance             (MPlug & plug, const MString & name, const MDistance & distance)                { }
+        virtual void onDistance2            (MPlug & plug, const MString & name, const MDistance distances[2])              { }
+        virtual void onDistance3            (MPlug & plug, const MString & name, const MDistance distances[3])              { }
+        virtual void onDistance4            (MPlug & plug, const MString & name, const MDistance distances[4])              { }
         virtual void onTime                 (MPlug & plug, const MString & name, MTime & time)                              { }
         virtual void onMessage              (MPlug & plug, const MString & name)                                            { }
         virtual void onMatrix               (MPlug & plug, const MString & name, const MMatrix& value)                      { }

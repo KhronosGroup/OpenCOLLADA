@@ -278,18 +278,80 @@ namespace COLLADAMaya
             mPhysXExporter.getStreamWriter().appendURIAttribute(CSWC::CSW_ATTRIBUTE_URL, meshURI);
         }
 
-        virtual void onAngle(MPlug & plug, const MString & name, MAngle & angle) override
+        virtual void onAngle(MPlug & plug, const MString & name, const MAngle & angle) override
         {
             String nameStr(name.asChar());
             Element e(mPhysXExporter, nameStr);
-            mPhysXExporter.getStreamWriter().appendValues(angle.asDegrees());
+            mPhysXExporter.getStreamWriter().appendValues(
+                angle.asDegrees());
         }
 
-        virtual void onDistance(MPlug & plug, const MString & name, MDistance & distance) override
+        virtual void onAngle2(MPlug & plug, const MString & name, const MAngle angle[2]) override
         {
             String nameStr(name.asChar());
             Element e(mPhysXExporter, nameStr);
-            mPhysXExporter.getStreamWriter().appendValues(MDistance::internalToUI(distance.asCentimeters()));
+            mPhysXExporter.getStreamWriter().appendValues(
+                angle[0].asDegrees(),
+                angle[1].asDegrees());
+        }
+
+        virtual void onAngle3(MPlug & plug, const MString & name, const MAngle angle[3]) override
+        {
+            String nameStr(name.asChar());
+            Element e(mPhysXExporter, nameStr);
+            mPhysXExporter.getStreamWriter().appendValues(
+                angle[0].asDegrees(),
+                angle[1].asDegrees(),
+                angle[2].asDegrees());
+        }
+
+        virtual void onAngle4(MPlug & plug, const MString & name, const MAngle angle[4]) override
+        {
+            String nameStr(name.asChar());
+            Element e(mPhysXExporter, nameStr);
+            mPhysXExporter.getStreamWriter().appendValues(
+                angle[0].asDegrees(),
+                angle[1].asDegrees(),
+                angle[2].asDegrees(),
+                angle[3].asDegrees());
+        }
+
+        virtual void onDistance(MPlug & plug, const MString & name, const MDistance & distance) override
+        {
+            String nameStr(name.asChar());
+            Element e(mPhysXExporter, nameStr);
+            mPhysXExporter.getStreamWriter().appendValues(
+                MDistance::internalToUI(distance.asCentimeters()));
+        }
+
+        virtual void onDistance2(MPlug & plug, const MString & name, const MDistance distance[2]) override
+        {
+            String nameStr(name.asChar());
+            Element e(mPhysXExporter, nameStr);
+            mPhysXExporter.getStreamWriter().appendValues(
+                MDistance::internalToUI(distance[0].asCentimeters()),
+                MDistance::internalToUI(distance[1].asCentimeters()));
+        }
+
+        virtual void onDistance3(MPlug & plug, const MString & name, const MDistance distance[3]) override
+        {
+            String nameStr(name.asChar());
+            Element e(mPhysXExporter, nameStr);
+            mPhysXExporter.getStreamWriter().appendValues(
+                MDistance::internalToUI(distance[0].asCentimeters()),
+                MDistance::internalToUI(distance[1].asCentimeters()),
+                MDistance::internalToUI(distance[2].asCentimeters()));
+        }
+
+        virtual void onDistance4(MPlug & plug, const MString & name, const MDistance distance[4]) override
+        {
+            String nameStr(name.asChar());
+            Element e(mPhysXExporter, nameStr);
+            mPhysXExporter.getStreamWriter().appendValues(
+                MDistance::internalToUI(distance[0].asCentimeters()),
+                MDistance::internalToUI(distance[1].asCentimeters()),
+                MDistance::internalToUI(distance[2].asCentimeters()),
+                MDistance::internalToUI(distance[3].asCentimeters()));
         }
 
         virtual void onTime(MPlug & plug, const MString & name, MTime & time) override
@@ -863,6 +925,7 @@ namespace COLLADAMaya
         {
             double inflate = 0.0;
             DagHelper::getPlugValue(shape, ATTR_INFLATE, inflate);
+            inflate = MDistance::internalToUI(inflate);
 
             MVector size;
             DagHelper::getPlugValue(shape, ATTR_SIZE, size);
@@ -873,10 +936,20 @@ namespace COLLADAMaya
         }
     };
 
-    class Radius : public Element
+    class CapsuleRadius : public Element
     {
     public:
-        Radius(PhysXExporter& exporter, double radius)
+        CapsuleRadius(PhysXExporter& exporter, double radiusX, double radiusZ)
+            : Element(exporter, CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_CAPSULE_RADIUS)
+        {
+            getStreamWriter().appendValues(radiusX, radiusZ);
+        }
+    };
+
+    class SphereRadius : public Element
+    {
+    public:
+        SphereRadius(PhysXExporter& exporter, double radius)
             : Element(exporter, CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_CAPSULE_RADIUS)
         {
             getStreamWriter().appendValues(radius);
@@ -897,11 +970,12 @@ namespace COLLADAMaya
         {
             double inflate = 0.0;
             DagHelper::getPlugValue(shape, ATTR_INFLATE, inflate);
+            inflate = MDistance::internalToUI(inflate);
 
             double radius;
             DagHelper::getPlugValue(shape, ATTR_RADIUS, radius);
             radius = MDistance::internalToUI(radius) + inflate;
-            Radius e(getPhysXExporter(), radius);
+            SphereRadius e(getPhysXExporter(), radius);
         }
     };
 
@@ -930,11 +1004,12 @@ namespace COLLADAMaya
         {
             double inflate = 0.0;
             DagHelper::getPlugValue(shape, ATTR_INFLATE, inflate);
+            inflate = MDistance::internalToUI(inflate);
 
             double radius;
             DagHelper::getPlugValue(shape, ATTR_RADIUS, radius);
             radius = MDistance::internalToUI(radius) + inflate;
-            Radius e(getPhysXExporter(), radius);
+            CapsuleRadius e(getPhysXExporter(), radius, radius);
         }
 
         void exportHeight(const MObject & shape)
