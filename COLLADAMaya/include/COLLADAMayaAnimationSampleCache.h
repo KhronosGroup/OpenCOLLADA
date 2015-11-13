@@ -26,6 +26,7 @@
 #include <maya/MTime.h>
 #include <maya/MFloatArray.h>
 
+#include <maya/MFnClip.h>
 
 namespace COLLADAMaya
 {
@@ -151,7 +152,7 @@ namespace COLLADAMaya
         void sampleIKHandle ( const MDagPath& dagPath );
 
         /** Sample all the cached plugs */
-        void samplePlugs();
+		void samplePlugs(MFnClip& clipFn);
 
     private:
 

@@ -227,7 +227,7 @@ namespace COLLADAMaya
 				}
 			
 				generateSamplingFunctionForClip(clipFn1);
-				animationSampleCache->samplePlugs();
+				animationSampleCache->samplePlugs(clipFn1);
 				
 				// Export all animations, which aren't exported until now.
 				bool bNeedtoExport = postSampling();
@@ -250,11 +250,6 @@ namespace COLLADAMaya
 		}
 		else
 		{
-			animationSampleCache->samplePlugs();
-
-			// Export all animations, which aren't exported until now.
-			postSampling();
-			
 			if (!mAnimationElements.empty())
 			{
 				// Open the animation library
