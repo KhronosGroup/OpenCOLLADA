@@ -293,7 +293,7 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------------
-    void AnimationSampleCache::samplePlugs()
+	void AnimationSampleCache::samplePlugs(MFnClip& clipFn)
     {
         if ( mNodes.empty() ) return;
 
@@ -320,153 +320,140 @@ namespace COLLADAMaya
 					MFnDependencyNode node1(part.plug.node());
 					String name = node1.name().asChar();
 
-					MPlug plug = MFnDependencyNode(part.plug.node()).findPlug("translateX", false, &status);
-					
-					MObject characterNode = AnimationHelper::getAnimatingNode(plug);
-					MFnCharacter characterFn(characterNode, &status);
+					MObjectArray animCurves;
+					MPlugArray plugs;
+					clipFn.getMemberAnimCurves(animCurves, plugs);
 
-					if (status == MStatus::kSuccess)
+					int Length = animCurves.length();
+
+					Step step;
+
+					for (unsigned int j = 0; j < animCurves.length(); j++)
 					{
-						int clipCount = characterFn.getSourceClipCount();
-						for (int i = 0; i < clipCount; ++i)
+						// To get what track this curve
+						MObject plugNode = plugs[j].node();
+						MFnDependencyNode nodetracked(plugNode);
+						String nameTracked = nodetracked.name().asChar();
+
+						if ((nameTracked.compare(name) != 0))
+							continue;
+
+						MFnAttribute attrib(plugs[j].attribute());
+						String nameAttrib = attrib.name().asChar();
+								
+						MObject animCurveNode = animCurves[j];
+						MFnAnimCurve animCurveFn(animCurveNode, &status);
+
+						uint keyCount = animCurveFn.numKeys();
+
+						step._transform = NO_Transformation;
+								
+						for (uint keyPosition = 0; keyPosition < keyCount; ++keyPosition)
 						{
-							// Export any source clip, including poses, which are simply 1-key curves.
-							MObject clipNode = characterFn.getSourceClip(i);
-
-							MFnClip clipFn(clipNode, &status);
-							if (status != MStatus::kSuccess) continue;
-
-							MObjectArray animCurves;
-							MPlugArray plugs;
-							clipFn.getMemberAnimCurves(animCurves, plugs);
-
-							int Length = animCurves.length();
-
-							Step step;
-
-							for (unsigned int j = 0; j < animCurves.length(); j++)
-							{
-								// To get what track this curve
-								MObject plugNode = plugs[j].node();
-								MFnAttribute attrib(plugs[j].attribute());
-								String nameAttrib = attrib.name().asChar();
-								
-								MObject animCurveNode = animCurves[j];
-								MFnAnimCurve animCurveFn(animCurveNode, &status);
-
-								uint keyCount = animCurveFn.numKeys();
-
-								step._transform = NO_Transformation;
-								
-								for (uint keyPosition = 0; keyPosition < keyCount; ++keyPosition)
-								{
-									COLLADASW::LibraryAnimations::InterpolationType interpolationType;
-									interpolationType = AnimationHelper::toInterpolation(animCurveFn.outTangentType(keyPosition));
+							COLLADASW::LibraryAnimations::InterpolationType interpolationType;
+							interpolationType = AnimationHelper::toInterpolation(animCurveFn.outTangentType(keyPosition));
                                     
-									if (interpolationType == COLLADASW::LibraryAnimations::STEP ||
-										interpolationType == COLLADASW::LibraryAnimations::STEP_NEXT)
+							if (interpolationType == COLLADASW::LibraryAnimations::STEP ||
+								interpolationType == COLLADASW::LibraryAnimations::STEP_NEXT)
+							{
+										
+								float stepTime = (float)animCurveFn.time(keyPosition).as(MTime::kSeconds);
+										
+								std::vector<float>::iterator itFound;
+										
+								itFound = find(times.begin(), times.end(), stepTime);
+								{
+									std::vector<float>::iterator itLower = lower_bound(times.begin(), times.end(), stepTime);
+									int element = (int)(itLower - times.begin());
+											
+									StepType type =	interpolationType == COLLADASW::LibraryAnimations::STEP ? STEPPED : STEPPED_NEXT;
+
+									if ((nameAttrib.compare("translateX") == 0))
 									{
-										
-										float stepTime = (float)animCurveFn.time(keyPosition).as(MTime::kSeconds);
-										
-										std::vector<float>::iterator itFound;
-										
-										itFound = find(times.begin(), times.end(), stepTime);
-										{
-											std::vector<float>::iterator itLower = lower_bound(times.begin(), times.end(), stepTime);
-											int element = (int)(itLower - times.begin());
-											
-											StepType type =	interpolationType == COLLADASW::LibraryAnimations::STEP ? STEPPED : STEPPED_NEXT;
-
-											if ((nameAttrib.compare("translateX") == 0))
-											{
-												step._transform = TransX;
-												step._type[0] = type;
-											}
-											else if ((nameAttrib.compare("translateY") == 0))
-											{
-												step._transform = TransY;
-												step._type[1] = type;
-											}
-											else if ((nameAttrib.compare("translateZ") == 0))
-											{
-												step._transform = TransZ;
-												step._type[2] = type;
-											}
-											else if ((nameAttrib.compare("rotateX") == 0))
-											{
-												step._transform = RotX;
-												step._type[3] = type;
-											}
-											else if ((nameAttrib.compare("rotateY") == 0))
-											{
-												step._transform = RotY;
-												step._type[4] = type;
-											}
-											else if ((nameAttrib.compare("rotateZ") == 0))
-											{
-												step._transform = RotZ;
-												step._type[5] = type;
-											}
-											else if ((nameAttrib.compare("scaleX") == 0))
-											{
-												step._transform = ScaleX;
-												step._type[6] = type;
-											}
-											else if ((nameAttrib.compare("scaleY") == 0))
-											{
-												step._transform = ScaleY;
-												step._type[7] = type;
-											}
-											else if ((nameAttrib.compare("scaleZ") == 0))
-											{
-												step._transform = ScaleZ;
-												step._type[8] = type;
-											}
-
-
-											class CompareStep
-											{
-											public:
-
-												float stepTime;
-
-												CompareStep(float step)
-												{
-													stepTime = step;
-												}
-
-												bool operator()(const std::pair<float, Step>& step)
-												{
-													return (step.first == stepTime);
-												}
-
-											};
-											
-
-											CompareStep  myStepComparaison(stepTime);
-
-											std::vector< std::pair<float, Step> >::iterator itFoundInterpolation = find_if(interpolationStepTiming.begin(), interpolationStepTiming.end(),
-												/*[=](const std::pair<float, Step>& step){ return step.first == stepTime; }*/ myStepComparaison);
-
-											if ((itFoundInterpolation != interpolationStepTiming.end()))
-											{
-												(*itFoundInterpolation).second._transform = (StepTransform)((int)((*itFoundInterpolation).second._transform) | (int)(step._transform));
-												
-												for (int i = 0; i < 9; i ++)
-													(*itFoundInterpolation).second._type[i] = step._type[i];
-											}
-											else
-												interpolationStepTiming.push_back(std::make_pair(stepTime, step));
-
-
-											if (!(itFound != times.end()))
-											{
-												times.insert(times.begin() + element, stepTime);
-											}
-												
-										}
+										step._transform = TransX;
+										step._type[0] = type;
 									}
+									else if ((nameAttrib.compare("translateY") == 0))
+									{
+										step._transform = TransY;
+										step._type[1] = type;
+									}
+									else if ((nameAttrib.compare("translateZ") == 0))
+									{
+										step._transform = TransZ;
+										step._type[2] = type;
+									}
+									else if ((nameAttrib.compare("rotateX") == 0))
+									{
+										step._transform = RotX;
+										step._type[3] = type;
+									}
+									else if ((nameAttrib.compare("rotateY") == 0))
+									{
+										step._transform = RotY;
+										step._type[4] = type;
+									}
+									else if ((nameAttrib.compare("rotateZ") == 0))
+									{
+										step._transform = RotZ;
+										step._type[5] = type;
+									}
+									else if ((nameAttrib.compare("scaleX") == 0))
+									{
+										step._transform = ScaleX;
+										step._type[6] = type;
+									}
+									else if ((nameAttrib.compare("scaleY") == 0))
+									{
+										step._transform = ScaleY;
+										step._type[7] = type;
+									}
+									else if ((nameAttrib.compare("scaleZ") == 0))
+									{
+										step._transform = ScaleZ;
+										step._type[8] = type;
+									}
+
+
+									class CompareStep
+									{
+									public:
+
+										float stepTime;
+
+										CompareStep(float step)
+										{
+											stepTime = step;
+										}
+
+										bool operator()(const std::pair<float, Step>& step)
+										{
+											return (step.first == stepTime);
+										}
+
+									};
+											
+
+									CompareStep  myStepComparaison(stepTime);
+
+									std::vector< std::pair<float, Step> >::iterator itFoundInterpolation = find_if(interpolationStepTiming.begin(), interpolationStepTiming.end(), myStepComparaison);
+
+									if ((itFoundInterpolation != interpolationStepTiming.end()))
+									{
+										(*itFoundInterpolation).second._transform = (StepTransform)((int)((*itFoundInterpolation).second._transform) | (int)(step._transform));
+												
+										for (int i = 0; i < 9; i ++)
+											(*itFoundInterpolation).second._type[i] = step._type[i];
+									}
+									else
+										interpolationStepTiming.push_back(std::make_pair(stepTime, step));
+
+
+									if (!(itFound != times.end()))
+									{
+										times.insert(times.begin() + element, stepTime);
+									}
+												
 								}
 							}
 						}
