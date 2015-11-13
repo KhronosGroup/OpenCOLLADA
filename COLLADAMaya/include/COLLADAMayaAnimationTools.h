@@ -92,6 +92,11 @@ namespace COLLADAMaya
             return colladaClip->getAnimationClipId();
         }
 
+		const String& getClipSourceId() const
+		{
+			return colladaClip->getAnimationClipSourceId();
+		}
+
     };
 
     typedef std::vector<AnimationClip*> AnimationClipList;

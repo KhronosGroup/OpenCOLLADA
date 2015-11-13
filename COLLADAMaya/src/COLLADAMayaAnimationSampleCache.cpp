@@ -19,6 +19,7 @@
 #include "COLLADAMayaAnimationHelper.h"
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADAMayaSyntax.h"
+#include "COLLADAMayaDocumentExporter.h"
 
 #include <maya/MFnTransform.h>
 #include <maya/MFnAttribute.h>
