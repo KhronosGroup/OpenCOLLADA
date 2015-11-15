@@ -14,6 +14,9 @@
 
 #include <string.h>
 #include <list>
+#ifdef _WIN32
+#include <Windows.h>
+#endif
 
 namespace COLLADABU
 {
@@ -475,6 +478,25 @@ namespace COLLADABU
 
 		return copystatus;
 	}
+
+    //--------------------------------
+    bool Utils::deleteFile(const String &pathString)
+    {
+        SystemType type = getSystemType();
+
+#ifdef COLLADABU_OS_WIN
+        if (type != WINDOWS)
+            return false;
+        return DeleteFileA(pathString.c_str()) != FALSE;
+#else
+        if (type != POSIX)
+            return false;
+        char command[4097];
+        sprintf(command, "rm -f \"%s\"", pathString.c_str());
+        int status = system(command);
+        return status == 0;
+#endif
+    }
 
 	//--------------------------------
 	bool Utils::fileExistsAndIsReadable( const String &pathString )

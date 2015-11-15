@@ -3375,6 +3375,7 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2012_X64%25\scripts\others"
     <ClCompile Include="..\src\COLLADAMayaPhysicsSceneExporter.cpp" />
     <ClCompile Include="..\src\COLLADAMayaPhysicsExporter.cpp" />
     <ClCompile Include="..\src\COLLADAMayaPhysXExporter.cpp" />
+    <ClCompile Include="..\src\COLLADAMayaPhysXXML.cpp" />
     <ClCompile Include="..\src\COLLADAMayaPrecompiledHeaders.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugConsole2011|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='DebugConsole2011|x64'">Create</PrecompiledHeader>
@@ -3469,6 +3470,7 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2012_X64%25\scripts\others"
     <ClInclude Include="..\include\COLLADAMayaPhysicsSceneExporter.h" />
     <ClInclude Include="..\include\COLLADAMayaPhysicsExporter.h" />
     <ClInclude Include="..\include\COLLADAMayaPhysXExporter.h" />
+    <ClInclude Include="..\include\COLLADAMayaPhysXXML.h" />
     <ClInclude Include="..\include\COLLADAMayaPlatform.h" />
     <ClInclude Include="..\include\COLLADAMayaPolygonSource.h" />
     <ClInclude Include="..\include\COLLADAMayaPrerequisites.h" />

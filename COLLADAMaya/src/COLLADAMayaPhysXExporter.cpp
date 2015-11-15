@@ -27,6 +27,7 @@
 #include "COLLADASWConstants.h"
 #include "Math/COLLADABUMathUtils.h"
 
+#include <libxml/tree.h>
 #include <maya/MAngle.h>
 #include <maya/MDistance.h>
 #include <maya/MFnAttribute.h>
@@ -37,11 +38,11 @@
 #include <maya/MString.h>
 #include <maya/MTime.h>
 
-#if COLLADAMaya_PLATFORM == COLLADAMaya_PLATFORM_APPLE
-#include <mach/mach_vm.h>
-#elif COLLADAMaya_PLATFORM == COLLADAMaya_PLATFORM_WIN32
-#include <Windows.h>
-#endif
+//#if COLLADAMaya_PLATFORM == COLLADAMaya_PLATFORM_APPLE
+//#include <mach/mach_vm.h>
+//#elif COLLADAMaya_PLATFORM == COLLADAMaya_PLATFORM_WIN32
+//#include <Windows.h>
+//#endif
 
 double infinite()
 {
@@ -617,166 +618,297 @@ namespace COLLADAMaya
         PhysXExporter::GetPluggedObject(shape, ATTR_IN_MESH, mesh);
     }
 
-    bool IsMemoryReadable(const void* address, size_t size)
+//    bool IsMemoryReadable(const void* address, size_t size)
+//    {
+//#if COLLADAMaya_PLATFORM == COLLADAMaya_PLATFORM_WIN32
+//        MEMORY_BASIC_INFORMATION memoryInfo = { 0 };
+//        SIZE_T result = VirtualQuery(address, &memoryInfo, sizeof(MEMORY_BASIC_INFORMATION));
+//        if (result == 0) {
+//            return false;
+//        }
+//
+//        if (memoryInfo.State != MEM_COMMIT) {
+//            return false;
+//        }
+//
+//        if (memoryInfo.Protect == PAGE_EXECUTE ||
+//            memoryInfo.Protect == PAGE_NOACCESS) {
+//            return false;
+//        }
+//
+//        const char* blockStart = reinterpret_cast<const char*>(address);
+//        const char* blockEnd = blockStart + size;
+//        const char* pageStart = reinterpret_cast<const char*>(memoryInfo.BaseAddress);
+//        const char* pageEnd = pageStart + memoryInfo.RegionSize;
+//
+//        if (blockEnd > pageEnd) {
+//            return IsMemoryReadable(pageEnd, size - (pageEnd - blockStart));
+//        }
+//
+//        return true;
+//#elif COLLADAMaya_PLATFORM == COLLADAMaya_PLATFORM_APPLE
+//        vm_map_t target_task = current_task();
+//        mach_vm_address_t pageAddress = reinterpret_cast<size_t>(address);
+//        mach_vm_size_t regionSize = 0;
+//        vm_region_basic_info_data_64_t regionBasicInfo;
+//        mach_msg_type_number_t regionBasicInfoCount = sizeof(vm_region_basic_info_data_64_t);
+//        mach_port_t object_name;
+//
+//        kern_return_t ret = mach_vm_region(target_task,
+//                             &pageAddress,
+//                             &regionSize,
+//                             VM_REGION_BASIC_INFO,
+//                             (vm_region_info_t)&regionBasicInfo,
+//                             &regionBasicInfoCount,
+//                             &object_name);
+//        
+//        if (ret != KERN_SUCCESS || regionSize == 0)
+//        {
+//            return false;
+//        }
+//        
+//        if (!(regionBasicInfo.protection & VM_PROT_READ))
+//        {
+//            return false;
+//        }
+//        
+//        const char* blockStart = reinterpret_cast<const char*>(address);
+//        const char* blockEnd = blockStart + size;
+//        const char* pageStart = reinterpret_cast<const char*>(pageAddress);
+//        const char* pageEnd = pageStart + regionSize;
+//        
+//        if (blockEnd > pageEnd) {
+//            return IsMemoryReadable(pageEnd, size - (pageEnd - blockStart));
+//        }
+//        
+//        return true;
+//#elif COLLADAMaya_PLATFORM == COLLADAMaya_PLATFORM_LINUX
+//        // TODO test
+//        std::ifstream maps("/proc/self/maps");
+//        if (!maps.is_open()) {
+//            return false;
+//        }
+//
+//        std::string line;
+//
+//        // Skip first line
+//        std::getline(maps, line);
+//
+//        while (std::getline(maps, line))
+//        {
+//            if (line.length() > 0)
+//            {
+//                std::istringstream sline(line);
+//
+//                std::string address;
+//                std::getline(sline, address, ' ');
+//
+//                std::string perms;
+//                std::getline(sline, perms, ' ');
+//
+//                std::istringstream saddress(address);
+//
+//                std::string start;
+//                std::getline(saddress, start, '-');
+//
+//                std::string end;
+//                std::getline(saddress, end);
+//
+//                size_t istart = 0;
+//                std::istringstream sstart(start);
+//                sstart >> std::hex >> istart;
+//
+//                size_t iend = 0;
+//                std::istringstream send(end);
+//                send >> std::hex >> iend;
+//
+//                bool readable = false;
+//                if (perms.length() > 0) {
+//                    readable = (perms[0] == 'r');
+//                }
+//
+//                const char* blockStart = reinterpret_cast<const char*>(address);
+//                const char* blockEnd = reinterpret_cast<const char*>(address) + size;
+//                const char* pageStart = reinterpret_cast<const char*>(istart);
+//                const char* pageEnd = reinterpret_cast<const char*>(iend);
+//
+//                if (blockStart >= pageStart && blockStart < pageEnd)
+//                {
+//                    if (!readable)
+//                    {
+//                        return false;
+//                    }
+//                    else if (blockEnd > pageEnd)
+//                    {
+//                        return IsMemoryReadable(pageEnd, size - (pageEnd - blockStart));
+//                    }
+//                    return true;
+//                }
+//            }
+//        }
+//        return false;
+//#else
+//#error not implemented
+//#endif
+//    }
+
+    PhysXXML::PxShape* PhysXExporter::findPxShape(const MObject& shape)
     {
-#if COLLADAMaya_PLATFORM == COLLADAMaya_PLATFORM_WIN32
-        MEMORY_BASIC_INFORMATION memoryInfo = { 0 };
-        SIZE_T result = VirtualQuery(address, &memoryInfo, sizeof(MEMORY_BASIC_INFORMATION));
-        if (result == 0) {
-            return false;
-        }
+        // Shape node
+        MFnDagNode shapeNode(shape);
+        MString shapeName = shapeNode.name();
 
-        if (memoryInfo.State != MEM_COMMIT) {
-            return false;
-        }
-
-        if (memoryInfo.Protect == PAGE_EXECUTE ||
-            memoryInfo.Protect == PAGE_NOACCESS) {
-            return false;
-        }
-
-        const char* blockStart = reinterpret_cast<const char*>(address);
-        const char* blockEnd = blockStart + size;
-        const char* pageStart = reinterpret_cast<const char*>(memoryInfo.BaseAddress);
-        const char* pageEnd = pageStart + memoryInfo.RegionSize;
-
-        if (blockEnd > pageEnd) {
-            return IsMemoryReadable(pageEnd, size - (pageEnd - blockStart));
-        }
-
-        return true;
-#elif COLLADAMaya_PLATFORM == COLLADAMaya_PLATFORM_APPLE
-        vm_map_t target_task = current_task();
-        mach_vm_address_t pageAddress = reinterpret_cast<size_t>(address);
-        mach_vm_size_t regionSize = 0;
-        vm_region_basic_info_data_64_t regionBasicInfo;
-        mach_msg_type_number_t regionBasicInfoCount = sizeof(vm_region_basic_info_data_64_t);
-        mach_port_t object_name;
-
-        kern_return_t ret = mach_vm_region(target_task,
-                             &pageAddress,
-                             &regionSize,
-                             VM_REGION_BASIC_INFO,
-                             (vm_region_info_t)&regionBasicInfo,
-                             &regionBasicInfoCount,
-                             &object_name);
+        // Shape transform node
+        if (shapeNode.parentCount() == 0) return NULL;
+        MFnDagNode shapeTransformNode(shapeNode.parent(0));
         
-        if (ret != KERN_SUCCESS || regionSize == 0)
-        {
-            return false;
-        }
+        // Parent rigid body node
+        if (shapeTransformNode.parentCount() == 0) return NULL;
+        MFnDagNode bodyNode(shapeTransformNode.parent(0));
+        if (bodyNode.typeName() != NX_RIGID_BODY) return NULL;
+
+        // Rigid body transform node
+        if (bodyNode.parentCount() == 0) return NULL;
+        MFnDagNode bodyTransformNode(bodyNode.parent(0));
+        MString bodyTransformName = bodyTransformNode.name();
+
+        return mPhysXDoc->findShape(bodyTransformName.asChar(), shapeName.asChar());
+    }
+
+    PhysXXML::PxRigidStatic* PhysXExporter::findPxRigidStatic(const MObject& rigidBody)
+    {
+        MFnDagNode bodyNode(rigidBody);
+
+        // Rigid body transform node
+        if (bodyNode.parentCount() == 0) return NULL;
+        MFnDagNode bodyTransformNode(bodyNode.parent(0));
+        MString bodyTransformName = bodyTransformNode.name();
+
+        return mPhysXDoc->findRigidStatic(bodyTransformName.asChar());
+    }
+
+    PhysXXML::PxRigidDynamic* PhysXExporter::findPxRigidDynamic(const MObject& rigidBody)
+    {
+        MFnDagNode bodyNode(rigidBody);
+
+        // Rigid body transform node
+        if (bodyNode.parentCount() == 0) return NULL;
+        MFnDagNode bodyTransformNode(bodyNode.parent(0));
+        MString bodyTransformName = bodyTransformNode.name();
+
+        return mPhysXDoc->findRigidDynamic(bodyTransformName.asChar());
+    }
+
+    void PhysXExporter::getShapeLocalPose(const MObject& shape, MMatrix& localPose)
+    {
+        PhysXXML::PxShape* pxShape = findPxShape(shape);
+        if (!pxShape)
+            return;
+
+        MTransformationMatrix tm;
+
+        tm.setRotationQuaternion(
+            pxShape->localPose.rotation.x,
+            pxShape->localPose.rotation.y,
+            pxShape->localPose.rotation.z,
+            pxShape->localPose.rotation.w);
         
-        if (!(regionBasicInfo.protection & VM_PROT_READ))
-        {
-            return false;
-        }
-        
-        const char* blockStart = reinterpret_cast<const char*>(address);
-        const char* blockEnd = blockStart + size;
-        const char* pageStart = reinterpret_cast<const char*>(pageAddress);
-        const char* pageEnd = pageStart + regionSize;
-        
-        if (blockEnd > pageEnd) {
-            return IsMemoryReadable(pageEnd, size - (pageEnd - blockStart));
-        }
-        
-        return true;
-#elif COLLADAMaya_PLATFORM == COLLADAMaya_PLATFORM_LINUX
-        // TODO test
-        std::ifstream maps("/proc/self/maps");
-        if (!maps.is_open()) {
-            return false;
-        }
+        MVector translation(
+            MDistance::uiToInternal(pxShape->localPose.translation.x),
+            MDistance::uiToInternal(pxShape->localPose.translation.y),
+            MDistance::uiToInternal(pxShape->localPose.translation.z)
+            );
 
-        std::string line;
+        tm.setTranslation(translation, MSpace::kTransform);
 
-        // Skip first line
-        std::getline(maps, line);
+        localPose = tm.asMatrix();
+    }
 
-        while (std::getline(maps, line))
-        {
-            if (line.length() > 0)
-            {
-                std::istringstream sline(line);
+    void PhysXExporter::getRigidBodyGlobalPose(const MObject& rigidBody, MMatrix& globalPose)
+    {
+        int dummy = 0;
+        MString simulationType;
+        DagHelper::getPlugValue(rigidBody, ATTR_SIMULATION_TYPE, dummy, simulationType);
 
-                std::string address;
-                std::getline(sline, address, ' ');
+        PhysXXML::GlobalPose* pGlobalPose = NULL;
 
-                std::string perms;
-                std::getline(sline, perms, ' ');
-
-                std::istringstream saddress(address);
-
-                std::string start;
-                std::getline(saddress, start, '-');
-
-                std::string end;
-                std::getline(saddress, end);
-
-                size_t istart = 0;
-                std::istringstream sstart(start);
-                sstart >> std::hex >> istart;
-
-                size_t iend = 0;
-                std::istringstream send(end);
-                send >> std::hex >> iend;
-
-                bool readable = false;
-                if (perms.length() > 0) {
-                    readable = (perms[0] == 'r');
-                }
-
-                const char* blockStart = reinterpret_cast<const char*>(address);
-                const char* blockEnd = reinterpret_cast<const char*>(address) + size;
-                const char* pageStart = reinterpret_cast<const char*>(istart);
-                const char* pageEnd = reinterpret_cast<const char*>(iend);
-
-                if (blockStart >= pageStart && blockStart < pageEnd)
-                {
-                    if (!readable)
-                    {
-                        return false;
-                    }
-                    else if (blockEnd > pageEnd)
-                    {
-                        return IsMemoryReadable(pageEnd, size - (pageEnd - blockStart));
-                    }
-                    return true;
-                }
+        if (simulationType == SIMULATION_TYPE_STATIC) {
+            PhysXXML::PxRigidStatic* pxRigidStatic = findPxRigidStatic(rigidBody);
+            if (pxRigidStatic) {
+                pGlobalPose = &pxRigidStatic->globalPose;
             }
         }
-        return false;
-#else
-#error not implemented
-#endif
+        else {
+            PhysXXML::PxRigidDynamic* pxRigidDynamic = findPxRigidDynamic(rigidBody);
+            if (pxRigidDynamic) {
+                pGlobalPose = &pxRigidDynamic->globalPose;
+            }
+        }
+
+        if (!pGlobalPose)
+            return;
+
+        MTransformationMatrix tm;
+
+        tm.setRotationQuaternion(
+            pGlobalPose->rotation.x,
+            pGlobalPose->rotation.y,
+            pGlobalPose->rotation.z,
+            pGlobalPose->rotation.w);
+
+        MVector translation(
+            MDistance::uiToInternal(pGlobalPose->translation.x),
+            MDistance::uiToInternal(pGlobalPose->translation.y),
+            MDistance::uiToInternal(pGlobalPose->translation.z)
+            );
+
+        tm.setTranslation(translation, MSpace::kTransform);
+
+        globalPose = tm.asMatrix();
     }
 
-    bool PhysXShape::GetLocalPose(const MObject& shape, MMatrix& localPose)
+    void PhysXExporter::getShapeRigidBody(const MObject& shape, MObject& rigidBody)
     {
-        // Local pose is not accessible with Maya API. It is hidden in PhysX plugin.
-        // It appears shape local pose is located at offset 1248 (0x4E0) of PhysX shape MPxNode object.
-        MObject pluginObject = MFnPlugin::findPlugin("physx");
-        MFnPlugin fnPlugin(pluginObject);
-        MString version = fnPlugin.version();
-        size_t offset = PhysXExporter::GetLocalPoseOffset(version.asChar());
-        if (offset == 0) {
-            return false;
-        }
-        
-        MFnDependencyNode shapeNode(shape);
-        MPxNode* pxNode = shapeNode.userNode();
+        // Shape node
+        MFnDagNode shapeNode(shape);
+        MString shapeName = shapeNode.name();
 
-        const MMatrix* localPoseAddress = reinterpret_cast<const MMatrix*>((reinterpret_cast<const char*>(pxNode) + offset));
+        // Shape transform node
+        if (shapeNode.parentCount() == 0) return;
+        MFnDagNode shapeTransformNode(shapeNode.parent(0));
 
-        // Be sure memory is readable to avoid any crash.
-        if (!IsMemoryReadable(localPoseAddress, sizeof(MMatrix))) {
-            return false;
-        }
-
-        localPose = *reinterpret_cast<const MMatrix*>((reinterpret_cast<const char*>(pxNode) + offset));
-
-        return true;
+        // Parent rigid body node
+        if (shapeTransformNode.parentCount() == 0) return;
+        rigidBody = shapeTransformNode.parent(0);
     }
+
+    //bool PhysXShape::GetLocalPose(const MObject& shape, MMatrix& localPose)
+    //{
+    //    //// Local pose is not accessible with Maya API. It is hidden in PhysX plugin.
+    //    //// It appears shape local pose is located at offset 1248 (0x4E0) of PhysX shape MPxNode object.
+    //    //MObject pluginObject = MFnPlugin::findPlugin("physx");
+    //    //MFnPlugin fnPlugin(pluginObject);
+    //    //MString version = fnPlugin.version();
+    //    //size_t offset = PhysXExporter::GetLocalPoseOffset(version.asChar());
+    //    //if (offset == 0) {
+    //    //    return false;
+    //    //}
+    //    //
+    //    //MFnDependencyNode shapeNode(shape);
+    //    //MPxNode* pxNode = shapeNode.userNode();
+
+    //    //const MMatrix* localPoseAddress = reinterpret_cast<const MMatrix*>((reinterpret_cast<const char*>(pxNode) + offset));
+
+    //    //// Be sure memory is readable to avoid any crash.
+    //    //if (!IsMemoryReadable(localPoseAddress, sizeof(MMatrix))) {
+    //    //    return false;
+    //    //}
+
+    //    //localPose = *reinterpret_cast<const MMatrix*>((reinterpret_cast<const char*>(pxNode) + offset));
+
+    //    //return true;
+    //    return false;
+    //}
 
     class Dynamic : public Element
     {
@@ -1059,22 +1191,27 @@ namespace COLLADAMaya
             : Element(exporter, CSWC::CSW_ELEMENT_TECHNIQUE)
         {
             getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, profile);
-            exportLocalPose(shape);
-            exporter.exportAttributes(shape, GetAttributes());
+            //exportLocalPose(shape);
+            if (profile == PhysXExporter::GetProfile()) {
+                exporter.exportAttributes(shape, GetAttributes());
+            }
+            else if (profile == PhysXExporter::GetProfileXML()) {
+                exporter.exportShapePhysXXML(shape);
+            }
         }
 
     private:
-        void exportLocalPose(const MObject& shape)
-        {
-            // Export shape local pose as rotation quaternion + translation vector
-            MMatrix localPose = MMatrix::identity;
-            if (PhysXShape::GetLocalPose(shape, localPose)) {
-                MTransformationMatrix localPoseTM(localPose);
-                MQuaternion rotation = localPoseTM.rotation();
-                MVector translation = localPoseTM.getTranslation(MSpace::kTransform);
-                LocalPose e(getPhysXExporter(), rotation, translation);
-            }
-        }
+        //void exportLocalPose(const MObject& shape)
+        //{
+        //    // Export shape local pose as rotation quaternion + translation vector
+        //    MMatrix localPose = MMatrix::identity;
+        //    if (PhysXShape::GetLocalPose(shape, localPose)) {
+        //        MTransformationMatrix localPoseTM(localPose);
+        //        MQuaternion rotation = localPoseTM.rotation();
+        //        MVector translation = localPoseTM.getTranslation(MSpace::kTransform);
+        //        LocalPose e(getPhysXExporter(), rotation, translation);
+        //    }
+        //}
 
         static const std::set<MString, MStringComp>& GetAttributes()
         {
@@ -1107,7 +1244,14 @@ namespace COLLADAMaya
         ShapeExtra(PhysXExporter& exporter, const MObject& shape)
             : Element(exporter, CSWC::CSW_ELEMENT_EXTRA)
         {
-            ShapeTechnique e(exporter, shape, PhysXExporter::GetProfile());
+            exportProfile(shape, PhysXExporter::GetProfile());
+            exportProfile(shape, PhysXExporter::GetProfileXML());
+        }
+
+    private:
+        void exportProfile(const MObject& shape, const String& profile)
+        {
+            ShapeTechnique e(getPhysXExporter(), shape, profile);
         }
     };
 
@@ -1244,9 +1388,36 @@ namespace COLLADAMaya
 
             // Get shape local pose.
             MMatrix localPose = MMatrix::identity;
-            if (PhysXShape::GetLocalPose(shape, localPose)) {
-                transform = transform.asMatrix() * localPose;
-            }
+            getPhysXExporter().getShapeLocalPose(shape, localPose);
+            transform = localPose;
+            //if (PhysXShape::GetLocalPose(shape, localPose)) {
+            //    transform = transform.asMatrix() * localPose;
+            //}
+
+            // Rigidbody world pose
+            MObject rigidBody;
+            getPhysXExporter().getShapeRigidBody(shape, rigidBody);
+            MMatrix globalPose = MMatrix::identity;
+            getPhysXExporter().getRigidBodyGlobalPose(rigidBody, globalPose);
+            
+            // Parent world pose
+            MObject parent;
+            MFnDagNode rigidBodyNode(rigidBody);
+            parent = rigidBodyNode.parent(0);
+            MDagPath parentDagPath;
+            MDagPath::getAPathTo(parent, parentDagPath);
+            MObject parentTransformObject = parentDagPath.transform();
+            MMatrix parentGlobalPose = parentDagPath.inclusiveMatrix();
+            MFnTransform parentTransform(parentTransformObject);
+            MString parentTransformName = parentTransform.name();
+            MTransformationMatrix parentTM = parentTransform.transformation();
+            MMatrix parentM = parentTM.asMatrix();
+            MQuaternion parentRotation = parentTM.rotation();
+            MVector parentTranslationWorld = parentTM.translation(MSpace::kWorld);
+            MVector parentTranslationTransform = parentTM.translation(MSpace::kTransform);
+
+            MMatrix DAEShapeLocalPose = localPose * globalPose * parentGlobalPose.inverse();
+            transform = DAEShapeLocalPose;
 
             MVector translation = transform.getTranslation(MSpace::kTransform);
             MVector rotatePivotTranslation = transform.rotatePivotTranslation(MSpace::kTransform);
@@ -1799,7 +1970,12 @@ namespace COLLADAMaya
         {
             getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, profile);
             
-            exporter.exportAttributes(rigidBody, GetAttributes());
+            if (profile == PhysXExporter::GetProfile()) {
+                exporter.exportAttributes(rigidBody, GetAttributes());
+            }
+            else if (profile == PhysXExporter::GetProfileXML()) {
+                exporter.exportRigidBodyPhysXXML(rigidBody);
+            }
         }
 
     private:
@@ -1852,7 +2028,14 @@ namespace COLLADAMaya
         RigidBodyExtra(PhysXExporter& exporter, const MObject & rigidBody)
             : Element(exporter, CSWC::CSW_ELEMENT_EXTRA)
         {
-            RigidBodyTechnique e(getPhysXExporter(), rigidBody, PhysXExporter::GetProfile());
+            exportProfile(rigidBody, PhysXExporter::GetProfile());
+            exportProfile(rigidBody, PhysXExporter::GetProfileXML());
+        }
+
+    private:
+        void exportProfile(const MObject& rigidBody, const String& profile)
+        {
+            RigidBodyTechnique e(getPhysXExporter(), rigidBody, profile);
         }
     };
 
@@ -2665,7 +2848,8 @@ namespace COLLADAMaya
     String PhysXExporter::mDefaultPhysicsModelId = "collada_physics_model";
     String PhysXExporter::mDefaultPhysicsSceneId = "collada_physics_scene";
     String PhysXExporter::mProfile = "OpenCOLLADAMayaPhysX";
-    std::map<String, size_t> PhysXExporter::mLocalPoseOffsets;
+    String PhysXExporter::mProfileXML = "OpenCOLLADAMayaPhysXXML";
+    //std::map<String, size_t> PhysXExporter::mLocalPoseOffsets;
 
     PhysXExporter::PhysXExporter(StreamWriter& streamWriter, DocumentExporter& documentExporter)
         : mStreamWriter(streamWriter)
@@ -2730,6 +2914,163 @@ namespace COLLADAMaya
         return parser.needsConvexHullOfMeshElement();
     }
 
+    class AutoDeleteFile
+    {
+    public:
+        AutoDeleteFile(const String& filePath)
+            : mFilePath(filePath)
+        {}
+
+        ~AutoDeleteFile()
+        {
+            if (!mFilePath.empty()) {
+                COLLADABU::Utils::deleteFile(mFilePath);
+            }
+        }
+
+    private:
+        String mFilePath;
+    };
+
+    class AutoXmlFreeDoc
+    {
+    public:
+        AutoXmlFreeDoc(xmlDocPtr xml)
+            : mXml(xml)
+        {}
+
+        ~AutoXmlFreeDoc()
+        {
+            if (mXml) {
+                xmlFreeDoc(mXml);
+            }
+        }
+
+    private:
+        xmlDocPtr mXml;
+    };
+
+    class AutoRestorePhysXExportOptions
+    {
+    public:
+        AutoRestorePhysXExportOptions()
+            : mError(false)
+        {
+            mOptions.push_back("apexClothingExport_APBs");
+            mOptions.push_back("validatePhysXSceneBeforeExport");
+            mOptions.push_back("PhysXExport_useFolderName");
+            mOptions.push_back("apexExport_RemoveNamespaceForJoint");
+            mOptions.push_back("apexClothingExport_VisibleOnly");
+            mOptions.push_back("PhysXExport_exportPxProjFile");
+            mOptions.push_back("PhysXExport_exportPhysX");
+
+            for (size_t i = 0; i < mOptions.size(); ++i) {
+                int oldValue = 0;
+                MStatus status = MGlobal::executeCommand("optionVar -q \"" + mOptions[i] + "\"", oldValue);
+                if (!status) mError |= true;
+                MString oldValueStr("");
+                oldValueStr += oldValue;
+                mOldValues.push_back(oldValueStr);
+            }
+        }
+
+        ~AutoRestorePhysXExportOptions()
+        {
+            for (size_t i = 0; i < mOptions.size(); ++i) {
+                MGlobal::executeCommand("optionVar -iv \"" + mOptions[i] + "\" " + mOldValues[i]);
+            }
+        }
+
+        bool error() const
+        {
+            return mError;
+        }
+
+    private:
+        std::vector<MString> mOptions;
+        std::vector<MString> mOldValues;
+        bool mError;
+    };
+
+    bool PhysXExporter::generatePhysXXML()
+    {
+        MStatus status;
+
+        // TODO make sure exported .xml does not already exist.
+
+        // Backup export options
+        AutoRestorePhysXExportOptions autoRestorePhysXExportOptions;
+
+        // Set export options
+        status = MGlobal::executeCommand("optionVar -iv \"apexClothingExport_APBs\" 2");
+        if (!status) return false;
+        status = MGlobal::executeCommand("optionVar -iv \"validatePhysXSceneBeforeExport\" 0");
+        if (!status) return false;
+        status = MGlobal::executeCommand("optionVar -iv \"PhysXExport_useFolderName\" 0");
+        if (!status) return false;
+        status = MGlobal::executeCommand("optionVar -iv \"apexExport_RemoveNamespaceForJoint\" 0");
+        if (!status) return false;
+        status = MGlobal::executeCommand("optionVar -iv \"apexClothingExport_VisibleOnly\" 0");
+        if (!status) return false;
+        status = MGlobal::executeCommand("optionVar -iv \"PhysXExport_exportPxProjFile\" 0");
+        if (!status) return false;
+        status = MGlobal::executeCommand("optionVar -iv \"PhysXExport_exportPhysX\" 1");
+        if (!status) return false;
+
+        String filePath = mDocumentExporter.getFilename();
+        std::stringstream exportCommand;
+        exportCommand << "file -force -options \"none=0;\" -type \"APEX/PhysX\" -pr";
+        if (mDocumentExporter.getSceneGraph()->getExportSelectedOnly()) {
+            exportCommand << " -es";
+        }
+        else {
+            exportCommand << " -ea";
+        }
+
+        // Set file extension
+        size_t extPos = filePath.find_last_of('.');
+        // We set .pxproj as extension but plugin will export a .xml file
+        filePath.replace(extPos, filePath.length() - extPos, ".pxproj");
+        exportCommand << " \"" << filePath << "\";";
+        status = MGlobal::executeCommand(exportCommand.str().c_str());
+        if (!status) return false;
+
+        // Set .xml extension
+        filePath.replace(extPos, filePath.length() - extPos, ".xml");
+
+        // TODO uncomment
+        //AutoDeleteFile autoDeleteFile(filePath);
+
+        // Read .xml file
+
+        // Is this necessary?
+        LIBXML_TEST_VERSION;
+
+        std::ifstream file(filePath);
+        if (!file.is_open()) {
+            return false;
+        }
+
+        std::stringstream fileContentStream;
+        fileContentStream << file.rdbuf();
+        std::string fileContent(fileContentStream.str());
+
+        int length = static_cast<int>(fileContent.length());
+        xmlDocPtr xml = xmlReadMemory(fileContent.c_str(), length, "noname.xml", NULL, 0);
+        if (xml == NULL) {
+            return false;
+        }
+
+        AutoXmlFreeDoc autoXmlFreeDoc(xml);
+
+        // Init our PhysX xml tree
+        mPhysXDoc = xml;
+
+        xmlCleanupParser();
+
+        return true;
+    }
+
     bool PhysXExporter::exportPhysicsLibraries()
     {
         // Check PhysX plugin version.
@@ -2738,9 +3079,17 @@ namespace COLLADAMaya
         if (pluginObject.isNull()) {
             return false;
         }
-        
+
         MFnPlugin fnPlugin(pluginObject);
 
+        // Export to .xml format first using PhysX plugin exporter.
+        // Produced file contains information not accessible with Maya API.
+        if (!generatePhysXXML()) {
+            MGlobal::displayError("Can't generate PhysX XML data. PhysX will not be exported.");
+            return false;
+        }
+
+        /*
         // TODO check required apiVersion?
         // "201500"
         //MString apiVersion = fnPlugin.apiVersion();
@@ -2762,6 +3111,7 @@ namespace COLLADAMaya
                 MGlobal::displayInfo(it->first.c_str());
             }
         }
+        */
 
         bool hasPhysicsScene = false;
 
@@ -2835,6 +3185,34 @@ namespace COLLADAMaya
         AttributeExporter attributeExporter(*this, attributes);
         MFnDependencyNode fnDependencyNode(object);
         AttributeParser::parseAttributes(fnDependencyNode, attributeExporter);
+    }
+
+    void PhysXExporter::exportShapePhysXXML(const MObject& shape)
+    {
+        PhysXXML::PxShape* pxShape = findPxShape(shape);
+        if (pxShape) {
+            pxShape->exportElement(mStreamWriter);
+        }
+    }
+
+    void PhysXExporter::exportRigidBodyPhysXXML(const MObject& rigidBody)
+    {
+        int dummy = 0;
+        MString simulationType;
+        DagHelper::getPlugValue(rigidBody, ATTR_SIMULATION_TYPE, dummy, simulationType);
+
+        if (simulationType == SIMULATION_TYPE_STATIC) {
+            PhysXXML::PxRigidStatic* pxRigidStatic = findPxRigidStatic(rigidBody);
+            if (pxRigidStatic) {
+                pxRigidStatic->exportElement(mStreamWriter);
+            }
+        }
+        else {
+            PhysXXML::PxRigidDynamic* pxRigidDynamic = findPxRigidDynamic(rigidBody);
+            if (pxRigidDynamic) {
+                pxRigidDynamic->exportElement(mStreamWriter);
+            }
+        }
     }
 
     void PhysXExporter::exportRotate(const MVector & axis, double angle, const String & sid)
@@ -2930,17 +3308,22 @@ namespace COLLADAMaya
         return mProfile;
     }
 
-    size_t PhysXExporter::GetLocalPoseOffset(const String& physxPluginVersion)
+    const String& PhysXExporter::GetProfileXML()
     {
-        std::map<String, size_t>::const_iterator it = mLocalPoseOffsets.find(physxPluginVersion);
-        if (it == mLocalPoseOffsets.end()) {
-            return 0;
-            
-            // Try "PhysxForMaya (3.3.10709.02272) , compiled 7/9/2015 2:27:07 AM" offset.
-            //it = mLocalPoseOffsets.find("PhysxForMaya (3.3.10709.02272) , compiled 7/9/2015 2:27:07 AM");
-        }
-        return it->second;
+        return mProfileXML;
     }
+
+    //size_t PhysXExporter::GetLocalPoseOffset(const String& physxPluginVersion)
+    //{
+    //    std::map<String, size_t>::const_iterator it = mLocalPoseOffsets.find(physxPluginVersion);
+    //    if (it == mLocalPoseOffsets.end()) {
+    //        return 0;
+    //        
+    //        // Try "PhysxForMaya (3.3.10709.02272) , compiled 7/9/2015 2:27:07 AM" offset.
+    //        //it = mLocalPoseOffsets.find("PhysxForMaya (3.3.10709.02272) , compiled 7/9/2015 2:27:07 AM");
+    //    }
+    //    return it->second;
+    //}
 
     const String & PhysXExporter::findColladaId(const String & mayaId)
     {
