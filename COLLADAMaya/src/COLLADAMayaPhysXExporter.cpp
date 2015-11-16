@@ -752,6 +752,31 @@ namespace COLLADAMaya
 //#endif
 //    }
 
+    PhysXXML::PxMaterial* PhysXExporter::findPxMaterial(const MObject& rigidBody)
+    {
+        int dummy = 0;
+        MString simulationType;
+        DagHelper::getPlugValue(rigidBody, ATTR_SIMULATION_TYPE, dummy, simulationType);
+
+        PhysXXML::GlobalPose* pGlobalPose = NULL;
+
+        if (simulationType == SIMULATION_TYPE_STATIC) {
+            PhysXXML::PxRigidStatic* pxRigidStatic = findPxRigidStatic(rigidBody);
+            if (pxRigidStatic && pxRigidStatic->shapes.shapes.size() > 0) {
+                // All shapes in a rigid body have the same material
+                return mPhysXDoc->findMaterial(pxRigidStatic->shapes.shapes[0].materials.materialRef.materialRef);
+            }
+        }
+        else {
+            PhysXXML::PxRigidDynamic* pxRigidDynamic = findPxRigidDynamic(rigidBody);
+            if (pxRigidDynamic && pxRigidDynamic->shapes.shapes.size() > 0) {
+                // All shapes in a rigid body have the same material
+                return mPhysXDoc->findMaterial(pxRigidDynamic->shapes.shapes[0].materials.materialRef.materialRef);
+            }
+        }
+        return NULL;
+    }
+
     PhysXXML::PxShape* PhysXExporter::findPxShape(const MObject& shape)
     {
         // Shape node
@@ -797,6 +822,13 @@ namespace COLLADAMaya
         MString bodyTransformName = bodyTransformNode.name();
 
         return mPhysXDoc->findRigidDynamic(bodyTransformName.asChar());
+    }
+
+    PhysXXML::PxD6Joint* PhysXExporter::findPxD6Joint(const MObject& rigidConstraint)
+    {
+        MFnDagNode constraintNode(rigidConstraint);
+        MString constraintName = constraintNode.name();
+        return mPhysXDoc->findD6Joint(constraintName.asChar());
     }
 
     void PhysXExporter::getShapeLocalPose(const MObject& shape, MMatrix& localPose)
@@ -980,6 +1012,35 @@ namespace COLLADAMaya
         }
     };
 
+    class PhysicsMaterialTechnique : public Element
+    {
+    public:
+        PhysicsMaterialTechnique(PhysXExporter& exporter, const MObject& rigidBody, const String& profile)
+            : Element(exporter, CSWC::CSW_ELEMENT_TECHNIQUE)
+        {
+            getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, profile);
+            if (profile == PhysXExporter::GetProfileXML()) {
+                exporter.exportMaterialPhysXXML(rigidBody);
+            }
+        }
+    };
+
+    class PhysicsMaterialExtra : public Element
+    {
+    public:
+        PhysicsMaterialExtra(PhysXExporter& exporter, const MObject& rigidBody)
+            : Element(exporter, CSWC::CSW_ELEMENT_EXTRA)
+        {
+            exportTechnique(rigidBody, PhysXExporter::GetProfileXML());
+        }
+
+    private:
+        void exportTechnique(const MObject& rigidBody, const String& profile)
+        {
+            PhysicsMaterialTechnique e(getPhysXExporter(), rigidBody, profile);
+        }
+    };
+
     class PhysicsMaterial : public Element
     {
     public:
@@ -989,6 +1050,7 @@ namespace COLLADAMaya
             exportRestitution(rigidBody);
             exportDynamicFriction(rigidBody);
             exportStaticFriction(rigidBody);
+            exportExtra(rigidBody);
         }
 
     private:
@@ -1020,6 +1082,11 @@ namespace COLLADAMaya
             {
                 StaticFriction e(getPhysXExporter(), staticFriction);
             }
+        }
+
+        void exportExtra(const MObject& rigidBody)
+        {
+            PhysicsMaterialExtra e(getPhysXExporter(), rigidBody);
         }
     };
 
@@ -1380,19 +1447,9 @@ namespace COLLADAMaya
 
         void exportRotateTranslate(const MObject & shape)
         {
-            MDagPath shapeDagPath;
-            MDagPath::getAPathTo(shape, shapeDagPath);
-            MObject transformObject = shapeDagPath.transform();
-            MFnTransform shapeTransform(transformObject);
-            MTransformationMatrix transform = shapeTransform.transformation();
-
             // Get shape local pose.
             MMatrix localPose = MMatrix::identity;
             getPhysXExporter().getShapeLocalPose(shape, localPose);
-            transform = localPose;
-            //if (PhysXShape::GetLocalPose(shape, localPose)) {
-            //    transform = transform.asMatrix() * localPose;
-            //}
 
             // Rigidbody world pose
             MObject rigidBody;
@@ -1406,18 +1463,22 @@ namespace COLLADAMaya
             parent = rigidBodyNode.parent(0);
             MDagPath parentDagPath;
             MDagPath::getAPathTo(parent, parentDagPath);
-            MObject parentTransformObject = parentDagPath.transform();
             MMatrix parentGlobalPose = parentDagPath.inclusiveMatrix();
-            MFnTransform parentTransform(parentTransformObject);
-            MString parentTransformName = parentTransform.name();
-            MTransformationMatrix parentTM = parentTransform.transformation();
-            MMatrix parentM = parentTM.asMatrix();
-            MQuaternion parentRotation = parentTM.rotation();
-            MVector parentTranslationWorld = parentTM.translation(MSpace::kWorld);
-            MVector parentTranslationTransform = parentTM.translation(MSpace::kTransform);
 
             MMatrix DAEShapeLocalPose = localPose * globalPose * parentGlobalPose.inverse();
-            transform = DAEShapeLocalPose;
+
+            int dummy = 0;
+            MString shapeType;
+            DagHelper::getPlugValue(shape, ATTR_SHAPE_TYPE, dummy, shapeType);
+            if (shapeType == SHAPE_TYPE_CAPSULE) {
+                // PhysX capsules are X axis oriented. COLLADA capsules are Y axis oriented.
+                MTransformationMatrix rotation;
+                rotation.rotateBy(MEulerRotation(0.0, 0.0, -M_PI / 2.0, MEulerRotation::kXYZ), MSpace::kTransform);
+                MMatrix rotationMatrix = rotation.asMatrix();
+                DAEShapeLocalPose = DAEShapeLocalPose * rotationMatrix;
+            }
+
+            MTransformationMatrix transform(DAEShapeLocalPose);
 
             MVector translation = transform.getTranslation(MSpace::kTransform);
             MVector rotatePivotTranslation = transform.rotatePivotTranslation(MSpace::kTransform);
@@ -2222,7 +2283,12 @@ namespace COLLADAMaya
             : Element(exporter, CSWC::CSW_ELEMENT_TECHNIQUE)
         {
             getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, profile);
-            exporter.exportAttributes(rigidConstraint, GetAttributes());
+            if (profile == PhysXExporter::GetProfile()) {
+                exporter.exportAttributes(rigidConstraint, GetAttributes());
+            }
+            else if (profile == PhysXExporter::GetProfileXML()) {
+                exporter.exportRigidConstraintPhysXXML(rigidConstraint);
+            }
         }
 
     private:
@@ -2303,7 +2369,14 @@ namespace COLLADAMaya
         RigidConstraintExtra(PhysXExporter& exporter, const MObject & rigidConstraint)
             : Element(exporter, CSWC::CSW_ELEMENT_EXTRA)
         {
-            RigidConstraintTechnique e(exporter, rigidConstraint, PhysXExporter::GetProfile());
+            exportTechnique(rigidConstraint, PhysXExporter::GetProfile());
+            exportTechnique(rigidConstraint, PhysXExporter::GetProfileXML());
+        }
+
+    private:
+        void exportTechnique(const MObject& rigidConstraint, const String& profile)
+        {
+            RigidConstraintTechnique e(getPhysXExporter(), rigidConstraint, profile);
         }
     };
 
@@ -3187,6 +3260,14 @@ namespace COLLADAMaya
         AttributeParser::parseAttributes(fnDependencyNode, attributeExporter);
     }
 
+    void PhysXExporter::exportMaterialPhysXXML(const MObject& rigidBody)
+    {
+        PhysXXML::PxMaterial* pxMaterial = findPxMaterial(rigidBody);
+        if (pxMaterial) {
+            pxMaterial->exportElement(mStreamWriter);
+        }
+    }
+
     void PhysXExporter::exportShapePhysXXML(const MObject& shape)
     {
         PhysXXML::PxShape* pxShape = findPxShape(shape);
@@ -3212,6 +3293,14 @@ namespace COLLADAMaya
             if (pxRigidDynamic) {
                 pxRigidDynamic->exportElement(mStreamWriter);
             }
+        }
+    }
+
+    void PhysXExporter::exportRigidConstraintPhysXXML(const MObject& rigidConstraint)
+    {
+        PhysXXML::PxD6Joint* pxConstraint = findPxD6Joint(rigidConstraint);
+        if (pxConstraint) {
+            pxConstraint->exportElement(mStreamWriter);
         }
     }
 

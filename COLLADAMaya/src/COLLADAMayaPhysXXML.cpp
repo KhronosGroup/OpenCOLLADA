@@ -1052,7 +1052,7 @@ namespace COLLADAMaya
             localPose.exportElement(sw);
             simulationFilterData.exportElement(sw);
             queryFilterData.exportElement(sw);
-            materials.exportElement(sw);
+            //materials.exportElement(sw);
             contactOffset.exportElement(sw);
             restOffset.exportElement(sw);
             flags.exportElement(sw);
@@ -1096,7 +1096,7 @@ namespace COLLADAMaya
             dominanceGroup.exportElement(sw);
             ownerClient.exportElement(sw);
             globalPose.exportElement(sw);
-            shapes.exportElement(sw);
+            //shapes.exportElement(sw);
             sw.closeElement();
         }
 
@@ -1349,7 +1349,7 @@ namespace COLLADAMaya
             dominanceGroup.exportElement(sw);
             ownerClient.exportElement(sw);
             globalPose.exportElement(sw);
-            shapes.exportElement(sw);
+            //shapes.exportElement(sw);
             cMassLocalPose.exportElement(sw);
             mass.exportElement(sw);
             massSpaceInertiaTensor.exportElement(sw);
