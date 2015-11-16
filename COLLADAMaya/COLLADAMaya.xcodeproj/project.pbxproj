@@ -26,6 +26,8 @@
 		879D18E21AE8071E005C246C /* COLLADAMayaAttributeParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 879D18E11AE8071E005C246C /* COLLADAMayaAttributeParser.cpp */; };
 		87D7EAFB1B0E979B000436DA /* COLLADAMayaLightProbeExporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 87D7EAFA1B0E979B000436DA /* COLLADAMayaLightProbeExporter.h */; };
 		87D7EAFD1B0E97A9000436DA /* COLLADAMayaLightProbeExporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87D7EAFC1B0E97A9000436DA /* COLLADAMayaLightProbeExporter.cpp */; };
+		87E0A7BC1BFA55BD00FA6AF2 /* COLLADAMayaPhysXXML.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 87E0A7BB1BFA55BD00FA6AF2 /* COLLADAMayaPhysXXML.cpp */; };
+		87E0A7BE1BFA55CF00FA6AF2 /* COLLADAMayaPhysXXML.h in Headers */ = {isa = PBXBuildFile; fileRef = 87E0A7BD1BFA55CF00FA6AF2 /* COLLADAMayaPhysXXML.h */; };
 		95133F521AA8B986003AC4E2 /* COLLADAMayaPhysicsExporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 95133F501AA8B986003AC4E2 /* COLLADAMayaPhysicsExporter.h */; };
 		95133F561AA8B9B4003AC4E2 /* COLLADAMayaPhysicsExporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95133F541AA8B9B4003AC4E2 /* COLLADAMayaPhysicsExporter.cpp */; };
 		95133F5B1AA8BA37003AC4E2 /* COLLADASWInstancePhysicsModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 95133F571AA8BA37003AC4E2 /* COLLADASWInstancePhysicsModel.h */; };
@@ -948,6 +950,8 @@
 		879D18E11AE8071E005C246C /* COLLADAMayaAttributeParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADAMayaAttributeParser.cpp; path = src/COLLADAMayaAttributeParser.cpp; sourceTree = "<group>"; };
 		87D7EAFA1B0E979B000436DA /* COLLADAMayaLightProbeExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAMayaLightProbeExporter.h; path = include/COLLADAMayaLightProbeExporter.h; sourceTree = "<group>"; };
 		87D7EAFC1B0E97A9000436DA /* COLLADAMayaLightProbeExporter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADAMayaLightProbeExporter.cpp; path = src/COLLADAMayaLightProbeExporter.cpp; sourceTree = "<group>"; };
+		87E0A7BB1BFA55BD00FA6AF2 /* COLLADAMayaPhysXXML.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADAMayaPhysXXML.cpp; path = src/COLLADAMayaPhysXXML.cpp; sourceTree = "<group>"; };
+		87E0A7BD1BFA55CF00FA6AF2 /* COLLADAMayaPhysXXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAMayaPhysXXML.h; path = include/COLLADAMayaPhysXXML.h; sourceTree = "<group>"; };
 		95133F501AA8B986003AC4E2 /* COLLADAMayaPhysicsExporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAMayaPhysicsExporter.h; path = include/COLLADAMayaPhysicsExporter.h; sourceTree = "<group>"; };
 		95133F541AA8B9B4003AC4E2 /* COLLADAMayaPhysicsExporter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADAMayaPhysicsExporter.cpp; path = src/COLLADAMayaPhysicsExporter.cpp; sourceTree = "<group>"; };
 		95133F571AA8BA37003AC4E2 /* COLLADASWInstancePhysicsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADASWInstancePhysicsModel.h; path = ../COLLADAStreamWriter/include/COLLADASWInstancePhysicsModel.h; sourceTree = "<group>"; };
@@ -2379,6 +2383,7 @@
 		CE72910410AC800500AE5662 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				87E0A7BB1BFA55BD00FA6AF2 /* COLLADAMayaPhysXXML.cpp */,
 				871C5B3B1BCEC149008B84FF /* COLLADAMayaPhysXExporter.cpp */,
 				870E79CA1B17204F00590717 /* COLLADAMayaPhysicsSceneExporter.cpp */,
 				87D7EAFC1B0E97A9000436DA /* COLLADAMayaLightProbeExporter.cpp */,
@@ -2425,6 +2430,7 @@
 		CE72910510AC800C00AE5662 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				87E0A7BD1BFA55CF00FA6AF2 /* COLLADAMayaPhysXXML.h */,
 				871C5B391BCEC138008B84FF /* COLLADAMayaPhysXExporter.h */,
 				870E79C81B17203600590717 /* COLLADAMayaPhysicsSceneExporter.h */,
 				87D7EAFA1B0E979B000436DA /* COLLADAMayaLightProbeExporter.h */,
@@ -3470,6 +3476,7 @@
 				CE0B3EEE0F56AFD8004F8570 /* COLLADAMayaGeometryExporter.h in Headers */,
 				CE0B3EF00F56AFD8004F8570 /* COLLADAMayaGeometryPolygonExporter.h in Headers */,
 				CE0B3EF10F56AFD8004F8570 /* COLLADAMayaHwShaderExporter.h in Headers */,
+				87E0A7BE1BFA55CF00FA6AF2 /* COLLADAMayaPhysXXML.h in Headers */,
 				CE0B3EF20F56AFD8004F8570 /* COLLADAMayaImageExporter.h in Headers */,
 				CE0B3EF40F56AFD8004F8570 /* COLLADAMayaImportOptions.h in Headers */,
 				CE0B3EF50F56AFD8004F8570 /* COLLADAMayaLightExporter.h in Headers */,
@@ -4150,6 +4157,7 @@
 				879D18E21AE8071E005C246C /* COLLADAMayaAttributeParser.cpp in Sources */,
 				CE72918110ACA1F800AE5662 /* COLLADAMayaPrecompiledHeaders.cpp in Sources */,
 				CE72918210ACA1F800AE5662 /* COLLADAMayaReferenceManager.cpp in Sources */,
+				87E0A7BC1BFA55BD00FA6AF2 /* COLLADAMayaPhysXXML.cpp in Sources */,
 				CE72918310ACA1F800AE5662 /* COLLADAMayaRotateHelper.cpp in Sources */,
 				CE72918410ACA1F800AE5662 /* COLLADAMayaSceneElement.cpp in Sources */,
 				CE72918510ACA1F800AE5662 /* COLLADAMayaSceneGraph.cpp in Sources */,
@@ -4282,6 +4290,7 @@
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -4337,6 +4346,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -4436,6 +4446,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -4641,6 +4652,7 @@
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -4834,6 +4846,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -5040,6 +5053,7 @@
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -5232,6 +5246,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -5438,6 +5453,7 @@
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -5631,6 +5647,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -6229,6 +6246,7 @@
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -6382,6 +6400,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -6713,6 +6732,7 @@
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -6796,6 +6816,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -6881,6 +6902,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -7084,6 +7106,7 @@
 				);
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -7292,6 +7315,7 @@
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",
@@ -7485,6 +7509,7 @@
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					../COLLADABaseUtils/include,
+					../Externals/LibXML/include,
 					../Externals/MayaDataModel/include,
 					"$(MAYA_PATH)/devkit/plug-ins",
 					"$(MAYA_PATH)/devkit/include",

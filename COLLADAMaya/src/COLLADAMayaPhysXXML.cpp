@@ -2145,7 +2145,7 @@ namespace COLLADAMaya
 
         bool PhysXDoc::validate()
         {
-            // PhysX plugin sets a name to each objects based on Maya node name (not full DagPath).
+            // PhysX plugin sets a name to each object based on Maya node name (not full DagPath).
             // If 2 nodes have the same name then we can't find corresponding PhysX object in the XML file.
             // A fix for this would be to set PhysX object name to node full DagPath (in PhysX plugin source code).
 
@@ -2157,6 +2157,18 @@ namespace COLLADAMaya
                         return false;
                     }
                 }
+                
+                // Also check for duplicated shape name
+                for (size_t si = 0; si < physX30Collection.rigidDynamics[i].shapes.shapes.size(); ++si) {
+                    for (size_t sj = 0; sj < physX30Collection.rigidDynamics[i].shapes.shapes.size(); ++sj) {
+                        if (si !=  sj &&
+                            physX30Collection.rigidDynamics[i].shapes.shapes[si].name.name ==
+                            physX30Collection.rigidDynamics[i].shapes.shapes[sj].name.name) {
+                            MGlobal::displayError((String("Duplicated shape name: ") + physX30Collection.rigidDynamics[i].shapes.shapes[si].name.name).c_str());
+                            return false;
+                        }
+                    }
+                }
             }
 
             for (size_t i = 0; i < physX30Collection.rigidStatics.size(); ++i) {
@@ -2165,6 +2177,18 @@ namespace COLLADAMaya
                         physX30Collection.rigidStatics[i].name.name == physX30Collection.rigidStatics[j].name.name) {
                         MGlobal::displayError((String("Duplicated static rigid body name: ") + physX30Collection.rigidStatics[i].name.name).c_str());
                         return false;
+                    }
+                }
+                
+                // Also check for duplicated shape name
+                for (size_t si = 0; si < physX30Collection.rigidStatics[i].shapes.shapes.size(); ++si) {
+                    for (size_t sj = 0; sj < physX30Collection.rigidStatics[i].shapes.shapes.size(); ++sj) {
+                        if (si !=  sj &&
+                            physX30Collection.rigidStatics[i].shapes.shapes[si].name.name ==
+                            physX30Collection.rigidStatics[i].shapes.shapes[sj].name.name) {
+                            MGlobal::displayError((String("Duplicated shape name: ") + physX30Collection.rigidStatics[i].shapes.shapes[si].name.name).c_str());
+                            return false;
+                        }
                     }
                 }
             }
