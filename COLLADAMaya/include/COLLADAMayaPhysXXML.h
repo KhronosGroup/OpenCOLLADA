@@ -982,6 +982,7 @@ namespace COLLADAMaya
         {
             PhysXDoc(xmlDocPtr xml);
             PhysX30Collection physX30Collection;
+            bool validate();
 
             PxMaterial* findMaterial(int ref);
             PxMaterial* findMaterial(const String& bodyName, const String& shapeName);

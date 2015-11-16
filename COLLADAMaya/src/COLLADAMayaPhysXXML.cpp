@@ -2141,7 +2141,48 @@ namespace COLLADAMaya
 
         PhysXDoc::PhysXDoc(xmlDocPtr xml)
             : physX30Collection(FindChild(xml, Strings::PhysX30Collection))
-        {}
+        {
+            // Validate tree:
+            // PhysX plugin sets a name to each objects based on Maya node name (not full DagPath).
+            // If 2 nodes have the same name then we can't find corresponding PhysX object in the XML file.
+            // A fix for this would be to set PhysX object name to node full DagPath (in PhysX plugin source code).
+            validate();
+        }
+
+        bool PhysXDoc::validate()
+        {
+            for (size_t i = 0; i < physX30Collection.rigidDynamics.size(); ++i) {
+                for (size_t j = 0; j < physX30Collection.rigidDynamics.size(); ++j) {
+                    if (i != j &&
+                        physX30Collection.rigidDynamics[i].name.name == physX30Collection.rigidDynamics[j].name.name) {
+                        MGlobal::displayError((String("Duplicated dynamic rigid body name: ") + physX30Collection.rigidDynamics[i].name.name).c_str());
+                        return false;
+                    }
+                }
+            }
+
+            for (size_t i = 0; i < physX30Collection.rigidStatics.size(); ++i) {
+                for (size_t j = 0; j < physX30Collection.rigidStatics.size(); ++j) {
+                    if (i != j &&
+                        physX30Collection.rigidStatics[i].name.name == physX30Collection.rigidStatics[j].name.name) {
+                        MGlobal::displayError((String("Duplicated static rigid body name: ") + physX30Collection.rigidStatics[i].name.name).c_str());
+                        return false;
+                    }
+                }
+            }
+
+            for (size_t i = 0; i < physX30Collection.D6Joints.size(); ++i) {
+                for (size_t j = 0; j < physX30Collection.D6Joints.size(); ++j) {
+                    if (i != j &&
+                        physX30Collection.D6Joints[i].name.name == physX30Collection.D6Joints[j].name.name) {
+                        MGlobal::displayError((String("Duplicated constraint name: ") + physX30Collection.D6Joints[i].name.name).c_str());
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
 
         PxMaterial* PhysXDoc::findMaterial(int ref)
         {

@@ -2958,6 +2958,11 @@ namespace COLLADAMaya
         // Init our PhysX xml tree
         mPhysXDoc = xml;
 
+        // Check for duplicated names
+        if (!mPhysXDoc->validate()) {
+            return false;
+        }
+
         xmlCleanupParser();
 
         return true;
