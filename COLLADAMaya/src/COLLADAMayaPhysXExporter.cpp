@@ -38,12 +38,6 @@
 #include <maya/MString.h>
 #include <maya/MTime.h>
 
-//#if COLLADAMaya_PLATFORM == COLLADAMaya_PLATFORM_APPLE
-//#include <mach/mach_vm.h>
-//#elif COLLADAMaya_PLATFORM == COLLADAMaya_PLATFORM_WIN32
-//#include <Windows.h>
-//#endif
-
 double infinite()
 {
     union ieee754 {
@@ -618,140 +612,6 @@ namespace COLLADAMaya
         PhysXExporter::GetPluggedObject(shape, ATTR_IN_MESH, mesh);
     }
 
-//    bool IsMemoryReadable(const void* address, size_t size)
-//    {
-//#if COLLADAMaya_PLATFORM == COLLADAMaya_PLATFORM_WIN32
-//        MEMORY_BASIC_INFORMATION memoryInfo = { 0 };
-//        SIZE_T result = VirtualQuery(address, &memoryInfo, sizeof(MEMORY_BASIC_INFORMATION));
-//        if (result == 0) {
-//            return false;
-//        }
-//
-//        if (memoryInfo.State != MEM_COMMIT) {
-//            return false;
-//        }
-//
-//        if (memoryInfo.Protect == PAGE_EXECUTE ||
-//            memoryInfo.Protect == PAGE_NOACCESS) {
-//            return false;
-//        }
-//
-//        const char* blockStart = reinterpret_cast<const char*>(address);
-//        const char* blockEnd = blockStart + size;
-//        const char* pageStart = reinterpret_cast<const char*>(memoryInfo.BaseAddress);
-//        const char* pageEnd = pageStart + memoryInfo.RegionSize;
-//
-//        if (blockEnd > pageEnd) {
-//            return IsMemoryReadable(pageEnd, size - (pageEnd - blockStart));
-//        }
-//
-//        return true;
-//#elif COLLADAMaya_PLATFORM == COLLADAMaya_PLATFORM_APPLE
-//        vm_map_t target_task = current_task();
-//        mach_vm_address_t pageAddress = reinterpret_cast<size_t>(address);
-//        mach_vm_size_t regionSize = 0;
-//        vm_region_basic_info_data_64_t regionBasicInfo;
-//        mach_msg_type_number_t regionBasicInfoCount = sizeof(vm_region_basic_info_data_64_t);
-//        mach_port_t object_name;
-//
-//        kern_return_t ret = mach_vm_region(target_task,
-//                             &pageAddress,
-//                             &regionSize,
-//                             VM_REGION_BASIC_INFO,
-//                             (vm_region_info_t)&regionBasicInfo,
-//                             &regionBasicInfoCount,
-//                             &object_name);
-//        
-//        if (ret != KERN_SUCCESS || regionSize == 0)
-//        {
-//            return false;
-//        }
-//        
-//        if (!(regionBasicInfo.protection & VM_PROT_READ))
-//        {
-//            return false;
-//        }
-//        
-//        const char* blockStart = reinterpret_cast<const char*>(address);
-//        const char* blockEnd = blockStart + size;
-//        const char* pageStart = reinterpret_cast<const char*>(pageAddress);
-//        const char* pageEnd = pageStart + regionSize;
-//        
-//        if (blockEnd > pageEnd) {
-//            return IsMemoryReadable(pageEnd, size - (pageEnd - blockStart));
-//        }
-//        
-//        return true;
-//#elif COLLADAMaya_PLATFORM == COLLADAMaya_PLATFORM_LINUX
-//        // TODO test
-//        std::ifstream maps("/proc/self/maps");
-//        if (!maps.is_open()) {
-//            return false;
-//        }
-//
-//        std::string line;
-//
-//        // Skip first line
-//        std::getline(maps, line);
-//
-//        while (std::getline(maps, line))
-//        {
-//            if (line.length() > 0)
-//            {
-//                std::istringstream sline(line);
-//
-//                std::string address;
-//                std::getline(sline, address, ' ');
-//
-//                std::string perms;
-//                std::getline(sline, perms, ' ');
-//
-//                std::istringstream saddress(address);
-//
-//                std::string start;
-//                std::getline(saddress, start, '-');
-//
-//                std::string end;
-//                std::getline(saddress, end);
-//
-//                size_t istart = 0;
-//                std::istringstream sstart(start);
-//                sstart >> std::hex >> istart;
-//
-//                size_t iend = 0;
-//                std::istringstream send(end);
-//                send >> std::hex >> iend;
-//
-//                bool readable = false;
-//                if (perms.length() > 0) {
-//                    readable = (perms[0] == 'r');
-//                }
-//
-//                const char* blockStart = reinterpret_cast<const char*>(address);
-//                const char* blockEnd = reinterpret_cast<const char*>(address) + size;
-//                const char* pageStart = reinterpret_cast<const char*>(istart);
-//                const char* pageEnd = reinterpret_cast<const char*>(iend);
-//
-//                if (blockStart >= pageStart && blockStart < pageEnd)
-//                {
-//                    if (!readable)
-//                    {
-//                        return false;
-//                    }
-//                    else if (blockEnd > pageEnd)
-//                    {
-//                        return IsMemoryReadable(pageEnd, size - (pageEnd - blockStart));
-//                    }
-//                    return true;
-//                }
-//            }
-//        }
-//        return false;
-//#else
-//#error not implemented
-//#endif
-//    }
-
     PhysXXML::PxMaterial* PhysXExporter::findPxMaterial(const MObject& rigidBody)
     {
         int dummy = 0;
@@ -913,34 +773,6 @@ namespace COLLADAMaya
         if (shapeTransformNode.parentCount() == 0) return;
         rigidBody = shapeTransformNode.parent(0);
     }
-
-    //bool PhysXShape::GetLocalPose(const MObject& shape, MMatrix& localPose)
-    //{
-    //    //// Local pose is not accessible with Maya API. It is hidden in PhysX plugin.
-    //    //// It appears shape local pose is located at offset 1248 (0x4E0) of PhysX shape MPxNode object.
-    //    //MObject pluginObject = MFnPlugin::findPlugin("physx");
-    //    //MFnPlugin fnPlugin(pluginObject);
-    //    //MString version = fnPlugin.version();
-    //    //size_t offset = PhysXExporter::GetLocalPoseOffset(version.asChar());
-    //    //if (offset == 0) {
-    //    //    return false;
-    //    //}
-    //    //
-    //    //MFnDependencyNode shapeNode(shape);
-    //    //MPxNode* pxNode = shapeNode.userNode();
-
-    //    //const MMatrix* localPoseAddress = reinterpret_cast<const MMatrix*>((reinterpret_cast<const char*>(pxNode) + offset));
-
-    //    //// Be sure memory is readable to avoid any crash.
-    //    //if (!IsMemoryReadable(localPoseAddress, sizeof(MMatrix))) {
-    //    //    return false;
-    //    //}
-
-    //    //localPose = *reinterpret_cast<const MMatrix*>((reinterpret_cast<const char*>(pxNode) + offset));
-
-    //    //return true;
-    //    return false;
-    //}
 
     class Dynamic : public Element
     {
@@ -1268,18 +1100,6 @@ namespace COLLADAMaya
         }
 
     private:
-        //void exportLocalPose(const MObject& shape)
-        //{
-        //    // Export shape local pose as rotation quaternion + translation vector
-        //    MMatrix localPose = MMatrix::identity;
-        //    if (PhysXShape::GetLocalPose(shape, localPose)) {
-        //        MTransformationMatrix localPoseTM(localPose);
-        //        MQuaternion rotation = localPoseTM.rotation();
-        //        MVector translation = localPoseTM.getTranslation(MSpace::kTransform);
-        //        LocalPose e(getPhysXExporter(), rotation, translation);
-        //    }
-        //}
-
         static const std::set<MString, MStringComp>& GetAttributes()
         {
             if (mAttributes.size() == 0)
@@ -2922,7 +2742,6 @@ namespace COLLADAMaya
     String PhysXExporter::mDefaultPhysicsSceneId = "collada_physics_scene";
     String PhysXExporter::mProfile = "OpenCOLLADAMayaPhysX";
     String PhysXExporter::mProfileXML = "OpenCOLLADAMayaPhysXXML";
-    //std::map<String, size_t> PhysXExporter::mLocalPoseOffsets;
 
     PhysXExporter::PhysXExporter(StreamWriter& streamWriter, DocumentExporter& documentExporter)
         : mStreamWriter(streamWriter)
@@ -3111,8 +2930,8 @@ namespace COLLADAMaya
         // Set .xml extension
         filePath.replace(extPos, filePath.length() - extPos, ".xml");
 
-        // TODO uncomment
-        //AutoDeleteFile autoDeleteFile(filePath);
+        // delete .xml file when we are done with it.
+        AutoDeleteFile autoDeleteFile(filePath);
 
         // Read .xml file
 
@@ -3161,30 +2980,6 @@ namespace COLLADAMaya
             MGlobal::displayError("Can't generate PhysX XML data. PhysX will not be exported.");
             return false;
         }
-
-        /*
-        // TODO check required apiVersion?
-        // "201500"
-        //MString apiVersion = fnPlugin.apiVersion();
-
-        // Initialize local pose offsets map
-        if (mLocalPoseOffsets.size() == 0) {
-            // The code is tested with the following versions of PhysX plugin:
-            mLocalPoseOffsets["PhysxForMaya (3.3.10709.02272) , compiled 7/9/2015 2:27:07 AM"] = 0x4e0;
-        }
-
-        MString version = fnPlugin.version();
-            
-        std::map<std::string, size_t>::const_iterator itOffset = mLocalPoseOffsets.find(version.asChar());
-        if (itOffset == mLocalPoseOffsets.end()) {
-            MGlobal::displayWarning("PhysX plugin version not supported: " + version);
-            MGlobal::displayInfo("Shape local pose won't be exported.");
-            MGlobal::displayInfo("Supported versions:");
-            for (std::map<std::string, size_t>::const_iterator it = mLocalPoseOffsets.begin(); it != mLocalPoseOffsets.end(); ++it) {
-                MGlobal::displayInfo(it->first.c_str());
-            }
-        }
-        */
 
         bool hasPhysicsScene = false;
 
@@ -3401,18 +3196,6 @@ namespace COLLADAMaya
     {
         return mProfileXML;
     }
-
-    //size_t PhysXExporter::GetLocalPoseOffset(const String& physxPluginVersion)
-    //{
-    //    std::map<String, size_t>::const_iterator it = mLocalPoseOffsets.find(physxPluginVersion);
-    //    if (it == mLocalPoseOffsets.end()) {
-    //        return 0;
-    //        
-    //        // Try "PhysxForMaya (3.3.10709.02272) , compiled 7/9/2015 2:27:07 AM" offset.
-    //        //it = mLocalPoseOffsets.find("PhysxForMaya (3.3.10709.02272) , compiled 7/9/2015 2:27:07 AM");
-    //    }
-    //    return it->second;
-    //}
 
     const String & PhysXExporter::findColladaId(const String & mayaId)
     {

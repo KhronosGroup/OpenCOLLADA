@@ -56,10 +56,9 @@ namespace COLLADAMaya
         static void GetType(const MObject & shape, MString & type);
         static void GetInMesh(const MObject & shape, MObject & mesh);
         static void GetConnectedInMesh(const MObject & shape, MObject & mesh);
-        //static void GetLocalPose(const MObject& shape, MMatrix& localPose);
     };
 
-	class PhysXExporter// : public COLLADASW::LibraryPhysicsModels
+	class PhysXExporter
     {
     public:
         PhysXExporter(COLLADASW::StreamWriter& streamWriter, DocumentExporter& documentExporter);
@@ -121,7 +120,6 @@ namespace COLLADAMaya
         static const String& GetDefaultPhysicsSceneId();
         static const String& GetProfile();
         static const String& GetProfileXML();
-        //static size_t GetLocalPoseOffset(const String& physxPluginVersion);
 
         enum Filter
         {
@@ -177,7 +175,6 @@ namespace COLLADAMaya
         static String mDefaultPhysicsSceneId;
         static String mProfile;
         static String mProfileXML;
-        //static std::map<String, size_t> mLocalPoseOffsets;
     };
 }
 
