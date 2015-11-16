@@ -2141,16 +2141,14 @@ namespace COLLADAMaya
 
         PhysXDoc::PhysXDoc(xmlDocPtr xml)
             : physX30Collection(FindChild(xml, Strings::PhysX30Collection))
-        {
-            // Validate tree:
-            // PhysX plugin sets a name to each objects based on Maya node name (not full DagPath).
-            // If 2 nodes have the same name then we can't find corresponding PhysX object in the XML file.
-            // A fix for this would be to set PhysX object name to node full DagPath (in PhysX plugin source code).
-            validate();
-        }
+        {}
 
         bool PhysXDoc::validate()
         {
+            // PhysX plugin sets a name to each objects based on Maya node name (not full DagPath).
+            // If 2 nodes have the same name then we can't find corresponding PhysX object in the XML file.
+            // A fix for this would be to set PhysX object name to node full DagPath (in PhysX plugin source code).
+
             for (size_t i = 0; i < physX30Collection.rigidDynamics.size(); ++i) {
                 for (size_t j = 0; j < physX30Collection.rigidDynamics.size(); ++j) {
                     if (i != j &&
