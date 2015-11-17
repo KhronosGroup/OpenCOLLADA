@@ -118,6 +118,7 @@ namespace COLLADAMaya
 
         static const String& GetDefaultPhysicsModelId();
         static const String& GetDefaultPhysicsSceneId();
+        static const String& GetDefaultInstancePhysicsModelSid();
         static const String& GetProfile();
         static const String& GetProfileXML();
 
@@ -173,6 +174,7 @@ namespace COLLADAMaya
 
         static String mDefaultPhysicsModelId;
         static String mDefaultPhysicsSceneId;
+        static String mDefaultInstancePhysicsModelSid;
         static String mProfile;
         static String mProfileXML;
     };
