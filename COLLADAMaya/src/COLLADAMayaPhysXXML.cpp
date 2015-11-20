@@ -36,6 +36,7 @@ namespace COLLADAMaya
             const String BounceThreshold = "BounceThreshold";
             const String BreakForce = "BreakForce";
             const String CMassLocalPose = "CMassLocalPose";
+            const String ConstraintFlags = "ConstraintFlags";
             const String ContactDistance = "ContactDistance";
             const String ContactOffset = "ContactOffset";
             const String ContactReportThreshold = "ContactReportThreshold";
@@ -1494,6 +1495,18 @@ namespace COLLADAMaya
             sw.closeElement();
         }
 
+        ConstraintFlags::ConstraintFlags(xmlNode* node)
+        {
+            GetContent(node, flags);
+        }
+        
+        void ConstraintFlags::exportElement(COLLADASW::StreamWriter& sw)
+        {
+            sw.openElement(Strings::ConstraintFlags);
+            sw.appendValues(flags);
+            sw.closeElement();
+        }
+
         InvMassScale0::InvMassScale0(xmlNode* node)
             : invMassScale0(0.0)
         {
@@ -1959,14 +1972,13 @@ namespace COLLADAMaya
 
         DrivePosition::DrivePosition(xmlNode* node)
         {
-            GetContent(node, rotation);
-            MVector translation;
+            GetContent(node, rotation, translation);
         }
 
         void DrivePosition::exportElement(StreamWriter& sw)
         {
             sw.openElement(Strings::DrivePosition);
-            sw.appendValues(&translation.x, 3);
+            sw.appendValues(&rotation.x, 7);
             sw.closeElement();
         }
 

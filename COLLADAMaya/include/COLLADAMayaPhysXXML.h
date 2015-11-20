@@ -635,6 +635,13 @@ namespace COLLADAMaya
             Torque torque;
         };
 
+        struct ConstraintFlags
+        {
+            ConstraintFlags(xmlNode* node);
+            void exportElement(COLLADASW::StreamWriter& sw);
+            String flags;
+        };
+
         struct InvMassScale0
         {
             InvMassScale0(xmlNode* node);
