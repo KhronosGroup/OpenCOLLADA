@@ -873,28 +873,15 @@ namespace COLLADAMaya
         }
     };
 
-    class PhysicsMaterial : public Element
+    class PhysicsMaterialTechniqueCommon : public Element
     {
     public:
-        PhysicsMaterial(PhysXExporter& exporter, const MObject & rigidBody)
-            : Element(exporter, CSWC::CSW_ELEMENT_PHYSICS_MATERIAL)
+        PhysicsMaterialTechniqueCommon(PhysXExporter& exporter, const MObject& rigidBody)
+            : Element(exporter, CSWC::CSW_ELEMENT_TECHNIQUE_COMMON)
         {
-            MDagPath rigidBodyDagPath;
-            MDagPath::getAPathTo(rigidBody, rigidBodyDagPath);
-
-            bool isRigidBodyLocal = !MFnDagNode(rigidBodyDagPath).isFromReferencedFile();
-            if (ExportOptions::exportXRefs() && ExportOptions::dereferenceXRefs()) {
-                isRigidBodyLocal = true;
-            }
-            String rigidBodyId = getPhysXExporter().generateColladaId(rigidBodyDagPath, isRigidBodyLocal);
-            String materialId = rigidBodyId + "_material";
-
-            getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_ID, materialId);
-
             exportRestitution(rigidBody);
             exportDynamicFriction(rigidBody);
             exportStaticFriction(rigidBody);
-            exportExtra(rigidBody);
         }
 
     private:
@@ -926,6 +913,35 @@ namespace COLLADAMaya
             {
                 StaticFriction e(getPhysXExporter(), staticFriction);
             }
+        }
+    };
+
+    class PhysicsMaterial : public Element
+    {
+    public:
+        PhysicsMaterial(PhysXExporter& exporter, const MObject & rigidBody)
+            : Element(exporter, CSWC::CSW_ELEMENT_PHYSICS_MATERIAL)
+        {
+            MDagPath rigidBodyDagPath;
+            MDagPath::getAPathTo(rigidBody, rigidBodyDagPath);
+
+            bool isRigidBodyLocal = !MFnDagNode(rigidBodyDagPath).isFromReferencedFile();
+            if (ExportOptions::exportXRefs() && ExportOptions::dereferenceXRefs()) {
+                isRigidBodyLocal = true;
+            }
+            String rigidBodyId = getPhysXExporter().generateColladaId(rigidBodyDagPath, isRigidBodyLocal);
+            String materialId = rigidBodyId + "_material";
+
+            getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_ID, materialId);
+
+            exportTechniqueCommon(rigidBody);
+            exportExtra(rigidBody);
+        }
+
+    private:
+        void exportTechniqueCommon(const MObject& rigidBody)
+        {
+            PhysicsMaterialTechniqueCommon e(getPhysXExporter(), rigidBody);
         }
 
         void exportExtra(const MObject& rigidBody)
