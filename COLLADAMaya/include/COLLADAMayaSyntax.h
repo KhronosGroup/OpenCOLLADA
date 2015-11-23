@@ -379,7 +379,7 @@ namespace COLLADAMaya
     static const char* ATTR_CONTACT_SHELL_OVERRIDE                  = "contactShellOverride";
     static const char* ATTR_CONTACT_SHELL_DEPTH                     = "contactShellDepth";
     static const char* ATTR_CONTACT_SHELL_OFFSET                    = "contactShellOffset";
-    static const char* ATTR_SLEEP_THRESHOLDS_OVERRIDE               = "sleepThesholdsOverride";
+    static const char* ATTR_SLEEP_THRESHOLDS_OVERRIDE               = "sleepThresholdsOverride";
     static const char* ATTR_SLEEP_ENERGY_THRESHOLD                  = "sleepEnergyThreshold";
     static const char* ATTR_LINEAR_DAMPING                          = "linearDamping";
     static const char* ATTR_ANGULAR_DAMPING                         = "angularDamping";
