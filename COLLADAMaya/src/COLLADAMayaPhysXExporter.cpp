@@ -2975,26 +2975,38 @@ namespace COLLADAMaya
             exportCommand << " -ea";
         }
 
-        // Set file extension
+        // Generate temp file name
         size_t extPos = filePath.find_last_of('.');
-        // We set .pxproj as extension but plugin will export a .xml file
-        filePath.replace(extPos, filePath.length() - extPos, ".pxproj");
-        exportCommand << " \"" << filePath << "\";";
+        String filePathNoExt = filePath.substr(0, extPos);
+        String tempFilePath = filePathNoExt + ".xml";
+        std::ifstream tempFile(tempFilePath);
+        int index = 0;
+        while (tempFile.is_open()) {
+            std::stringstream s;
+            s << index++;
+            tempFilePath = filePathNoExt + s.str() + ".xml";
+            tempFile.close();
+            tempFile.open(tempFilePath.c_str());
+        }
+
+        // Set .pxproj as extension but plugin will export a .xml file
+        String pxProjPath = tempFilePath;
+        extPos = pxProjPath.find_last_of('.');
+        pxProjPath.replace(extPos, pxProjPath.length() - extPos, ".pxproj");
+
+        exportCommand << " \"" << pxProjPath << "\";";
         status = MGlobal::executeCommand(exportCommand.str().c_str());
         if (!status) return false;
 
-        // Set .xml extension
-        filePath.replace(extPos, filePath.length() - extPos, ".xml");
-
         // delete .xml file when we are done with it.
-        AutoDeleteFile autoDeleteFile(filePath);
+        AutoDeleteFile autoDeleteFile(tempFilePath);
 
         // Read .xml file
 
         // Is this necessary?
         LIBXML_TEST_VERSION;
 
-        std::ifstream file(filePath.c_str());
+        std::ifstream file(tempFilePath.c_str());
         if (!file.is_open()) {
             return false;
         }
