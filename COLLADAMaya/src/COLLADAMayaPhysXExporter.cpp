@@ -2979,7 +2979,7 @@ namespace COLLADAMaya
         size_t extPos = filePath.find_last_of('.');
         String filePathNoExt = filePath.substr(0, extPos);
         String tempFilePath = filePathNoExt + ".xml";
-        std::ifstream tempFile(tempFilePath);
+        std::ifstream tempFile(tempFilePath.c_str());
         int index = 0;
         while (tempFile.is_open()) {
             std::stringstream s;
