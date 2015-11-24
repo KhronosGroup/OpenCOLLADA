@@ -178,6 +178,13 @@ namespace COLLADAMaya
             String actorFlags;
         };
 
+        struct RigidBodyFlags
+        {
+            RigidBodyFlags(xmlNode* node);
+            void exportElement(COLLADASW::StreamWriter& sw);
+            String rigidBodyFlags;
+        };
+
         struct DominanceGroup
         {
             DominanceGroup(xmlNode* node);
@@ -555,6 +562,7 @@ namespace COLLADAMaya
             MassSpaceInertiaTensor massSpaceInertiaTensor;
             LinearVelocity linearVelocity;
             AngularVelocity angularVelocity;
+            RigidBodyFlags rigidBodyFlags;
             MinCCDAdvanceCoefficient minCCDAdvanceCoefficient;
             MaxDepenetrationVelocity maxDepenetrationVelocity;
             LinearDamping linearDamping;

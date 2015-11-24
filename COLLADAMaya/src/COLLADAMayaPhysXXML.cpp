@@ -111,6 +111,7 @@ namespace COLLADAMaya
             const String Restitution = "Restitution";
             const String RestitutionCombineMode = "RestitutionCombineMode";
             const String RestOffset = "RestOffset";
+            const String RigidBodyFlags = "RigidBodyFlags";
             const String Rotation = "Rotation";
             const String Scale = "Scale";
             const String Shapes = "Shapes";
@@ -660,6 +661,18 @@ namespace COLLADAMaya
         {
             sw.openElement(Strings::ActorFlags);
             sw.appendValues(actorFlags);
+            sw.closeElement();
+        }
+
+        RigidBodyFlags::RigidBodyFlags(xmlNode* node)
+        {
+            GetContent(node, rigidBodyFlags);
+        }
+
+        void RigidBodyFlags::exportElement(StreamWriter& sw)
+        {
+            sw.openElement(Strings::RigidBodyFlags);
+            sw.appendValues(rigidBodyFlags);
             sw.closeElement();
         }
 
@@ -1333,6 +1346,7 @@ namespace COLLADAMaya
             , maxDepenetrationVelocity(FindChild(node, Strings::MaxDepenetrationVelocity))
             , linearDamping(FindChild(node, Strings::LinearDamping))
             , angularDamping(FindChild(node, Strings::AngularDamping))
+            , rigidBodyFlags(FindChild(node, Strings::RigidBodyFlags))
             , maxAngularVelocity(FindChild(node, Strings::MaxAngularVelocity))
             , sleepThreshold(FindChild(node, Strings::SleepThreshold))
             , stabilizationThreshold(FindChild(node, Strings::StabilizationThreshold))
@@ -1356,6 +1370,7 @@ namespace COLLADAMaya
             massSpaceInertiaTensor.exportElement(sw);
             linearVelocity.exportElement(sw);
             angularVelocity.exportElement(sw);
+            rigidBodyFlags.exportElement(sw);
             minCCDAdvanceCoefficient.exportElement(sw);
             maxDepenetrationVelocity.exportElement(sw);
             linearDamping.exportElement(sw);
