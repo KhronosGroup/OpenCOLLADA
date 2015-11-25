@@ -57,17 +57,17 @@ namespace COLLADAMaya
         static int   getChildPlugIndex ( const MPlug& parent, const MString& name, MStatus* rc=NULL ); // Useful for performance reasons when iterating over many plugs
 
         // Get/set a plug's value
-        static bool   getPlugValue ( const MObject& node, const String attributeName, double &value );
-        static bool   getPlugValue ( const MObject& node, const String attributeName, float &value );
-        static bool   getPlugValue ( const MObject& node, const String attributeName, MEulerRotation& value );
-        static bool   getPlugValue ( const MObject& node, const String attributeName, bool& value );
-        static bool   getPlugValue ( const MObject& node, const String attributeName, int& value );
-        static bool   getPlugValue ( const MObject& node, const String attributeName, MMatrix& value );
-        static bool   getPlugValue ( const MObject& node, const String attributeName, MColor& value );
-        static bool   getPlugValue ( const MObject& node, const String attributeName, MString& value );
-        static bool   getPlugValue ( const MObject& node, const String attributeName, MVector& value );
-        static bool   getPlugValue ( const MObject& node, const String attributeName, int& enumValue, MString& enumName );
-        static bool   getPlugValue ( const MObject& node, const String attributeName, MObject& value );
+        static bool   getPlugValue ( const MObject& node, const String& attributeName, double &value );
+        static bool   getPlugValue ( const MObject& node, const String& attributeName, float &value );
+        static bool   getPlugValue ( const MObject& node, const String& attributeName, MEulerRotation& value );
+        static bool   getPlugValue ( const MObject& node, const String& attributeName, bool& value );
+        static bool   getPlugValue ( const MObject& node, const String& attributeName, int& value );
+        static bool   getPlugValue ( const MObject& node, const String& attributeName, MMatrix& value );
+        static bool   getPlugValue ( const MObject& node, const String& attributeName, MColor& value );
+        static bool   getPlugValue ( const MObject& node, const String& attributeName, MString& value );
+        static bool   getPlugValue ( const MObject& node, const String& attributeName, MVector& value );
+        static bool   getPlugValue ( const MObject& node, const String& attributeName, int& enumValue, MString& enumName );
+        static bool   getPlugValue ( const MObject& node, const String& attributeName, MObject& value );
         static bool   getPlugValue ( const MPlug& plug, bool& value );
         static bool   getPlugValue ( const MPlug& plug, MMatrix& value );
         static bool   getPlugValue ( const MPlug& plug, MColor& value );
@@ -83,7 +83,7 @@ namespace COLLADAMaya
         static bool   getPlugValue ( const MPlug& plug, MVector& value );
         static bool   getPlugValue ( const MPlug& plug, int& enumValue, MString& enumName );
         static bool   getPlugValue ( const MPlug& plug, MObject& value );
-        static void   getPlugValue ( const MObject& node, const String attributeName, MStringArray& output, MStatus* status = NULL );
+        static void   getPlugValue ( const MObject& node, const String& attributeName, MStringArray& output, MStatus* status = NULL );
         static void   getPlugValue ( const MPlug& plug, MStringArray& output, MStatus* status = NULL );
 
         static bool   setPlugValue ( MPlug& plug, const MVector& value );

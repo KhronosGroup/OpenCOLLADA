@@ -81,6 +81,7 @@ namespace COLLADAMaya
         void getShapeLocalPose(const MObject& shape, MMatrix& localPose);
         void getRigidBodyGlobalPose(const MObject& rigidBody, MMatrix& globalPose);
         void getShapeRigidBody(const MObject& shape, MObject& rigidBody);
+        bool getRigidSolver(MObject & rigidSolver);
 
         MStatus getMeshURI(const MObject & mesh, URI & meshURI);
 
@@ -129,6 +130,9 @@ namespace COLLADAMaya
             Reference
         };
         bool sceneHas(SceneElement::Type type, Filter filter = All);
+
+        PhysXXML::PxRigidStatic* findPxRigidStatic(const String& name);
+        PhysXXML::PxMaterial* findPxMaterial(int ref);
 
     private:
         bool generatePhysXXML();

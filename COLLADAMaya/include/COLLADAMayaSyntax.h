@@ -476,6 +476,9 @@ namespace COLLADAMaya
     static const char* CENTERED                                     = "Centered";
     static const char* TARGET_ORIGIN                                = "Target Origin";
     static const String LOCAL_POSE                                  = "localPose";
+    static const String GROUND_PLANE_NAME                           = "groundPlane";
+    static const String ATTR_USE_GROUND_PLANE                       = "useGroundPlane";
+    static const String ATTR_GROUND_PLANE_POSITION                  = "groundPlanePosition";
 
 	static const char* ATTR_ACTIVE									= "active";
 	static const char* ATTR_COLLISION_SHAPE							= "collision_shape";
