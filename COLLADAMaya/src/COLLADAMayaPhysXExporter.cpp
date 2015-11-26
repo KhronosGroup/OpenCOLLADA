@@ -642,39 +642,28 @@ namespace COLLADAMaya
         return mPhysXDoc->findMaterial(ref);
     }
 
-    PhysXXML::PxShape* PhysXExporter::findPxShape(const MObject& shape)
+    PhysXXML::PxShape* PhysXExporter::findPxShape(const MObject& rigidBody, const MObject& shape)
     {
         // Shape node
         MFnDagNode shapeNode(shape);
         MString shapeName = shapeNode.name();
 
-        // Shape transform node
-        if (shapeNode.parentCount() == 0) return NULL;
-        MFnDagNode shapeTransformNode(shapeNode.parent(0));
-        
-        // Parent rigid body node
-        if (shapeTransformNode.parentCount() == 0) return NULL;
-        MFnDagNode bodyNode(shapeTransformNode.parent(0));
-        if (bodyNode.typeName() != NX_RIGID_BODY) return NULL;
+        // Rigid body target
+        MObject target;
+        getRigidBodyTarget(rigidBody, target);
+        MFnDagNode targetNode(target);
+        MString targetName = targetNode.name();
 
-        // Rigid body transform node
-        if (bodyNode.parentCount() == 0) return NULL;
-        MFnDagNode bodyTransformNode(bodyNode.parent(0));
-        MString bodyTransformName = bodyTransformNode.name();
-
-        return mPhysXDoc->findShape(bodyTransformName.asChar(), shapeName.asChar());
+        return mPhysXDoc->findShape(targetName.asChar(), shapeName.asChar());
     }
 
     PhysXXML::PxRigidStatic* PhysXExporter::findPxRigidStatic(const MObject& rigidBody)
     {
-        MFnDagNode bodyNode(rigidBody);
-
-        // Rigid body transform node
-        if (bodyNode.parentCount() == 0) return NULL;
-        MFnDagNode bodyTransformNode(bodyNode.parent(0));
-        MString bodyTransformName = bodyTransformNode.name();
-
-        return findPxRigidStatic(bodyTransformName.asChar());
+        MObject target;
+        getRigidBodyTarget(rigidBody, target);
+        MFnDagNode targetNode(target);
+        MString targetName = targetNode.name();
+        return findPxRigidStatic(targetName.asChar());
     }
 
     PhysXXML::PxRigidStatic* PhysXExporter::findPxRigidStatic(const String& name)
@@ -684,14 +673,11 @@ namespace COLLADAMaya
 
     PhysXXML::PxRigidDynamic* PhysXExporter::findPxRigidDynamic(const MObject& rigidBody)
     {
-        MFnDagNode bodyNode(rigidBody);
-
-        // Rigid body transform node
-        if (bodyNode.parentCount() == 0) return NULL;
-        MFnDagNode bodyTransformNode(bodyNode.parent(0));
-        MString bodyTransformName = bodyTransformNode.name();
-
-        return mPhysXDoc->findRigidDynamic(bodyTransformName.asChar());
+        MObject target;
+        getRigidBodyTarget(rigidBody, target);
+        MFnDagNode targetNode(target);
+        MString targetName = targetNode.name();
+        return mPhysXDoc->findRigidDynamic(targetName.asChar());
     }
 
     PhysXXML::PxD6Joint* PhysXExporter::findPxD6Joint(const MObject& rigidConstraint)
@@ -701,9 +687,9 @@ namespace COLLADAMaya
         return mPhysXDoc->findD6Joint(constraintName.asChar());
     }
 
-    void PhysXExporter::getShapeLocalPose(const MObject& shape, MMatrix& localPose)
+    void PhysXExporter::getShapeLocalPose(const MObject& rigidBody, const MObject& shape, MMatrix& localPose)
     {
-        PhysXXML::PxShape* pxShape = findPxShape(shape);
+        PhysXXML::PxShape* pxShape = findPxShape(rigidBody, shape);
         if (!pxShape)
             return;
 
@@ -769,19 +755,17 @@ namespace COLLADAMaya
         globalPose = tm.asMatrix();
     }
 
-    void PhysXExporter::getShapeRigidBody(const MObject& shape, MObject& rigidBody)
+    void PhysXExporter::getRigidBodyTarget(const MObject& rigidBody, MObject& target)
     {
-        // Shape node
-        MFnDagNode shapeNode(shape);
-        MString shapeName = shapeNode.name();
+        target = MObject::kNullObj;
 
-        // Shape transform node
-        if (shapeNode.parentCount() == 0) return;
-        MFnDagNode shapeTransformNode(shapeNode.parent(0));
+        PhysXExporter::GetPluggedObject(rigidBody, ATTR_TARGET, target);
 
-        // Parent rigid body node
-        if (shapeTransformNode.parentCount() == 0) return;
-        rigidBody = shapeTransformNode.parent(0);
+        // If target is null then use rigidBody as target
+        if (target.isNull())
+        {
+            target = rigidBody;
+        }
     }
         
     bool PhysXExporter::getRigidSolver(MObject & rigidSolver)
@@ -1153,7 +1137,7 @@ namespace COLLADAMaya
     class ShapeTechnique : public Element
     {
     public:
-        ShapeTechnique(PhysXExporter& exporter, const MObject& shape, const String & profile)
+        ShapeTechnique(PhysXExporter& exporter, const MObject& rigidBody, const MObject& shape, const String & profile)
             : Element(exporter, CSWC::CSW_ELEMENT_TECHNIQUE)
         {
             getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, profile);
@@ -1162,7 +1146,7 @@ namespace COLLADAMaya
                 exporter.exportAttributes(shape, GetAttributes());
             }
             else if (profile == PhysXExporter::GetProfileXML()) {
-                exporter.exportShapePhysXXML(shape);
+                exporter.exportShapePhysXXML(rigidBody, shape);
             }
         }
 
@@ -1195,24 +1179,24 @@ namespace COLLADAMaya
     class ShapeExtra : public Element
     {
     public:
-        ShapeExtra(PhysXExporter& exporter, const MObject& shape)
+        ShapeExtra(PhysXExporter& exporter, const MObject& rigidBody, const MObject& shape)
             : Element(exporter, CSWC::CSW_ELEMENT_EXTRA)
         {
-            exportProfile(shape, PhysXExporter::GetProfile());
-            exportProfile(shape, PhysXExporter::GetProfileXML());
+            exportProfile(rigidBody, shape, PhysXExporter::GetProfile());
+            exportProfile(rigidBody, shape, PhysXExporter::GetProfileXML());
         }
 
     private:
-        void exportProfile(const MObject& shape, const String& profile)
+        void exportProfile(const MObject& rigidBody, const MObject& shape, const String& profile)
         {
-            ShapeTechnique e(getPhysXExporter(), shape, profile);
+            ShapeTechnique e(getPhysXExporter(), rigidBody, shape, profile);
         }
     };
 
     class Shape : public Element
     {
     public:
-        Shape(PhysXExporter& exporter, const MObject & shape)
+        Shape(PhysXExporter& exporter, const MObject& rigidBody, const MObject & shape)
             : Element(exporter, CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE)
         {
             exportHollow(shape);
@@ -1258,8 +1242,8 @@ namespace COLLADAMaya
                 exportSphere(shape);
             }
 
-            exportRotateTranslate(shape);
-            exportExtra(shape);
+            exportRotateTranslate(rigidBody, shape);
+            exportExtra(rigidBody, shape);
         }
 
     private:
@@ -1332,15 +1316,13 @@ namespace COLLADAMaya
             InstanceGeometry e(getPhysXExporter(), geometryURI);
         }
 
-        void exportRotateTranslate(const MObject & shape)
+        void exportRotateTranslate(const MObject& rigidBody, const MObject & shape)
         {
             // Get shape local pose.
             MMatrix localPose = MMatrix::identity;
-            getPhysXExporter().getShapeLocalPose(shape, localPose);
+            getPhysXExporter().getShapeLocalPose(rigidBody, shape, localPose);
 
             // Rigidbody world pose
-            MObject rigidBody;
-            getPhysXExporter().getShapeRigidBody(shape, rigidBody);
             MMatrix globalPose = MMatrix::identity;
             getPhysXExporter().getRigidBodyGlobalPose(rigidBody, globalPose);
             
@@ -1380,9 +1362,9 @@ namespace COLLADAMaya
             getPhysXExporter().exportTranslation(rotatePivot * -1, ATTR_ROTATE_PIVOT_INVERSE);
         }
 
-        void exportExtra(const MObject & shape)
+        void exportExtra(const MObject& rigidBody, const MObject & shape)
         {
-            ShapeExtra e(getPhysXExporter(), shape);
+            ShapeExtra e(getPhysXExporter(), rigidBody, shape);
         }
     };
 
@@ -1820,7 +1802,7 @@ namespace COLLADAMaya
             {
                 const MObject & shape = physicsShapes[i];
 
-                Shape e(getPhysXExporter(), shape);
+                Shape e(getPhysXExporter(), rigidBody, shape);
             }
         }
     };
@@ -2471,7 +2453,7 @@ namespace COLLADAMaya
                     const MObject & rigidBody = element.getNode();
                     
                     MObject target;
-                    PhysXExporter::GetPluggedObject(rigidBody, ATTR_TARGET, target);
+                    mPhysXExporter.getRigidBodyTarget(rigidBody, target);
                     MDagPath targetDagPath;
                     MDagPath::getAPathTo(target, targetDagPath);
                     SceneElement* targetElement = mPhysXExporter.getDocumentExporter().getSceneGraph()->findElement(targetDagPath);
@@ -3290,9 +3272,9 @@ namespace COLLADAMaya
         }
     }
 
-    void PhysXExporter::exportShapePhysXXML(const MObject& shape)
+    void PhysXExporter::exportShapePhysXXML(const MObject& rigidBody, const MObject& shape)
     {
-        PhysXXML::PxShape* pxShape = findPxShape(shape);
+        PhysXXML::PxShape* pxShape = findPxShape(rigidBody, shape);
         if (pxShape) {
             pxShape->exportElement(mStreamWriter);
         }

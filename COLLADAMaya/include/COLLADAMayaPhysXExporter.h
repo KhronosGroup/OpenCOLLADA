@@ -74,13 +74,13 @@ namespace COLLADAMaya
         void exportRotation(const MEulerRotation & rotation, const String & sid = "");
         void exportAttributes(const MObject & object, const std::set<MString, MStringComp> & attributes);
         void exportMaterialPhysXXML(const MObject& material);
-        void exportShapePhysXXML(const MObject& shape);
+        void exportShapePhysXXML(const MObject& rigidBody, const MObject& shape);
         void exportRigidBodyPhysXXML(const MObject& shape);
         void exportRigidConstraintPhysXXML(const MObject& constraint);
 
-        void getShapeLocalPose(const MObject& shape, MMatrix& localPose);
+        void getShapeLocalPose(const MObject& rigidBody, const MObject& shape, MMatrix& localPose);
         void getRigidBodyGlobalPose(const MObject& rigidBody, MMatrix& globalPose);
-        void getShapeRigidBody(const MObject& shape, MObject& rigidBody);
+        void getRigidBodyTarget(const MObject& rigidBody, MObject& target);
         bool getRigidSolver(MObject & rigidSolver);
 
         MStatus getMeshURI(const MObject & mesh, URI & meshURI);
@@ -137,7 +137,7 @@ namespace COLLADAMaya
     private:
         bool generatePhysXXML();
         PhysXXML::PxMaterial* findPxMaterial(const MObject& rigidBody);
-        PhysXXML::PxShape* findPxShape(const MObject& shape);
+        PhysXXML::PxShape* findPxShape(const MObject& rigidBody, const MObject& shape);
         PhysXXML::PxRigidStatic* findPxRigidStatic(const MObject& rigidBody);
         PhysXXML::PxRigidDynamic* findPxRigidDynamic(const MObject& rigidBody);
         PhysXXML::PxD6Joint* findPxD6Joint(const MObject& rigidConstraint);

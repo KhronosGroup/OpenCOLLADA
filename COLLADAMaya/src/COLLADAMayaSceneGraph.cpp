@@ -371,10 +371,26 @@ namespace COLLADAMaya
         MFnDependencyNode fnDependencyNode(object);
         MString nodeTypeName = fnDependencyNode.typeName();
         if (nodeTypeName == NX_RIGID_SOLVER ||
-            nodeTypeName == NX_RIGID_BODY ||
             nodeTypeName == NX_RIGID_CONSTRAINT ||
             nodeTypeName == NX_SHAPE) {
             return false;
+        }
+
+        // If rigid body has no target then export it as a node
+        if (nodeTypeName == NX_RIGID_BODY)
+        {
+            MObject target = DagHelper::getNodeConnectedTo(object, ATTR_TARGET);
+            if (target.isNull())
+            {
+                isForced = false;
+                isVisible = true;
+                isPhysics = false;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         // If we are not already forcing this node, its children
@@ -389,7 +405,7 @@ namespace COLLADAMaya
 
 		//Search if this node has a child which is a Solver Physics Bullet Node
 		MFnDagNode fnNode(node);
-		for (int i = 0; i < fnNode.childCount(); ++i) 
+		for (unsigned int i = 0; i < fnNode.childCount(); ++i) 
 		{
 			MObject child = fnNode.child(i);
 			MFnDependencyNode shaderNode(child, &status);
