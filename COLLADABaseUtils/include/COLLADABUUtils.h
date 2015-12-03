@@ -177,6 +177,7 @@ namespace COLLADABU
 		static bool directoryExists( const String &pathString );
 
 		static bool copyFile( const String &source, const String &destination );
+        static bool deleteFile(const String &pathString);
 		static bool fileExistsAndIsReadable( const String &pathString );
     };
 }

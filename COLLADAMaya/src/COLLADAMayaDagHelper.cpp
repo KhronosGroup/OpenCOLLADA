@@ -536,7 +536,7 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------
-    bool DagHelper::getPlugValue ( const MObject& node, const String attributeName, double &value )
+    bool DagHelper::getPlugValue ( const MObject& node, const String& attributeName, double &value )
     {
         MStatus status;
         MPlug plug = MFnDependencyNode ( node ).findPlug ( attributeName.c_str(), &status );
@@ -547,7 +547,7 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------
-    bool DagHelper::getPlugValue ( const MObject& node, const String attributeName, float &value )
+    bool DagHelper::getPlugValue ( const MObject& node, const String& attributeName, float &value )
     {
         MStatus status;
         MPlug plug = MFnDependencyNode ( node ).findPlug ( attributeName.c_str(), &status );
@@ -622,7 +622,7 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------
-    bool DagHelper::getPlugValue ( const MObject& node, const String attributeName, MEulerRotation& value )
+    bool DagHelper::getPlugValue ( const MObject& node, const String& attributeName, MEulerRotation& value )
     {
         MStatus status;
         MPlug plug = MFnDependencyNode ( node ).findPlug ( attributeName.c_str(), &status );
@@ -646,7 +646,7 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------
-    bool DagHelper::getPlugValue ( const MObject& node, const String attributeName, bool& value )
+    bool DagHelper::getPlugValue ( const MObject& node, const String& attributeName, bool& value )
     {
         MStatus status;
         MPlug plug = MFnDependencyNode ( node ).findPlug ( attributeName.c_str(), &status );
@@ -669,7 +669,7 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------
-    bool DagHelper::getPlugValue ( const MObject& node, const String attributeName, int& value )
+    bool DagHelper::getPlugValue ( const MObject& node, const String& attributeName, int& value )
     {
         MStatus status;
         MPlug plug = MFnDependencyNode ( node ).findPlug ( attributeName.c_str(), &status );
@@ -682,7 +682,7 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------
-    bool DagHelper::getPlugValue ( const MObject& node, const String attributeName, MMatrix& value )
+    bool DagHelper::getPlugValue ( const MObject& node, const String& attributeName, MMatrix& value )
     {
         MStatus status;
         MPlug plug = MFnDependencyNode ( node ).findPlug ( attributeName.c_str(), &status );
@@ -711,7 +711,7 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------
-    bool DagHelper::getPlugValue ( const MObject& node, const String attributeName, MColor& value )
+    bool DagHelper::getPlugValue ( const MObject& node, const String& attributeName, MColor& value )
     {
         MStatus status;
         MPlug plug = MFnDependencyNode ( node ).findPlug ( attributeName.c_str(), &status );
@@ -749,7 +749,7 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------
-    bool DagHelper::getPlugValue ( const MObject& node, const String attributeName, MString& value )
+    bool DagHelper::getPlugValue ( const MObject& node, const String& attributeName, MString& value )
     {
         MStatus status;
         MPlug plug = MFnDependencyNode ( node ).findPlug ( attributeName.c_str(), &status );
@@ -761,7 +761,7 @@ namespace COLLADAMaya
     //---------------------------------------------------
     void DagHelper::getPlugValue (
         const MObject& node,
-        const String attributeName,
+        const String& attributeName,
         MStringArray& output,
         MStatus* status )
     {
@@ -811,7 +811,7 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------
-    bool DagHelper::getPlugValue ( const MObject& node, const String attributeName, MVector& value )
+    bool DagHelper::getPlugValue ( const MObject& node, const String& attributeName, MVector& value )
     {
         MStatus status;
         MPlug plug = MFnDependencyNode ( node ).findPlug ( attributeName.c_str(), &status );
@@ -821,7 +821,7 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------
-    bool DagHelper::getPlugValue(const MObject& node, const String attributeName, int& enumValue, MString& enumName)
+    bool DagHelper::getPlugValue(const MObject& node, const String& attributeName, int& enumValue, MString& enumName)
     {
         MStatus status;
         MPlug plug = MFnDependencyNode(node).findPlug(attributeName.c_str(), &status);
@@ -830,7 +830,7 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------
-    bool DagHelper::getPlugValue(const MObject& node, const String attributeName, MObject& value)
+    bool DagHelper::getPlugValue(const MObject& node, const String& attributeName, MObject& value)
     {
         MStatus status;
         MPlug plug = MFnDependencyNode(node).findPlug(attributeName.c_str(), &status);

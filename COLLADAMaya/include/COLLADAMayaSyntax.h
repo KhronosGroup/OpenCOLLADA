@@ -379,7 +379,7 @@ namespace COLLADAMaya
     static const char* ATTR_CONTACT_SHELL_OVERRIDE                  = "contactShellOverride";
     static const char* ATTR_CONTACT_SHELL_DEPTH                     = "contactShellDepth";
     static const char* ATTR_CONTACT_SHELL_OFFSET                    = "contactShellOffset";
-    static const char* ATTR_SLEEP_THRESHOLDS_OVERRIDE               = "sleepThesholdsOverride";
+    static const char* ATTR_SLEEP_THRESHOLDS_OVERRIDE               = "sleepThesholdsOverride"; // Missing 'r' comes from a typo in attribute name (PhysX plugin)
     static const char* ATTR_SLEEP_ENERGY_THRESHOLD                  = "sleepEnergyThreshold";
     static const char* ATTR_LINEAR_DAMPING                          = "linearDamping";
     static const char* ATTR_ANGULAR_DAMPING                         = "angularDamping";
@@ -475,6 +475,10 @@ namespace COLLADAMaya
     static const char* FREE                                         = "free";
     static const char* CENTERED                                     = "Centered";
     static const char* TARGET_ORIGIN                                = "Target Origin";
+    static const String LOCAL_POSE                                  = "localPose";
+    static const String GROUND_PLANE_NAME                           = "groundPlane";
+    static const String ATTR_USE_GROUND_PLANE                       = "useGroundPlane";
+    static const String ATTR_GROUND_PLANE_POSITION                  = "groundPlanePosition";
 
 	static const char* ATTR_ACTIVE									= "active";
 	static const char* ATTR_COLLISION_SHAPE							= "collision_shape";

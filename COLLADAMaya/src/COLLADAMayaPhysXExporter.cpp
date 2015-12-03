@@ -27,9 +27,13 @@
 #include "COLLADASWConstants.h"
 #include "Math/COLLADABUMathUtils.h"
 
+#include <libxml/tree.h>
 #include <maya/MAngle.h>
 #include <maya/MDistance.h>
 #include <maya/MFnAttribute.h>
+#define MNoPluginEntry
+#define MNoVersionString
+#include <maya/MFnPlugin.h>
 #include <maya/MFnTransform.h>
 #include <maya/MString.h>
 #include <maya/MTime.h>
@@ -608,6 +612,191 @@ namespace COLLADAMaya
         PhysXExporter::GetPluggedObject(shape, ATTR_IN_MESH, mesh);
     }
 
+    PhysXXML::PxMaterial* PhysXExporter::findPxMaterial(const MObject& rigidBody)
+    {
+        int dummy = 0;
+        MString simulationType;
+        DagHelper::getPlugValue(rigidBody, ATTR_SIMULATION_TYPE, dummy, simulationType);
+
+        PhysXXML::GlobalPose* pGlobalPose = NULL;
+
+        if (simulationType == SIMULATION_TYPE_STATIC) {
+            PhysXXML::PxRigidStatic* pxRigidStatic = findPxRigidStatic(rigidBody);
+            if (pxRigidStatic && pxRigidStatic->shapes.shapes.size() > 0) {
+                // All shapes in a rigid body have the same material
+                return findPxMaterial(pxRigidStatic->shapes.shapes[0].materials.materialRef.materialRef);
+            }
+        }
+        else {
+            PhysXXML::PxRigidDynamic* pxRigidDynamic = findPxRigidDynamic(rigidBody);
+            if (pxRigidDynamic && pxRigidDynamic->shapes.shapes.size() > 0) {
+                // All shapes in a rigid body have the same material
+                return findPxMaterial(pxRigidDynamic->shapes.shapes[0].materials.materialRef.materialRef);
+            }
+        }
+        return NULL;
+    }
+
+    PhysXXML::PxMaterial* PhysXExporter::findPxMaterial(int ref)
+    {
+        return mPhysXDoc->findMaterial(ref);
+    }
+
+    PhysXXML::PxShape* PhysXExporter::findPxShape(const MObject& rigidBody, const MObject& shape)
+    {
+        // Shape node
+        MFnDagNode shapeNode(shape);
+        MString shapeName = shapeNode.name();
+
+        // Rigid body target
+        MObject target;
+        getRigidBodyTarget(rigidBody, target);
+        MFnDagNode targetNode(target);
+        MString targetName = targetNode.name();
+
+        return mPhysXDoc->findShape(targetName.asChar(), shapeName.asChar());
+    }
+
+    PhysXXML::PxRigidStatic* PhysXExporter::findPxRigidStatic(const MObject& rigidBody)
+    {
+        MObject target;
+        getRigidBodyTarget(rigidBody, target);
+        MFnDagNode targetNode(target);
+        MString targetName = targetNode.name();
+        return findPxRigidStatic(targetName.asChar());
+    }
+
+    PhysXXML::PxRigidStatic* PhysXExporter::findPxRigidStatic(const String& name)
+    {
+        return mPhysXDoc->findRigidStatic(name);
+    }
+
+    PhysXXML::PxRigidDynamic* PhysXExporter::findPxRigidDynamic(const MObject& rigidBody)
+    {
+        MObject target;
+        getRigidBodyTarget(rigidBody, target);
+        MFnDagNode targetNode(target);
+        MString targetName = targetNode.name();
+        return mPhysXDoc->findRigidDynamic(targetName.asChar());
+    }
+
+    PhysXXML::PxD6Joint* PhysXExporter::findPxD6Joint(const MObject& rigidConstraint)
+    {
+        MFnDagNode constraintNode(rigidConstraint);
+        MString constraintName = constraintNode.name();
+        return mPhysXDoc->findD6Joint(constraintName.asChar());
+    }
+
+    void PhysXExporter::getShapeLocalPose(const MObject& rigidBody, const MObject& shape, MMatrix& localPose)
+    {
+        PhysXXML::PxShape* pxShape = findPxShape(rigidBody, shape);
+        if (!pxShape)
+            return;
+
+        MTransformationMatrix tm;
+
+        tm.setRotationQuaternion(
+            pxShape->localPose.rotation.x,
+            pxShape->localPose.rotation.y,
+            pxShape->localPose.rotation.z,
+            pxShape->localPose.rotation.w);
+        
+        MVector translation(
+            MDistance::uiToInternal(pxShape->localPose.translation.x),
+            MDistance::uiToInternal(pxShape->localPose.translation.y),
+            MDistance::uiToInternal(pxShape->localPose.translation.z)
+            );
+
+        tm.setTranslation(translation, MSpace::kTransform);
+
+        localPose = tm.asMatrix();
+    }
+
+    void PhysXExporter::getRigidBodyGlobalPose(const MObject& rigidBody, MMatrix& globalPose)
+    {
+        int dummy = 0;
+        MString simulationType;
+        DagHelper::getPlugValue(rigidBody, ATTR_SIMULATION_TYPE, dummy, simulationType);
+
+        PhysXXML::GlobalPose* pGlobalPose = NULL;
+
+        if (simulationType == SIMULATION_TYPE_STATIC) {
+            PhysXXML::PxRigidStatic* pxRigidStatic = findPxRigidStatic(rigidBody);
+            if (pxRigidStatic) {
+                pGlobalPose = &pxRigidStatic->globalPose;
+            }
+        }
+        else {
+            PhysXXML::PxRigidDynamic* pxRigidDynamic = findPxRigidDynamic(rigidBody);
+            if (pxRigidDynamic) {
+                pGlobalPose = &pxRigidDynamic->globalPose;
+            }
+        }
+
+        if (!pGlobalPose)
+            return;
+
+        MTransformationMatrix tm;
+
+        tm.setRotationQuaternion(
+            pGlobalPose->rotation.x,
+            pGlobalPose->rotation.y,
+            pGlobalPose->rotation.z,
+            pGlobalPose->rotation.w);
+
+        MVector translation(
+            MDistance::uiToInternal(pGlobalPose->translation.x),
+            MDistance::uiToInternal(pGlobalPose->translation.y),
+            MDistance::uiToInternal(pGlobalPose->translation.z)
+            );
+
+        tm.setTranslation(translation, MSpace::kTransform);
+
+        globalPose = tm.asMatrix();
+    }
+
+    void PhysXExporter::getRigidBodyTarget(const MObject& rigidBody, MObject& target)
+    {
+        target = MObject::kNullObj;
+
+        PhysXExporter::GetPluggedObject(rigidBody, ATTR_TARGET, target);
+
+        // If target is null then use rigidBody as target
+        if (target.isNull())
+        {
+            target = rigidBody;
+        }
+    }
+        
+    bool PhysXExporter::getRigidSolver(MObject & rigidSolver)
+    {
+        class RigidSolverParser
+        {
+        public:            
+            bool operator()(SceneElement & element)
+            {
+                if (element.getType() == SceneElement::PHYSX_RIGID_SOLVER &&
+                    element.getIsLocal())
+                {
+                    mRigidSolver = element.getNode();
+                    return false;
+                }
+                return true;
+            }
+            
+            const MObject & getRigidSolver()
+            {
+                return mRigidSolver;
+            }
+            
+        private:
+            MObject mRigidSolver;
+        } parser;
+        parseSceneElements(parser);
+        rigidSolver = parser.getRigidSolver();
+        return !rigidSolver.isNull();
+    }
+
     class Dynamic : public Element
     {
     public:
@@ -678,11 +867,40 @@ namespace COLLADAMaya
         }
     };
 
-    class PhysicsMaterial : public Element
+    class PhysicsMaterialTechnique : public Element
     {
     public:
-        PhysicsMaterial(PhysXExporter& exporter, const MObject & rigidBody)
-            : Element(exporter, CSWC::CSW_ELEMENT_PHYSICS_MATERIAL)
+        PhysicsMaterialTechnique(PhysXExporter& exporter, const MObject& rigidBody, const String& profile)
+            : Element(exporter, CSWC::CSW_ELEMENT_TECHNIQUE)
+        {
+            getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, profile);
+            if (profile == PhysXExporter::GetProfileXML()) {
+                exporter.exportMaterialPhysXXML(rigidBody);
+            }
+        }
+    };
+
+    class PhysicsMaterialExtra : public Element
+    {
+    public:
+        PhysicsMaterialExtra(PhysXExporter& exporter, const MObject& rigidBody)
+            : Element(exporter, CSWC::CSW_ELEMENT_EXTRA)
+        {
+            exportTechnique(rigidBody, PhysXExporter::GetProfileXML());
+        }
+
+    private:
+        void exportTechnique(const MObject& rigidBody, const String& profile)
+        {
+            PhysicsMaterialTechnique e(getPhysXExporter(), rigidBody, profile);
+        }
+    };
+
+    class PhysicsMaterialTechniqueCommon : public Element
+    {
+    public:
+        PhysicsMaterialTechniqueCommon(PhysXExporter& exporter, const MObject& rigidBody)
+            : Element(exporter, CSWC::CSW_ELEMENT_TECHNIQUE_COMMON)
         {
             exportRestitution(rigidBody);
             exportDynamicFriction(rigidBody);
@@ -718,6 +936,40 @@ namespace COLLADAMaya
             {
                 StaticFriction e(getPhysXExporter(), staticFriction);
             }
+        }
+    };
+
+    class PhysicsMaterial : public Element
+    {
+    public:
+        PhysicsMaterial(PhysXExporter& exporter, const MObject & rigidBody)
+            : Element(exporter, CSWC::CSW_ELEMENT_PHYSICS_MATERIAL)
+        {
+            MDagPath rigidBodyDagPath;
+            MDagPath::getAPathTo(rigidBody, rigidBodyDagPath);
+
+            bool isRigidBodyLocal = !MFnDagNode(rigidBodyDagPath).isFromReferencedFile();
+            if (ExportOptions::exportXRefs() && ExportOptions::dereferenceXRefs()) {
+                isRigidBodyLocal = true;
+            }
+            String rigidBodyId = getPhysXExporter().generateColladaId(rigidBodyDagPath, isRigidBodyLocal);
+            String materialId = rigidBodyId + "_material";
+
+            getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_ID, materialId);
+
+            exportTechniqueCommon(rigidBody);
+            exportExtra(rigidBody);
+        }
+
+    private:
+        void exportTechniqueCommon(const MObject& rigidBody)
+        {
+            PhysicsMaterialTechniqueCommon e(getPhysXExporter(), rigidBody);
+        }
+
+        void exportExtra(const MObject& rigidBody)
+        {
+            PhysicsMaterialExtra e(getPhysXExporter(), rigidBody);
         }
     };
 
@@ -871,14 +1123,31 @@ namespace COLLADAMaya
         }
     };
 
+    class LocalPose : public Element
+    {
+    public:
+        LocalPose(PhysXExporter& exporter, const MQuaternion& rotation, const MVector& translation)
+            : Element(exporter, LOCAL_POSE)
+        {
+            double localPose[] = { rotation.x, rotation.y, rotation.z, rotation.w, translation.x, translation.y, translation.z };
+            getStreamWriter().appendValues(localPose, sizeof(localPose) / sizeof(localPose[0]));
+        }
+    };
+
     class ShapeTechnique : public Element
     {
     public:
-        ShapeTechnique(PhysXExporter& exporter, const MObject& shape, const String & profile)
+        ShapeTechnique(PhysXExporter& exporter, const MObject& rigidBody, const MObject& shape, const String & profile)
             : Element(exporter, CSWC::CSW_ELEMENT_TECHNIQUE)
         {
             getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, profile);
-            exporter.exportAttributes(shape, GetAttributes());
+            //exportLocalPose(shape);
+            if (profile == PhysXExporter::GetProfile()) {
+                exporter.exportAttributes(shape, GetAttributes());
+            }
+            else if (profile == PhysXExporter::GetProfileXML()) {
+                exporter.exportShapePhysXXML(rigidBody, shape);
+            }
         }
 
     private:
@@ -910,17 +1179,24 @@ namespace COLLADAMaya
     class ShapeExtra : public Element
     {
     public:
-        ShapeExtra(PhysXExporter& exporter, const MObject& shape)
+        ShapeExtra(PhysXExporter& exporter, const MObject& rigidBody, const MObject& shape)
             : Element(exporter, CSWC::CSW_ELEMENT_EXTRA)
         {
-            ShapeTechnique e(exporter, shape, PhysXExporter::GetProfile());
+            exportProfile(rigidBody, shape, PhysXExporter::GetProfile());
+            exportProfile(rigidBody, shape, PhysXExporter::GetProfileXML());
+        }
+
+    private:
+        void exportProfile(const MObject& rigidBody, const MObject& shape, const String& profile)
+        {
+            ShapeTechnique e(getPhysXExporter(), rigidBody, shape, profile);
         }
     };
 
     class Shape : public Element
     {
     public:
-        Shape(PhysXExporter& exporter, const MObject & shape)
+        Shape(PhysXExporter& exporter, const MObject& rigidBody, const MObject & shape)
             : Element(exporter, CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE)
         {
             exportHollow(shape);
@@ -966,8 +1242,8 @@ namespace COLLADAMaya
                 exportSphere(shape);
             }
 
-            exportRotateTranslate(shape);
-            exportExtra(shape);
+            exportRotateTranslate(rigidBody, shape);
+            exportExtra(rigidBody, shape);
         }
 
     private:
@@ -1040,112 +1316,55 @@ namespace COLLADAMaya
             InstanceGeometry e(getPhysXExporter(), geometryURI);
         }
 
-        void exportRotateTranslate(const MObject & shape)
+        void exportRotateTranslate(const MObject& rigidBody, const MObject & shape)
         {
-            MDagPath shapeDagPath;
-            MDagPath::getAPathTo(shape, shapeDagPath);
-            MObject transformObject = shapeDagPath.transform();
-            MFnTransform shapeTransform(transformObject);
-            MTransformationMatrix transform = shapeTransform.transformation();
+            // Get shape local pose.
+            MMatrix localPose = MMatrix::identity;
+            getPhysXExporter().getShapeLocalPose(rigidBody, shape, localPose);
+
+            // Rigidbody world pose
+            MMatrix globalPose = MMatrix::identity;
+            getPhysXExporter().getRigidBodyGlobalPose(rigidBody, globalPose);
+            
+            // Parent world pose
+            MObject parent;
+            MFnDagNode rigidBodyNode(rigidBody);
+            parent = rigidBodyNode.parent(0);
+            MDagPath parentDagPath;
+            MDagPath::getAPathTo(parent, parentDagPath);
+            MMatrix parentGlobalPose = parentDagPath.inclusiveMatrix();
+
+            MMatrix DAEShapeLocalPose = localPose * globalPose * parentGlobalPose.inverse();
+
+            int dummy = 0;
+            MString shapeType;
+            DagHelper::getPlugValue(shape, ATTR_SHAPE_TYPE, dummy, shapeType);
+            if (shapeType == SHAPE_TYPE_CAPSULE) {
+                // PhysX capsules are X axis oriented. COLLADA capsules are Y axis oriented.
+                MTransformationMatrix rotation;
+                rotation.rotateBy(MEulerRotation(0.0, 0.0, -M_PI / 2.0, MEulerRotation::kXYZ), MSpace::kTransform);
+                MMatrix rotationMatrix = rotation.asMatrix();
+                DAEShapeLocalPose = DAEShapeLocalPose * rotationMatrix;
+            }
+
+            MTransformationMatrix transform(DAEShapeLocalPose);
 
             MVector translation = transform.getTranslation(MSpace::kTransform);
             MVector rotatePivotTranslation = transform.rotatePivotTranslation(MSpace::kTransform);
             MPoint rotatePivot = transform.rotatePivot(MSpace::kTransform);
-
-            bool isJoint = false;
-            MEulerRotation jointOrientation, rotation, rotationAxis;
-            if (!transformObject.isNull())
-            {
-                isJoint = DagHelper::getPlugValue(transformObject, ATTR_JOINT_ORIENT, jointOrientation);
-
-                if (!DagHelper::getPlugValue(transformObject, ATTR_ROTATE, rotation))
-                    rotation.setValue(0.0, 0.0, 0.0);
-                if (!DagHelper::getPlugValue(transformObject, ATTR_ROTATE_AXIS, rotationAxis))
-                    rotationAxis.setValue(0.0, 0.0, 0.0);
-
-                rotationAxis.order = jointOrientation.order = MEulerRotation::kXYZ;
-            }
-            else
-            {
-                rotation = transform.eulerRotation();
-            }
-
+            MEulerRotation rotation = transform.eulerRotation();
             rotation.order = static_cast<MEulerRotation::RotationOrder>(static_cast<int>(transform.rotationOrder()) - MTransformationMatrix::kXYZ + MEulerRotation::kXYZ);
 
             getPhysXExporter().exportTranslation(translation, ATTR_TRANSLATE);
             getPhysXExporter().exportTranslation(rotatePivotTranslation, ATTR_ROTATE_PIVOT_TRANSLATION);
             getPhysXExporter().exportTranslation(rotatePivot, ATTR_ROTATE_PIVOT);
-            if (isJoint)
-                getPhysXExporter().exportRotation(jointOrientation, ATTR_JOINT_ORIENT);
             getPhysXExporter().exportRotation(rotation, ATTR_ROTATE);
-            if (isJoint)
-                getPhysXExporter().exportRotation(rotationAxis, ATTR_ROTATE_AXIS);
             getPhysXExporter().exportTranslation(rotatePivot * -1, ATTR_ROTATE_PIVOT_INVERSE);
-
-            // Special case for capsules.
-            // PhysX capsules are not oriented along any particular axis.
-            // Use the 2 extremity spheres to compute orientation.
-            int dummy = 0;
-            MString shapeType;
-            DagHelper::getPlugValue(shape, ATTR_SHAPE_TYPE, dummy, shapeType);
-            if (shapeType == SHAPE_TYPE_CAPSULE) {
-                MVector point1 = MVector::zero;
-                MVector point2 = MVector::zero;
-                DagHelper::getPlugValue(shape, ATTR_POINT_1, point1);
-                DagHelper::getPlugValue(shape, ATTR_POINT_2, point2);
-
-                MVector x(1.0, 0.0, 0.0);
-                MVector y(0.0, 1.0, 0.0);
-                MVector z(0.0, 0.0, 1.0);
-                MVector t(0.0, 0.0, 0.0);
-
-                t = (point1 + point2) / 2.0;
-
-                // COLLADA capsules are oriented along Y axis.
-                y = point2 - point1;
-                if (y.length() > 0.0) {
-                    y.normalize();
-
-                    x = MVector(1.0, 0.0, 0.0);
-                    z = MVector(0.0, 0.0, 1.0);
-
-                    // Check y axis alignment with (1, 0, 0) or (0, 0, 1) to avoid cross product singularity.
-                    double y_dot_x = y * x;
-                    double y_dot_z = y * z;
-
-                    // Choose dot product closer to 0
-                    if (abs(y_dot_x) < abs(y_dot_z)) { // Choose x for first cross product with y
-                        z = x ^ y;
-                        z.normalize();
-
-                        x = y ^ z;
-                        x.normalize();
-                    }
-                    else { // Choose z for first cross product with y
-                        x = y ^ z;
-                        x.normalize();
-
-                        z = x ^ y;
-                        z.normalize();
-                    }
-
-                    double m[4][4] = {
-                        { x.x, x.y, x.z, 0.0 },
-                        { y.x, y.y, y.z, 0.0 },
-                        { z.x, z.y, z.z, 0.0 },
-                        { t.x, t.y, t.z, 1.0 }
-                    };
-                    MMatrix matrix(m);
-                    MTransformationMatrix transform(matrix);
-                    getPhysXExporter().exportTranslation(transform.getTranslation(MSpace::kTransform));
-                    getPhysXExporter().exportRotation(transform.eulerRotation());
-                }
-            }
         }
 
-        void exportExtra(const MObject & shape)
+        void exportExtra(const MObject& rigidBody, const MObject & shape)
         {
-            ShapeExtra e(getPhysXExporter(), shape);
+            ShapeExtra e(getPhysXExporter(), rigidBody, shape);
         }
     };
 
@@ -1583,7 +1802,7 @@ namespace COLLADAMaya
             {
                 const MObject & shape = physicsShapes[i];
 
-                Shape e(getPhysXExporter(), shape);
+                Shape e(getPhysXExporter(), rigidBody, shape);
             }
         }
     };
@@ -1681,7 +1900,12 @@ namespace COLLADAMaya
         {
             getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, profile);
             
-            exporter.exportAttributes(rigidBody, GetAttributes());
+            if (profile == PhysXExporter::GetProfile()) {
+                exporter.exportAttributes(rigidBody, GetAttributes());
+            }
+            else if (profile == PhysXExporter::GetProfileXML()) {
+                exporter.exportRigidBodyPhysXXML(rigidBody);
+            }
         }
 
     private:
@@ -1734,7 +1958,14 @@ namespace COLLADAMaya
         RigidBodyExtra(PhysXExporter& exporter, const MObject & rigidBody)
             : Element(exporter, CSWC::CSW_ELEMENT_EXTRA)
         {
-            RigidBodyTechnique e(getPhysXExporter(), rigidBody, PhysXExporter::GetProfile());
+            exportProfile(rigidBody, PhysXExporter::GetProfile());
+            exportProfile(rigidBody, PhysXExporter::GetProfileXML());
+        }
+
+    private:
+        void exportProfile(const MObject& rigidBody, const String& profile)
+        {
+            RigidBodyTechnique e(getPhysXExporter(), rigidBody, profile);
         }
     };
 
@@ -1921,7 +2152,12 @@ namespace COLLADAMaya
             : Element(exporter, CSWC::CSW_ELEMENT_TECHNIQUE)
         {
             getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, profile);
-            exporter.exportAttributes(rigidConstraint, GetAttributes());
+            if (profile == PhysXExporter::GetProfile()) {
+                exporter.exportAttributes(rigidConstraint, GetAttributes());
+            }
+            else if (profile == PhysXExporter::GetProfileXML()) {
+                exporter.exportRigidConstraintPhysXXML(rigidConstraint);
+            }
         }
 
     private:
@@ -2002,7 +2238,14 @@ namespace COLLADAMaya
         RigidConstraintExtra(PhysXExporter& exporter, const MObject & rigidConstraint)
             : Element(exporter, CSWC::CSW_ELEMENT_EXTRA)
         {
-            RigidConstraintTechnique e(exporter, rigidConstraint, PhysXExporter::GetProfile());
+            exportTechnique(rigidConstraint, PhysXExporter::GetProfile());
+            exportTechnique(rigidConstraint, PhysXExporter::GetProfileXML());
+        }
+
+    private:
+        void exportTechnique(const MObject& rigidConstraint, const String& profile)
+        {
+            RigidConstraintTechnique e(getPhysXExporter(), rigidConstraint, profile);
         }
     };
 
@@ -2102,39 +2345,29 @@ namespace COLLADAMaya
     class InstanceRigidBodyTechniqueCommon : public Element
     {
     public:
-        InstanceRigidBodyTechniqueCommon(PhysXExporter& exporter, const MObject & rigidBody)
+        InstanceRigidBodyTechniqueCommon(PhysXExporter& exporter, const MVector & angularVelocity, const MVector& velocity)
             : Element(exporter, CSWC::CSW_ELEMENT_TECHNIQUE_COMMON)
         {
-            exportAngularVelocity(rigidBody);
-            exportVelocity(rigidBody);
+            exportAngularVelocity(angularVelocity);
+            exportVelocity(velocity);
 
             // Don't export other elements, use rigid_body's ones.
         }
 
     private:
-        void exportAngularVelocity(const MObject & rigidBody)
+        void exportAngularVelocity(const MVector& angularVelocity)
         {
-            MVector initialSpin = MVector::zero;
-            DagHelper::getPlugValue(rigidBody, ATTR_INITIAL_SPIN, initialSpin);
-            initialSpin.x = COLLADABU::Math::Utils::radToDeg(initialSpin.x);
-            initialSpin.y = COLLADABU::Math::Utils::radToDeg(initialSpin.y);
-            initialSpin.z = COLLADABU::Math::Utils::radToDeg(initialSpin.z);
-            if (initialSpin != MVector::zero)
+            if (angularVelocity != MVector::zero)
             {
-                AngularVelocity e(getPhysXExporter(), initialSpin);
+                AngularVelocity e(getPhysXExporter(), angularVelocity);
             }
         }
 
-        void exportVelocity(const MObject & rigidBody)
+        void exportVelocity(const MVector& velocity)
         {
-            MVector initialVelocity = MVector::zero;
-            DagHelper::getPlugValue(rigidBody, ATTR_INITIAL_VELOCITY, initialVelocity);
-            initialVelocity.x = MDistance::internalToUI(initialVelocity.x);
-            initialVelocity.y = MDistance::internalToUI(initialVelocity.y);
-            initialVelocity.z = MDistance::internalToUI(initialVelocity.z);
-            if (initialVelocity != MVector::zero)
+            if (velocity != MVector::zero)
             {
-                Velocity e(getPhysXExporter(), initialVelocity);
+                Velocity e(getPhysXExporter(), velocity);
             }
         }
     };
@@ -2142,38 +2375,59 @@ namespace COLLADAMaya
     class InstanceRigidBody : public Element
     {
     public:
-        InstanceRigidBody(PhysXExporter& exporter, const MObject & rigidBody, const String & bodySid, const URI & targetURI)
+        InstanceRigidBody(PhysXExporter& exporter, const MObject & rigidBody, const String& instanceRigidBodySID, const String & rigidBodySID, const URI & targetURI)
             : Element(exporter, CSWC::CSW_ELEMENT_INSTANCE_RIGID_BODY)
         {
-            getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_BODY, bodySid);
+            getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_SID, instanceRigidBodySID);
+            getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_BODY, rigidBodySID);
             getStreamWriter().appendURIAttribute(CSWC::CSW_ATTRIBUTE_TARGET, targetURI);
 
-            exportTechniqueCommon(rigidBody);
+            MVector initialSpin = MVector::zero;
+            DagHelper::getPlugValue(rigidBody, ATTR_INITIAL_SPIN, initialSpin);
+            initialSpin.x = COLLADABU::Math::Utils::radToDeg(initialSpin.x);
+            initialSpin.y = COLLADABU::Math::Utils::radToDeg(initialSpin.y);
+            initialSpin.z = COLLADABU::Math::Utils::radToDeg(initialSpin.z);
+
+            MVector initialVelocity = MVector::zero;
+            DagHelper::getPlugValue(rigidBody, ATTR_INITIAL_VELOCITY, initialVelocity);
+            initialVelocity.x = MDistance::internalToUI(initialVelocity.x);
+            initialVelocity.y = MDistance::internalToUI(initialVelocity.y);
+            initialVelocity.z = MDistance::internalToUI(initialVelocity.z);
+
+            exportTechniqueCommon(initialSpin, initialVelocity);
         }
 
     private:
-        void exportTechniqueCommon(const MObject & rigidBody)
+        void exportTechniqueCommon(const MVector& angularVelocity, const MVector& velocity)
         {
-            InstanceRigidBodyTechniqueCommon e(getPhysXExporter(), rigidBody);
+            if (angularVelocity != MVector::zero ||
+                velocity != MVector::zero)
+            {
+                InstanceRigidBodyTechniqueCommon e(getPhysXExporter(), angularVelocity, velocity);
+            }
         }
     };
 
     class InstanceRigidConstraint : public Element
     {
     public:
-        InstanceRigidConstraint(PhysXExporter & exporter, const String & sid)
+        InstanceRigidConstraint(PhysXExporter & exporter, const String& instanceConstraintSid, const String & constraintSid)
             : Element(exporter, CSWC::CSW_ELEMENT_INSTANCE_RIGID_CONSTRAINT)
         {
-            getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_CONSTRAINT, sid);
+            getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_SID, instanceConstraintSid);
+            getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_CONSTRAINT, constraintSid);
         }
     };
 
     class InstancePhysicsModel : public Element
     {
     public:
-        InstancePhysicsModel(PhysXExporter& exporter, const URI& uri, bool exportInstanceRigidBodiesAndConstraints = true)
+        InstancePhysicsModel(PhysXExporter& exporter, const String& sid, const URI& uri, bool exportInstanceRigidBodiesAndConstraints = true)
             : Element(exporter, CSWC::CSW_ELEMENT_INSTANCE_PHYSICS_MODEL)
         {
+            if (!sid.empty()) {
+                getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
+            }
             getStreamWriter().appendURIAttribute(CSWC::CSW_ATTRIBUTE_URL, uri);
             if (exportInstanceRigidBodiesAndConstraints)
             {
@@ -2188,6 +2442,7 @@ namespace COLLADAMaya
         public:
             RigidBodyParser(PhysXExporter & exporter)
             : mPhysXExporter(exporter)
+            , mInstanceRigidBodyIndex(0)
             {}
             
             bool operator()(SceneElement & element)
@@ -2198,15 +2453,18 @@ namespace COLLADAMaya
                     const MObject & rigidBody = element.getNode();
                     
                     MObject target;
-                    PhysXExporter::GetPluggedObject(rigidBody, ATTR_TARGET, target);
+                    mPhysXExporter.getRigidBodyTarget(rigidBody, target);
                     MDagPath targetDagPath;
                     MDagPath::getAPathTo(target, targetDagPath);
                     SceneElement* targetElement = mPhysXExporter.getDocumentExporter().getSceneGraph()->findElement(targetDagPath);
                     if (targetElement)
                     {
                         String rigidBodySid = mPhysXExporter.generateColladaId(element.getPath(), element.getIsLocal());
+                        std::stringstream s;
+                        s << "_" << mInstanceRigidBodyIndex++;
+                        String instanceRigidBodySid = rigidBodySid + s.str();
                         URI targetURI = mPhysXExporter.getDocumentExporter().getVisualSceneExporter()->getSceneElementURI(targetElement);
-                        InstanceRigidBody e(mPhysXExporter, rigidBody, rigidBodySid, targetURI);
+                        InstanceRigidBody e(mPhysXExporter, rigidBody, instanceRigidBodySid, rigidBodySid, targetURI);
                     }
                 }
                 return true;
@@ -2214,12 +2472,40 @@ namespace COLLADAMaya
             
         private:
             PhysXExporter & mPhysXExporter;
+            int mInstanceRigidBodyIndex;
         };
         
         void exportInstanceRigidBodies()
         {
-            RigidBodyParser rigidBodyParser(getPhysXExporter());
-            getPhysXExporter().parseSceneElements(rigidBodyParser);
+            PhysXExporter& exporter = getPhysXExporter();
+
+            // Export ground plane if enabled
+            MObject rigidSolver;
+            if (exporter.getRigidSolver(rigidSolver))
+            {
+                String name = GROUND_PLANE_NAME;
+                String sid = name;
+
+                bool useGroundPlane = false;
+                DagHelper::getPlugValue(rigidSolver, ATTR_USE_GROUND_PLANE, useGroundPlane);
+                PhysXXML::PxRigidStatic* groundPlane = exporter.findPxRigidStatic(name);
+                if (useGroundPlane && groundPlane)
+                {
+                    // Can't use Element class since ground plane has no associated MObject.
+                    // So export everything manually...
+
+                    StreamWriter& sw = getStreamWriter();
+                    sw.openElement(CSWC::CSW_ELEMENT_INSTANCE_RIGID_BODY);
+                    sw.appendAttribute(CSWC::CSW_ATTRIBUTE_SID, name);
+                    sw.appendAttribute(CSWC::CSW_ATTRIBUTE_BODY, name);
+                    // No target
+                    sw.appendAttribute(CSWC::CSW_ATTRIBUTE_TARGET, "#");
+                    sw.closeElement();
+                }
+            }
+
+            RigidBodyParser rigidBodyParser(exporter);
+            exporter.parseSceneElements(rigidBodyParser);
         }
 
         class RigidConstraintParser
@@ -2227,6 +2513,7 @@ namespace COLLADAMaya
         public:
             RigidConstraintParser(PhysXExporter & exporter)
             : mPhysXExporter(exporter)
+            , mInstanceRigidConstraintIndex(0)
             {}
             
             bool operator()(SceneElement & element)
@@ -2237,14 +2524,17 @@ namespace COLLADAMaya
                     const MObject & rigidConstraint = element.getNode();
                     
                     String rigidConstraintSid = mPhysXExporter.generateColladaId(element.getPath(), element.getIsLocal());
-                    
-                    InstanceRigidConstraint e(mPhysXExporter, rigidConstraintSid);
+                    std::stringstream s;
+                    s << "_" << mInstanceRigidConstraintIndex++;
+                    String instanceRigidConstraintSid = rigidConstraintSid + s.str();
+                    InstanceRigidConstraint e(mPhysXExporter, instanceRigidConstraintSid, rigidConstraintSid);
                 }
                 return true;
             }
             
         private:
             PhysXExporter & mPhysXExporter;
+            int mInstanceRigidConstraintIndex;
         };
         
         void exportInstanceRigidConstraints()
@@ -2297,8 +2587,126 @@ namespace COLLADAMaya
         
         void exportRigidBodies()
         {
-            RigidBodyParser rigidBodyParser(getPhysXExporter());
-            getPhysXExporter().parseSceneElements(rigidBodyParser);
+            PhysXExporter& exporter = getPhysXExporter();
+
+            // Export ground plane if enabled
+            MObject rigidSolver;
+            if (exporter.getRigidSolver(rigidSolver))
+            {
+                String name = GROUND_PLANE_NAME;
+                String sid = name;
+
+                bool useGroundPlane = false;
+                DagHelper::getPlugValue(rigidSolver, ATTR_USE_GROUND_PLANE, useGroundPlane);
+                PhysXXML::PxRigidStatic* groundPlane = exporter.findPxRigidStatic(name);
+                if (useGroundPlane && groundPlane)
+                {
+                    // Can't use Element class since ground plane has no associated MObject.
+                    // So export everything manually...
+
+                    StreamWriter& sw = getStreamWriter();
+                    sw.openElement(CSWC::CSW_ELEMENT_RIGID_BODY);
+                    sw.appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
+                    sw.appendAttribute(CSWC::CSW_ATTRIBUTE_NAME, name);
+                    {
+                        sw.openElement(CSWC::CSW_ELEMENT_TECHNIQUE_COMMON);
+                        {
+                            sw.openElement(CSWC::CSW_ELEMENT_RIGID_BODY_DYNAMIC);
+                            sw.appendValues(false);
+                            sw.closeElement();
+
+                            PhysXXML::PxMaterial* mat = exporter.findPxMaterial(groundPlane->shapes.shapes[0].materials.materialRef.materialRef);
+                            if (mat)
+                            {
+                                sw.openElement(CSWC::CSW_ELEMENT_PHYSICS_MATERIAL);
+                                sw.appendAttribute(CSWC::CSW_ATTRIBUTE_ID, name + "_material");
+                                {
+                                    sw.openElement(CSWC::CSW_ELEMENT_TECHNIQUE_COMMON);
+                                    {
+                                        sw.openElement(CSWC::CSW_ELEMENT_RESTITUTION);
+                                        sw.appendValues(mat->restitution.restitution);
+                                        sw.closeElement();
+
+                                        sw.openElement(CSWC::CSW_ELEMENT_DYNAMIC_FRICTION);
+                                        sw.appendValues(mat->dynamicFriction.dynamicFriction);
+                                        sw.closeElement();
+
+                                        sw.openElement(CSWC::CSW_ELEMENT_STATIC_FRICTION);
+                                        sw.appendValues(mat->staticFriction.staticFriction);
+                                        sw.closeElement();
+                                    }
+                                    sw.closeElement();
+
+                                    sw.openElement(CSWC::CSW_ELEMENT_EXTRA);
+                                    {
+                                        sw.openElement(CSWC::CSW_ELEMENT_TECHNIQUE);
+                                        sw.appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, PhysXExporter::GetProfileXML());
+                                        {
+                                            mat->exportElement(sw);
+                                        }
+                                        sw.closeElement();
+                                    }
+                                    sw.closeElement();
+                                }
+                                sw.closeElement();
+                            }
+
+                            sw.openElement(CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE);
+                            {
+                                PhysXXML::PxShape& shape = groundPlane->shapes.shapes[0];
+
+                                sw.openElement(CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_PLANE);
+                                {
+                                    double groundPlanePosition = 0.0f;
+                                    DagHelper::getPlugValue(rigidSolver, ATTR_GROUND_PLANE_POSITION, groundPlanePosition);
+                                    groundPlanePosition = MDistance::internalToUI(groundPlanePosition);
+
+                                    // Plane equation
+                                    double a = 0.0f;
+                                    double b = 1.0f;
+                                    double c = 0.0f;
+                                    double d = -groundPlanePosition;
+
+                                    sw.openElement(CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_PLANE_EQUATION);
+                                    sw.appendValues(a, b, c, d);
+                                    sw.closeElement();
+                                    
+                                }
+                                sw.closeElement();
+
+                                sw.openElement(CSWC::CSW_ELEMENT_EXTRA);
+                                {
+                                    sw.openElement(CSWC::CSW_ELEMENT_TECHNIQUE);
+                                    sw.appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, PhysXExporter::GetProfileXML());
+                                    {
+                                        shape.exportElement(sw);
+                                    }
+                                    sw.closeElement();
+                                }
+                                sw.closeElement();
+                            }
+                            sw.closeElement();
+                        }
+                        sw.closeElement();
+
+                        sw.openElement(CSWC::CSW_ELEMENT_EXTRA);
+                        {
+                            sw.openElement(CSWC::CSW_ELEMENT_TECHNIQUE);
+                            sw.appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, PhysXExporter::GetProfileXML());
+                            {
+                                groundPlane->exportElement(sw);
+                            }
+                            sw.closeElement();
+                        }
+                        sw.closeElement();
+                    }
+                    sw.closeElement();
+                }
+            }
+
+            // Export the other rigid bodies
+            RigidBodyParser rigidBodyParser(exporter);
+            exporter.parseSceneElements(rigidBodyParser);
         }
 
         class RigidConstraintParser
@@ -2361,7 +2769,7 @@ namespace COLLADAMaya
             : Element(exporter, CSWC::CSW_ELEMENT_TECHNIQUE_COMMON)
         {
             MObject rigidSolver;
-            if (getRigidSolver(rigidSolver))
+            if (exporter.getRigidSolver(rigidSolver))
             {
                 exportGravity(rigidSolver);
                 exportTimeStep(rigidSolver);
@@ -2393,42 +2801,6 @@ namespace COLLADAMaya
         {
             
         }
-
-        class RigidSolverParser
-        {
-        public:
-            RigidSolverParser(PhysXExporter & exporter)
-            : mPhysXExporter(exporter)
-            {}
-            
-            bool operator()(SceneElement & element)
-            {
-                if (element.getType() == SceneElement::PHYSX_RIGID_SOLVER &&
-                    element.getIsLocal())
-                {
-                    mRigidSolver = element.getNode();
-                    return false;
-                }
-                return true;
-            }
-            
-            const MObject & getRigidSolver()
-            {
-                return mRigidSolver;
-            }
-            
-        private:
-            PhysXExporter & mPhysXExporter;
-            MObject mRigidSolver;
-        };
-        
-        bool getRigidSolver(MObject & rigidSolver)
-        {
-            RigidSolverParser parser(getPhysXExporter());
-            getPhysXExporter().parseSceneElements(parser);
-            rigidSolver = parser.getRigidSolver();
-            return !rigidSolver.isNull();
-        }
     };
 
     class PhysicsScene : public Element
@@ -2449,8 +2821,9 @@ namespace COLLADAMaya
         class RigidParser
         {
         public:
-            RigidParser(PhysXExporter& exporter)
+            RigidParser(PhysXExporter& exporter, int instancePhysicsModelIndex)
             : mPhysXExporter(exporter)
+            , mInstancePhysicsModelIndex(instancePhysicsModelIndex)
             {}
             
             bool operator()(SceneElement & element)
@@ -2477,29 +2850,41 @@ namespace COLLADAMaya
                 {
                     const URI& uri = *iURI;
                     const bool exportInstanceRigidBodiesAndConstraints = false;
-                    InstancePhysicsModel e(mPhysXExporter, uri, exportInstanceRigidBodiesAndConstraints);
+
+                    std::stringstream sid;
+                    sid << PhysXExporter::GetDefaultInstancePhysicsModelSid() << "_" << mInstancePhysicsModelIndex++;
+
+                    InstancePhysicsModel e(mPhysXExporter, sid.str(), uri, exportInstanceRigidBodiesAndConstraints);
                 }
             }
             
         private:
             PhysXExporter& mPhysXExporter;
             std::set<URI> mExternalPhysicsModelURIs;
+            int mInstancePhysicsModelIndex;
         };
         
         void exportInstancePhysicsModels()
         {
+            int instancePhysicsModelIndex = 0;
+
             // Local physics model
             if (getPhysXExporter().sceneHas(SceneElement::PHYSX_RIGID_BODY, PhysXExporter::Local) ||
                 getPhysXExporter().sceneHas(SceneElement::PHYSX_RIGID_CONSTRAINT, PhysXExporter::Local))
             {
                 String physicsModelId = PhysXExporter::GetDefaultPhysicsModelId();
+                
                 URI uri;
                 uri.set("");
                 uri.setFragment(physicsModelId);
-                InstancePhysicsModel e(getPhysXExporter(), uri);
+                
+                std::stringstream sid;
+                sid << PhysXExporter::GetDefaultInstancePhysicsModelSid() << "_" << instancePhysicsModelIndex++;
+
+                InstancePhysicsModel e(getPhysXExporter(), sid.str(), uri);
             }
             
-            RigidParser rigidParser(getPhysXExporter());
+            RigidParser rigidParser(getPhysXExporter(), instancePhysicsModelIndex);
             getPhysXExporter().parseSceneElements(rigidParser);
         }
 
@@ -2546,7 +2931,9 @@ namespace COLLADAMaya
 
     String PhysXExporter::mDefaultPhysicsModelId = "collada_physics_model";
     String PhysXExporter::mDefaultPhysicsSceneId = "collada_physics_scene";
+    String PhysXExporter::mDefaultInstancePhysicsModelSid = "instancePhysicsModel";
     String PhysXExporter::mProfile = "OpenCOLLADAMayaPhysX";
+    String PhysXExporter::mProfileXML = "OpenCOLLADAMayaPhysXXML";
 
     PhysXExporter::PhysXExporter(StreamWriter& streamWriter, DocumentExporter& documentExporter)
         : mStreamWriter(streamWriter)
@@ -2611,8 +2998,198 @@ namespace COLLADAMaya
         return parser.needsConvexHullOfMeshElement();
     }
 
+    class AutoDeleteFile
+    {
+    public:
+        AutoDeleteFile(const String& filePath)
+            : mFilePath(filePath)
+        {}
+
+        ~AutoDeleteFile()
+        {
+            if (!mFilePath.empty()) {
+                COLLADABU::Utils::deleteFile(mFilePath);
+            }
+        }
+
+    private:
+        String mFilePath;
+    };
+
+    class AutoXmlFreeDoc
+    {
+    public:
+        AutoXmlFreeDoc(xmlDocPtr xml)
+            : mXml(xml)
+        {}
+
+        ~AutoXmlFreeDoc()
+        {
+            if (mXml) {
+                xmlFreeDoc(mXml);
+            }
+        }
+
+    private:
+        xmlDocPtr mXml;
+    };
+
+    class AutoRestorePhysXExportOptions
+    {
+    public:
+        AutoRestorePhysXExportOptions()
+            : mError(false)
+        {
+            mOptions.push_back("apexClothingExport_APBs");
+            mOptions.push_back("validatePhysXSceneBeforeExport");
+            mOptions.push_back("PhysXExport_useFolderName");
+            mOptions.push_back("apexExport_RemoveNamespaceForJoint");
+            mOptions.push_back("apexClothingExport_VisibleOnly");
+            mOptions.push_back("PhysXExport_exportPxProjFile");
+            mOptions.push_back("PhysXExport_exportPhysX");
+
+            for (size_t i = 0; i < mOptions.size(); ++i) {
+                int oldValue = 0;
+                MStatus status = MGlobal::executeCommand("optionVar -q \"" + mOptions[i] + "\"", oldValue);
+                if (!status) mError |= true;
+                MString oldValueStr("");
+                oldValueStr += oldValue;
+                mOldValues.push_back(oldValueStr);
+            }
+        }
+
+        ~AutoRestorePhysXExportOptions()
+        {
+            for (size_t i = 0; i < mOptions.size(); ++i) {
+                MGlobal::executeCommand("optionVar -iv \"" + mOptions[i] + "\" " + mOldValues[i]);
+            }
+        }
+
+        bool error() const
+        {
+            return mError;
+        }
+
+    private:
+        std::vector<MString> mOptions;
+        std::vector<MString> mOldValues;
+        bool mError;
+    };
+
+    bool PhysXExporter::generatePhysXXML()
+    {
+        MStatus status;
+
+        // TODO make sure exported .xml does not already exist.
+
+        // Backup export options
+        AutoRestorePhysXExportOptions autoRestorePhysXExportOptions;
+
+        // Set export options
+        status = MGlobal::executeCommand("optionVar -iv \"apexClothingExport_APBs\" 2");
+        if (!status) return false;
+        status = MGlobal::executeCommand("optionVar -iv \"validatePhysXSceneBeforeExport\" 0");
+        if (!status) return false;
+        status = MGlobal::executeCommand("optionVar -iv \"PhysXExport_useFolderName\" 0");
+        if (!status) return false;
+        status = MGlobal::executeCommand("optionVar -iv \"apexExport_RemoveNamespaceForJoint\" 0");
+        if (!status) return false;
+        status = MGlobal::executeCommand("optionVar -iv \"apexClothingExport_VisibleOnly\" 0");
+        if (!status) return false;
+        status = MGlobal::executeCommand("optionVar -iv \"PhysXExport_exportPxProjFile\" 0");
+        if (!status) return false;
+        status = MGlobal::executeCommand("optionVar -iv \"PhysXExport_exportPhysX\" 1");
+        if (!status) return false;
+
+        String filePath = mDocumentExporter.getFilename();
+        std::stringstream exportCommand;
+        exportCommand << "file -force -options \"none=0;\" -type \"APEX/PhysX\" -pr";
+        if (mDocumentExporter.getSceneGraph()->getExportSelectedOnly()) {
+            exportCommand << " -es";
+        }
+        else {
+            exportCommand << " -ea";
+        }
+
+        // Generate temp file name
+        size_t extPos = filePath.find_last_of('.');
+        String filePathNoExt = filePath.substr(0, extPos);
+        String tempFilePath = filePathNoExt + ".xml";
+        std::ifstream tempFile(tempFilePath.c_str());
+        int index = 0;
+        while (tempFile.is_open()) {
+            std::stringstream s;
+            s << index++;
+            tempFilePath = filePathNoExt + s.str() + ".xml";
+            tempFile.close();
+            tempFile.open(tempFilePath.c_str());
+        }
+
+        // Set .pxproj as extension but plugin will export a .xml file
+        String pxProjPath = tempFilePath;
+        extPos = pxProjPath.find_last_of('.');
+        pxProjPath.replace(extPos, pxProjPath.length() - extPos, ".pxproj");
+
+        exportCommand << " \"" << pxProjPath << "\";";
+        status = MGlobal::executeCommand(exportCommand.str().c_str());
+        if (!status) return false;
+
+        // delete .xml file when we are done with it.
+        AutoDeleteFile autoDeleteFile(tempFilePath);
+
+        // Read .xml file
+
+        // Is this necessary?
+        LIBXML_TEST_VERSION;
+
+        std::ifstream file(tempFilePath.c_str());
+        if (!file.is_open()) {
+            return false;
+        }
+
+        std::stringstream fileContentStream;
+        fileContentStream << file.rdbuf();
+        std::string fileContent(fileContentStream.str());
+
+        int length = static_cast<int>(fileContent.length());
+        xmlDocPtr xml = xmlReadMemory(fileContent.c_str(), length, "noname.xml", NULL, 0);
+        if (xml == NULL) {
+            return false;
+        }
+
+        AutoXmlFreeDoc autoXmlFreeDoc(xml);
+
+        // Init our PhysX xml tree
+        mPhysXDoc = xml;
+
+        // Check for duplicated names
+        if (!mPhysXDoc->validate()) {
+            return false;
+        }
+
+        xmlCleanupParser();
+
+        return true;
+    }
+
     bool PhysXExporter::exportPhysicsLibraries()
     {
+        // Check PhysX plugin version.
+        MObject pluginObject = MFnPlugin::findPlugin("physx");
+        
+        if (pluginObject.isNull()) {
+            return false;
+        }
+
+        MFnPlugin fnPlugin(pluginObject);
+
+        // Export to .xml format first using PhysX plugin exporter.
+        // Produced file contains information not accessible with Maya API.
+        if (!generatePhysXXML()) {
+            MGlobal::displayError("Can't generate PhysX XML data. PhysX will not be exported.");
+            return false;
+        }
+
         bool hasPhysicsScene = false;
 
         if (!ExportOptions::exportPhysics()) {
@@ -2685,6 +3262,50 @@ namespace COLLADAMaya
         AttributeExporter attributeExporter(*this, attributes);
         MFnDependencyNode fnDependencyNode(object);
         AttributeParser::parseAttributes(fnDependencyNode, attributeExporter);
+    }
+
+    void PhysXExporter::exportMaterialPhysXXML(const MObject& rigidBody)
+    {
+        PhysXXML::PxMaterial* pxMaterial = findPxMaterial(rigidBody);
+        if (pxMaterial) {
+            pxMaterial->exportElement(mStreamWriter);
+        }
+    }
+
+    void PhysXExporter::exportShapePhysXXML(const MObject& rigidBody, const MObject& shape)
+    {
+        PhysXXML::PxShape* pxShape = findPxShape(rigidBody, shape);
+        if (pxShape) {
+            pxShape->exportElement(mStreamWriter);
+        }
+    }
+
+    void PhysXExporter::exportRigidBodyPhysXXML(const MObject& rigidBody)
+    {
+        int dummy = 0;
+        MString simulationType;
+        DagHelper::getPlugValue(rigidBody, ATTR_SIMULATION_TYPE, dummy, simulationType);
+
+        if (simulationType == SIMULATION_TYPE_STATIC) {
+            PhysXXML::PxRigidStatic* pxRigidStatic = findPxRigidStatic(rigidBody);
+            if (pxRigidStatic) {
+                pxRigidStatic->exportElement(mStreamWriter);
+            }
+        }
+        else {
+            PhysXXML::PxRigidDynamic* pxRigidDynamic = findPxRigidDynamic(rigidBody);
+            if (pxRigidDynamic) {
+                pxRigidDynamic->exportElement(mStreamWriter);
+            }
+        }
+    }
+
+    void PhysXExporter::exportRigidConstraintPhysXXML(const MObject& rigidConstraint)
+    {
+        PhysXXML::PxD6Joint* pxConstraint = findPxD6Joint(rigidConstraint);
+        if (pxConstraint) {
+            pxConstraint->exportElement(mStreamWriter);
+        }
     }
 
     void PhysXExporter::exportRotate(const MVector & axis, double angle, const String & sid)
@@ -2775,9 +3396,19 @@ namespace COLLADAMaya
         return mDefaultPhysicsSceneId;
     }
 
+    const String& PhysXExporter::GetDefaultInstancePhysicsModelSid()
+    {
+        return mDefaultInstancePhysicsModelSid;
+    }
+
     const String& PhysXExporter::GetProfile()
     {
         return mProfile;
+    }
+
+    const String& PhysXExporter::GetProfileXML()
+    {
+        return mProfileXML;
     }
 
     const String & PhysXExporter::findColladaId(const String & mayaId)

@@ -20,9 +20,12 @@
 #include <maya/MDataHandle.h>
 #include <maya/MDistance.h>
 #include <maya/MFnAttribute.h>
+#include <maya/MFnComponentListData.h>
 #include <maya/MFnCompoundAttribute.h>
 #include <maya/MFnEnumAttribute.h>
-#include <maya/MFnMatrixAttribute.h>
+#include <maya/MFnGenericAttribute.h>
+#include <maya/MFnLightDataAttribute.h>
+#include <maya/MFnMatrixData.h>
 #include <maya/MFnMesh.h>
 #include <maya/MFnMessageAttribute.h>
 #include <maya/MFnNumericAttribute.h>
@@ -131,10 +134,10 @@ namespace COLLADAMaya
             parseEnumAttribute(node, attr);
 		}
 		else if (attr.hasFn(MFn::kGenericAttribute)) {
-			// TODO
+			parseGenericAttribute(node, attr);
 		}
 		else if (attr.hasFn(MFn::kLightDataAttribute)) {
-			// TODO
+			parseLightDataAttribute(node, attr);
 		}
 		else if (attr.hasFn(MFn::kMatrixAttribute)) {
             parseMatrixAttribute(node, attr);
@@ -206,7 +209,7 @@ namespace COLLADAMaya
 
 			//! Matrix, use MFnMatrixData to extract the node data.
 		case MFnData::kMatrix:
-			// TODO
+			parseMatrixAttribute(node, attr);
 			break;
 
 			//! String Array, use MFnStringArrayData to extract the node data.
@@ -243,7 +246,7 @@ namespace COLLADAMaya
 
 			//! Component List, use MFnComponentListData to extract the node data.
 		case MFnData::kComponentList:
-			// TODO
+			parseComponentListData(node, attr);
 			break;
 
 			//! Mesh, use MFnMeshData to extract the node data.
@@ -344,48 +347,41 @@ namespace COLLADAMaya
         MPlug plug = node.findPlug(attr, &status);
         if (!status) return;
 
-        MString str;
-        status = plug.getValue(str);
+        MFnAttribute fnAttribute(attr, &status);
+        if (!status) return;
 
-        MObject obj;
-        status = plug.getValue(obj);
+        MString name = fnAttribute.name(&status);
+        if (!status) return;
 
-        // TODO, see parseMatrixAttribute?
+        onMessage(plug, name);
     }
 
     void AttributeParser::parseMatrixAttribute(MFnDependencyNode & node, MObject & attribute)
     {
         MStatus status;
 
-        MFnMatrixAttribute fnMatrixAttribute(attribute, &status);
-        if (!status) return;
-
         MPlug plug = node.findPlug(attribute, &status);
         if (!status) return;
 
-        MPlugArray plugArray;
-        bool hasConnection = plug.connectedTo(plugArray, true, false, &status);
+        MFnAttribute fnAttribute(attribute, &status);
         if (!status) return;
-        if (hasConnection)
-        {
-            MPlug externalPlug = plugArray[0];
-            bool externalPlugNull = externalPlug.isNull(&status);
-            if (!status) return;
-            if (!externalPlugNull)
-            {
-                MFnAttribute fnAttribute(attribute, &status);
-                if (!status) return;
 
-                MString name = fnAttribute.name(&status);
-                if (!status) return;
+        MString name = fnAttribute.name(&status);
+        if (!status) return;
 
-                //MObject pluggedObject = externalPlug.node(&status);
-                //if (!status) return;
+        MFnMatrixData mxData;
+        MObject object = mxData.create(&status);
+        if (!status) return;
 
-                // TODO pass matrix to callback? onMatrix(...) instead of onConnection(...)?
-                onConnection(plug, name, externalPlug);
-            }
-        }
+        status = plug.getValue(object);
+        if (!status) return;
+
+        status = mxData.setObject(object);
+        if (!status) return;
+        
+        const MMatrix& matrix = mxData.matrix();
+
+        onMatrix(plug, name, matrix);
     }
 
     void AttributeParser::parseCompoundAttribute(MFnDependencyNode & node, MObject & attr, std::set<String>& parsedAttributes)
@@ -413,9 +409,11 @@ namespace COLLADAMaya
         for (unsigned int i = 0; i < fnCompoundAttribute.numChildren(); ++i)
         {
             MObject child = fnCompoundAttribute.child(i, &status);
-            if (!status) return;
+            if (!status) continue;
 
-            MFnAttribute childFnAttr(child);
+            MFnAttribute childFnAttr(child, &status);
+            if (!status) continue;
+
             parsedAttributes.insert(childFnAttr.name().asChar());
 
             parseAttribute(node, child, parsedAttributes);
@@ -467,6 +465,52 @@ namespace COLLADAMaya
         }
         break;
         }
+    }
+
+    void AttributeParser::parseGenericAttribute(MFnDependencyNode & node, MObject & attr)
+    {
+        MStatus status;
+
+        MFnGenericAttribute genericAttribute(attr, &status);
+        if (!status) return;
+
+        MPlug plug = node.findPlug(attr, &status);
+		if (!status) return;
+
+        MFn::Type type = genericAttribute.type();
+    }
+	
+    void AttributeParser::parseLightDataAttribute(MFnDependencyNode & node, MObject & attr)
+    {
+        MStatus status;
+
+        MFnLightDataAttribute lightDataAttribute(attr, &status);
+        if (!status) return;
+
+        // TODO
+
+  //      MObject directionX = fnLightDataAttribute.child(0, &status);
+  //      if (!status) return;
+		//MObject directionY = fnLightDataAttribute.child(1, &status);
+  //      if (!status) return;
+		//MObject directionZ = fnLightDataAttribute.child(2, &status);
+  //      if (!status) return;
+		//MObject intensityR = fnLightDataAttribute.child(3, &status);
+  //      if (!status) return;
+		//MObject intensityG = fnLightDataAttribute.child(4, &status);
+  //      if (!status) return;
+		//MObject intensityB = fnLightDataAttribute.child(5, &status);
+  //      if (!status) return;
+		//MObject ambient = fnLightDataAttribute.child(6, &status);
+  //      if (!status) return;
+		//MObject diffuse = fnLightDataAttribute.child(7, &status);
+  //      if (!status) return;
+		//MObject specular = fnLightDataAttribute.child(8, &status);
+  //      if (!status) return;
+		//MObject shadowFraction = fnLightDataAttribute.child(9, &status);
+  //      if (!status) return;
+		//MObject preShadowIntensity = fnLightDataAttribute.child(10, &status);
+  //      if (!status) return;
     }
 
 	void AttributeParser::parseNumericData(MFnDependencyNode & node, MObject & attr)
@@ -990,6 +1034,34 @@ namespace COLLADAMaya
         if (!status) return;
 
         onMesh(plug, name, meshNode);
+    }
+
+    void AttributeParser::parseComponentListData (MFnDependencyNode & fnNode, MObject & attribute)
+    {
+        MStatus status;
+
+        MFnComponentListData componentListData;
+
+        MObject objectData = componentListData.create(&status);
+        if (!status) return;
+
+        MPlug plug = fnNode.findPlug(attribute, &status);
+        if (!status) return;
+
+        status = plug.getValue(objectData);
+        if (!status) return;
+
+        status = componentListData.setObject(objectData);
+        if (!status) return;
+
+        unsigned int length = componentListData.length(&status);
+        if (!status) return;
+
+        for (unsigned int i = 0; i < length; ++i) {
+            MObject object = componentListData[i];
+        }
+
+        // TODO
     }
 
 	bool AttributeParser::IsNumericCompoundAttribute(const MObject& attr, MFnNumericData::Type& type)

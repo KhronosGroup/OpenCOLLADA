@@ -16,6 +16,7 @@
 #define __COLLADA_MAYA_PHYSX_EXPORTER_H__
 
 #include "COLLADAMayaDocumentExporter.h"
+#include "COLLADAMayaPhysXXML.h"
 #include "COLLADAMayaSceneElement.h"
 #include "COLLADAMayaSceneGraph.h"
 #include "COLLADASWLibraryPhysicsModels.h"
@@ -57,7 +58,7 @@ namespace COLLADAMaya
         static void GetConnectedInMesh(const MObject & shape, MObject & mesh);
     };
 
-	class PhysXExporter// : public COLLADASW::LibraryPhysicsModels
+	class PhysXExporter
     {
     public:
         PhysXExporter(COLLADASW::StreamWriter& streamWriter, DocumentExporter& documentExporter);
@@ -72,6 +73,15 @@ namespace COLLADAMaya
         void exportTranslation(const MVector & translation, const String & sid = "");
         void exportRotation(const MEulerRotation & rotation, const String & sid = "");
         void exportAttributes(const MObject & object, const std::set<MString, MStringComp> & attributes);
+        void exportMaterialPhysXXML(const MObject& material);
+        void exportShapePhysXXML(const MObject& rigidBody, const MObject& shape);
+        void exportRigidBodyPhysXXML(const MObject& shape);
+        void exportRigidConstraintPhysXXML(const MObject& constraint);
+
+        void getShapeLocalPose(const MObject& rigidBody, const MObject& shape, MMatrix& localPose);
+        void getRigidBodyGlobalPose(const MObject& rigidBody, MMatrix& globalPose);
+        void getRigidBodyTarget(const MObject& rigidBody, MObject& target);
+        bool getRigidSolver(MObject & rigidSolver);
 
         MStatus getMeshURI(const MObject & mesh, URI & meshURI);
 
@@ -109,7 +119,9 @@ namespace COLLADAMaya
 
         static const String& GetDefaultPhysicsModelId();
         static const String& GetDefaultPhysicsSceneId();
+        static const String& GetDefaultInstancePhysicsModelSid();
         static const String& GetProfile();
+        static const String& GetProfileXML();
 
         enum Filter
         {
@@ -119,7 +131,17 @@ namespace COLLADAMaya
         };
         bool sceneHas(SceneElement::Type type, Filter filter = All);
 
+        PhysXXML::PxRigidStatic* findPxRigidStatic(const String& name);
+        PhysXXML::PxMaterial* findPxMaterial(int ref);
+
     private:
+        bool generatePhysXXML();
+        PhysXXML::PxMaterial* findPxMaterial(const MObject& rigidBody);
+        PhysXXML::PxShape* findPxShape(const MObject& rigidBody, const MObject& shape);
+        PhysXXML::PxRigidStatic* findPxRigidStatic(const MObject& rigidBody);
+        PhysXXML::PxRigidDynamic* findPxRigidDynamic(const MObject& rigidBody);
+        PhysXXML::PxD6Joint* findPxD6Joint(const MObject& rigidConstraint);
+
         void exportRotate(const MVector & axis, double angle, const String & sid = "");
 
         static bool ElementHas(const SceneElement & element, SceneElement::Type type, Filter filter);
@@ -152,10 +174,13 @@ namespace COLLADAMaya
         DocumentExporter& mDocumentExporter;
         COLLADABU::IDList mIdList;
         StringToStringMap mMayaIdToColladaId;
+        PhysXXML::PhysXDocPtr mPhysXDoc;
 
         static String mDefaultPhysicsModelId;
         static String mDefaultPhysicsSceneId;
+        static String mDefaultInstancePhysicsModelSid;
         static String mProfile;
+        static String mProfileXML;
     };
 }
 
