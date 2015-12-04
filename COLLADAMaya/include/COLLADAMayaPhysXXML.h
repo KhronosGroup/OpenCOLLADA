@@ -963,6 +963,7 @@ namespace COLLADAMaya
             Actors actors;
             ActorLocalPose localPose;
             BreakForce breakForce;
+            ConstraintFlags constraintFlags;
             InvMassScale0 invMassScale0;
             InvInertiaScale0 invInertiaScale0;
             InvMassScale1 invMassScale1;

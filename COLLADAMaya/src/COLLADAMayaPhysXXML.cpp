@@ -2065,6 +2065,7 @@ namespace COLLADAMaya
             , actors(FindChild(node, Strings::Actors))
             , localPose(FindChild(node, Strings::LocalPose))
             , breakForce(FindChild(node, Strings::BreakForce))
+            , constraintFlags(FindChild(node, Strings::ConstraintFlags))
             , invMassScale0(FindChild(node, Strings::InvMassScale0))
             , invInertiaScale0(FindChild(node, Strings::InvInertiaScale0))
             , invMassScale1(FindChild(node, Strings::InvMassScale1))
@@ -2088,6 +2089,7 @@ namespace COLLADAMaya
             actors.exportElement(sw);
             localPose.exportElement(sw);
             breakForce.exportElement(sw);
+            constraintFlags.exportElement(sw);
             invMassScale0.exportElement(sw);
             invInertiaScale0.exportElement(sw);
             invMassScale1.exportElement(sw);
