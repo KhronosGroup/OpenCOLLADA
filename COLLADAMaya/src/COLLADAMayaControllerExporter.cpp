@@ -686,6 +686,51 @@ namespace COLLADAMaya
         }
     }
 
+	static SceneElement* searchRootElement(SceneElement* sceneElement)
+	{
+		if (!sceneElement->getParentCount()) return sceneElement;
+
+		for (uint i = 0; i<sceneElement->getParentCount(); ++i)
+		{
+			SceneElement* parent = sceneElement->getParent(i);
+			String parentName = parent->getNodeName();
+			if ( (parent = searchRootElement(parent)) != NULL) return parent;
+		}
+		
+		return NULL;
+	}
+
+	static void AddElementToInfluences(MDagPathArray& influences, SceneElement* sceneElement)
+	{
+		bool found = false;
+		for (int i = 0; i < influences.length(); i++)
+		{
+			if (sceneElement->getPath() == influences[i])
+			{
+				found = true;
+				break;
+			}
+		}
+
+		if (!found)
+		{
+			if (sceneElement->getChildCount() > 0)
+			{
+				const MDagPath dagPath = sceneElement->getPath();
+				if (dagPath.hasFn(MFn::kJoint))
+					influences.append(sceneElement->getPath());
+			}
+				
+		}
+			
+		
+		for (uint i = 0; i<sceneElement->getChildCount(); ++i)
+		{
+			SceneElement* childElement = sceneElement->getChild(i);
+			AddElementToInfluences(influences, childElement);
+		}
+	}
+
     //------------------------------------------------------
     void ControllerExporter::gatherBindMatrices(
         SkinController* skinController,
@@ -694,13 +739,22 @@ namespace COLLADAMaya
         // The list of joints
         MDagPathArray& influences = skinController->getInfluences();
 
-        // Request a change in capacity
-        uint numInfluences = influences.length();
-        std::vector<MMatrix>& bindPoses = skinController->getBindPoses();
-        bindPoses.reserve(numInfluences);
+		if (influences.length() > 0)
+		{
+			// Retrieve Root
+			SceneElement* sceneElement = mDocumentExporter->getSceneGraph()->findElement(influences[0]);
+			SceneElement* rootElement = searchRootElement(sceneElement);
 
-        // Gather the bind matrices
-        for (uint i = 0; i < numInfluences; ++i)
+			// Parse all childs from Root and add them into influences if not present into.
+			AddElementToInfluences(influences, rootElement);
+		}
+
+		// Request a change in capacity
+		uint numInfluences = influences.length();
+		std::vector<MMatrix>& bindPoses = skinController->getBindPoses();
+		bindPoses.reserve(numInfluences);
+		
+		for (uint i = 0; i < numInfluences; ++i)
         {
             MObject influence = influences[i].node();
             MMatrix mayaBindPoseMatrix = DagHelper::getBindPoseInverse(controllerNode, influence);
