@@ -354,9 +354,29 @@ namespace COLLADAMaya
         {
             MFnSkinCluster controllerFn ( controller );
 
+			MFnDependencyNode fn(influence);
+			String nodeName = fn.name().asChar();
+
             // Find the correct index for the pre-bind matrix
             uint index = controllerFn.indexForInfluenceObject ( MDagPath::getAPathTo ( influence ), &status );
-            if ( status != MStatus::kSuccess ) return MMatrix::identity;
+			if (status != MStatus::kSuccess) 
+			{
+				MFnDependencyNode influenceNode(influence);
+				MPlug bindPosePlug = influenceNode.findPlug("bindPose", &status);
+
+				if (status == MStatus::kSuccess)
+				{
+					MMatrix ret;
+					//this joint has been skinned but his influence has been removed so we need to retrieve his BindPose
+					if (!DagHelper::getPlugValue(bindPosePlug, ret))
+					{
+						return MMatrix::identity;
+					}
+
+					ret = ret.inverse();
+					return ret;
+				}
+			}
 
             MPlug preBindMatrixPlug = controllerFn.findPlug ( "bindPreMatrix", &status );
             preBindMatrixPlug = preBindMatrixPlug.elementByLogicalIndex ( index, &status );
