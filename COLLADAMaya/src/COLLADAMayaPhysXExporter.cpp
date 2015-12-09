@@ -948,11 +948,7 @@ namespace COLLADAMaya
             MDagPath rigidBodyDagPath;
             MDagPath::getAPathTo(rigidBody, rigidBodyDagPath);
 
-            bool isRigidBodyLocal = !MFnDagNode(rigidBodyDagPath).isFromReferencedFile();
-            if (ExportOptions::exportXRefs() && ExportOptions::dereferenceXRefs()) {
-                isRigidBodyLocal = true;
-            }
-            String rigidBodyId = getPhysXExporter().generateColladaId(rigidBodyDagPath, isRigidBodyLocal);
+            String rigidBodyId = getPhysXExporter().generateColladaId(rigidBodyDagPath);
             String materialId = rigidBodyId + "_material";
 
             getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_ID, materialId);
@@ -2282,11 +2278,7 @@ namespace COLLADAMaya
                 MDagPath rigidBodyDagPath;
                 MDagPath::getAPathTo(rigidBody, rigidBodyDagPath);
 
-                bool isRigidBodyLocal = !MFnDagNode(rigidBodyDagPath).isFromReferencedFile();
-                if (ExportOptions::exportXRefs() && ExportOptions::dereferenceXRefs()) {
-                    isRigidBodyLocal = true;
-                }
-                String rigidBodyId = getPhysXExporter().generateColladaId(rigidBodyDagPath, isRigidBodyLocal);
+                String rigidBodyId = getPhysXExporter().generateColladaId(rigidBodyDagPath);
                 rigidBodyURI = getPhysXExporter().getDocumentExporter().getVisualSceneExporter()->getSceneElementURI(rigidBodyDagPath, rigidBodyId);
             }
 
@@ -2301,11 +2293,7 @@ namespace COLLADAMaya
             MDagPath rigidBodyDagPath;
             MDagPath::getAPathTo(rigidBody, rigidBodyDagPath);
 
-            bool isRigidBodyLocal = !MFnDagNode(rigidBodyDagPath).isFromReferencedFile();
-            if (ExportOptions::exportXRefs() && ExportOptions::dereferenceXRefs()) {
-                isRigidBodyLocal = true;
-            }
-            String rigidBodyId = getPhysXExporter().generateColladaId(rigidBodyDagPath, isRigidBodyLocal);
+            String rigidBodyId = getPhysXExporter().generateColladaId(rigidBodyDagPath);
             URI rigidBodyURI = getPhysXExporter().getDocumentExporter().getVisualSceneExporter()->getSceneElementURI(rigidBodyDagPath, rigidBodyId);
 
             Attachment e(getPhysXExporter(), rigidConstraint, rigidBodyURI);
@@ -2422,18 +2410,16 @@ namespace COLLADAMaya
     class InstancePhysicsModel : public Element
     {
     public:
-        InstancePhysicsModel(PhysXExporter& exporter, const String& sid, const URI& uri, bool exportInstanceRigidBodiesAndConstraints = true)
+        InstancePhysicsModel(PhysXExporter& exporter, const String& sid, const URI& uri)
             : Element(exporter, CSWC::CSW_ELEMENT_INSTANCE_PHYSICS_MODEL)
         {
             if (!sid.empty()) {
                 getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_SID, sid);
             }
             getStreamWriter().appendURIAttribute(CSWC::CSW_ATTRIBUTE_URL, uri);
-            if (exportInstanceRigidBodiesAndConstraints)
-            {
-                exportInstanceRigidBodies();
-                exportInstanceRigidConstraints();
-            }
+
+            exportInstanceRigidBodies();
+            exportInstanceRigidConstraints();
         }
 
     private:
@@ -2459,7 +2445,7 @@ namespace COLLADAMaya
                     SceneElement* targetElement = mPhysXExporter.getDocumentExporter().getSceneGraph()->findElement(targetDagPath);
                     if (targetElement)
                     {
-                        String rigidBodySid = mPhysXExporter.generateColladaId(element.getPath(), element.getIsLocal());
+                        String rigidBodySid = mPhysXExporter.generateColladaId(element.getPath());
                         std::stringstream s;
                         s << "_" << mInstanceRigidBodyIndex++;
                         String instanceRigidBodySid = rigidBodySid + s.str();
@@ -2523,7 +2509,7 @@ namespace COLLADAMaya
                 {
                     const MObject & rigidConstraint = element.getNode();
                     
-                    String rigidConstraintSid = mPhysXExporter.generateColladaId(element.getPath(), element.getIsLocal());
+                    String rigidConstraintSid = mPhysXExporter.generateColladaId(element.getPath());
                     std::stringstream s;
                     s << "_" << mInstanceRigidConstraintIndex++;
                     String instanceRigidConstraintSid = rigidConstraintSid + s.str();
@@ -2571,7 +2557,7 @@ namespace COLLADAMaya
                 if (element.getType() == SceneElement::PHYSX_RIGID_BODY &&
                     element.getIsLocal())
                 {
-                    String rigidBodySid = mPhysXExporter.generateColladaId(element.getPath(), element.getIsLocal());
+                    String rigidBodySid = mPhysXExporter.generateColladaId(element.getPath());
                     String rigidBodyName = mPhysXExporter.generateColladaName(element.getPath());
                     
                     const MObject & rigidBody = element.getNode();
@@ -2721,7 +2707,7 @@ namespace COLLADAMaya
                 if (element.getType() == SceneElement::PHYSX_RIGID_CONSTRAINT &&
                     element.getIsLocal())
                 {
-                    String rigidConstraintSid = mPhysXExporter.generateColladaId(element.getPath(), element.getIsLocal());
+                    String rigidConstraintSid = mPhysXExporter.generateColladaId(element.getPath());
                     String rigidConstraintName = mPhysXExporter.generateColladaName(element.getPath());
                     
                     const MObject & rigidConstraint = element.getNode();
@@ -2817,57 +2803,8 @@ namespace COLLADAMaya
         }
 
     private:
-        // External physics models
-        class RigidParser
-        {
-        public:
-            RigidParser(PhysXExporter& exporter, int instancePhysicsModelIndex)
-            : mPhysXExporter(exporter)
-            , mInstancePhysicsModelIndex(instancePhysicsModelIndex)
-            {}
-            
-            bool operator()(SceneElement & element)
-            {
-                if (element.getIsLocal()) {
-                    return true;
-                }
-                
-                if (element.getType() != SceneElement::PHYSX_RIGID_BODY &&
-                    element.getType() != SceneElement::PHYSX_RIGID_CONSTRAINT) {
-                    return true;
-                }
-                
-                URI physicsModelURI = mPhysXExporter.getDocumentExporter().getVisualSceneExporter()->getSceneElementURI(element.getPath());
-                physicsModelURI.setFragment(PhysXExporter::GetDefaultPhysicsModelId());
-                mExternalPhysicsModelURIs.insert(physicsModelURI);
-                
-                return true;
-            }
-            
-            ~RigidParser()
-            {
-                for (std::set<URI>::const_iterator iURI = mExternalPhysicsModelURIs.begin(); iURI != mExternalPhysicsModelURIs.end(); ++iURI)
-                {
-                    const URI& uri = *iURI;
-                    const bool exportInstanceRigidBodiesAndConstraints = false;
-
-                    std::stringstream sid;
-                    sid << PhysXExporter::GetDefaultInstancePhysicsModelSid() << "_" << mInstancePhysicsModelIndex++;
-
-                    InstancePhysicsModel e(mPhysXExporter, sid.str(), uri, exportInstanceRigidBodiesAndConstraints);
-                }
-            }
-            
-        private:
-            PhysXExporter& mPhysXExporter;
-            std::set<URI> mExternalPhysicsModelURIs;
-            int mInstancePhysicsModelIndex;
-        };
-        
         void exportInstancePhysicsModels()
         {
-            int instancePhysicsModelIndex = 0;
-
             // Local physics model
             if (getPhysXExporter().sceneHas(SceneElement::PHYSX_RIGID_BODY, PhysXExporter::Local) ||
                 getPhysXExporter().sceneHas(SceneElement::PHYSX_RIGID_CONSTRAINT, PhysXExporter::Local))
@@ -2877,15 +2814,9 @@ namespace COLLADAMaya
                 URI uri;
                 uri.set("");
                 uri.setFragment(physicsModelId);
-                
-                std::stringstream sid;
-                sid << PhysXExporter::GetDefaultInstancePhysicsModelSid() << "_" << instancePhysicsModelIndex++;
 
-                InstancePhysicsModel e(getPhysXExporter(), sid.str(), uri);
+                InstancePhysicsModel e(getPhysXExporter(), PhysXExporter::GetDefaultInstancePhysicsModelSid(), uri);
             }
-            
-            RigidParser rigidParser(getPhysXExporter(), instancePhysicsModelIndex);
-            getPhysXExporter().parseSceneElements(rigidParser);
         }
 
         void exportTechniqueCommon()
@@ -3354,14 +3285,8 @@ namespace COLLADAMaya
         return false;
     }
 
-    String PhysXExporter::generateColladaId(const MDagPath & dagPath, bool isLocal)
+    String PhysXExporter::generateColladaId(const MDagPath & dagPath)
     {
-        if (!isLocal)
-        {
-            const bool removeFirstNamespace = true;
-            return mDocumentExporter.dagPathToColladaName(dagPath);
-        }
-
         // Get the maya mesh id.
         String mayaId = mDocumentExporter.dagPathToColladaId(dagPath);
 

@@ -85,7 +85,7 @@ namespace COLLADAMaya
 
         MStatus getMeshURI(const MObject & mesh, URI & meshURI);
 
-        String generateColladaId(const MDagPath & dagPath, bool isLocal);
+        String generateColladaId(const MDagPath & dagPath);
         String generateColladaName(const MDagPath & dagPath);
 
         // Stop parsing if callback returns false
