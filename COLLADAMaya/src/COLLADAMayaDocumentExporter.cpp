@@ -454,8 +454,8 @@ namespace COLLADAMaya
     {
         // Make an unique COLLADA Id from a dagPath.
         // We are free to use anything we want for Ids. For now use
-        // full path name for readability - but in future we
-        // could just use an incrementing integer
+        // full path name to ensure id uniqueness. DagPath partial name can not be used
+        // because it can lead to issues when referencing nodes sharing the same name.
         return mayaNameToColladaName(dagPath.fullPathName(), false, removeFirstNamespace);
     }
 
