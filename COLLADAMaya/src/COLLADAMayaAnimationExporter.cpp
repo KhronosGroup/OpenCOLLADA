@@ -180,69 +180,84 @@ namespace COLLADAMaya
         
 		if (ExportOptions::bakeTransforms())
 		{
-			numberOfInstancedClip = 0;
-		    std::vector< bool > OriginalValues;
 
-			saveParamInstancedClip(OriginalValues);
-			
-			//delete all clip added fro character clip
-			mAnimationClips.clear();
-
-			// Get the currentClip activated and disable all other Clip
-			MItDependencyNodes clipItr(MFn::kClip);
-			MFnClip clipFn1;
-			for (int i1 = 0; !clipItr.isDone(); clipItr.next(), i1++)
+			//-----Bake animation not within clip
 			{
-				if (!clipFn1.setObject(clipItr.item())) continue;
-				if (!clipFn1.isInstancedClip()) continue;
-				if (!clipFn1.getEnabled()) continue;
-				
+				animationSampleCache->samplePlugsWithoutClip();
 
-				// Do not export referenced animation
-				MStatus status;
-				MObject obj = clipItr.thisNode(&status);
-								
-				if (obj.hasFn(MFn::kDependencyNode))
-				{
-					MFnDependencyNode ClipFnNode(obj);
-					bool isLocal = !ClipFnNode.isFromReferencedFile();
-					if (ExportOptions::exportXRefs() && ExportOptions::dereferenceXRefs()) isLocal = true;
-					if (!isLocal) continue;
-				}
-
-
-				String clipNameDisable;
-				currentAnimationClip = DocumentExporter::mayaNameToColladaName(clipFn1.name());
-
-				MItDependencyNodes clipItr2(MFn::kClip);
-				for (int i2 = 0; !clipItr2.isDone(); clipItr2.next(), i2++)
-				{
-					MFnClip clipFn2;
-					clipFn2.setObject(clipItr2.item());
-					if (i2 != i1)
-					{
-						clipFn2.setEnabled(false);
-						clipNameDisable = DocumentExporter::mayaNameToColladaName(clipFn2.name());
-					}
-				}
-			
-				generateSamplingFunctionForClip(clipFn1);
-				animationSampleCache->samplePlugs(clipFn1);
-				
 				// Export all animations, which aren't exported until now.
-				bool bNeedtoExport = postSampling();
-
- 				if (bNeedtoExport)
+				if (postSampling())
 				{
+					// Open the animation library
 					openLibrary();
+
+					// Export the curves of the animated element and of the child elements recursive
+					exportAnimatedElements(mAnimationElements);
+
 				}
+			}
 
-				// Export the curves of the animated element and of the child elements recursive
-				exportAnimatedElements(mAnimationElements);
+			//----- Bake animation within clip
+			{
+				numberOfInstancedClip = 0;
+				std::vector< bool > OriginalValues;
 
-				restoreParamInstancedClip(OriginalValues);
+				saveParamInstancedClip(OriginalValues);
 
-				createAnimationClip(clipFn1);
+				//delete all clip added fro character clip
+				mAnimationClips.clear();
+
+				// Get the currentClip activated and disable all other Clip
+				MItDependencyNodes clipItr(MFn::kClip);
+				MFnClip clipFn1;
+				for (int i1 = 0; !clipItr.isDone(); clipItr.next(), i1++)
+				{
+					if (!clipFn1.setObject(clipItr.item())) continue;
+					if (!clipFn1.isInstancedClip()) continue;
+					if (!clipFn1.getEnabled()) continue;
+
+
+					// Do not export referenced animation
+					MStatus status;
+					MObject obj = clipItr.thisNode(&status);
+
+					if (obj.hasFn(MFn::kDependencyNode))
+					{
+						MFnDependencyNode ClipFnNode(obj);
+						bool isLocal = !ClipFnNode.isFromReferencedFile();
+						if (ExportOptions::exportXRefs() && ExportOptions::dereferenceXRefs()) isLocal = true;
+						if (!isLocal) continue;
+					}
+
+
+					String clipNameDisable;
+					currentAnimationClip = DocumentExporter::mayaNameToColladaName(clipFn1.name());
+
+					MItDependencyNodes clipItr2(MFn::kClip);
+					for (int i2 = 0; !clipItr2.isDone(); clipItr2.next(), i2++)
+					{
+						MFnClip clipFn2;
+						clipFn2.setObject(clipItr2.item());
+						if (i2 != i1)
+						{
+							clipFn2.setEnabled(false);
+							clipNameDisable = DocumentExporter::mayaNameToColladaName(clipFn2.name());
+						}
+					}
+
+					generateSamplingFunctionForClip(clipFn1);
+					animationSampleCache->samplePlugsWithClip(clipFn1);
+
+					if (postSampling())
+						openLibrary();
+					
+					// Export the curves of the animated element and of the child elements recursive
+					exportAnimatedElements(mAnimationElements);
+
+					restoreParamInstancedClip(OriginalValues);
+
+					createAnimationClip(clipFn1);
+				}
 			}
 
 			closeLibrary();
@@ -744,7 +759,8 @@ namespace COLLADAMaya
             {
 				if (ExportOptions::bakeTransforms())
 				{
-					animatedElement->setBaseId(currentAnimationClip + "_" + animatedElement->getBaseId());
+					String prefix = currentAnimationClip.size() > 0 ? currentAnimationClip + "_" : "";
+					animatedElement->setBaseId(prefix + animatedElement->getBaseId());
 					animatedElement->clearAnimatedCurve();
 				}
 

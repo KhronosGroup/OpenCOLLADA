@@ -50,10 +50,12 @@ namespace COLLADAMaya
 				std::vector< std::pair<bool, Step> > stepInterpolation;
 				std::vector<float> times;
                 std::vector<float> values;
-                bool isMatrix, isWanted, isAnimated;
+                bool isMatrix, isWanted, isAnimated, isExported;
 
-                Part() : isMatrix ( false ), isWanted ( false ), isAnimated ( false ) {}
-                Part ( const MPlug& plug ) : plug ( plug ), isMatrix ( false ), isWanted ( false ), isAnimated ( false ) {}
+				MObjectArray animCurves;
+
+				Part() : isMatrix(false), isWanted(false), isAnimated(false), isExported(false) {}
+				Part(const MPlug& plug) : plug(plug), isMatrix(false), isWanted(false), isAnimated(false), isExported(false){}
             };
 
             std::vector<Part> parts;
@@ -152,7 +154,9 @@ namespace COLLADAMaya
         void sampleIKHandle ( const MDagPath& dagPath );
 
         /** Sample all the cached plugs */
-		void samplePlugs(MFnClip& clipFn);
+		void samplePlugsWithoutClip();
+		void samplePlugsWithClip(MFnClip& clipFn);
+		void samplePlugs();
 
     private:
 
