@@ -788,7 +788,8 @@ namespace COLLADAMaya
             }
             else
             {
-                ++it;
+				animatedElement->isExported(false);
+				++it;
             }
         }
 

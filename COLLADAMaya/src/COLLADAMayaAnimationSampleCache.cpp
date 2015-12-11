@@ -305,7 +305,7 @@ namespace COLLADAMaya
 			for (CachePartList::iterator it2 = c->parts.begin(); it2 != c->parts.end(); ++it2)
 			{
 				CacheNode::Part& part = (*it2);
-				part.isExported = true;
+				part.isExported = false;
 				part.animCurves.clear();
 
 				MStatus status;
@@ -328,46 +328,12 @@ namespace COLLADAMaya
 					MObject animCurve = DagHelper::getNodeConnectedTo(part.plug.node(), attrName.asChar());
 
 					if (animCurve.hasFn(MFn::kAnimCurve))
-						part.animCurves.append(animCurve);
-					
-				}
-			}
-		}
-
-		// Set All plug in relation with a clip not "exported"
-		MItDependencyNodes clipItr(MFn::kClip);
-		MFnClip clipFn;
-		for (int i1 = 0; !clipItr.isDone(); clipItr.next(), i1++)
-		{
-			if (!clipFn.setObject(clipItr.item())) continue;
-			if (!clipFn.isInstancedClip()) continue;
-			if (!clipFn.getEnabled()) continue;
-
-			MObjectArray animCurves;
-			MPlugArray plugs;
-			clipFn.getMemberAnimCurves(animCurves, plugs);
-
-			for (unsigned int j = 0; j < animCurves.length(); j++)
-			{
-				MObject plugNode = plugs[j].node();
-				MFnDependencyNode nodetracked(plugNode);
-				String nameTracked = nodetracked.name().asChar();
-
-				for (CacheNodeMap::iterator it = mNodes.begin(); it != mNodes.end(); ++it)
-				{
-					CacheNode* c = (*it).second;
-					for (CachePartList::iterator it2 = c->parts.begin(); it2 != c->parts.end(); ++it2)
 					{
-						CacheNode::Part& part = (*it2);
-
-						MFnDependencyNode node1(part.plug.node());
-						String name = node1.name().asChar();
-
-						if (plugs[j].node() == part.plug.node())
-						{
-							part.isExported = false;
-						}
+						part.animCurves.append(animCurve);
+						part.isExported = true;
 					}
+						
+					
 				}
 			}
 		}
@@ -457,8 +423,9 @@ namespace COLLADAMaya
 						for (unsigned int j = 0; j < part.animCurves.length(); j++)
 						{
 
-							MFnAttribute attrib(part.plug.attribute());
-							String nameAttrib = attrib.name().asChar();
+							MFnDependencyNode animNode(part.animCurves[j]);
+							String nameAttrib = animNode.name().asChar();
+							
 
 							MFnAnimCurve animCurveFn(part.animCurves[j], &status);
 
@@ -471,11 +438,11 @@ namespace COLLADAMaya
 								COLLADASW::LibraryAnimations::InterpolationType interpolationType;
 								interpolationType = AnimationHelper::toInterpolation(animCurveFn.outTangentType(keyPosition));
 
-								if (interpolationType == COLLADASW::LibraryAnimations::STEP ||
-									interpolationType == COLLADASW::LibraryAnimations::STEP_NEXT)
+								float stepTime = (float)animCurveFn.time(keyPosition).as(MTime::kSeconds);
+								
+								if ((interpolationType == COLLADASW::LibraryAnimations::STEP ||
+									interpolationType == COLLADASW::LibraryAnimations::STEP_NEXT) && (stepTime >= (times.front())) && (stepTime <= (times.back())))
 								{
-
-									float stepTime = (float)animCurveFn.time(keyPosition).as(MTime::kSeconds);
 
 									std::vector<float>::iterator itFound;
 
@@ -486,50 +453,55 @@ namespace COLLADAMaya
 
 										StepType type = interpolationType == COLLADASW::LibraryAnimations::STEP ? STEPPED : STEPPED_NEXT;
 
-										if ((nameAttrib.compare("translateX") == 0))
+										if (nameAttrib.find("translateX") != std::string::npos)
 										{
 											step._transform = TransX;
 											step._type[0] = type;
 										}
-										else if ((nameAttrib.compare("translateY") == 0))
+										else if (nameAttrib.find("translateY") != std::string::npos)
 										{
 											step._transform = TransY;
 											step._type[1] = type;
 										}
-										else if ((nameAttrib.compare("translateZ") == 0))
+										else if (nameAttrib.find("translateZ") != std::string::npos)
 										{
 											step._transform = TransZ;
 											step._type[2] = type;
 										}
-										else if ((nameAttrib.compare("rotateX") == 0))
+										else if (nameAttrib.find("rotateX") != std::string::npos)
 										{
 											step._transform = RotX;
 											step._type[3] = type;
 										}
-										else if ((nameAttrib.compare("rotateY") == 0))
+										else if (nameAttrib.find("rotateY") != std::string::npos)
 										{
 											step._transform = RotY;
 											step._type[4] = type;
 										}
-										else if ((nameAttrib.compare("rotateZ") == 0))
+										else if (nameAttrib.find("rotateZ") != std::string::npos)
 										{
 											step._transform = RotZ;
 											step._type[5] = type;
 										}
-										else if ((nameAttrib.compare("scaleX") == 0))
+										else if (nameAttrib.find("scaleX") != std::string::npos)
 										{
 											step._transform = ScaleX;
 											step._type[6] = type;
 										}
-										else if ((nameAttrib.compare("scaleY") == 0))
+										else if (nameAttrib.find("scaleY") != std::string::npos)
 										{
 											step._transform = ScaleY;
 											step._type[7] = type;
 										}
-										else if ((nameAttrib.compare("scaleZ") == 0))
+										else if (nameAttrib.find("scaleZ") != std::string::npos)
 										{
 											step._transform = ScaleZ;
 											step._type[8] = type;
+										}
+										else
+										{
+											// No step if it's not on a Txyz & Rxyz & Sxyz
+											continue;
 										}
 
 
