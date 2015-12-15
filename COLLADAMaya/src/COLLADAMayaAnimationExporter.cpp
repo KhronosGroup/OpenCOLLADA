@@ -126,7 +126,7 @@ namespace COLLADAMaya
 	{
 		String clipName = DocumentExporter::mayaNameToColladaName(currentMfnclip.name());
 		
-		float startTime = clipSourceStart.as(MTime::kSeconds);
+		float startTime = (float)clipSourceStart.as(MTime::kSeconds);
 		float endTime = (float)(startTime + (clipSourceEnd - clipSourceStart).as(MTime::kSeconds));
 
 		AnimationClip* clip = new AnimationClip();
@@ -2154,6 +2154,9 @@ namespace COLLADAMaya
 				// Push the animated child in the child list of the parent animated element
 				animatedElement->addChildElement(animatedChild);
 
+				MFnClip clipFn(clip->clipFn, &status);
+				generateSamplingFunctionForClip(clipFn);
+
 				// Create the curve segment for this clip-plug std::pair
 				MObject animCurveNode = clip->animCurves[index];
 				AnimationCurve* curve = createAnimationCurveFromNode(animatedChild, animCurveNode, baseId, curveIndex);
@@ -2269,7 +2272,7 @@ namespace COLLADAMaya
 				DagHelper::getPlugValue(clipFn.object(), ATTR_CLIP_SOURCE_END, end);
 				clipSourceEnd = MTime(end, MTime::kSeconds);
 
-				float startTime = clipSourceStart.as(MTime::kSeconds);
+				float startTime = (float)clipSourceStart.as(MTime::kSeconds);
 				float endTime = (float)(startTime + (clipSourceEnd - clipSourceStart).as(MTime::kSeconds));
 
                 AnimationClip* clip = new AnimationClip();
@@ -2281,7 +2284,7 @@ namespace COLLADAMaya
 				clip->colladaClip->setAnimationEvent(isEventAnimation);
 				
 				clip->colladaClip->addExtraTechniqueParameter(PROFILE_MAYA, ATTR_EVENT_ANIMATION, isEventAnimation);
-
+				clip->clipFn = clipFn.object();
 
 				clipFn.getMemberAnimCurves ( clip->animCurves, clip->plugs );
 
@@ -2407,6 +2410,24 @@ namespace COLLADAMaya
         {
             InterpolationType interpolationType;
             interpolationType = AnimationHelper::toInterpolation ( animCurveFn.outTangentType ( keyPosition ) );
+
+			// check if Step key is inbetween frame. In that case it is not exported
+			if (interpolationType == STEP_NEXT || interpolationType == STEP)
+			{
+				float key1 = (float)animCurveFn.time(keyPosition).as(MTime::kSeconds);
+				std::vector<float>& times = AnimationHelper::mSamplingTimes;
+				std::vector<float>::iterator itFound;
+
+				itFound = find(times.begin(), times.end(), key1);
+				if (!(itFound != times.end()))
+				{
+					MGlobal::displayWarning(
+						MString("Step key : ") +
+						MString(std::to_string(key1).c_str()) +
+						MString(",is on non valid timing, no keyframes inbetween(sub-keyframes) are allowed"));
+					continue;
+				}
+			}
 
 			AnimationKey* key = ((AnimationKey*)curve->addKey(interpolationType == STEP_NEXT ? STEP : interpolationType));
 
