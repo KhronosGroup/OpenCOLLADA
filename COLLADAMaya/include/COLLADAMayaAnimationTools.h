@@ -82,6 +82,7 @@ namespace COLLADAMaya
         COLLADASW::ColladaAnimationClip* colladaClip;
         MObjectArray animCurves;
         MPlugArray plugs;
+		MObject clipFn;
 
         /** Returns the plug */
         int findPlug ( const MPlug& p );

@@ -542,7 +542,13 @@ namespace COLLADAMaya
 
 										if (!(itFound != times.end()))
 										{
-											times.insert(times.begin() + element, stepTime);
+											
+											MGlobal::displayWarning(
+											MString("Step key : ") + 
+											MString(std::to_string(stepTime).c_str()) +
+											MString(",is on non valid timing, no keyframes inbetween(sub-keyframes) are allowed"));
+												
+											//times.insert(times.begin() + element, stepTime);
 										}
 
 									}
