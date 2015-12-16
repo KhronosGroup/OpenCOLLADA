@@ -16,13 +16,13 @@ namespace COLLADASW
 {
 
     //---------------------------------------------------------------
-    ColladaAnimationClip::ColladaAnimationClip(const String& animationClipId, const String& name)
-            : mAnimationClipId ( animationClipId ), mName(name), mStartTime ( -1.0f ), mEndTime ( -1.0f )
+	ColladaAnimationClip::ColladaAnimationClip(const String& animationClipId, const String& animationClipSourceId)
+		: mAnimationClipId(animationClipId), mAnimationClipSourceId(animationClipSourceId), mStartTime(-1.0f), mEndTime(-1.0f)
     {}
 
     //---------------------------------------------------------------
-    ColladaAnimationClip::ColladaAnimationClip ( const String& animationClipId, float &startTime, float &endTime )
-            : mAnimationClipId ( animationClipId ), mStartTime ( startTime ), mEndTime ( endTime )
+	ColladaAnimationClip::ColladaAnimationClip(const String& animationClipId, const String& animationClipSourceId, float &startTime, float &endTime)
+		: mAnimationClipId(animationClipId), mAnimationClipSourceId(animationClipSourceId), mStartTime(startTime), mEndTime(endTime)
     {}
 
     //---------------------------------------------------------------

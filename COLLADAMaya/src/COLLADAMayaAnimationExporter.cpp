@@ -130,7 +130,7 @@ namespace COLLADAMaya
 		float endTime = (float)(startTime + (clipSourceEnd - clipSourceStart).as(MTime::kSeconds));
 
 		AnimationClip* clip = new AnimationClip();
-		clip->colladaClip = new COLLADASW::ColladaAnimationClip(clipName, startTime, endTime);
+		clip->colladaClip = new COLLADASW::ColladaAnimationClip(clipName, clipName, startTime, endTime);
 
 		AnimatedElementList::iterator it = mAnimationElements.begin();
 		while (it != mAnimationElements.end())
@@ -265,6 +265,7 @@ namespace COLLADAMaya
 		}
 		else
 		{
+
 			if (!mAnimationElements.empty())
 			{
 				// Open the animation library
@@ -1986,7 +1987,7 @@ namespace COLLADAMaya
 
                 // Create the animation curve from the current clip
                 curveCreated = createAnimationCurveFromClip ( animatedElement, plug, conversion, curves, curveIndex );
-
+				
                 // It is possible that the character has some curves as well as clips
                 MPlug plugIntermediate;
                 DagHelper::getPlugConnectedTo ( plug, plugIntermediate );
@@ -2117,57 +2118,67 @@ namespace COLLADAMaya
         getCharacterClips ( characterNode, clips );
         if ( clips.empty() ) return false;
 
+		std::set<String> clipSources;
+		
         // Iterate through the clips
         for ( AnimationClipList::iterator it = clips.begin(); it != clips.end(); ++it )
         {
             AnimationClip* clip = ( *it );
             int index = clip->findPlug ( plug );
             if ( index == -1 ) continue;
-			
-            // Create a new animated element
-            String baseId = getBaseId ( plug ) + "-" + clip->getClipId();
-            String subId = COLLADASW::Utils::checkID ( animatedElement->getTargetSid() );
-            String nodeId = animatedElement->getNodeId();
-            const String* parameters = animatedElement->getParameters();
-            bool convertUnits = animatedElement->getConvertUnits ();
-            SampleType sampleType = animatedElement->getSampleType();
+
+			bool found = false;
+			auto result = clipSources.insert(clip->getClipSourceId());
+			found = !result.second;
+
+			String baseId = getBaseId(plug) + "-" + clip->getClipSourceId();
+
+			if (!found)
+			{
+				// Create a new animated element
+				String subId = COLLADASW::Utils::checkID(animatedElement->getTargetSid());
+				String nodeId = animatedElement->getNodeId();
+				const String* parameters = animatedElement->getParameters();
+				bool convertUnits = animatedElement->getConvertUnits();
+				SampleType sampleType = animatedElement->getSampleType();
 			MEulerRotation::RotationOrder order = MEulerRotation::kXYZ;
 
 			AnimationElement* animatedChild = new AnimationElement(plug, baseId, subId, nodeId, parameters, convertUnits, order, sampleType);
-	
-			animatedChild->setOriginalBaseId(baseId);
 
-            // Push the animated child in the child list of the parent animated element
-            animatedElement->addChildElement ( animatedChild );
+				animatedChild->setOriginalBaseId(baseId);
 
-            // Create the curve segment for this clip-plug std::pair
-            MObject animCurveNode = clip->animCurves[index];
-            AnimationCurve* curve = createAnimationCurveFromNode ( animatedChild, animCurveNode, baseId, curveIndex );
+				// Push the animated child in the child list of the parent animated element
+				animatedElement->addChildElement(animatedChild);
 
-            if ( curve == NULL ) continue;
+				// Create the curve segment for this clip-plug std::pair
+				MObject animCurveNode = clip->animCurves[index];
+				AnimationCurve* curve = createAnimationCurveFromNode(animatedChild, animCurveNode, baseId, curveIndex);
 
-            // Convert the values, for example if using angles.
-            curve->convertValues ( conversion, conversion );
+				if (curve == NULL) continue;
 
-            // Set the dimension of the child clips
-            if ( animatedElement->isCompoundElement() ) curve->setDimension ( kSingle );
+				// Convert the values, for example if using angles.
+				curve->convertValues(conversion, conversion);
 
-            // Add the created curve to the list of curves of the child element.
-            animatedChild->addAnimatedCurve ( curve );
+				// Set the dimension of the child clips
+				if (animatedElement->isCompoundElement()) curve->setDimension(kSingle);
 
-            // Set the flag, that a curve was created
-            curveCreated = true;
+				// Add the created curve to the list of curves of the child element.
+				animatedChild->addAnimatedCurve(curve);
 
-            // Assign the new curve to the animation clip.
-            // Open an animation node and add the channel of the current animation
-            const String& originalColladaId = animatedElement->getOriginalColladaId ();
+				// Set the flag, that a curve was created
+				curveCreated = true;
+
+				// Assign the new curve to the animation clip.
+				// Open an animation node and add the channel of the current animation
+				const String& originalColladaId = animatedElement->getOriginalColladaId();
+			}
 /*            if ( !originalColladaId.empty () )
             {
                 clip->colladaClip->setInstancedAnimation ( originalColladaId );
             }
             else
  */           {
-                clip->colladaClip->setInstancedAnimation ( curve->getBaseId() );
+				clip->colladaClip->setInstancedAnimation(baseId);
             }
 
             // Push the current curve in the list of curves
@@ -2198,16 +2209,39 @@ namespace COLLADAMaya
         {
             // Create the clips associated with this character
             MFnCharacter characterFn ( characterNode );
-            int clipCount = characterFn.getSourceClipCount();
+			int clipCount = characterFn.getScheduledClipCount();
             if ( clipCount == 0 ) return;
 
             MPlugArray plugs;
             for ( int i=0; i<clipCount; ++i )
             {
-                // Export any source clip, including poses, which are simply 1-key curves.
-                MObject clipNode = characterFn.getSourceClip ( i );
-                MFnClip clipFn ( clipNode, &status );
+ 				MObject clipNode = characterFn.getScheduledClip(i);
+				MFnClip clipFn ( clipNode, &status );
                 if ( status != MStatus::kSuccess ) continue;
+
+				String clipNameSource;
+				MPlugArray nodePlugs;
+				MFnDependencyNode node(clipNode);
+				node.getConnections(nodePlugs);
+
+				for (uint k = 0; k < nodePlugs.length(); k++)
+				{
+					const MPlug& nodePlug = nodePlugs[k];
+					MString name = nodePlug.name();
+					MPlugArray nodeDestinations;
+					nodePlug.connectedTo(nodeDestinations, true, true);
+					for (uint j = 0; j < nodeDestinations.length(); j++)
+					{
+						String val = nodeDestinations[j].node().apiTypeStr();
+
+						if (nodeDestinations[j].node().apiType() == MFn::kClip)
+						{
+							MFnClip clipFn1(nodeDestinations[j].node());
+							MString name = clipFn1.name();
+							clipNameSource = DocumentExporter::mayaNameToColladaName(clipFn1.name());
+						}
+					}
+				}
 
 				// Do not export referenced animation
 				if (clipNode.hasFn(MFn::kDependencyNode))
@@ -2221,11 +2255,21 @@ namespace COLLADAMaya
 
                 // Create the corresponding COLLADA animation clip
                 String clipName = DocumentExporter::mayaNameToColladaName ( clipFn.name() );
-                float startTime = ( float ) clipFn.getSourceStart().as ( MTime::kSeconds );
-                float endTime = startTime + ( float ) clipFn.getSourceDuration().as ( MTime::kSeconds );
+ 
+				// Avoid any potential precision accumulation problems by using the MTime class as an iterator		
+				float start;
+				DagHelper::getPlugValue(clipFn.object(), ATTR_CLIP_SOURCE_START, start);
+				clipSourceStart = MTime(start, MTime::kSeconds);
+
+				float end;
+				DagHelper::getPlugValue(clipFn.object(), ATTR_CLIP_SOURCE_END, end);
+				clipSourceEnd = MTime(end, MTime::kSeconds);
+
+				float startTime = (float)(clipFn.getStartFrame().as(MTime::kSeconds));
+				float endTime = (float)(startTime + (clipSourceEnd - clipSourceStart).as(MTime::kSeconds));
 
                 AnimationClip* clip = new AnimationClip();
-                clip->colladaClip = new COLLADASW::ColladaAnimationClip ( clipName, startTime, endTime );
+				clip->colladaClip = new COLLADASW::ColladaAnimationClip(clipName, clipNameSource, startTime, endTime);
                 clip->characterNode = characterNode;
 
 				bool isEventAnimation = false;
