@@ -52,14 +52,14 @@ namespace COLLADAMaya
                 std::vector<float> values;
                 bool isMatrix, isWanted, isAnimated, isExported;
 
-				MObjectArray animCurves;
+				std::vector<MObject> animCurves;
 
 				Part() : isMatrix(false), isWanted(false), isAnimated(false), isExported(false) {}
 				Part(const MPlug& plug) : plug(plug), isMatrix(false), isWanted(false), isAnimated(false), isExported(false){}
             };
 
             std::vector<Part> parts;
-
+			
             MObject node;
             CacheNode ( const MObject& node ) : node ( node ) {}
 
@@ -69,6 +69,7 @@ namespace COLLADAMaya
                 parts = a.parts;
                 return *this;
             }
+
         };
 
         /** Map for the cache nodes. */

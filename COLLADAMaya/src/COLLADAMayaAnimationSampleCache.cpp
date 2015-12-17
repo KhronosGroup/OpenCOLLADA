@@ -330,7 +330,7 @@ namespace COLLADAMaya
 
 					if (animCurve.hasFn(MFn::kAnimCurve))
 					{
-						part.animCurves.append(animCurve);
+						part.animCurves.push_back(animCurve);
 						part.isExported = true;
 					}
 						
@@ -380,11 +380,11 @@ namespace COLLADAMaya
 
 					MFnDependencyNode node1(part.plug.node());
 					String name = node1.name().asChar();
-
+					
 					if (plugs[j].node() == part.plug.node())
 					{
 						part.isExported = true;
-						part.animCurves.append(animCurves[j]);
+						part.animCurves.push_back(animCurves[j]);
 					}
 				}
 			}
@@ -421,7 +421,7 @@ namespace COLLADAMaya
 						MStatus status;
 						Step step;
 
-						for (unsigned int j = 0; j < part.animCurves.length(); j++)
+						for (unsigned int j = 0; j < part.animCurves.size(); j++)
 						{
 
 							MFnDependencyNode animNode(part.animCurves[j]);
@@ -538,18 +538,6 @@ namespace COLLADAMaya
 										}
 										else
 											interpolationStepTiming.push_back(std::make_pair(stepTime, step));
-
-
-										if (!(itFound != times.end()))
-										{
-											
-											MGlobal::displayWarning(
-											MString("Step key : ") + 
-											MString(std::to_string(stepTime).c_str()) +
-											MString(",is on non valid timing, no keyframes inbetween(sub-keyframes) are allowed"));
-												
-											//times.insert(times.begin() + element, stepTime);
-										}
 
 									}
 								}
