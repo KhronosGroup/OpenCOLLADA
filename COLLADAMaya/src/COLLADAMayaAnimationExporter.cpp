@@ -2132,7 +2132,7 @@ namespace COLLADAMaya
             if ( index == -1 ) continue;
 
 			bool found = false;
-			auto result = clipSources.insert(clip->getClipSourceId());
+			std::pair<std::set<String>::iterator, bool> result = clipSources.insert(clip->getClipSourceId());
 			found = !result.second;
 
 			String baseId = getBaseId(plug) + "-" + clip->getClipSourceId();
@@ -2421,10 +2421,6 @@ namespace COLLADAMaya
 				itFound = find(times.begin(), times.end(), key1);
 				if (!(itFound != times.end()))
 				{
-					MGlobal::displayWarning(
-						MString("Step key : ") +
-						MString(std::to_string(key1).c_str()) +
-						MString(",is on non valid timing, no keyframes inbetween(sub-keyframes) are allowed"));
 					continue;
 				}
 			}
