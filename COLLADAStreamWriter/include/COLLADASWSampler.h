@@ -141,7 +141,7 @@ namespace COLLADASW
         float mMipmapBias;
 
 		/** The id of the image used for the sampler. Other samplers are not supported
-		In COLALDA 1.4 this is written in to a surface element, in 1.5 in a sampler element.*/
+		In COLLADA 1.4 this is written in to a surface element, in 1.5 in a sampler element.*/
 		String mImageId;
 
 		/** The format of the current surface. 
@@ -202,11 +202,11 @@ namespace COLLADASW
 #endif
 
 		/** The URL of the image used for the sampler. Other samplers are not supported
-		In COLALDA 1.4 this is written in to a surface element, in 1.5 in a sampler element.*/
+		In COLLADA 1.4 this is written in to a surface element, in 1.5 in a sampler element.*/
 		const COLLADASW::String& getImageUrl() const { return mImageId; }
 
 		/** The id of the image used for the sampler. Other samplers are not supported
-		In COLALDA 1.4 this is written in to a surface element, in 1.5 in a sampler element.*/
+		In COLLADA 1.4 this is written in to a surface element, in 1.5 in a sampler element.*/
 		void setImageId( const COLLADASW::String& imageId) { mImageId = imageId; }
 
         /** Sets the min filter. */

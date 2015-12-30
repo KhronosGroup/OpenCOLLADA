@@ -117,7 +117,7 @@ namespace COLLADAMax
 
 		INode *node = exportNode->getINode();
 
-		// if true, we do not write a COLALDA node for this max node
+		// if true, we do not write a COLLADA node for this max node
 		bool exportOnlyChilds = node->IsRootNode() != 0;
 
 		COLLADASW::Node colladaNode( mSW );
