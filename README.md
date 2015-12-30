@@ -1,7 +1,7 @@
-updated OpenCOLLADA tools [here](https://github.com/KhronosGroup/OpenCOLLADA/wiki/OpenCOLLADA-Tools).  
+Updated OpenCOLLADA tools [here](https://github.com/KhronosGroup/OpenCOLLADA/wiki/OpenCOLLADA-Tools).  
 
 OpenCOLLADA
--------------------
+===========
 
 COLLADAMax and COLLADAMaya are new implementation of a 3ds Max or Maya plug-ins to export scene or parts of it to a COLLADA file, released under an MIT-license. 
 
@@ -13,10 +13,10 @@ For information about how to build OpenCOLLADA under linux and mac OSX usings SC
 
 NOTE: The COLLADA.sln solution, contained in this directory, exists only for development purposes. To build the NextGen plug-ins, please use the solutions in the COLLADAMax and COLLADAMaya directories.
 
-Building with cmake
+Building with CMake
 -------------------
 
-Mac OS X *Tested with Lion and Mountain Lion*:
+### Mac OS X *(tested with Lion and Mountain Lion)*
 
 1. Install [cmake](http://www.cmake.org/cmake/resources/software.html) with command line links.
 2. some packages are required, they can be easily installed using a terminal with [brew](http://mxcl.github.com/homebrew/) type:
@@ -32,8 +32,7 @@ Type in a terminal:
 
 You should end up with a ready to be used OPENCOLLADA.xcodeproj.
 
-Windows
--------
+### Windows
 
 1. Install [CMake](http://cmake.org/cmake/resources/software.html).
 2. Create a new folder alongside this repository (not inside it), called `OpenCOLLADA-cmake`
@@ -41,11 +40,21 @@ Windows
 4. `cmake ../OpenCOLLADA`
 5. Open `OPENCOLLADA.sln` from the new folder, and build the default startup project, `ALL_BUILD`.
 
-Linux *todo*
------ 
+### Linux *todo*
 
 Recent changes requires having C++11 enabled, thus GCC 4.7 must be installed.
 As an example, for Unbuntu please check [this](http://askubuntu.com/questions/113291/how-do-i-install-gcc-4-7) and [this]( http://charette.no-ip.com:81/programming/2011-12-24_GCCv47/)
+
+### Available build options and their default values
+
+* `USE_STATIC` (ON) - Build static libraries, mutually exlusive with USE_SHARED. 
+* `USE_SHARED` (OFF) - Build shared libraries, available currently only on Unix-like environments.
+* `USE_LIBXML` (ON) - Use LibXml2 parser.
+* `USE_EXPAT` (OFF) - Use expat parser. **Unsupported currently. Do not use.**
+* `USE_STATIC_MSVC_RUNTIME` (OFF) - Use static version of the MSVC run-time library, Windows/MSVC-only.
+Increases the size of the binaries, but is useful e.g. when wanting to build a standalone application that
+uses OpenCOLLADA with no runtime dependencies. Requires that all dependencies in the project use the
+same run-time library option.
 
 Directories
 -----------

@@ -1,4 +1,4 @@
-COLLADAMax and COLALDAMaya are new implementation of a 3ds Max or Maya  plug-ins to export scene or 
+COLLADAMax and COLLADAMaya are new implementation of a 3ds Max or Maya  plug-ins to export scene or 
 parts of it to a COLLADA file, released under an MIT-license. 
 
 In contrast to other existing COLLADA exporters, this new plug-ins do not store the

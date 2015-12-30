@@ -108,7 +108,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryImagesLoader::begin__data()
 	{
-		// disabled see COLALDAFW::Image
+		// disabled see COLLADAFW::Image
 		//mCurrentImage->setSourceType( COLLADAFW::Image::SOURCE_TYPE_DATA);
 		return true;
 	}
@@ -116,7 +116,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryImagesLoader::data__data( const uint8* data, size_t length )
 	{
-		// disabled see COLALDAFW::Image
+		// disabled see COLLADAFW::Image
 		//COLLADAFW::Image::CharacterArray& dataArray = mCurrentImage->getData();
 		//dataArray.appendValues( (char *)data, length );
 		return true;
