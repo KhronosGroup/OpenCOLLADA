@@ -38,7 +38,7 @@ namespace COLLADAFW
 		FileId mFileId;
 
 	public:
-		/** Default constructor. Creates a UniqueId with ClassId COLALDA_TYPES::No_TYPE, which is an invalid ClassId.
+		/** Default constructor. Creates a UniqueId with ClassId COLLADA_TYPES::No_TYPE, which is an invalid ClassId.
 		Therefore the UniqueId is considered to be invalid.*/
 		UniqueId() : mClassId(COLLADA_TYPE::NO_TYPE), mObjectId(0), mFileId(0){}
 
