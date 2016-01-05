@@ -501,6 +501,8 @@ namespace COLLADAMax
 
         TimeValue initTime = mDocumentExporter->getOptions().getAnimationStart();
 
+		float opacity = 1;
+
         if ( !inited )
         {
 			ScaleConversionFunctor scaleConversion(weight);
@@ -515,7 +517,8 @@ namespace COLLADAMax
 			effectProfile.setTransparent ( COLLADASW::ColorOrTexture ( COLLADASW::Color::WHITE ) );
 
 			bool isOpacityAnimated = mAnimationExporter->addAnimatedParameter(extendedParameters, ExtendedParameterIndices::OPACITY, effectId, effectProfile.getSpecularDefaultSid(), COLOR_PARAMETERS);
-            effectProfile.setTransparency ( material->GetOpacity ( animationStart ) * weight );
+			opacity = material->GetOpacity(animationStart) * weight;
+            effectProfile.setTransparency ( 1 - opacity );
 
             effectProfile.setReflective ( COLLADASW::ColorOrTexture ( COLLADASW::Color::BLACK ) );
 
@@ -574,6 +577,10 @@ namespace COLLADAMax
 
             case TRANSPARENt:
                 effectProfile.setOpaque ( getOpacity ( map ) );
+				if (NULL != map && (1 - opacity) < 0.0001) 
+				{
+					effectProfile.setTransparency(0.0001);
+				}
                 break;
             }
 
