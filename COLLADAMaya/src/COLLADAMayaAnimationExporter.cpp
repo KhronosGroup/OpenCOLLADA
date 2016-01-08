@@ -1694,7 +1694,7 @@ namespace COLLADAMaya
             DagHelper::getPlugValue ( node, COLLADA_ID_ATTRIBUTE_NAME, attributeValue );
             if ( attributeValue != EMPTY_CSTRING )
                 nodeId = mDocumentExporter->mayaNameToColladaName ( attributeValue, false );
-			else nodeId = mDocumentExporter->mayaNameToColladaName(FnPath.partialPathName().asChar(), false);
+			else nodeId = mDocumentExporter->getVisualSceneExporter()->getColladaNodeId(FnPath);
             return nodeId;
         }
         // TODO Do we need it?
@@ -1721,7 +1721,7 @@ namespace COLLADAMaya
             {
                 return partialPathName;
             }
-            return DocumentExporter::mayaNameToColladaName ( fnDagNode.partialPathName(), false );
+			return mDocumentExporter->getVisualSceneExporter()->getColladaNodeId(FnPath);
         }
 
         return EMPTY_STRING;
