@@ -113,7 +113,7 @@ namespace COLLADAMaya
             {
 				if ((*it).isAnimated && (*it).isExported)
                 {
-					inputs = &(*it).times;  //&AnimationHelper::mSamplingTimes;
+					inputs = &AnimationHelper::mSamplingTimes;
                     outputs = & ( *it ).values;
 					interpolation = &(*it).stepInterpolation;
                 }
@@ -401,6 +401,9 @@ namespace COLLADAMaya
 		MStatus stat;
 		AnimationHelper::getCurrentTime(originalTime);
 
+		std::vector<float>& times = AnimationHelper::mSamplingTimes;
+		uint sampleCount = (uint)times.size();
+
 		for (CacheNodeMap::iterator it = mNodes.begin(); it != mNodes.end(); ++it)
 		{
 			CacheNode* c = (*it).second;
@@ -408,7 +411,6 @@ namespace COLLADAMaya
 			{
 				CacheNode::Part& part = (*it2);
 
-				std::vector<float>& times = AnimationHelper::mSamplingTimes;
 				std::vector< std::pair<float, Step> > interpolationStepTiming;
 				
 				MFnDependencyNode node1(part.plug.node());
@@ -545,10 +547,8 @@ namespace COLLADAMaya
 						}
 					}
 
-					part.times = times;
-
-					part.stepInterpolation.resize(part.times.size());
-					for (int i = 0; i < part.times.size(); i++)
+					part.stepInterpolation.resize(sampleCount);
+					for (uint i = 0; i < sampleCount; i++)
 					{
 						Step step;
 						part.stepInterpolation[i] = std::make_pair(false, step);
@@ -575,25 +575,23 @@ namespace COLLADAMaya
                 CacheNode::Part& part = ( *it2 );
                 if ( part.isWanted && part.isExported)
                 {
-					uint sampleCount = (uint)part.times.size();
                     part.values.resize ( ( !part.isMatrix ) ? sampleCount : 16 * sampleCount );
                 }
             }
         }
 
-		
-		for (CacheNodeMap::iterator it = mNodes.begin(); it != mNodes.end(); ++it)
+		for (uint i = 0; i < sampleCount; ++i)
 		{
-			CacheNode* c = (*it).second;
+			MTime t(times[i], MTime::kSeconds);
+			AnimationHelper::setCurrentTime(t);
 
-			for (CachePartList::iterator it2 = c->parts.begin(); it2 != c->parts.end(); ++it2)
+			for (CacheNodeMap::iterator it = mNodes.begin(); it != mNodes.end(); ++it)
 			{
-				CacheNode::Part& part = (*it2);
+				CacheNode* c = (*it).second;
 
-				for (uint i = 0; i < part.times.size(); ++i)
+				for (CachePartList::iterator it2 = c->parts.begin(); it2 != c->parts.end(); ++it2)
 				{
-					MTime t(part.times[i], MTime::kSeconds);
-					AnimationHelper::setCurrentTime(t);
+					CacheNode::Part& part = (*it2);
 
 					if (part.isWanted && part.isExported)
 					{
