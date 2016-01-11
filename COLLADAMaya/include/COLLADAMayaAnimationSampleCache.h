@@ -48,7 +48,6 @@ namespace COLLADAMaya
                 MPlug plug;
 
 				std::vector< std::pair<bool, Step> > stepInterpolation;
-				std::vector<float> times;
                 std::vector<float> values;
                 bool isMatrix, isWanted, isAnimated, isExported;
 
