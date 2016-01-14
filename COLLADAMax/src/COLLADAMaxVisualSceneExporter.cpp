@@ -91,7 +91,7 @@ namespace COLLADAMax
 	void VisualSceneExporter::doExport()
 	{
 		openVisualScene( mVisualSceneId );
-		exportEnvironmentAmbientLightNode();
+		//exportEnvironmentAmbientLightNode();
 		doExport( mExportSceneGraph->getRootExportNode());
 		closeLibrary();
 	}
@@ -115,6 +115,13 @@ namespace COLLADAMax
 		if ( !exportNode->getIsInVisualScene() )
 			return;
 
+		//TODO:将false替换为界面接口选项，提供是否导出灯光的选项 16.1.14 by Gcc
+		if (exportNode->getType() == ExportNode::LIGHT)
+			return;
+
+		if (exportNode->getNumberOfChildren() == 0 && exportNode->getType() == ExportNode::UNKNOWN)
+			return;
+
 		INode *node = exportNode->getINode();
 
 		// if true, we do not write a COLLADA node for this max node
@@ -122,7 +129,7 @@ namespace COLLADAMax
 
 		COLLADASW::Node colladaNode( mSW );
 
-		if ( !exportOnlyChilds )
+		if (!exportOnlyChilds )		
 		{
 			colladaNode.setNodeId( getNodeId(*exportNode) );
 
