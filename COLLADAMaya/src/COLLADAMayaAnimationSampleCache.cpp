@@ -19,6 +19,7 @@
 #include "COLLADAMayaAnimationHelper.h"
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADAMayaSyntax.h"
+#include "COLLADAMayaDocumentExporter.h"
 
 #include <maya/MFnTransform.h>
 #include <maya/MFnAttribute.h>
@@ -28,6 +29,7 @@
 #include <maya/MFnMatrixData.h>
 #include <maya/MGlobal.h>
 #include <maya/MItDependencyGraph.h>
+#include <maya/MItDependencyNodes.h>
 
 #include <maya/MFnCharacter.h>
 #include <maya/MFnClip.h>
@@ -109,9 +111,9 @@ namespace COLLADAMaya
         {
             if ( ( *it ).plug == plug && ( *it ).plug.logicalIndex() == plug.logicalIndex() )
             {
-                if ( ( *it ).isAnimated )
+				if ((*it).isAnimated && (*it).isExported)
                 {
-					inputs = &(*it).times;  //&AnimationHelper::mSamplingTimes;
+					inputs = &AnimationHelper::mSamplingTimes;
                     outputs = & ( *it ).values;
 					interpolation = &(*it).stepInterpolation;
                 }
@@ -292,15 +294,115 @@ namespace COLLADAMaya
         }
     }
 
-    // --------------------------------------------
-    void AnimationSampleCache::samplePlugs()
-    {
-        if ( mNodes.empty() ) return;
 
-        MTime originalTime;
-        MFnMatrixData matrixData;
-        MStatus stat;
-        AnimationHelper::getCurrentTime ( originalTime );
+	void AnimationSampleCache::samplePlugsWithoutClip()
+	{
+		if (mNodes.empty()) return;
+
+		// Search All AnimCurve associated directly to transform and set ALL plug associated with node exported
+		for (CacheNodeMap::iterator it = mNodes.begin(); it != mNodes.end(); ++it)
+		{
+			CacheNode* c = (*it).second;
+			for (CachePartList::iterator it2 = c->parts.begin(); it2 != c->parts.end(); ++it2)
+			{
+				CacheNode::Part& part = (*it2);
+				part.isExported = false;
+				part.animCurves.clear();
+
+				MStatus status;
+
+				MFnDependencyNode fnNode(part.plug.node());
+
+				unsigned int attrCount = fnNode.attributeCount(&status);
+				if (!status) return;
+				for (unsigned int attrIndex = 0; attrIndex < attrCount; ++attrIndex)
+				{
+					MObject attrObject = fnNode.attribute(attrIndex, &status);
+					if (!status) continue;
+
+					MFnAttribute fnAttr(attrObject, &status);
+					if (!status) continue;
+
+					MString attrName = fnAttr.name(&status);
+					if (!status) continue;
+
+					MObject animCurve = DagHelper::getNodeConnectedTo(part.plug.node(), attrName.asChar());
+
+					if (animCurve.hasFn(MFn::kAnimCurve))
+					{
+						part.animCurves.push_back(animCurve);
+						part.isExported = true;
+					}
+						
+					
+				}
+			}
+		}
+
+		samplePlugs();
+	}
+
+
+
+	void AnimationSampleCache::samplePlugsWithClip(MFnClip& clipFn)
+	{
+		if (mNodes.empty()) return;
+
+		for (CacheNodeMap::iterator it = mNodes.begin(); it != mNodes.end(); ++it)
+		{
+			CacheNode* c = (*it).second;
+			for (CachePartList::iterator it2 = c->parts.begin(); it2 != c->parts.end(); ++it2)
+			{
+				CacheNode::Part& part = (*it2);
+				part.isExported = false;
+				part.animCurves.clear();
+			}
+		}
+
+
+		// Set All plug in relation with a clip "exported"
+		MObjectArray animCurves;
+		MPlugArray plugs;
+		clipFn.getMemberAnimCurves(animCurves, plugs);
+
+		for (unsigned int j = 0; j < animCurves.length(); j++)
+		{
+			MObject plugNode = plugs[j].node();
+			MFnDependencyNode nodetracked(plugNode);
+			String nameTracked = nodetracked.name().asChar();
+
+			for (CacheNodeMap::iterator it = mNodes.begin(); it != mNodes.end(); ++it)
+			{
+				CacheNode* c = (*it).second;
+				for (CachePartList::iterator it2 = c->parts.begin(); it2 != c->parts.end(); ++it2)
+				{
+					CacheNode::Part& part = (*it2);
+
+					MFnDependencyNode node1(part.plug.node());
+					String name = node1.name().asChar();
+					
+					if (plugs[j].node() == part.plug.node())
+					{
+						part.isExported = true;
+						part.animCurves.push_back(animCurves[j]);
+					}
+				}
+			}
+		}
+
+		samplePlugs();
+	}
+
+    // --------------------------------------------
+	void AnimationSampleCache::samplePlugs()
+    {
+		MTime originalTime;
+		MFnMatrixData matrixData;
+		MStatus stat;
+		AnimationHelper::getCurrentTime(originalTime);
+
+		std::vector<float>& times = AnimationHelper::mSamplingTimes;
+		uint sampleCount = (uint)times.size();
 
 		for (CacheNodeMap::iterator it = mNodes.begin(); it != mNodes.end(); ++it)
 		{
@@ -309,220 +411,189 @@ namespace COLLADAMaya
 			{
 				CacheNode::Part& part = (*it2);
 
-				std::vector<float>& times = AnimationHelper::mSamplingTimes;
 				std::vector< std::pair<float, Step> > interpolationStepTiming;
 				
+				MFnDependencyNode node1(part.plug.node());
+				String name = node1.name().asChar();
 
-				if (part.isMatrix)
+				if (part.isExported)
 				{
-					MStatus status;
-
-					MFnDependencyNode node1(part.plug.node());
-					String name = node1.name().asChar();
-
-					MPlug plug = MFnDependencyNode(part.plug.node()).findPlug("translateX", false, &status);
-					
-					MObject characterNode = AnimationHelper::getAnimatingNode(plug);
-					MFnCharacter characterFn(characterNode, &status);
-
-					if (status == MStatus::kSuccess)
+					if (part.isMatrix)
 					{
-						int clipCount = characterFn.getSourceClipCount();
-						for (int i = 0; i < clipCount; ++i)
+						MStatus status;
+						Step step;
+
+						for (unsigned int j = 0; j < part.animCurves.size(); j++)
 						{
-							// Export any source clip, including poses, which are simply 1-key curves.
-							MObject clipNode = characterFn.getSourceClip(i);
 
-							MFnClip clipFn(clipNode, &status);
-							if (status != MStatus::kSuccess) continue;
+							MFnDependencyNode animNode(part.animCurves[j]);
+							String nameAttrib = animNode.name().asChar();
+							
 
-							MObjectArray animCurves;
-							MPlugArray plugs;
-							clipFn.getMemberAnimCurves(animCurves, plugs);
+							MFnAnimCurve animCurveFn(part.animCurves[j], &status);
 
-							int Length = animCurves.length();
+							uint keyCount = animCurveFn.numKeys();
 
-							Step step;
+							step._transform = NO_Transformation;
 
-							for (unsigned int j = 0; j < animCurves.length(); j++)
+							for (uint keyPosition = 0; keyPosition < keyCount; ++keyPosition)
 							{
-								// To get what track this curve
-								MObject plugNode = plugs[j].node();
-								MFnAttribute attrib(plugs[j].attribute());
-								String nameAttrib = attrib.name().asChar();
-								
-								MObject animCurveNode = animCurves[j];
-								MFnAnimCurve animCurveFn(animCurveNode, &status);
+								COLLADASW::LibraryAnimations::InterpolationType interpolationType;
+								interpolationType = AnimationHelper::toInterpolation(animCurveFn.outTangentType(keyPosition));
 
-								uint keyCount = animCurveFn.numKeys();
-
-								step._transform = NO_Transformation;
+								float stepTime = (float)animCurveFn.time(keyPosition).as(MTime::kSeconds);
 								
-								for (uint keyPosition = 0; keyPosition < keyCount; ++keyPosition)
+								if ((interpolationType == COLLADASW::LibraryAnimations::STEP ||
+									interpolationType == COLLADASW::LibraryAnimations::STEP_NEXT) && (stepTime >= (times.front())) && (stepTime <= (times.back())))
 								{
-									COLLADASW::LibraryAnimations::InterpolationType interpolationType;
-									interpolationType = AnimationHelper::toInterpolation(animCurveFn.outTangentType(keyPosition));
-                                    
-									if (interpolationType == COLLADASW::LibraryAnimations::STEP ||
-										interpolationType == COLLADASW::LibraryAnimations::STEP_NEXT)
+
+									std::vector<float>::iterator itFound;
+
+									itFound = find(times.begin(), times.end(), stepTime);
 									{
-										
-										float stepTime = (float)animCurveFn.time(keyPosition).as(MTime::kSeconds);
-										
-										std::vector<float>::iterator itFound;
-										
-										itFound = find(times.begin(), times.end(), stepTime);
+										std::vector<float>::iterator itLower = lower_bound(times.begin(), times.end(), stepTime);
+										int element = (int)(itLower - times.begin());
+
+										StepType type = interpolationType == COLLADASW::LibraryAnimations::STEP ? STEPPED : STEPPED_NEXT;
+
+										if (nameAttrib.find("translateX") != std::string::npos)
 										{
-											std::vector<float>::iterator itLower = lower_bound(times.begin(), times.end(), stepTime);
-											int element = (int)(itLower - times.begin());
-											
-											StepType type =	interpolationType == COLLADASW::LibraryAnimations::STEP ? STEPPED : STEPPED_NEXT;
-
-											if ((nameAttrib.compare("translateX") == 0))
-											{
-												step._transform = TransX;
-												step._type[0] = type;
-											}
-											else if ((nameAttrib.compare("translateY") == 0))
-											{
-												step._transform = TransY;
-												step._type[1] = type;
-											}
-											else if ((nameAttrib.compare("translateZ") == 0))
-											{
-												step._transform = TransZ;
-												step._type[2] = type;
-											}
-											else if ((nameAttrib.compare("rotateX") == 0))
-											{
-												step._transform = RotX;
-												step._type[3] = type;
-											}
-											else if ((nameAttrib.compare("rotateY") == 0))
-											{
-												step._transform = RotY;
-												step._type[4] = type;
-											}
-											else if ((nameAttrib.compare("rotateZ") == 0))
-											{
-												step._transform = RotZ;
-												step._type[5] = type;
-											}
-											else if ((nameAttrib.compare("scaleX") == 0))
-											{
-												step._transform = ScaleX;
-												step._type[6] = type;
-											}
-											else if ((nameAttrib.compare("scaleY") == 0))
-											{
-												step._transform = ScaleY;
-												step._type[7] = type;
-											}
-											else if ((nameAttrib.compare("scaleZ") == 0))
-											{
-												step._transform = ScaleZ;
-												step._type[8] = type;
-											}
-
-
-											class CompareStep
-											{
-											public:
-
-												float stepTime;
-
-												CompareStep(float step)
-												{
-													stepTime = step;
-												}
-
-												bool operator()(const std::pair<float, Step>& step)
-												{
-													return (step.first == stepTime);
-												}
-
-											};
-											
-
-											CompareStep  myStepComparaison(stepTime);
-
-											std::vector< std::pair<float, Step> >::iterator itFoundInterpolation = find_if(interpolationStepTiming.begin(), interpolationStepTiming.end(),
-												/*[=](const std::pair<float, Step>& step){ return step.first == stepTime; }*/ myStepComparaison);
-
-											if ((itFoundInterpolation != interpolationStepTiming.end()))
-											{
-												(*itFoundInterpolation).second._transform = (StepTransform)((int)((*itFoundInterpolation).second._transform) | (int)(step._transform));
-												
-												for (int i = 0; i < 9; i ++)
-													(*itFoundInterpolation).second._type[i] = step._type[i];
-											}
-											else
-												interpolationStepTiming.push_back(std::make_pair(stepTime, step));
-
-
-											if (!(itFound != times.end()))
-											{
-												times.insert(times.begin() + element, stepTime);
-											}
-												
+											step._transform = TransX;
+											step._type[0] = type;
 										}
+										else if (nameAttrib.find("translateY") != std::string::npos)
+										{
+											step._transform = TransY;
+											step._type[1] = type;
+										}
+										else if (nameAttrib.find("translateZ") != std::string::npos)
+										{
+											step._transform = TransZ;
+											step._type[2] = type;
+										}
+										else if (nameAttrib.find("rotateX") != std::string::npos)
+										{
+											step._transform = RotX;
+											step._type[3] = type;
+										}
+										else if (nameAttrib.find("rotateY") != std::string::npos)
+										{
+											step._transform = RotY;
+											step._type[4] = type;
+										}
+										else if (nameAttrib.find("rotateZ") != std::string::npos)
+										{
+											step._transform = RotZ;
+											step._type[5] = type;
+										}
+										else if (nameAttrib.find("scaleX") != std::string::npos)
+										{
+											step._transform = ScaleX;
+											step._type[6] = type;
+										}
+										else if (nameAttrib.find("scaleY") != std::string::npos)
+										{
+											step._transform = ScaleY;
+											step._type[7] = type;
+										}
+										else if (nameAttrib.find("scaleZ") != std::string::npos)
+										{
+											step._transform = ScaleZ;
+											step._type[8] = type;
+										}
+										else
+										{
+											// No step if it's not on a Txyz & Rxyz & Sxyz
+											continue;
+										}
+
+
+										class CompareStep
+										{
+										public:
+
+											float stepTime;
+
+											CompareStep(float step)
+											{
+												stepTime = step;
+											}
+
+											bool operator()(const std::pair<float, Step>& step)
+											{
+												return (step.first == stepTime);
+											}
+
+										};
+
+
+										CompareStep  myStepComparaison(stepTime);
+
+										std::vector< std::pair<float, Step> >::iterator itFoundInterpolation = find_if(interpolationStepTiming.begin(), interpolationStepTiming.end(), myStepComparaison);
+
+										if ((itFoundInterpolation != interpolationStepTiming.end()))
+										{
+											(*itFoundInterpolation).second._transform = (StepTransform)((int)((*itFoundInterpolation).second._transform) | (int)(step._transform));
+
+											for (int i = 0; i < 9; i++)
+												(*itFoundInterpolation).second._type[i] = step._type[i];
+										}
+										else
+											interpolationStepTiming.push_back(std::make_pair(stepTime, step));
+
 									}
 								}
 							}
 						}
 					}
-				}
 
-				part.times = times;
+					part.stepInterpolation.resize(sampleCount);
+					for (uint i = 0; i < sampleCount; i++)
+					{
+						Step step;
+						part.stepInterpolation[i] = std::make_pair(false, step);
+					}
 
-				part.stepInterpolation.resize(part.times.size());
-				for (int i = 0; i < part.times.size(); i++)
-				{
-					Step step;
-					part.stepInterpolation[i] = std::make_pair(false, step);
-				}
+					for (int j = 0; j < interpolationStepTiming.size(); j++)
+					{
+						std::vector<float>::iterator itLower = lower_bound(times.begin(), times.end(), interpolationStepTiming[j].first);
+						int element = (int)(itLower - times.begin());
 
-				for (int j = 0; j < interpolationStepTiming.size(); j++)
-				{
-					std::vector<float>::iterator itLower = lower_bound(times.begin(), times.end(), interpolationStepTiming[j].first);
-					int element = (int)(itLower - times.begin());
-
-					part.stepInterpolation[element] = std::make_pair(true, interpolationStepTiming[j].second);
+						part.stepInterpolation[element] = std::make_pair(true, interpolationStepTiming[j].second);
+					}
 				}
 			}
 		}
 
 
         // Allocate the necessary memory in all the plug timing buffers
-        for ( CacheNodeMap::iterator it = mNodes.begin(); it != mNodes.end(); ++it )
+		for (CacheNodeMap::iterator it = mNodes.begin(); it != mNodes.end(); ++it)
         {
             CacheNode* c = ( *it ).second;
             for ( CachePartList::iterator it2 = c->parts.begin(); it2 != c->parts.end(); ++it2 )
             {
                 CacheNode::Part& part = ( *it2 );
-                if ( part.isWanted )
+                if ( part.isWanted && part.isExported)
                 {
-					uint sampleCount = (uint)part.times.size();
                     part.values.resize ( ( !part.isMatrix ) ? sampleCount : 16 * sampleCount );
                 }
             }
         }
 
-		
-		for (CacheNodeMap::iterator it = mNodes.begin(); it != mNodes.end(); ++it)
+		for (uint i = 0; i < sampleCount; ++i)
 		{
-			CacheNode* c = (*it).second;
+			MTime t(times[i], MTime::kSeconds);
+			AnimationHelper::setCurrentTime(t);
 
-			for (CachePartList::iterator it2 = c->parts.begin(); it2 != c->parts.end(); ++it2)
+			for (CacheNodeMap::iterator it = mNodes.begin(); it != mNodes.end(); ++it)
 			{
-				CacheNode::Part& part = (*it2);
+				CacheNode* c = (*it).second;
 
-				for (uint i = 0; i < part.times.size(); ++i)
+				for (CachePartList::iterator it2 = c->parts.begin(); it2 != c->parts.end(); ++it2)
 				{
-					MTime t(part.times[i], MTime::kSeconds);
-					AnimationHelper::setCurrentTime(t);
+					CacheNode::Part& part = (*it2);
 
-					if (part.isWanted)
+					if (part.isWanted && part.isExported)
 					{
 						if (!part.isMatrix)
 						{

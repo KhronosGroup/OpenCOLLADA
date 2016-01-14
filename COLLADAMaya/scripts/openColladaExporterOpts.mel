@@ -140,11 +140,11 @@ global proc int openColladaExporterOpts ( string $parent,
 							
 					checkBoxGrp
 							-l " "
-							-ncb 1
-							-v1 true
-							-l1 "Animations"
+							-ncb 2
+							-va2 true false
+							-la2 "Animations" "Optimize Animations"
 							colladaExportFilter3;
-					
+										
                     if ($version >= 2014)
                     {
                         checkBoxGrp
@@ -206,8 +206,8 @@ global proc int openColladaExporterOpts ( string $parent,
 							-ncb 2
 							-va2 false false
 							-la2 "Referenced materials only" "Materials only"
-                            -on2 "checkBoxGrp -e -en1 false colladaExportFilter1; checkBoxGrp -e -en2 false colladaExportFilter1; checkBoxGrp -e -en1 false colladaExportFilter2; checkBoxGrp -e -en2 false colladaExportFilter2; checkBoxGrp -e -en1 false colladaExportFilter3; checkBoxGrp -e -en1 false colladaExportFilter4; checkBoxGrp -e -en2 false colladaExportFilter4; checkBoxGrp -e -en1 false colladaExportFilter5a; checkBoxGrp -e -en1 false colladaExportFilter5; checkBoxGrp -e -en2 false colladaExportFilter5; checkBoxGrp -e -en1 false colladaExportFilter6; checkBoxGrp -e -en2 false colladaExportFilter6; checkBoxGrp -e -en1 false colladaExportFilter7; checkBoxGrp -e -en2 false colladaExportFilter7; checkBoxGrp -e -en1 false colladaExportFilter9"
-                            -of2 "checkBoxGrp -e -en1 true colladaExportFilter1; checkBoxGrp -e -en2 true colladaExportFilter1; checkBoxGrp -e -en1 true colladaExportFilter2; checkBoxGrp -e -en2 true colladaExportFilter2; checkBoxGrp -e -en1 true colladaExportFilter3; checkBoxGrp -e -en1 true colladaExportFilter4; if ( `checkBoxGrp -q -v1 colladaExportFilter4` ) checkBoxGrp -e -en2 true colladaExportFilter4; checkBoxGrp -e -en1 true colladaExportFilter5a; checkBoxGrp -e -en1 true colladaExportFilter5; checkBoxGrp -e -en2 true colladaExportFilter5;checkBoxGrp -e -en1 true colladaExportFilter6; checkBoxGrp -e -en2 true colladaExportFilter6; checkBoxGrp -e -en1 true colladaExportFilter7; checkBoxGrp -e -en2 true colladaExportFilter7;checkBoxGrp -e -en1 true colladaExportFilter9"
+                            -on2 "checkBoxGrp -e -en1 false colladaExportFilter1; checkBoxGrp -e -en2 false colladaExportFilter1; checkBoxGrp -e -en1 false colladaExportFilter2; checkBoxGrp -e -en2 false colladaExportFilter2; checkBoxGrp -e -en1 false colladaExportFilter3; checkBoxGrp -e -en2 false colladaExportFilter3; checkBoxGrp -e -en1 false colladaExportFilter4; checkBoxGrp -e -en2 false colladaExportFilter4; checkBoxGrp -e -en1 false colladaExportFilter5a; checkBoxGrp -e -en1 false colladaExportFilter5; checkBoxGrp -e -en2 false colladaExportFilter5; checkBoxGrp -e -en1 false colladaExportFilter6; checkBoxGrp -e -en2 false colladaExportFilter6; checkBoxGrp -e -en1 false colladaExportFilter7; checkBoxGrp -e -en2 false colladaExportFilter7; checkBoxGrp -e -en1 false colladaExportFilter9"
+                            -of2 "checkBoxGrp -e -en1 true colladaExportFilter1; checkBoxGrp -e -en2 true colladaExportFilter1; checkBoxGrp -e -en1 true colladaExportFilter2; checkBoxGrp -e -en2 true colladaExportFilter2; checkBoxGrp -e -en1 true colladaExportFilter3; checkBoxGrp -e -en2 true colladaExportFilter3; checkBoxGrp -e -en1 true colladaExportFilter4; if ( `checkBoxGrp -q -v1 colladaExportFilter4` ) checkBoxGrp -e -en2 true colladaExportFilter4; checkBoxGrp -e -en1 true colladaExportFilter5a; checkBoxGrp -e -en1 true colladaExportFilter5; checkBoxGrp -e -en2 true colladaExportFilter5;checkBoxGrp -e -en1 true colladaExportFilter6; checkBoxGrp -e -en2 true colladaExportFilter6; checkBoxGrp -e -en1 true colladaExportFilter7; checkBoxGrp -e -en2 true colladaExportFilter7;checkBoxGrp -e -en1 true colladaExportFilter9"
                             colladaExportFilter8;
 							
 				setParent ..; // columnLayout
@@ -359,6 +359,11 @@ global proc int openColladaExporterOpts ( string $parent,
 					$intVal = $optionBreakDown[1];
 					checkBoxGrp -e -v1 $intVal colladaExportFilter3;
 				}
+				else if ($optionBreakDown[0] == "exportOptimizedBezierAnimation")
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v2 $intVal colladaExportFilter3;
+				}
 				else if ($optionBreakDown[0] == "exportInvisibleNodes")
 				{
 					$intVal = $optionBreakDown[1];
@@ -490,6 +495,7 @@ global proc int openColladaExporterOpts ( string $parent,
  		$currentOptions = $currentOptions + "exportCameras=" + `checkBoxGrp -q -v1 colladaExportFilter2` + ";";
  		$currentOptions = $currentOptions + "exportJointsAndSkin=" + `checkBoxGrp -q -v2 colladaExportFilter2` + ";";
 		$currentOptions = $currentOptions + "exportAnimations=" + `checkBoxGrp -q -v1 colladaExportFilter3` + ";";
+		$currentOptions = $currentOptions + "exportOptimizedBezierAnimation=" + `checkBoxGrp -q -v2 colladaExportFilter3` + ";";
  		$currentOptions = $currentOptions + "exportInvisibleNodes=" + `checkBoxGrp -q -v1 colladaExportFilter4` + ";";
  		$currentOptions = $currentOptions + "exportDefaultCameras=" + `checkBoxGrp -q -v2 colladaExportFilter4` + ";";
 		$currentOptions = $currentOptions + "exportTexCoords=" + `checkBoxGrp -q -v1 colladaExportFilter5a` + ";";

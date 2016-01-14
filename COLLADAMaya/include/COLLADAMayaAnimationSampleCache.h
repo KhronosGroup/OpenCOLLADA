@@ -26,6 +26,7 @@
 #include <maya/MTime.h>
 #include <maya/MFloatArray.h>
 
+#include <maya/MFnClip.h>
 
 namespace COLLADAMaya
 {
@@ -47,16 +48,17 @@ namespace COLLADAMaya
                 MPlug plug;
 
 				std::vector< std::pair<bool, Step> > stepInterpolation;
-				std::vector<float> times;
                 std::vector<float> values;
-                bool isMatrix, isWanted, isAnimated;
+                bool isMatrix, isWanted, isAnimated, isExported;
 
-                Part() : isMatrix ( false ), isWanted ( false ), isAnimated ( false ) {}
-                Part ( const MPlug& plug ) : plug ( plug ), isMatrix ( false ), isWanted ( false ), isAnimated ( false ) {}
+				std::vector<MObject> animCurves;
+
+				Part() : isMatrix(false), isWanted(false), isAnimated(false), isExported(false) {}
+				Part(const MPlug& plug) : plug(plug), isMatrix(false), isWanted(false), isAnimated(false), isExported(false){}
             };
 
             std::vector<Part> parts;
-
+			
             MObject node;
             CacheNode ( const MObject& node ) : node ( node ) {}
 
@@ -66,6 +68,7 @@ namespace COLLADAMaya
                 parts = a.parts;
                 return *this;
             }
+
         };
 
         /** Map for the cache nodes. */
@@ -151,7 +154,9 @@ namespace COLLADAMaya
         void sampleIKHandle ( const MDagPath& dagPath );
 
         /** Sample all the cached plugs */
-        void samplePlugs();
+		void samplePlugsWithoutClip();
+		void samplePlugsWithClip(MFnClip& clipFn);
+		void samplePlugs();
 
     private:
 

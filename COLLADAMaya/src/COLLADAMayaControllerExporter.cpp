@@ -703,7 +703,7 @@ namespace COLLADAMaya
 	static void AddElementToInfluences(MDagPathArray& influences, SceneElement* sceneElement)
 	{
 		bool found = false;
-		for (int i = 0; i < influences.length(); i++)
+		for (uint i = 0; i < influences.length(); i++)
 		{
 			if (sceneElement->getPath() == influences[i])
 			{

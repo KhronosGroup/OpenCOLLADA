@@ -409,6 +409,20 @@ namespace COLLADAMaya
          */
         bool curvesAreEqual ( const AnimationCurveList &curves );
 
+		/**
+		* Verify that there is, in fact, an animation in this curve.
+		* @param curve.
+		* @return bool True, if there is no animation.
+		*/
+		bool BezierAllKeysAreEqual(AnimationCurve* curve);
+
+
+		/** Returns the tolerance value for double value comparison. */
+		const double getTolerance() const
+		{
+			return mDocumentExporter->getTolerance();
+		}
+
         /**
          * Creates a animation curve of an collada channel.
          * @param animatedElement The animated element.

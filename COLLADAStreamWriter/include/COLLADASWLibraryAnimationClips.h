@@ -26,8 +26,8 @@ namespace COLLADASW
     {
 
     public:
-        ColladaAnimationClip ( const String& animationClipId = ElementWriter::EMPTY_STRING, const String& name = ElementWriter::EMPTY_STRING );
-        ColladaAnimationClip ( const String& animationClipId, float& startTime, float& endTime );
+		ColladaAnimationClip(const String& animationClipId = ElementWriter::EMPTY_STRING, const String& animationClipSourceId = ElementWriter::EMPTY_STRING);
+		ColladaAnimationClip(const String& animationClipId, const String& animationClipSourceId, float& startTime, float& endTime);
         ColladaAnimationClip ( float& startTime, float& endTime );
 
         /** Returns a reference to then image id*/
@@ -40,6 +40,11 @@ namespace COLLADASW
         {
             return mName;
         }
+
+		const String& getAnimationClipSourceId() const
+		{
+			return mAnimationClipSourceId;
+		}
 
         /** Retrieves the start time marker position for this animation clip.
         When using the animation clip, all the animation curves will need
@@ -99,6 +104,7 @@ namespace COLLADASW
 
         /** The id of the current animation clip. */
         String mAnimationClipId;
+		String mAnimationClipSourceId;
 
         /** The name of the current clip, optional */
         String mName;
