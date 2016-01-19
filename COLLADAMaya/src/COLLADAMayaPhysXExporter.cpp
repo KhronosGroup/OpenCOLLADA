@@ -767,7 +767,7 @@ namespace COLLADAMaya
         PhysXXML::PxShape* pxShape = findPxShape(rigidBody, shape);
         if (pxShape == NULL) return false;
 
-        if (pxShape->geometry.type == PhysXXML::Geometry::Type::ConvexMesh)
+        if (pxShape->geometry.type == PhysXXML::Geometry::ConvexMesh)
         {
             if (PhysXXML::PxConvexMesh* convexMesh = mPhysXDoc->findConvexMesh(pxShape->geometry.convexMeshGeometry.convexMesh.convexMesh))
             {
@@ -776,7 +776,7 @@ namespace COLLADAMaya
                 return true;
             }
         }
-        else if (pxShape->geometry.type == PhysXXML::Geometry::Type::TriangleMesh)
+        else if (pxShape->geometry.type == PhysXXML::Geometry::TriangleMesh)
         {
             if (PhysXXML::PxTriangleMesh* triangleMesh = mPhysXDoc->findTriangleMesh(pxShape->geometry.triangleMeshGeometry.triangleMesh.triangleMesh))
             {
@@ -796,7 +796,7 @@ namespace COLLADAMaya
         PhysXXML::PxShape* pxShape = findPxShape(rigidBody, shape);
         if (pxShape == NULL) return false;
 
-        if (pxShape->geometry.type == PhysXXML::Geometry::Type::TriangleMesh)
+        if (pxShape->geometry.type == PhysXXML::Geometry::TriangleMesh)
         {
             if (PhysXXML::PxTriangleMesh* triangleMesh = mPhysXDoc->findTriangleMesh(pxShape->geometry.triangleMeshGeometry.triangleMesh.triangleMesh))
             {
