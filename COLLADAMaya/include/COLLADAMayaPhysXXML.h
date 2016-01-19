@@ -1000,6 +1000,8 @@ namespace COLLADAMaya
             PhysX30Collection physX30Collection;
             bool validate();
 
+            PxConvexMesh* findConvexMesh(int id);
+            PxTriangleMesh* findTriangleMesh(int id);
             PxMaterial* findMaterial(int ref);
             PxMaterial* findMaterial(const String& bodyName, const String& shapeName);
             PxShape* findShape(const String& bodyName, const String& shapeName);
@@ -1018,6 +1020,8 @@ namespace COLLADAMaya
             const PhysXDocPtr& operator = (xmlDocPtr xml);
 
             PhysXDoc* operator -> () const;
+
+            operator bool() const;
 
         private:
             PhysXDoc* mPhysXDoc;

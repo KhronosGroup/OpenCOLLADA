@@ -2235,6 +2235,26 @@ namespace COLLADAMaya
             return true;
         }
 
+        PxConvexMesh* PhysXDoc::findConvexMesh(int id)
+        {
+            for (size_t i = 0; i < physX30Collection.convexMeshes.size(); ++i) {
+                PxConvexMesh& convexMesh = physX30Collection.convexMeshes[i];
+                if (convexMesh.id.id == id)
+                    return &convexMesh;
+            }
+            return NULL;
+        }
+
+        PxTriangleMesh* PhysXDoc::findTriangleMesh(int id)
+        {
+            for (size_t i = 0; i < physX30Collection.triangleMeshes.size(); ++i) {
+                PxTriangleMesh& triangleMesh = physX30Collection.triangleMeshes[i];
+                if (triangleMesh.id.id == id)
+                    return &triangleMesh;
+            }
+            return NULL;
+        }
+
         PxMaterial* PhysXDoc::findMaterial(int ref)
         {
             for (size_t i = 0; i < physX30Collection.materials.size(); ++i) {
@@ -2332,6 +2352,11 @@ namespace COLLADAMaya
         PhysXDoc* PhysXDocPtr::operator -> () const
         {
             return mPhysXDoc;
+        }
+
+        PhysXDocPtr::operator bool() const
+        {
+            return mPhysXDoc != NULL;
         }
     }
 }

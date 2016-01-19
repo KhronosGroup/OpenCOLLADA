@@ -63,8 +63,8 @@ namespace COLLADAMaya
     public:
         PhysXExporter(COLLADASW::StreamWriter& streamWriter, DocumentExporter& documentExporter);
 
-        bool needsConvexHullOf(const SceneElement & element);
-
+        bool generatePhysXXML();
+        bool needsConvexHullOf(const SceneElement & element, MObject & shape);
         bool exportPhysicsLibraries();
 
         COLLADASW::StreamWriter& getStreamWriter();
@@ -78,7 +78,10 @@ namespace COLLADAMaya
         void exportRigidBodyPhysXXML(const MObject& shape);
         void exportRigidConstraintPhysXXML(const MObject& constraint);
 
+        MObject getShapeRigidBody(const MObject& shape);
         void getShapeLocalPose(const MObject& rigidBody, const MObject& shape, MMatrix& localPose);
+        bool getShapeVertices(const MObject& shape, std::vector<PhysXXML::Point> & vertices, MString & meshId);
+        bool getShapeTriangles(const MObject& shape, std::vector<PhysXXML::Triangle> & triangles);
         void getRigidBodyGlobalPose(const MObject& rigidBody, MMatrix& globalPose);
         void getRigidBodyTarget(const MObject& rigidBody, MObject& target);
         bool getRigidSolver(MObject & rigidSolver);
@@ -135,7 +138,6 @@ namespace COLLADAMaya
         PhysXXML::PxMaterial* findPxMaterial(int ref);
 
     private:
-        bool generatePhysXXML();
         PhysXXML::PxMaterial* findPxMaterial(const MObject& rigidBody);
         PhysXXML::PxShape* findPxShape(const MObject& rigidBody, const MObject& shape);
         PhysXXML::PxRigidStatic* findPxRigidStatic(const MObject& rigidBody);
