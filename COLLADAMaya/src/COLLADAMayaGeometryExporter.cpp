@@ -116,7 +116,9 @@ namespace COLLADAMaya
             if (shapeType == SHAPE_TYPE_CONVEX_HULL ||
                 shapeType == SHAPE_TYPE_TRIANGLE_MESH)
             {
-                if (!ExportOptions::exportPolygonMeshes())
+                MObject mesh;
+                PhysXShape::GetConnectedInMesh(shape, mesh);
+                if (mesh.isNull() || !ExportOptions::exportPolygonMeshes())
                 {
                     exportSceneElement = true;
                 }
