@@ -27,19 +27,6 @@
 #include <maya/MFnTypedAttribute.h>
 #include <maya/MPxHardwareShader.h>
 
-namespace std
-{
-    template<>
-    struct less<MObject>
-        : public binary_function<MObject, MObject, bool>
-    {	// functor for operator<
-        bool operator()(const MObject& _Left, const MObject& _Right) const
-        {	// apply operator< to operands
-            return (_Left != _Right);
-        }
-    };
-}
-
 namespace COLLADAMaya
 {
 	MString skippedAttributeNames[] = {
@@ -211,7 +198,7 @@ namespace COLLADAMaya
 
 	private:
 		ShaderFXShaderExporter & mShaderFXExporter;
-        std::map<MObject, COLLADASW::TagCloser> mOpenTags;
+        std::map<std::string, COLLADASW::TagCloser> mOpenTags;
 
 	protected:
         virtual bool onBeforeAttribute(MFnDependencyNode & node, MObject & attr) override
@@ -227,7 +214,7 @@ namespace COLLADAMaya
 			if (shouldSkipAttribute(attrName))
 				return false;
 
-			mOpenTags[attr] = mShaderFXExporter.mStreamWriter.openElement(SHADERFX_ATTRIBUTE);
+			mOpenTags[std::string(fnAttr.name().asChar())] = mShaderFXExporter.mStreamWriter.openElement(SHADERFX_ATTRIBUTE);
 			mShaderFXExporter.mStreamWriter.appendAttribute("name", attrName.asChar());
 
             return true;
@@ -235,7 +222,8 @@ namespace COLLADAMaya
 
         virtual void onAfterAttribute(MFnDependencyNode & fnNode, MObject & attribute) override
 		{
-            std::map<MObject, COLLADASW::TagCloser>::iterator it = mOpenTags.find(attribute);
+            MFnAttribute fnAttr(attribute);
+            std::map<std::string, COLLADASW::TagCloser>::iterator it = mOpenTags.find(std::string(fnAttr.name().asChar()));
             if (it != mOpenTags.end())
             {
                 it->second.close();
