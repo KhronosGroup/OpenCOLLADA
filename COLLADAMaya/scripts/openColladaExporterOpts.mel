@@ -149,9 +149,18 @@ global proc int openColladaExporterOpts ( string $parent,
                     {
                         checkBoxGrp
                                 -l " "
+                                -ncb 2
+                                -va2 true false
+                                -la2 "Convex mesh geometries" "Physics"
+                                colladaExportFilter9;
+					}
+					else
+					{
+						checkBoxGrp
+                                -l " "
                                 -ncb 1
-                                -v1 false
-                                -l1 "Physics"
+                                -v1 true
+                                -l1 "Convex mesh geometries"
                                 colladaExportFilter9;
 					}
                     
@@ -423,6 +432,11 @@ global proc int openColladaExporterOpts ( string $parent,
 				else if ($version >= 2014 && $optionBreakDown[0] == "exportPhysics")
 				{
 					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v2 $intVal colladaExportFilter9;
+				}
+				else if ($optionBreakDown[0] == "exportConvexMeshGeometries")
+				{
+					$intVal = $optionBreakDown[1];
 					checkBoxGrp -e -v1 $intVal colladaExportFilter9;
 				}
 
@@ -509,8 +523,9 @@ global proc int openColladaExporterOpts ( string $parent,
 		$currentOptions = $currentOptions + "exportMaterialsOnly=" + `checkBoxGrp -q -v2 colladaExportFilter8` + ";";
         if ($version >= 2014)
         {
-            $currentOptions = $currentOptions + "exportPhysics=" + `checkBoxGrp -q -v1 colladaExportFilter9` + ";";
+            $currentOptions = $currentOptions + "exportPhysics=" + `checkBoxGrp -q -v2 colladaExportFilter9` + ";";
         }
+		$currentOptions = $currentOptions + "exportConvexMeshGeometries=" + `checkBoxGrp -q -v1 colladaExportFilter9` + ";";
 		
 // External references options
 //
