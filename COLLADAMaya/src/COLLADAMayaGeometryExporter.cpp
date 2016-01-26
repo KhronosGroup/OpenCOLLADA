@@ -256,7 +256,7 @@ namespace COLLADAMaya
             MObject shape;
             if (physXExporter.needsConvexHullOf(*sceneElement, shape))
             {
-                openConvexMesh(colladaMeshId, meshName);
+                openConvexMesh(colladaMeshId, colladaMeshId);
                 if (ExportOptions::exportConvexMeshGeometries())
                 {
                     std::vector<PhysXXML::Point> vertices;
