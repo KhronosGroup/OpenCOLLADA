@@ -646,13 +646,13 @@ namespace COLLADAMaya
     {
         // Shape node
         MFnDagNode shapeNode(shape);
-        MString shapeName = shapeNode.name();
+        MString shapeName = shapeNode.fullPathName();
 
         // Rigid body target
         MObject target;
         getRigidBodyTarget(rigidBody, target);
         MFnDagNode targetNode(target);
-        MString targetName = targetNode.name();
+        MString targetName = targetNode.fullPathName();
 
         return mPhysXDoc->findShape(targetName.asChar(), shapeName.asChar());
     }
@@ -662,7 +662,7 @@ namespace COLLADAMaya
         MObject target;
         getRigidBodyTarget(rigidBody, target);
         MFnDagNode targetNode(target);
-        MString targetName = targetNode.name();
+        MString targetName = targetNode.fullPathName();
         return findPxRigidStatic(targetName.asChar());
     }
 
@@ -676,14 +676,14 @@ namespace COLLADAMaya
         MObject target;
         getRigidBodyTarget(rigidBody, target);
         MFnDagNode targetNode(target);
-        MString targetName = targetNode.name();
+        MString targetName = targetNode.fullPathName();
         return mPhysXDoc->findRigidDynamic(targetName.asChar());
     }
 
     PhysXXML::PxD6Joint* PhysXExporter::findPxD6Joint(const MObject& rigidConstraint)
     {
         MFnDagNode constraintNode(rigidConstraint);
-        MString constraintName = constraintNode.name();
+        MString constraintName = constraintNode.fullPathName();
         return mPhysXDoc->findD6Joint(constraintName.asChar());
     }
 
