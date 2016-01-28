@@ -646,13 +646,13 @@ namespace COLLADAMaya
     {
         // Shape node
         MFnDagNode shapeNode(shape);
-        MString shapeName = shapeNode.name();
+        MString shapeName = shapeNode.fullPathName();
 
         // Rigid body target
         MObject target;
         getRigidBodyTarget(rigidBody, target);
         MFnDagNode targetNode(target);
-        MString targetName = targetNode.name();
+        MString targetName = targetNode.fullPathName();
 
         return mPhysXDoc->findShape(targetName.asChar(), shapeName.asChar());
     }
@@ -662,7 +662,7 @@ namespace COLLADAMaya
         MObject target;
         getRigidBodyTarget(rigidBody, target);
         MFnDagNode targetNode(target);
-        MString targetName = targetNode.name();
+        MString targetName = targetNode.fullPathName();
         return findPxRigidStatic(targetName.asChar());
     }
 
@@ -676,15 +676,62 @@ namespace COLLADAMaya
         MObject target;
         getRigidBodyTarget(rigidBody, target);
         MFnDagNode targetNode(target);
-        MString targetName = targetNode.name();
+        MString targetName = targetNode.fullPathName();
         return mPhysXDoc->findRigidDynamic(targetName.asChar());
     }
 
     PhysXXML::PxD6Joint* PhysXExporter::findPxD6Joint(const MObject& rigidConstraint)
     {
         MFnDagNode constraintNode(rigidConstraint);
-        MString constraintName = constraintNode.name();
+        MString constraintName = constraintNode.fullPathName();
         return mPhysXDoc->findD6Joint(constraintName.asChar());
+    }
+
+    MObject PhysXExporter::getShapeRigidBody(const MObject& shape)
+    {
+        class FindShapeRigidBody
+        {
+        public:
+            FindShapeRigidBody(PhysXExporter & exporter, const MObject& shape)
+                : mPhysXExporter(exporter)
+                , mShape(shape)
+            {}
+
+            bool operator()(SceneElement & element)
+            {
+                if (element.getType() == SceneElement::PHYSX_RIGID_BODY &&
+                    element.getIsLocal())
+                {
+                    std::vector<MObject> shapes;
+                    PhysXExporter::GetRigidBodyShapes(element.getNode(), shapes);
+
+                    for (std::vector<MObject>::const_iterator it = shapes.begin(); it != shapes.end(); ++it)
+                    {
+                        if (*it == mShape)
+                        {
+                            mRigidBody = element.getNode();
+                            // Stop parsing
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            }
+
+            MObject getRigidBody() const
+            {
+                return mRigidBody;
+            }
+
+        private:
+            PhysXExporter & mPhysXExporter;
+            MObject mShape;
+            MObject mRigidBody;
+        };
+
+        FindShapeRigidBody parser(*this, shape);
+        parseSceneElements(parser);
+        return parser.getRigidBody();
     }
 
     void PhysXExporter::getShapeLocalPose(const MObject& rigidBody, const MObject& shape, MMatrix& localPose)
@@ -710,6 +757,54 @@ namespace COLLADAMaya
         tm.setTranslation(translation, MSpace::kTransform);
 
         localPose = tm.asMatrix();
+    }
+
+    bool PhysXExporter::getShapeVertices(const MObject& shape, std::vector<PhysXXML::Point> & vertices, MString & meshId)
+    {
+        MObject rigidBody = getShapeRigidBody(shape);
+        if (rigidBody.isNull()) return false;
+
+        PhysXXML::PxShape* pxShape = findPxShape(rigidBody, shape);
+        if (pxShape == NULL) return false;
+
+        if (pxShape->geometry.type == PhysXXML::Geometry::ConvexMesh)
+        {
+            if (PhysXXML::PxConvexMesh* convexMesh = mPhysXDoc->findConvexMesh(pxShape->geometry.convexMeshGeometry.convexMesh.convexMesh))
+            {
+                vertices = convexMesh->points.points;
+                meshId = convexMesh->id.id;
+                return true;
+            }
+        }
+        else if (pxShape->geometry.type == PhysXXML::Geometry::TriangleMesh)
+        {
+            if (PhysXXML::PxTriangleMesh* triangleMesh = mPhysXDoc->findTriangleMesh(pxShape->geometry.triangleMeshGeometry.triangleMesh.triangleMesh))
+            {
+                vertices = triangleMesh->points.points;
+                meshId = triangleMesh->id.id;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    bool PhysXExporter::getShapeTriangles(const MObject& shape, std::vector<PhysXXML::Triangle> & triangles)
+    {
+        MObject rigidBody = getShapeRigidBody(shape);
+        if (rigidBody.isNull()) return false;
+
+        PhysXXML::PxShape* pxShape = findPxShape(rigidBody, shape);
+        if (pxShape == NULL) return false;
+
+        if (pxShape->geometry.type == PhysXXML::Geometry::TriangleMesh)
+        {
+            if (PhysXXML::PxTriangleMesh* triangleMesh = mPhysXDoc->findTriangleMesh(pxShape->geometry.triangleMeshGeometry.triangleMesh.triangleMesh))
+            {
+                triangles = triangleMesh->triangles.triangles;
+                return true;
+            }
+        }
+        return false;
     }
 
     void PhysXExporter::getRigidBodyGlobalPose(const MObject& rigidBody, MMatrix& globalPose)
@@ -2901,6 +2996,7 @@ namespace COLLADAMaya
                             mMeshElement.getNode() == shape)
                         {
                             mNeedsConvexHullOfMeshElement = true;
+                            mShape = shape;
                             return false;
                         }
                     }
@@ -2913,19 +3009,26 @@ namespace COLLADAMaya
         {
             return mNeedsConvexHullOfMeshElement;
         }
+
+        const MObject& getShape() const
+        {
+            return mShape;
+        }
         
     private:
         const SceneElement & mMeshElement;
         bool mNeedsConvexHullOfMeshElement;
+        MObject mShape;
     };
 
-    bool PhysXExporter::needsConvexHullOf(const SceneElement & meshElement)
+    bool PhysXExporter::needsConvexHullOf(const SceneElement & meshElement, MObject& shape)
     {
         if (!ExportOptions::exportPhysics())
             return false;
         
         RigidBodyParser parser(meshElement);
         parseSceneElements(parser);
+        shape = parser.getShape();
         return parser.needsConvexHullOfMeshElement();
     }
 
@@ -2971,28 +3074,63 @@ namespace COLLADAMaya
         AutoRestorePhysXExportOptions()
             : mError(false)
         {
-            mOptions.push_back("apexClothingExport_APBs");
-            mOptions.push_back("validatePhysXSceneBeforeExport");
-            mOptions.push_back("PhysXExport_useFolderName");
-            mOptions.push_back("apexExport_RemoveNamespaceForJoint");
-            mOptions.push_back("apexClothingExport_VisibleOnly");
-            mOptions.push_back("PhysXExport_exportPxProjFile");
-            mOptions.push_back("PhysXExport_exportPhysX");
+            mOptions.push_back(Option("apexClothingExport_APBs", Integer));
+            mOptions.push_back(Option("validatePhysXSceneBeforeExport", Integer));
+            mOptions.push_back(Option("PhysXExport_useFolderName", Integer));
+            mOptions.push_back(Option("apexExport_RemoveNamespaceForJoint", Integer));
+            mOptions.push_back(Option("apexClothingExport_VisibleOnly", Integer));
+            mOptions.push_back(Option("PhysXExport_exportPxProjFile", Integer));
+            mOptions.push_back(Option("PhysXExport_exportPhysX", Integer));
+            mOptions.push_back(Option("PhysXExport_outputUnit", String));
+            mOptions.push_back(Option("PhysXExport_customScaling", Integer));
+            mOptions.push_back(Option("PhysXExport_outputScale", Double));
 
             for (size_t i = 0; i < mOptions.size(); ++i) {
-                int oldValue = 0;
-                MStatus status = MGlobal::executeCommand("optionVar -q \"" + mOptions[i] + "\"", oldValue);
-                if (!status) mError |= true;
-                MString oldValueStr("");
-                oldValueStr += oldValue;
-                mOldValues.push_back(oldValueStr);
+                switch (mOptions[i].type)
+                {
+                case Integer:
+                {
+                    int oldValue = 0;
+                    MStatus status = MGlobal::executeCommand("optionVar -q \"" + mOptions[i].name + "\"", oldValue);
+                    if (!status) mError |= true;
+                    MString oldValueStr("");
+                    oldValueStr += oldValue;
+                    mOldValues.push_back(oldValueStr);
+                    break;
+                }
+                case Double:
+                {
+                    double oldValue = 0.0;
+                    MStatus status = MGlobal::executeCommand("optionVar -q \"" + mOptions[i].name + "\"", oldValue);
+                    if (!status) mError |= true;
+                    MString oldValueStr("");
+                    oldValueStr += oldValue;
+                    mOldValues.push_back(oldValueStr);
+                    break;
+                }
+                case String:
+                {
+                    MString oldValue;
+                    MStatus status = MGlobal::executeCommand("optionVar -q \"" + mOptions[i].name + "\"", oldValue);
+                    if (!status) mError |= true;
+                    mOldValues.push_back(oldValue);
+                    break;
+                }
+                }
             }
         }
 
         ~AutoRestorePhysXExportOptions()
         {
             for (size_t i = 0; i < mOptions.size(); ++i) {
-                MGlobal::executeCommand("optionVar -iv \"" + mOptions[i] + "\" " + mOldValues[i]);
+                MString command = "optionVar -";
+                switch (mOptions[i].type)
+                {
+                case Integer:   command += "i"; break;
+                case Double:     command += "f"; break;
+                case String:    command += "s"; break;
+                }
+                MGlobal::executeCommand(command + "v \"" + mOptions[i].name + "\" " + mOldValues[i]);
             }
         }
 
@@ -3002,7 +3140,24 @@ namespace COLLADAMaya
         }
 
     private:
-        std::vector<MString> mOptions;
+        enum OptionType
+        {
+            Integer,
+            Double,
+            String
+        };
+
+        struct Option
+        {
+            Option(const MString& name_, OptionType type_)
+                : name(name_)
+                , type(type_)
+            {}
+
+            MString name;
+            OptionType type;
+        };
+        std::vector<Option> mOptions;
         std::vector<MString> mOldValues;
         bool mError;
     };
@@ -3011,10 +3166,15 @@ namespace COLLADAMaya
     {
         MStatus status;
 
-        // TODO make sure exported .xml does not already exist.
-
         // Backup export options
         AutoRestorePhysXExportOptions autoRestorePhysXExportOptions;
+
+        // PhysX internal data is in centimeters and we need to export to UI unit.
+        MDistance unitDistance = MDistance(1.0, MDistance::uiUnit());
+        double asCentimeters = unitDistance.asCentimeters();
+        double centimetersToUIUnit = 1.0 / asCentimeters;
+        MString centimetersToUIUnitStr = "";
+        centimetersToUIUnitStr += centimetersToUIUnit;
 
         // Set export options
         status = MGlobal::executeCommand("optionVar -iv \"apexClothingExport_APBs\" 2");
@@ -3031,10 +3191,16 @@ namespace COLLADAMaya
         if (!status) return false;
         status = MGlobal::executeCommand("optionVar -iv \"PhysXExport_exportPhysX\" 1");
         if (!status) return false;
+        status = MGlobal::executeCommand("optionVar -sv \"PhysXExport_outputUnit\" \"meter\""); // Has no effect
+        if (!status) return false;
+        status = MGlobal::executeCommand("optionVar -iv \"PhysXExport_customScaling\" true");
+        if (!status) return false;
+        status = MGlobal::executeCommand("optionVar -fv \"PhysXExport_outputScale\" " + centimetersToUIUnitStr);
+        if (!status) return false;
 
         String filePath = mDocumentExporter.getFilename();
         std::stringstream exportCommand;
-        exportCommand << "file -force -options \"none=0;\" -type \"APEX/PhysX\" -pr";
+        exportCommand << "file -force -options \"none=0;\" -type \"PhysX\" -pr";
         if (mDocumentExporter.getSceneGraph()->getExportSelectedOnly()) {
             exportCommand << " -es";
         }
@@ -3095,6 +3261,7 @@ namespace COLLADAMaya
 
         // Check for duplicated names
         if (!mPhysXDoc->validate()) {
+            MGlobal::displayError("Error while exporting PhysX scene: duplicated names found.");
             return false;
         }
 
@@ -3116,7 +3283,7 @@ namespace COLLADAMaya
 
         // Export to .xml format first using PhysX plugin exporter.
         // Produced file contains information not accessible with Maya API.
-        if (!generatePhysXXML()) {
+        if (!mPhysXDoc) {
             MGlobal::displayError("Can't generate PhysX XML data. PhysX will not be exported.");
             return false;
         }

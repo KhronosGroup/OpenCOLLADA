@@ -234,18 +234,21 @@ namespace COLLADAMaya
                 // geometry, we also have to export it).
                 mControllerExporter->exportControllers();
 
+                // Export PhysX to XML before exporting geometries
+                if (ExportOptions::exportPhysics() && !mPhysXExporter->generatePhysXXML()) {
+                    // Don't try to export Physics if xml export has failed
+                    ExportOptions::setExportPhysics(false);
+                    MGlobal::displayError(MString("Error while exporting PhysX scene to XML. Physics not exported."));
+                }
+
                 // Export the geometries
                 mGeometryExporter->exportGeometries();
 
-				// Export Physics
-				mPhysicsExporter->exportAllPhysics();
-
-                // Export PhysX
-                bool physicsSceneExported = mPhysXExporter->exportPhysicsLibraries();
-				
-				// Export the physics scene
-				physicsSceneExported |= mPhysicsSceneExporter->exportPhysicsScenes();
-
+                bool physicsSceneExported = false;
+                if (ExportOptions::exportPhysics()) {
+                    // Export PhysX
+                    physicsSceneExported = mPhysXExporter->exportPhysicsLibraries();
+                }
 
 				saveParamClip();
 

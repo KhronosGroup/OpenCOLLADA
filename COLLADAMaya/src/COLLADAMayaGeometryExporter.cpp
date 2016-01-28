@@ -239,12 +239,12 @@ namespace COLLADAMaya
 		{
             // Bullet ---------------------------------------------------------
 			MObject transform = dagPath.transform();
-			int shape;
-			bool shapeResult = DagHelper::getPlugValue(transform, ATTR_COLLISION_SHAPE, shape);
+			int shapeType;
+            bool shapeResult = DagHelper::getPlugValue(transform, ATTR_COLLISION_SHAPE, shapeType);
 
 			if (shapeResult)
 			{
-				if (shape == COLLADAMaya::PhysicsExporter::Convex_mesh)
+                if (shapeType == COLLADAMaya::PhysicsExporter::Convex_mesh)
 				{
 					openConvexMesh(colladaMeshId, meshName);
 					closeConvexMesh();
@@ -253,9 +253,58 @@ namespace COLLADAMaya
 
             // PhysX ----------------------------------------------------------
             PhysXExporter& physXExporter = *mDocumentExporter->getPhysXExporter();
-            if (physXExporter.needsConvexHullOf(*sceneElement))
+            MObject shape;
+            if (physXExporter.needsConvexHullOf(*sceneElement, shape))
             {
-                openConvexMesh(colladaMeshId, meshName);
+                openConvexMesh(colladaMeshId, colladaMeshId);
+                if (ExportOptions::exportConvexMeshGeometries())
+                {
+                    std::vector<PhysXXML::Point> vertices;
+                    MString mayaMeshId;
+                    if (physXExporter.getShapeVertices(shape, vertices, mayaMeshId))
+                    {
+                        String meshId = mayaMeshId.asChar();
+
+                        // <source> -----------------------------------------------
+                        COLLADASW::FloatSource vertexSource(mSW);
+                        vertexSource.setId(meshId + POSITIONS_SOURCE_ID_SUFFIX);
+                        vertexSource.setNodeName(meshId + POSITIONS_SOURCE_ID_SUFFIX);
+                        vertexSource.setArrayId(meshId + POSITIONS_SOURCE_ID_SUFFIX + ARRAY_ID_SUFFIX);
+                        vertexSource.setAccessorStride(3);
+
+                        size_t vertexCount = vertices.size();
+                        vertexSource.setAccessorCount(static_cast<unsigned long>(vertexCount));
+
+                        vertexSource.getParameterNameList().push_back(XYZW_PARAMETERS[0]);
+                        vertexSource.getParameterNameList().push_back(XYZW_PARAMETERS[1]);
+                        vertexSource.getParameterNameList().push_back(XYZW_PARAMETERS[2]);
+                        vertexSource.prepareToAppendValues();
+
+                        for (size_t i = 0; i < vertexCount; ++i)
+                        {
+                            vertexSource.appendValues(
+                                vertices[i].x,
+                                vertices[i].y,
+                                vertices[i].z
+                                );
+                        }
+                        vertexSource.finish();
+
+                        // <vertices> ---------------------------------------------
+                        COLLADASW::VerticesElement vertices(mSW);
+                        vertices.setId(meshId + VERTICES_ID_SUFFIX);
+                        vertices.setNodeName(meshId + VERTICES_ID_SUFFIX);
+
+                        // Get the input list
+                        COLLADASW::InputList* inputList = &vertices.getInputList();
+
+                        // Always push the vertex positions in the vertices element
+                        // (we have to create a vertices element with a reference)
+                        inputList->push_back(COLLADASW::Input(COLLADASW::InputSemantic::POSITION, COLLADASW::URI(EMPTY_STRING, meshId + POSITIONS_SOURCE_ID_SUFFIX)));
+
+                        vertices.add();
+                    }
+                }
                 closeConvexMesh();
             }
 		}
