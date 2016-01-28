@@ -133,6 +133,7 @@ namespace COLLADAMaya
         /****************************/
 
 		static bool exportPhysics();
+        static void setExportPhysics(bool value);
         static bool exportConvexMeshGeometries();
         static bool exportPolygonMeshes();
         static bool exportLights();
