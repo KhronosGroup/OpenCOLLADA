@@ -180,6 +180,11 @@ namespace COLLADAMaya
 		return mExportPhysics;
 	}
 
+    void ExportOptions::setExportPhysics(bool value)
+    {
+        mExportPhysics = value;
+    }
+
     bool ExportOptions::exportConvexMeshGeometries()
     {
         return mExportConvexMeshGeometries;
