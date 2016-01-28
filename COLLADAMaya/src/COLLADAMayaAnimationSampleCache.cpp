@@ -111,7 +111,7 @@ namespace COLLADAMaya
         {
             if ( ( *it ).plug == plug && ( *it ).plug.logicalIndex() == plug.logicalIndex() )
             {
-				if ((*it).isAnimated && (*it).isExported)
+				if ((*it).isAnimated)
                 {
 					inputs = &AnimationHelper::mSamplingTimes;
                     outputs = & ( *it ).values;
@@ -306,7 +306,7 @@ namespace COLLADAMaya
 			for (CachePartList::iterator it2 = c->parts.begin(); it2 != c->parts.end(); ++it2)
 			{
 				CacheNode::Part& part = (*it2);
-				part.isExported = false;
+				
 				part.animCurves.clear();
 
 				MStatus status;
@@ -331,7 +331,7 @@ namespace COLLADAMaya
 					if (animCurve.hasFn(MFn::kAnimCurve))
 					{
 						part.animCurves.push_back(animCurve);
-						part.isExported = true;
+						
 					}
 						
 					
@@ -354,7 +354,7 @@ namespace COLLADAMaya
 			for (CachePartList::iterator it2 = c->parts.begin(); it2 != c->parts.end(); ++it2)
 			{
 				CacheNode::Part& part = (*it2);
-				part.isExported = false;
+				
 				part.animCurves.clear();
 			}
 		}
@@ -383,7 +383,6 @@ namespace COLLADAMaya
 					
 					if (plugs[j].node() == part.plug.node())
 					{
-						part.isExported = true;
 						part.animCurves.push_back(animCurves[j]);
 					}
 				}
@@ -416,7 +415,6 @@ namespace COLLADAMaya
 				MFnDependencyNode node1(part.plug.node());
 				String name = node1.name().asChar();
 
-				if (part.isExported)
 				{
 					if (part.isMatrix)
 					{
@@ -573,7 +571,7 @@ namespace COLLADAMaya
             for ( CachePartList::iterator it2 = c->parts.begin(); it2 != c->parts.end(); ++it2 )
             {
                 CacheNode::Part& part = ( *it2 );
-                if ( part.isWanted && part.isExported)
+                if ( part.isWanted)
                 {
                     part.values.resize ( ( !part.isMatrix ) ? sampleCount : 16 * sampleCount );
                 }
@@ -593,7 +591,7 @@ namespace COLLADAMaya
 				{
 					CacheNode::Part& part = (*it2);
 
-					if (part.isWanted && part.isExported)
+					if (part.isWanted)
 					{
 						if (!part.isMatrix)
 						{
