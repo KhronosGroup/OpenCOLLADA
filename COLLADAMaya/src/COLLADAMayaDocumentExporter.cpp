@@ -37,6 +37,7 @@
 #include "COLLADAMayaExportOptions.h"
 #include "COLLADAMayaSyntax.h"
 #include "COLLADAMayaReferenceManager.h"
+#include "COLLADAMayaVersionInfo.h"
 
 #include "COLLADASWAsset.h"
 #include "COLLADASWScene.h"
@@ -379,7 +380,10 @@ namespace COLLADAMaya
         asset.setUnit ( linearUnitName, colladaConversionFactor );
 
         // Asset heraus schreiben
+		asset.openAsset();
         asset.add();
+		asset.addVersionNumber(COLLADAMaya::CURRENT_REVISION, COLLADAMaya::PROFILE_MAYA);
+		asset.closeAsset();
     }
 
     //---------------------------------------------------------------
