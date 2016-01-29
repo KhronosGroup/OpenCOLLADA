@@ -202,6 +202,7 @@ namespace COLLADASW
         static const String CSW_ELEMENT_PASS;
         static const String CSW_ELEMENT_PH;
         static const String CSW_ELEMENT_PHONG;
+		static const String CSW_ELEMENT_PLUGIN_VERSION;
 		static const String CSW_ELEMENT_POINT;
         static const String CSW_ELEMENT_POLYLIST;
         static const String CSW_ELEMENT_POLYGONS;

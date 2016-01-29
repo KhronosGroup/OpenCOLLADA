@@ -191,6 +191,7 @@ namespace COLLADASW
     const String CSWC::CSW_ELEMENT_PARAM = "param";
     const String CSWC::CSW_ELEMENT_PASS = "pass";
     const String CSWC::CSW_ELEMENT_PH = "ph";
+	const String CSWC::CSW_ELEMENT_PLUGIN_VERSION = "pluginVersion";
     const String CSWC::CSW_ELEMENT_PHONG = "phong";
 	const String CSWC::CSW_ELEMENT_POINT = "point";
     const String CSWC::CSW_ELEMENT_POLYLIST = "polylist";

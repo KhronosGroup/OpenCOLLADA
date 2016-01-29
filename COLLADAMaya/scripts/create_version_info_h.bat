@@ -19,10 +19,7 @@ echo namespace COLLADAMaya >> %F%
 echo { >> %F%
 
 
-FOR /f  %%A in ('git describe  --always') do set REVISION=%%A
-
-
-echo     const String CURRENT_REVISION = "%REVISION%"; >> %F%
+echo     const String CURRENT_REVISION = "developer version"; >> %F%
 echo     const String CURRENT_PLATFORM = "%1"; >> %F%
 echo     const String CURRENT_CONFIGURATION = "%2"; >> %F%
 

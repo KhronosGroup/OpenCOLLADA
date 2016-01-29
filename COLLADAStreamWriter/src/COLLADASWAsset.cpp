@@ -10,6 +10,8 @@
 
 #include "COLLADASWAsset.h"
 #include "COLLADASWConstants.h"
+#include "COLLADAMayaSyntax.h"
+#include "COLLADAMayaVersionInfo.h"
 
 #include <sstream>
 #include <time.h>
@@ -120,6 +122,15 @@ namespace COLLADASW
         default:
             mSW->appendTextElement ( CSWC::CSW_ELEMENT_UP_AXIS, CSWC::CSW_TEXT_Z_UP );
         }
+
+		mSW->openElement(COLLADASW::CSWC::CSW_ELEMENT_EXTRA);
+		mSW->openElement(COLLADASW::CSWC::CSW_ELEMENT_TECHNIQUE);
+		mSW->appendAttribute(COLLADASW::CSWC::CSW_ATTRIBUTE_PROFILE, COLLADAMaya::PROFILE_MAYA);
+		mSW->openElement(COLLADASW::CSWC::CSW_ELEMENT_PLUGIN_VERSION);
+		mSW->appendValues(COLLADAMaya::CURRENT_REVISION);
+		mSW->closeElement();
+		mSW->closeElement();
+		mSW->closeElement();
 
         asset.close();
 
