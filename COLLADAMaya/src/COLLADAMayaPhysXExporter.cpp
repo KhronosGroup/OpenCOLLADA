@@ -687,6 +687,53 @@ namespace COLLADAMaya
         return mPhysXDoc->findD6Joint(constraintName.asChar());
     }
 
+    MObject PhysXExporter::getShapeRigidBody(const MObject& shape)
+    {
+        class FindShapeRigidBody
+        {
+        public:
+            FindShapeRigidBody(PhysXExporter & exporter, const MObject& shape)
+                : mPhysXExporter(exporter)
+                , mShape(shape)
+            {}
+
+            bool operator()(SceneElement & element)
+            {
+                if (element.getType() == SceneElement::PHYSX_RIGID_BODY &&
+                    element.getIsLocal())
+                {
+                    std::vector<MObject> shapes;
+                    PhysXExporter::GetRigidBodyShapes(element.getNode(), shapes);
+
+                    for (std::vector<MObject>::const_iterator it = shapes.begin(); it != shapes.end(); ++it)
+                    {
+                        if (*it == mShape)
+                        {
+                            mRigidBody = element.getNode();
+                            // Stop parsing
+                            return false;
+                        }
+                    }
+                }
+                return true;
+            }
+
+            MObject getRigidBody() const
+            {
+                return mRigidBody;
+            }
+
+        private:
+            PhysXExporter & mPhysXExporter;
+            MObject mShape;
+            MObject mRigidBody;
+        };
+
+        FindShapeRigidBody parser(*this, shape);
+        parseSceneElements(parser);
+        return parser.getRigidBody();
+    }
+
     void PhysXExporter::getShapeLocalPose(const MObject& rigidBody, const MObject& shape, MMatrix& localPose)
     {
         PhysXXML::PxShape* pxShape = findPxShape(rigidBody, shape);
@@ -710,6 +757,54 @@ namespace COLLADAMaya
         tm.setTranslation(translation, MSpace::kTransform);
 
         localPose = tm.asMatrix();
+    }
+
+    bool PhysXExporter::getShapeVertices(const MObject& shape, std::vector<PhysXXML::Point> & vertices, MString & meshId)
+    {
+        MObject rigidBody = getShapeRigidBody(shape);
+        if (rigidBody.isNull()) return false;
+
+        PhysXXML::PxShape* pxShape = findPxShape(rigidBody, shape);
+        if (pxShape == NULL) return false;
+
+        if (pxShape->geometry.type == PhysXXML::Geometry::ConvexMesh)
+        {
+            if (PhysXXML::PxConvexMesh* convexMesh = mPhysXDoc->findConvexMesh(pxShape->geometry.convexMeshGeometry.convexMesh.convexMesh))
+            {
+                vertices = convexMesh->points.points;
+                meshId = convexMesh->id.id;
+                return true;
+            }
+        }
+        else if (pxShape->geometry.type == PhysXXML::Geometry::TriangleMesh)
+        {
+            if (PhysXXML::PxTriangleMesh* triangleMesh = mPhysXDoc->findTriangleMesh(pxShape->geometry.triangleMeshGeometry.triangleMesh.triangleMesh))
+            {
+                vertices = triangleMesh->points.points;
+                meshId = triangleMesh->id.id;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    bool PhysXExporter::getShapeTriangles(const MObject& shape, std::vector<PhysXXML::Triangle> & triangles)
+    {
+        MObject rigidBody = getShapeRigidBody(shape);
+        if (rigidBody.isNull()) return false;
+
+        PhysXXML::PxShape* pxShape = findPxShape(rigidBody, shape);
+        if (pxShape == NULL) return false;
+
+        if (pxShape->geometry.type == PhysXXML::Geometry::TriangleMesh)
+        {
+            if (PhysXXML::PxTriangleMesh* triangleMesh = mPhysXDoc->findTriangleMesh(pxShape->geometry.triangleMeshGeometry.triangleMesh.triangleMesh))
+            {
+                triangles = triangleMesh->triangles.triangles;
+                return true;
+            }
+        }
+        return false;
     }
 
     void PhysXExporter::getRigidBodyGlobalPose(const MObject& rigidBody, MMatrix& globalPose)
@@ -2901,6 +2996,7 @@ namespace COLLADAMaya
                             mMeshElement.getNode() == shape)
                         {
                             mNeedsConvexHullOfMeshElement = true;
+                            mShape = shape;
                             return false;
                         }
                     }
@@ -2913,19 +3009,26 @@ namespace COLLADAMaya
         {
             return mNeedsConvexHullOfMeshElement;
         }
+
+        const MObject& getShape() const
+        {
+            return mShape;
+        }
         
     private:
         const SceneElement & mMeshElement;
         bool mNeedsConvexHullOfMeshElement;
+        MObject mShape;
     };
 
-    bool PhysXExporter::needsConvexHullOf(const SceneElement & meshElement)
+    bool PhysXExporter::needsConvexHullOf(const SceneElement & meshElement, MObject& shape)
     {
         if (!ExportOptions::exportPhysics())
             return false;
         
         RigidBodyParser parser(meshElement);
         parseSceneElements(parser);
+        shape = parser.getShape();
         return parser.needsConvexHullOfMeshElement();
     }
 
@@ -3010,8 +3113,6 @@ namespace COLLADAMaya
     bool PhysXExporter::generatePhysXXML()
     {
         MStatus status;
-
-        // TODO make sure exported .xml does not already exist.
 
         // Backup export options
         AutoRestorePhysXExportOptions autoRestorePhysXExportOptions;
@@ -3116,7 +3217,7 @@ namespace COLLADAMaya
 
         // Export to .xml format first using PhysX plugin exporter.
         // Produced file contains information not accessible with Maya API.
-        if (!generatePhysXXML()) {
+        if (!mPhysXDoc) {
             MGlobal::displayError("Can't generate PhysX XML data. PhysX will not be exported.");
             return false;
         }

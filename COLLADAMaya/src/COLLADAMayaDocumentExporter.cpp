@@ -234,6 +234,9 @@ namespace COLLADAMaya
                 // geometry, we also have to export it).
                 mControllerExporter->exportControllers();
 
+                // Export PhysX to XML before exporting geometries
+                mPhysXExporter->generatePhysXXML();
+
                 // Export the geometries
                 mGeometryExporter->exportGeometries();
 

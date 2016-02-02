@@ -29,6 +29,7 @@ namespace COLLADAMaya
     bool ExportOptions::mCopyTextures = false;
     bool ExportOptions::mExportPolygonMeshes = true;
 	bool ExportOptions::mExportPhysics = true;
+    bool ExportOptions::mExportConvexMeshGeometries = true;
     bool ExportOptions::mExportLights  = true;
     bool ExportOptions::mExportCgfxFileReferences = true;
     bool ExportOptions::mExportCameras = true;
@@ -76,6 +77,7 @@ namespace COLLADAMaya
         
         mExportPolygonMeshes = true;
 		mExportPhysics = true;
+        mExportConvexMeshGeometries = true;
         mExportLights = true;
         mExportCameras = true;
         mExportMaterialsOnly = false;
@@ -133,6 +135,7 @@ namespace COLLADAMaya
                 else if ( optionName == "copyTextures" ) mCopyTextures = value;
                 else if ( optionName == "exportPolygonMeshes" ) mExportPolygonMeshes = value;
 				else if (optionName  == "exportPhysics") mExportPhysics = value;
+                else if (optionName == "exportConvexMeshGeometries") mExportConvexMeshGeometries = value;
                 else if ( optionName == "exportLights" ) mExportLights = value;
                 else if ( optionName == "exportCameras" ) mExportCameras = value;
                 else if ( optionName == "exportJointsAndSkin" ) mExportJointsAndSkin = value;
@@ -176,6 +179,11 @@ namespace COLLADAMaya
 	{
 		return mExportPhysics;
 	}
+
+    bool ExportOptions::exportConvexMeshGeometries()
+    {
+        return mExportConvexMeshGeometries;
+    }
 
     bool ExportOptions::exportPolygonMeshes()
     {
