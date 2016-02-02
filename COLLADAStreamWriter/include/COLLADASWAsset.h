@@ -109,7 +109,7 @@ namespace COLLADASW
 		void closeAsset();
 
 		/** add versionNumber/ Build Version from jenkins into extra attribute pluginVersion*/
-		void addVersionNumber(const String& versionNumber, const String& extraAttributeProfile);
+		void addVersionNumber(const String& versionNumber, const String& sha1, const String& extraAttributeProfile);
 
         /** Returns a reference to the contributor of th asset*/
         Contributor& getContributor()

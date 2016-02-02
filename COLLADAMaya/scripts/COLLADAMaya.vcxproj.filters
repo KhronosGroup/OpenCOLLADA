@@ -328,5 +328,8 @@
     <ClInclude Include="..\include\COLLADAMayaPhysXXML.h">
       <Filter>Header Files\Exporters</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaVersionInfo.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

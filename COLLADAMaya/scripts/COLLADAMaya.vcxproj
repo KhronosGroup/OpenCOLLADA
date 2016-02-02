@@ -1730,7 +1730,7 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2014_X64%25\scripts\others"
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2015|x64'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>call modify_version_info_h.bat</Command>
     </PreBuildEvent>
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>
@@ -3486,6 +3486,7 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2012_X64%25\scripts\others"
     <ClInclude Include="..\include\COLLADAMayaStableHeaders.h" />
     <ClInclude Include="..\include\COLLADAMayaSyntax.h" />
     <ClInclude Include="..\include\COLLADAMayaTangentPoint.h" />
+    <ClInclude Include="..\include\COLLADAMayaVersionInfo.h" />
     <ClInclude Include="..\include\COLLADAMayaVisualSceneExporter.h" />
   </ItemGroup>
   <ItemGroup>

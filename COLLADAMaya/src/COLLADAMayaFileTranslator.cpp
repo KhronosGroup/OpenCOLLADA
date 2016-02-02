@@ -84,6 +84,12 @@
 
         COLLADAMaya::String revision ( COLLADAMaya::TRANSLATOR_VERSION );
         revision += "." + COLLADAMaya::CURRENT_REVISION;
+
+		if (COLLADAMaya::CURRENT_SHA1.compare("undefined") != 0)
+		{
+			revision += "__sha1__" + COLLADAMaya::CURRENT_SHA1;
+		}
+
         MFnPlugin plugin ( obj, 
             COLLADAMaya::TRANSLATOR_VENDOR, 
             revision.c_str (), 

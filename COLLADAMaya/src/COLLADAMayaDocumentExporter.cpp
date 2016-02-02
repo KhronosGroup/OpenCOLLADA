@@ -382,7 +382,7 @@ namespace COLLADAMaya
         // Asset heraus schreiben
 		asset.openAsset();
         asset.add();
-		asset.addVersionNumber(COLLADAMaya::CURRENT_REVISION, COLLADAMaya::PROFILE_MAYA);
+		asset.addVersionNumber(COLLADAMaya::CURRENT_REVISION, COLLADAMaya::CURRENT_SHA1, COLLADAMaya::PROFILE_MAYA);
 		asset.closeAsset();
     }
 
