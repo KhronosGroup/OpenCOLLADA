@@ -942,7 +942,8 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2011|Win32'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <ClCompile>
       <Optimization>Disabled</Optimization>
@@ -994,7 +995,8 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2011%25\scripts\others"
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2011|x64'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>
@@ -1050,7 +1052,8 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2011_X64%25\scripts\others"
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2011|Win32'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
@@ -1109,7 +1112,8 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2011%25\scripts\others"
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2011|x64'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>
@@ -1164,7 +1168,8 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2011_X64%25\scripts\others"
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2011|Win32'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <ClCompile>
       <Optimization>Disabled</Optimization>
@@ -1201,7 +1206,8 @@ copy $(TargetPath) ..\testsuite &gt; nul
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2011|x64'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>
@@ -1241,7 +1247,8 @@ copy $(TargetPath) ..\testsuite &gt; nul
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2011|Win32'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
@@ -1279,7 +1286,8 @@ copy $(TargetPath) ..\testsuite &gt; nul
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2011|x64'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>
@@ -1321,7 +1329,8 @@ copy $(TargetPath) ..\testsuite &gt; nul
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsoleProgDB2011|Win32'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
@@ -1361,7 +1370,8 @@ copy $(TargetPath) ..\testsuite &gt; nul
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsoleProgDB2011|x64'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>
@@ -1403,7 +1413,8 @@ copy $(TargetPath) ..\testsuite &gt; nul
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2013|Win32'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <ClCompile>
       <Optimization>Disabled</Optimization>
@@ -1455,7 +1466,8 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2013%25\scripts\others"
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2014|Win32'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <ClCompile>
       <Optimization>Disabled</Optimization>
@@ -1509,7 +1521,8 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2013%25\scripts\others"
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2015|Win32'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <ClCompile>
       <Optimization>Disabled</Optimization>
@@ -1563,7 +1576,8 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2013%25\scripts\others"
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2016|Win32'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <ClCompile>
       <Optimization>Disabled</Optimization>
@@ -1617,7 +1631,8 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2013%25\scripts\others"
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2013|x64'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>
@@ -1673,7 +1688,8 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2013_X64%25\scripts\others"
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2014|x64'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>
@@ -1788,7 +1804,8 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2015_X64%25\scripts\others"
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2016|x64'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>
@@ -1845,7 +1862,8 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2016_X64%25\scripts\others"
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2013|Win32'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <ClCompile>
       <Optimization>Disabled</Optimization>
@@ -1882,7 +1900,8 @@ copy $(TargetPath) ..\testsuite &gt; nul
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2015|Win32'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <ClCompile>
       <Optimization>Disabled</Optimization>
@@ -1921,7 +1940,8 @@ copy $(TargetPath) ..\testsuite &gt; nul
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2016|Win32'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <ClCompile>
       <Optimization>Disabled</Optimization>
@@ -1960,7 +1980,8 @@ copy $(TargetPath) ..\testsuite &gt; nul
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2014|Win32'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <ClCompile>
       <Optimization>Disabled</Optimization>
@@ -1999,7 +2020,8 @@ copy $(TargetPath) ..\testsuite &gt; nul
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2013|x64'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>
@@ -2039,7 +2061,8 @@ copy $(TargetPath) ..\testsuite &gt; nul
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2015|x64'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>
@@ -2080,7 +2103,8 @@ copy $(TargetPath) ..\testsuite &gt; nul
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2016|x64'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>
@@ -2121,7 +2145,8 @@ copy $(TargetPath) ..\testsuite &gt; nul
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2014|x64'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>
@@ -2162,7 +2187,8 @@ copy $(TargetPath) ..\testsuite &gt; nul
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2013|Win32'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
@@ -2200,7 +2226,8 @@ copy $(TargetPath) ..\testsuite &gt; nul
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2014|Win32'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
@@ -2242,7 +2269,8 @@ copy $(TargetPath) ..\testsuite &gt; nul
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2015|Win32'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
@@ -2284,7 +2312,8 @@ copy $(TargetPath) ..\testsuite &gt; nul
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2016|Win32'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
@@ -2326,7 +2355,8 @@ copy $(TargetPath) ..\testsuite &gt; nul
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2013|x64'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>
@@ -2368,7 +2398,8 @@ copy $(TargetPath) ..\testsuite &gt; nul
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2014|x64'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>
@@ -2413,7 +2444,8 @@ copy $(TargetPath) ..\testsuite &gt; nul
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2015|x64'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>
@@ -2458,7 +2490,8 @@ copy $(TargetPath) ..\testsuite &gt; nul
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2016|x64'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>
@@ -2503,7 +2536,8 @@ copy $(TargetPath) ..\testsuite &gt; nul
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2013|Win32'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
@@ -2562,7 +2596,8 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2013%25\scripts\others"
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2014|Win32'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
@@ -2623,7 +2658,8 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2014%25\scripts\others"
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2015|Win32'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
@@ -2684,7 +2720,8 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2015%25\scripts\others"
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2016|Win32'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
@@ -2745,7 +2782,8 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2016%25\scripts\others"
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2013|x64'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>
@@ -2800,7 +2838,8 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2013_X64%25\scripts\others"
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2014|x64'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>
@@ -2856,7 +2895,8 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2014_X64%25\scripts\others"
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2015|x64'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>
@@ -2912,7 +2952,8 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2015_X64%25\scripts\others"
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2016|x64'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>
@@ -2968,7 +3009,8 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2016_X64%25\scripts\others"
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2012|Win32'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <ClCompile>
       <Optimization>Disabled</Optimization>
@@ -3020,7 +3062,8 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2012%25\scripts\others"
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2012|x64'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>
@@ -3076,7 +3119,8 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2012_X64%25\scripts\others"
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2012|Win32'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <ClCompile>
       <Optimization>Disabled</Optimization>
@@ -3113,7 +3157,8 @@ copy $(TargetPath) ..\testsuite &gt; nul
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugConsole2012|x64'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>
@@ -3153,7 +3198,8 @@ copy $(TargetPath) ..\testsuite &gt; nul
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2012|Win32'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
@@ -3191,7 +3237,8 @@ copy $(TargetPath) ..\testsuite &gt; nul
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseConsole2012|x64'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>
@@ -3233,7 +3280,8 @@ copy $(TargetPath) ..\testsuite &gt; nul
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2012|Win32'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
@@ -3292,7 +3340,8 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2012%25\scripts\others"
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePlugin2012|x64'">
     <PreBuildEvent>
-      <Command>call create_version_info_h.bat $(PLATFORM) $(CONFIGURATION)</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>
