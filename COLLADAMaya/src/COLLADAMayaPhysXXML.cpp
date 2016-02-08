@@ -2326,6 +2326,7 @@ namespace COLLADAMaya
         {}
 
         PhysXDocPtr::PhysXDocPtr(xmlDocPtr xml)
+            : mPhysXDoc(NULL)
         {
             if (mPhysXDoc) {
                 delete mPhysXDoc;
