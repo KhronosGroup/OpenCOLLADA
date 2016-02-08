@@ -1730,7 +1730,8 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2014_X64%25\scripts\others"
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugPlugin2015|x64'">
     <PreBuildEvent>
-      <Command>call modify_version_info_h.bat</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <Midl>
       <TargetEnvironment>X64</TargetEnvironment>
