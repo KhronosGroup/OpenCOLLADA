@@ -3160,7 +3160,7 @@ namespace COLLADAMaya
         // Set .pxproj as extension but plugin will export a .xml file
         String pxProjPath = tempFilePath;
         extPos = pxProjPath.find_last_of('.');
-        pxProjPath.replace(extPos, pxProjPath.length() - extPos, ".pxproj");
+        pxProjPath.replace(extPos, pxProjPath.length() - extPos, ".PxProj");
 
         exportCommand << " \"" << pxProjPath << "\";";
         status = MGlobal::executeCommand(exportCommand.str().c_str());
