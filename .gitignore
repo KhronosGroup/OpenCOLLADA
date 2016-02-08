@@ -12,8 +12,6 @@ INSTALL.vcxproj*
 OpenCOLLADA.sln
 OpenCOLLADAConfig*.cmake
 CMakeCache.txt
-COLLADAMayaVersionInfo.h
-.COLLADAMayaVersionInfo.h
 
 .DS_Store
 *.xcodeproj
