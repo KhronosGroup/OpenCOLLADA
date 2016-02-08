@@ -49,12 +49,12 @@ namespace COLLADAMaya
 
 				std::vector< std::pair<bool, Step> > stepInterpolation;
                 std::vector<float> values;
-                bool isMatrix, isWanted, isAnimated, isExported;
+                bool isMatrix, isWanted, isAnimated;
 
 				std::vector<MObject> animCurves;
 
-				Part() : isMatrix(false), isWanted(false), isAnimated(false), isExported(false) {}
-				Part(const MPlug& plug) : plug(plug), isMatrix(false), isWanted(false), isAnimated(false), isExported(false){}
+				Part() : isMatrix(false), isWanted(false), isAnimated(false) {}
+				Part(const MPlug& plug) : plug(plug), isMatrix(false), isWanted(false), isAnimated(false){}
             };
 
             std::vector<Part> parts;
