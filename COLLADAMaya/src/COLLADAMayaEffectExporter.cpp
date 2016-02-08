@@ -207,11 +207,11 @@ namespace COLLADAMaya
         }
 		else if (shader.hasFn(MFn::kPluginHwShaderNode) && shaderNodeTypeName == COLLADA_FX_SHADER)
         {
-            MGlobal::displayError("Export of ColladaFXShader not implemented!");
+            MGlobal::displayWarning("Export of ColladaFXShader not implemented!");
         }
 		else if (shader.hasFn(MFn::kPluginHwShaderNode) && shaderNodeTypeName == COLLADA_FX_PASSES)
         {
-            MGlobal::displayError("Export of ColladaFXPasses not implemented!");
+            MGlobal::displayWarning("Export of ColladaFXPasses not implemented!");
         }
 
 #if MAYA_API_VERSION > 700 
@@ -227,7 +227,7 @@ namespace COLLADAMaya
         // Custom hardware shaders derived from MPxHwShaderNode (the old stuff)
         else if ( shader.hasFn ( MFn::kPluginHardwareShader ) )
         {
-            MGlobal::displayError("Export HardwareShader not implemented!");
+            MGlobal::displayWarning("Export HardwareShader not implemented!");
         }
 #endif
 #if MAYA_API_VERSION >= 201500

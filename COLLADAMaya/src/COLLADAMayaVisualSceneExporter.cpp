@@ -234,7 +234,7 @@ namespace COLLADAMaya
         case MFn::kPoleVectorConstraint:
         case MFn::kPointConstraint:
         case MFn::kNormalConstraint:
-            MGlobal::displayError ( "Export of constraints not supported: " 
+            MGlobal::displayWarning ( "Export of constraints not supported: " 
                 + MString ( sceneElement->getNodeName ().c_str () ) );
             break;
 
@@ -250,7 +250,7 @@ namespace COLLADAMaya
         case MFn::kIkHandle:
             if ( ExportOptions::exportJointsAndSkin() )
             {
-                MGlobal::displayError ( "Export of ik handles not supported: " 
+                MGlobal::displayWarning ( "Export of ik handles not supported: " 
                     + MString ( sceneElement->getNodeName ().c_str () ) );
             }
             break;
@@ -261,26 +261,26 @@ namespace COLLADAMaya
         case MFn::kRigid:
             //if ( ExportOptions::exportPhysics() )
             {
-                MGlobal::displayError ( "Export of physics not supported: "
+                MGlobal::displayWarning ( "Export of physics not supported: "
                     + MString ( sceneElement->getNodeName ().c_str () ) );
             }
             break;
 
         case MFn::kNurbsCurve:
             {
-                MGlobal::displayError ( "Export of spline not supported: " 
+                MGlobal::displayWarning ( "Export of spline not supported: " 
                     + MString ( sceneElement->getNodeName ().c_str () ) );
             }
             break;
         case MFn::kNurbsSurface:
             {
-                MGlobal::displayError ( "Export of nurbs not supported: "
+                MGlobal::displayWarning ( "Export of nurbs not supported: "
                     + MString ( sceneElement->getNodeName ().c_str () ) );
             }
             break;
         case MFn::kEmitter:
             {
-                MGlobal::displayError ( "Export of emitters not supported: "
+                MGlobal::displayWarning ( "Export of emitters not supported: "
                     + MString ( sceneElement->getNodeName ().c_str () ) );
             }
             break;
@@ -295,7 +295,7 @@ namespace COLLADAMaya
         case MFn::kVortex:
         case MFn::kVolumeAxis:
             {
-                MGlobal::displayError ( "Could not export. Unknown node type: " 
+                MGlobal::displayWarning ( "Could not export. Unknown node type: " 
                     + MString ( sceneElement->getNodeName ().c_str () ) );
             }
             break;
@@ -397,7 +397,7 @@ namespace COLLADAMaya
             {
                 MString pathName = dagPath.fullPathName();
                 MString message = "Could not initialize the transform object of the path " + pathName;
-                MGlobal::displayError( message );
+                MGlobal::displayWarning( message );
                 return false;
             }
         }

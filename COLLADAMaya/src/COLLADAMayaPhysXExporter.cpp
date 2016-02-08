@@ -3368,7 +3368,7 @@ namespace COLLADAMaya
         // Export to .xml format first using PhysX plugin exporter.
         // Produced file contains information not accessible with Maya API.
         if (!mPhysXDoc) {
-            MGlobal::displayError("Can't generate PhysX XML data. PhysX will not be exported.");
+            MGlobal::displayWarning("Can't generate PhysX XML data. PhysX will not be exported.");
             return false;
         }
 

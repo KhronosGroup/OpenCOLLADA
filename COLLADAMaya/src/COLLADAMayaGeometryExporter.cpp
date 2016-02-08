@@ -1406,7 +1406,7 @@ namespace COLLADAMaya
         MObject meshNode = dagPath.node();
         if ( !meshNode.hasFn ( MFn::kMesh ) ) 
         {
-            MGlobal::displayError ( "No mesh object!" );
+            MGlobal::displayWarning ( "No mesh object!" );
             return EMPTY_STRING;
         }
 
@@ -1416,7 +1416,7 @@ namespace COLLADAMaya
         MFnMesh fnMesh ( meshNode, &status );
         if ( status != MStatus::kSuccess ) 
         {
-            MGlobal::displayError ( "No mesh object!" );
+            MGlobal::displayWarning ( "No mesh object!" );
             return EMPTY_STRING;
         }
 

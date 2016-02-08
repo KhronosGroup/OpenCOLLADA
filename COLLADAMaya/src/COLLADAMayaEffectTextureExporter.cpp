@@ -351,14 +351,14 @@ namespace COLLADAMaya
                     {
 						exists = false;
                         String message = "Could not successful create directory and copy file: " + sourceUri.toNativePath();
-                        MGlobal::displayError( message.c_str() );
+                        MGlobal::displayWarning( message.c_str() );
                         std::cerr << "[ERROR] Could not copy file " << sourceUri.toNativePath() << std::endl;
                     }
 
 					if( !exists )
 					{
 						String message = "Could not successful create directory and copy file: " + sourceUri.toNativePath();
-						MGlobal::displayError( message.c_str() );
+						MGlobal::displayWarning( message.c_str() );
 						std::cerr << "[ERROR] Could not copy file " << sourceUri.toNativePath() << std::endl;
 					}
 				}
@@ -398,7 +398,7 @@ namespace COLLADAMaya
 				String message = "Not able to generate a relative path from " 
 					+ mayaSourceFileUri.getURIString() + " to " + sourceUri.getURIString() 
 					+ ". An absolute path will be written! ";
-				MGlobal::displayError ( message.c_str() );
+				MGlobal::displayWarning ( message.c_str() );
 				targetUri = sourceUri;
 			}
 			else
@@ -637,7 +637,7 @@ namespace COLLADAMaya
 					String message = "Not able to generate a relative path from " 
 						+ mayaSourceFileUri.getURIString() + " to " + sourceUri.getURIString() 
 						+ ". An absolute path will be written! ";
-					MGlobal::displayError ( message.c_str() );
+					MGlobal::displayWarning ( message.c_str() );
 					fullFileNameURI = sourceUri;
 				}
 			}
@@ -660,7 +660,7 @@ namespace COLLADAMaya
                     String message = "Not able to generate a relative path from " 
                         + targetColladaUri.getURIString() + " to " + textureUri.getURIString() 
                         + ". An absolute path will be written! ";
-                    MGlobal::displayError ( message.c_str() );
+                    MGlobal::displayWarning ( message.c_str() );
                     fullFileNameURI = textureUri;
                 }
             }
@@ -679,7 +679,7 @@ namespace COLLADAMaya
                     String message = "Not able to generate a relative path from " 
                         + targetColladaUri.getURIString() + " to " + sourceUri.getURIString() 
                         + ". An absolute path will be written! ";
-                    MGlobal::displayError ( message.c_str() );
+                    MGlobal::displayWarning ( message.c_str() );
                     fullFileNameURI = sourceUri;
                 }
             }
