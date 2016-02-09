@@ -244,6 +244,10 @@ namespace COLLADAMaya
         const MDagPath &dagPath,
         SceneElement* parentSceneElement )
     {
+        // Add the element to the current selection list.
+        // This is needed to make sure PhysX plugin also exports them.
+        MGlobal::select(dagPath, MObject::kNullObj, MGlobal::kAddToList);
+
         // Create a new scene element
         SceneElement* sceneElement = new SceneElement ( dagPath );
 
