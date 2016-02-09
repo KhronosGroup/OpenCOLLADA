@@ -242,6 +242,10 @@ namespace COLLADAMaya
 
         try
         {
+            // Save current selection
+            MSelectionList selection;
+            MGlobal::getActiveSelectionList(selection);
+
             // Extract the filename
 #if defined (OSMac_)
             char nameBuffer[MAXPATHLEN];
@@ -281,6 +285,9 @@ namespace COLLADAMaya
 
             // Do the actual export now
             status = exportIntoFile ( fileName, exportSelection );
+
+            // Restore selection
+            MGlobal::setActiveSelectionList(selection);
         }
         catch ( COLLADASW::StreamWriterException* swException  )
         {
