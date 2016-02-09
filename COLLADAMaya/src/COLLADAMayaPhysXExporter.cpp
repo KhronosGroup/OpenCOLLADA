@@ -3230,12 +3230,13 @@ namespace COLLADAMaya
 
         if (sceneHas(SceneElement::PHYSX_RIGID_BODY, Local) ||
             sceneHas(SceneElement::PHYSX_RIGID_CONSTRAINT, Local)) {
-            LibraryPhysicsModels(*this);
-        }
-        
-        if (sceneHas(SceneElement::PHYSX_RIGID_SOLVER, Local)) {
+            {
+                LibraryPhysicsModels(*this);
+            }
+            {
+                LibraryPhysicsScenes(*this);
+            }
             hasPhysicsScene = true;
-            LibraryPhysicsScenes(*this);
         }
 
         return hasPhysicsScene;
