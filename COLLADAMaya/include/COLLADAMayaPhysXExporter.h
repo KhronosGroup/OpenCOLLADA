@@ -63,6 +63,10 @@ namespace COLLADAMaya
     public:
         PhysXExporter(COLLADASW::StreamWriter& streamWriter, DocumentExporter& documentExporter);
 
+        static bool CheckPhysXPluginVersion();
+        static MString GetRequiredPhysXPluginVersion();
+        static MString GetInstalledPhysXPluginVersion();
+
         bool generatePhysXXML();
         bool needsConvexHullOf(const SceneElement & element, MObject & shape);
         bool exportPhysicsLibraries();

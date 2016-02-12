@@ -235,6 +235,13 @@ namespace COLLADAMaya
                 // geometry, we also have to export it).
                 mControllerExporter->exportControllers();
 
+                // Don't export Physics if required PhysX plugin is not loaded
+                if (ExportOptions::exportPhysics() && !PhysXExporter::CheckPhysXPluginVersion()) {
+                    MGlobal::displayWarning(MString("Physics not exported. Minimum PhysX plugin version: ") + PhysXExporter::GetRequiredPhysXPluginVersion());
+                    MGlobal::displayWarning(MString("Installed version: ") + PhysXExporter::GetInstalledPhysXPluginVersion());
+                    ExportOptions::setExportPhysics(false);
+                }
+
                 // Export PhysX to XML before exporting geometries
                 if (ExportOptions::exportPhysics() && !mPhysXExporter->generatePhysXXML()) {
                     // Don't try to export Physics if xml export has failed
