@@ -637,7 +637,7 @@ namespace COLLADAMaya
         return NULL;
     }
 
-    PhysXXML::PxMaterial* PhysXExporter::findPxMaterial(int ref)
+    PhysXXML::PxMaterial* PhysXExporter::findPxMaterial(uint64_t ref)
     {
         return mPhysXDoc->findMaterial(ref);
     }
@@ -772,7 +772,9 @@ namespace COLLADAMaya
             if (PhysXXML::PxConvexMesh* convexMesh = mPhysXDoc->findConvexMesh(pxShape->geometry.convexMeshGeometry.convexMesh.convexMesh))
             {
                 vertices = convexMesh->points.points;
-                meshId = convexMesh->id.id;
+                std::stringstream s;
+                s << convexMesh->id.id;
+                meshId = s.str().c_str();
                 return true;
             }
         }
@@ -781,7 +783,9 @@ namespace COLLADAMaya
             if (PhysXXML::PxTriangleMesh* triangleMesh = mPhysXDoc->findTriangleMesh(pxShape->geometry.triangleMeshGeometry.triangleMesh.triangleMesh))
             {
                 vertices = triangleMesh->points.points;
-                meshId = triangleMesh->id.id;
+                std::stringstream s;
+                s << triangleMesh->id.id;
+                meshId = s.str().c_str();
                 return true;
             }
         }

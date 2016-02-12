@@ -222,6 +222,26 @@ namespace COLLADAMaya
             s >> content;
         }
 
+        void GetContent(xmlNode* node, uint64_t& content)
+        {
+            if (!node) {
+                return;
+            }
+
+            node = FindChild(node, Strings::text);
+            if (!node) {
+                return;
+            }
+
+            if (!node->content) {
+                return;
+            }
+
+            std::stringstream s;
+            s << node->content;
+            s >> content;
+        }
+
         void GetContent(xmlNode* node, MQuaternion& q, MVector& v)
         {
             if (!node) {
@@ -2235,7 +2255,7 @@ namespace COLLADAMaya
             return true;
         }
 
-        PxConvexMesh* PhysXDoc::findConvexMesh(int id)
+        PxConvexMesh* PhysXDoc::findConvexMesh(uint64_t id)
         {
             for (size_t i = 0; i < physX30Collection.convexMeshes.size(); ++i) {
                 PxConvexMesh& convexMesh = physX30Collection.convexMeshes[i];
@@ -2245,7 +2265,7 @@ namespace COLLADAMaya
             return NULL;
         }
 
-        PxTriangleMesh* PhysXDoc::findTriangleMesh(int id)
+        PxTriangleMesh* PhysXDoc::findTriangleMesh(uint64_t id)
         {
             for (size_t i = 0; i < physX30Collection.triangleMeshes.size(); ++i) {
                 PxTriangleMesh& triangleMesh = physX30Collection.triangleMeshes[i];
@@ -2255,7 +2275,7 @@ namespace COLLADAMaya
             return NULL;
         }
 
-        PxMaterial* PhysXDoc::findMaterial(int ref)
+        PxMaterial* PhysXDoc::findMaterial(uint64_t ref)
         {
             for (size_t i = 0; i < physX30Collection.materials.size(); ++i) {
                 PxMaterial& material = physX30Collection.materials[i];
