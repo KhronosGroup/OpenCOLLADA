@@ -20,6 +20,14 @@ http://www.opensource.org/licenses/mit-license.php
 
 #include <libxml/parser.h>
 
+#if defined(_MSC_VER) && _MSC_VER < 1600
+// int64_t only available since Visual Studio 2010
+typedef __int64 int64_t;
+typedef unsigned __int64 uint64_t;
+#else
+#include <stdint.h>
+#endif
+
 namespace COLLADAMaya
 {
     namespace PhysXXML
