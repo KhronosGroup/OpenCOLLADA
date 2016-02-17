@@ -139,7 +139,7 @@ namespace COLLADAMaya
         bool sceneHas(SceneElement::Type type, Filter filter = All);
 
         PhysXXML::PxRigidStatic* findPxRigidStatic(const String& name);
-        PhysXXML::PxMaterial* findPxMaterial(int ref);
+        PhysXXML::PxMaterial* findPxMaterial(uint64_t ref);
 
     private:
         PhysXXML::PxMaterial* findPxMaterial(const MObject& rigidBody);

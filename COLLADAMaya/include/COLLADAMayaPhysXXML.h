@@ -20,6 +20,14 @@ http://www.opensource.org/licenses/mit-license.php
 
 #include <libxml/parser.h>
 
+#if defined(_MSC_VER) && _MSC_VER < 1600
+// int64_t only available since Visual Studio 2010
+typedef __int64 int64_t;
+typedef unsigned __int64 uint64_t;
+#else
+#include <stdint.h>
+#endif
+
 namespace COLLADAMaya
 {
     namespace PhysXXML
@@ -65,7 +73,7 @@ namespace COLLADAMaya
         {
             Id(xmlNode* node);
             void exportElement(COLLADASW::StreamWriter& sw);
-            int id;
+            uint64_t id;
         };
 
         struct Point
@@ -269,7 +277,7 @@ namespace COLLADAMaya
         {
             ConvexMesh(xmlNode* node);
             void exportElement(COLLADASW::StreamWriter& sw);
-            int convexMesh;
+            uint64_t convexMesh;
         };
 
         struct PxConvexMeshGeometry
@@ -297,7 +305,7 @@ namespace COLLADAMaya
         {
             TriangleMesh(xmlNode* node);
             void exportElement(COLLADASW::StreamWriter& sw);
-            int triangleMesh;
+            uint64_t triangleMesh;
         };
 
         struct PxTriangleMeshGeometry
@@ -363,7 +371,7 @@ namespace COLLADAMaya
         {
             PxMaterialRef(xmlNode* node);
             void exportElement(COLLADASW::StreamWriter& sw);
-            int materialRef;
+            uint64_t materialRef;
         };
 
         struct Materials
@@ -579,14 +587,14 @@ namespace COLLADAMaya
         {
             Actor0(xmlNode* node);
             void exportElement(COLLADASW::StreamWriter& sw);
-            int actor0;
+            uint64_t actor0;
         };
 
         struct Actor1
         {
             Actor1(xmlNode* node);
             void exportElement(COLLADASW::StreamWriter& sw);
-            int actor1;
+            uint64_t actor1;
         };
 
         struct Actors
@@ -1000,9 +1008,9 @@ namespace COLLADAMaya
             PhysX30Collection physX30Collection;
             bool validate();
 
-            PxConvexMesh* findConvexMesh(int id);
-            PxTriangleMesh* findTriangleMesh(int id);
-            PxMaterial* findMaterial(int ref);
+            PxConvexMesh* findConvexMesh(uint64_t id);
+            PxTriangleMesh* findTriangleMesh(uint64_t id);
+            PxMaterial* findMaterial(uint64_t ref);
             PxMaterial* findMaterial(const String& bodyName, const String& shapeName);
             PxShape* findShape(const String& bodyName, const String& shapeName);
             PxRigidStatic* findRigidStatic(const String& bodyName);
