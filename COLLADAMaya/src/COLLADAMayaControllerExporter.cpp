@@ -803,15 +803,15 @@ namespace COLLADAMaya
             MStatus status;
             MPlug plug = ShaderHelper::findPlug(MFnDependencyNode(cluster), ATTR_INPUt, &status);
             if (status != MStatus::kSuccess)
-            { MGlobal::displayError("Unable to get joint cluster input plug."); return; }
+            { MGlobal::displayWarning("Unable to get joint cluster input plug."); return; }
 
             plug = plug.elementByLogicalIndex(clusterIndex, &status);
             if (status != MStatus::kSuccess)
-            { MGlobal::displayError("Unable to get joint cluster input plug first element."); return; }
+            { MGlobal::displayWarning("Unable to get joint cluster input plug first element."); return; }
 
             plug = DagHelper::getChildPlug(plug, ATTR_INPUT_GEOMETRY, &status); // "inputGeometry"
             if (status != MStatus::kSuccess)
-            { MGlobal::displayError("Unable to get joint cluster input geometry plug."); return; }
+            { MGlobal::displayWarning("Unable to get joint cluster input geometry plug."); return; }
 
             cluster = DagHelper::getSourceNodeConnectedTo(plug);
         }

@@ -246,7 +246,7 @@ namespace COLLADAMaya
                 if (ExportOptions::exportPhysics() && !mPhysXExporter->generatePhysXXML()) {
                     // Don't try to export Physics if xml export has failed
                     ExportOptions::setExportPhysics(false);
-                    MGlobal::displayError(MString("Error while exporting PhysX scene to XML. Physics not exported."));
+                    MGlobal::displayWarning(MString("Error while exporting PhysX scene to XML. Physics not exported."));
                 }
 
                 // Export the geometries
