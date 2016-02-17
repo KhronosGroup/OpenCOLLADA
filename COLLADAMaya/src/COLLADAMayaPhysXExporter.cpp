@@ -3172,6 +3172,7 @@ namespace COLLADAMaya
             mOptions.push_back(Option("PhysXExport_useFolderName", Integer));
             mOptions.push_back(Option("apexExport_RemoveNamespaceForJoint", Integer));
             mOptions.push_back(Option("apexClothingExport_VisibleOnly", Integer));
+            mOptions.push_back(Option("PhysXExport_UseJointLongName", Integer));
             mOptions.push_back(Option("PhysXExport_exportPxProjFile", Integer));
             mOptions.push_back(Option("PhysXExport_exportPhysX", Integer));
             mOptions.push_back(Option("PhysXExport_outputUnit", String));
@@ -3279,6 +3280,8 @@ namespace COLLADAMaya
         status = MGlobal::executeCommand("optionVar -iv \"apexExport_RemoveNamespaceForJoint\" 0");
         if (!status) return false;
         status = MGlobal::executeCommand("optionVar -iv \"apexClothingExport_VisibleOnly\" 0");
+        if (!status) return false;
+        status = MGlobal::executeCommand("optionVar -iv \"PhysXExport_UseJointLongName\" 1");
         if (!status) return false;
         status = MGlobal::executeCommand("optionVar -iv \"PhysXExport_exportPxProjFile\" 0");
         if (!status) return false;
