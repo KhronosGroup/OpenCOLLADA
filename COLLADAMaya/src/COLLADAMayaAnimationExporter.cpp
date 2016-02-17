@@ -51,8 +51,8 @@ namespace COLLADAMaya
     const String AnimationExporter::PARAM_TYPE_TRANSFORM         = "TRANSFORM";
     const String AnimationExporter::PARAM_TYPE_X_Y               = "X_Y";
 
-#define SMALL_DELTA 0.001f
-
+#define SMALL_DELTA		0.001f
+#define FLT_EPSILON     1.192092896e-07F        /* smallest such that 1.0+FLT_EPSILON != 1.0 */
 
     //---------------------------------------------------------------
     AnimationExporter::AnimationExporter ( COLLADASW::StreamWriter* streamWriter,
@@ -272,9 +272,6 @@ namespace COLLADAMaya
 
 			if (!mAnimationElements.empty())
 			{
-				// Open the animation library
-				openLibrary();
-
 				// Export the curves of the animated element and of the child elements recursive
 				exportAnimatedElements(mAnimationElements);
 
@@ -354,6 +351,9 @@ namespace COLLADAMaya
 
 				// Check the flag, if the element or a child element has curves
 				if (!animatedElement->hasCurves()) continue;
+
+				// Open the animation library
+				openLibrary();
 
 				// TODO id preservation
 				// Open an animation node and add the channel of the current animation
@@ -2076,6 +2076,13 @@ namespace COLLADAMaya
         return curveCreated;
     }
 
+
+
+	static bool ApproximatelyEqual(float a, float b)
+	{
+		return fabs(a - b) <= (FLT_EPSILON + FLT_EPSILON);
+	}
+
     // ------------------------------------------------------------
     bool AnimationExporter::curvesAreEqual ( const AnimationCurveList &curves )
     {
@@ -2091,9 +2098,13 @@ namespace COLLADAMaya
                 {
                     AnimationKey* key1 = ( ( AnimationKey* ) curve->getKey ( j ) );
                     AnimationKey* key2 = ( ( AnimationKey* ) curve->getKey ( j+1 ) );
-                    equals = key1->output == key2->output;
+					equals = ApproximatelyEqual(key1->output, key2->output);
                 }
             }
+			else
+			{
+				equals = false;
+			}
         }
 
         return equals;
@@ -2129,7 +2140,16 @@ namespace COLLADAMaya
         {
             AnimationClip* clip = ( *it );
             int index = clip->findPlug ( plug );
-            if ( index == -1 ) continue;
+
+			float startTimeClip = clip->colladaClip->getStartTime();
+			float endTimeClip = clip->colladaClip->getEndTime();
+
+			if (startTimeClip == endTimeClip)
+				index = 0;
+			else
+			{
+				if (index == -1) continue;
+			}
 
 			bool found = false;
 			std::pair<std::set<String>::iterator, bool> result = clipSources.insert(clip->getClipSourceId());
