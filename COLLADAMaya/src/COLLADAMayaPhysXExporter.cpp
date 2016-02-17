@@ -3032,6 +3032,99 @@ namespace COLLADAMaya
         return parser.needsConvexHullOfMeshElement();
     }
 
+    bool ExtractPhysXPluginVersionNumbers(
+        int & major,
+        int & minor,
+        int & a,
+        int & b)
+    {
+        String version = PhysXExporter::GetInstalledPhysXPluginVersion().asChar();
+
+        size_t p1 = version.find('(');
+        if (p1 == String::npos) return false;
+        ++p1;
+        if (p1 >= version.length()) return false;
+
+        size_t p2 = version.find(')', p1);
+        if (p2 == String::npos) return false;
+
+        MString mnumbers = version.substr(p1, p2 - p1).c_str();
+        MStringArray numbers;
+        mnumbers.split('.', numbers);
+        if (numbers.length() != 4) return false;
+
+        std::stringstream s;
+        s << numbers[0] << ' ' << numbers[1] << ' ' << numbers[2] << ' ' << numbers[3];
+        s >> major >> minor >> a >> b;
+
+        return true;
+    }
+
+    bool PhysXExporter::CheckPhysXPluginVersion()
+    {
+        MObject pluginObject = MFnPlugin::findPlugin("physx");
+
+        if (pluginObject.isNull()) {
+            return false;
+        }
+
+        MFnPlugin fnPlugin(pluginObject);
+
+        MStatus status;
+        MString mversion = fnPlugin.version(&status);
+        if (!status) return false;
+
+        int requ_major = 0;
+        int requ_minor = 0;
+        int requ_a = 0;
+        int requ_b = 0;
+
+        int curr_major = 0;
+        int curr_minor = 0;
+        int curr_a = 0;
+        int curr_b = 0;
+
+        if (!ExtractPhysXPluginVersionNumbers(requ_major, requ_minor, requ_a, requ_b)) {
+            return false;
+        }
+
+        if (!ExtractPhysXPluginVersionNumbers(curr_major, curr_minor, curr_a, curr_b)) {
+            return false;
+        }
+
+        if (curr_major < requ_major ||
+            curr_minor < requ_minor ||
+            curr_a < requ_a ||
+            curr_b < requ_b) {
+            return false;
+        }
+
+        return true;
+    }
+
+    MString PhysXExporter::GetRequiredPhysXPluginVersion()
+    {
+        return MString("PhysxForMaya (3.3.10708.21402) , compiled 7/8/2015 9:40:44 PM");
+    }
+
+    MString PhysXExporter::GetInstalledPhysXPluginVersion()
+    {
+        static MString na = "N/A";
+
+        MObject pluginObject = MFnPlugin::findPlugin("physx");
+        if (pluginObject.isNull()) {
+            return na;
+        }
+
+        MFnPlugin fnPlugin(pluginObject);
+
+        MStatus status;
+        MString version = fnPlugin.version(&status);
+        if (!status) return na;
+
+        return version;
+    }
+
     class AutoDeleteFile
     {
     public:
@@ -3272,15 +3365,6 @@ namespace COLLADAMaya
 
     bool PhysXExporter::exportPhysicsLibraries()
     {
-        // Check PhysX plugin version.
-        MObject pluginObject = MFnPlugin::findPlugin("physx");
-        
-        if (pluginObject.isNull()) {
-            return false;
-        }
-
-        MFnPlugin fnPlugin(pluginObject);
-
         // Export to .xml format first using PhysX plugin exporter.
         // Produced file contains information not accessible with Maya API.
         if (!mPhysXDoc) {
