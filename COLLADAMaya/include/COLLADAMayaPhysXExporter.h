@@ -74,6 +74,7 @@ namespace COLLADAMaya
         COLLADASW::StreamWriter& getStreamWriter();
         DocumentExporter& getDocumentExporter();
 
+		void exportTranslationWithoutConversion(const MVector & translation, const String & sid = "");
         void exportTranslation(const MVector & translation, const String & sid = "");
         void exportRotation(const MEulerRotation & rotation, const String & sid = "");
         void exportAttributes(const MObject & object, const std::set<MString, MStringComp> & attributes);
@@ -82,6 +83,7 @@ namespace COLLADAMaya
         void exportRigidBodyPhysXXML(const MObject& shape);
         void exportRigidConstraintPhysXXML(const MObject& constraint);
 
+		MObject getNodeRigidBody(const MObject& node);
         MObject getShapeRigidBody(const MObject& shape);
         void getShapeLocalPose(const MObject& rigidBody, const MObject& shape, MMatrix& localPose);
         bool getShapeVertices(const MObject& shape, std::vector<PhysXXML::Point> & vertices, MString & meshId);
@@ -140,14 +142,15 @@ namespace COLLADAMaya
 
         PhysXXML::PxRigidStatic* findPxRigidStatic(const String& name);
         PhysXXML::PxMaterial* findPxMaterial(uint64_t ref);
+		PhysXXML::PxMaterial* findPxMaterial(const MObject& rigidBody);
+		PhysXXML::PxShape* findPxShape(const MObject& rigidBody, const MObject& shape);
+		PhysXXML::PxRigidStatic* findPxRigidStatic(uint64_t id);
+		PhysXXML::PxRigidStatic* findPxRigidStatic(const MObject& rigidBody);
+		PhysXXML::PxRigidDynamic* findPxRigidDynamic(uint64_t id);
+		PhysXXML::PxRigidDynamic* findPxRigidDynamic(const MObject& rigidBody);
+		PhysXXML::PxD6Joint* findPxD6Joint(const MObject& rigidConstraint);
 
     private:
-        PhysXXML::PxMaterial* findPxMaterial(const MObject& rigidBody);
-        PhysXXML::PxShape* findPxShape(const MObject& rigidBody, const MObject& shape);
-        PhysXXML::PxRigidStatic* findPxRigidStatic(const MObject& rigidBody);
-        PhysXXML::PxRigidDynamic* findPxRigidDynamic(const MObject& rigidBody);
-        PhysXXML::PxD6Joint* findPxD6Joint(const MObject& rigidConstraint);
-
         void exportRotate(const MVector & axis, double angle, const String & sid = "");
 
         static bool ElementHas(const SceneElement & element, SceneElement::Type type, Filter filter);

@@ -1013,7 +1013,9 @@ namespace COLLADAMaya
             PxMaterial* findMaterial(uint64_t ref);
             PxMaterial* findMaterial(const String& bodyName, const String& shapeName);
             PxShape* findShape(const String& bodyName, const String& shapeName);
+			PxRigidStatic* findRigidStatic(uint64_t id);
             PxRigidStatic* findRigidStatic(const String& bodyName);
+			PxRigidDynamic* findRigidDynamic(uint64_t id);
             PxRigidDynamic* findRigidDynamic(const String& bodyName);
             PxD6Joint* findD6Joint(const String& jointName);
         };
