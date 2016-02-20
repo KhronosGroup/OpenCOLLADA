@@ -212,7 +212,9 @@ namespace COLLADAMax
 
         asset.setUpAxisType ( COLLADASW::Asset::Z_UP );
 
+        asset.openAsset();
         asset.add();
+        asset.closeAsset();
     }
 
     //---------------------------------------------------------------
