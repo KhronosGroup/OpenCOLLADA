@@ -184,7 +184,7 @@ namespace COLLADAMaya
         const cgfxRCPtr<const cgfxEffect>& cgEffect = shaderNodeCgfx->effect();
         if( cgEffect.isNull() )
         {
-            MGlobal::displayWarning ("cgEffect is null.");
+            MGlobal::displayError ("cgEffect is null.");
             return;
         }
 
@@ -924,7 +924,7 @@ namespace COLLADAMaya
         }
         if ( cgTextureParam == 0 )
         {
-            MGlobal::displayWarning ( "No surface for the current sampler! Data not valid!" );
+            MGlobal::displayError ( "No surface for the current sampler! Data not valid!" );
             return;
         }
 

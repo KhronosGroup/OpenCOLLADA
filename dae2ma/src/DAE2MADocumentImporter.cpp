@@ -265,7 +265,7 @@ namespace DAE2MA
         if ( std::ifstream ( mayaAsciiFileName.c_str () ) )
         {
             // TODO Open a dialog and ask the user to save the file under an other name.
-            //MGlobal::displayWarning ( "File already exists!\n" );
+            //MGlobal::displayError ( "File already exists!\n" );
             //MGlobal::doErrorLogEntry ( "File already exists!\n" );
             std::cerr << "Overwrite existing file!" << std::endl;
         }

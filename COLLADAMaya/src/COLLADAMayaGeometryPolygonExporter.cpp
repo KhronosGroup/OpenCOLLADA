@@ -918,7 +918,7 @@ namespace COLLADAMaya
                     {
                         // Assert, if we don't have initialized the normal indices,
                         // but want to read them out here!
-                        MGlobal::displayWarning("No face vertex normals to proceed!");
+                        MGlobal::displayError("No face vertex normals to proceed!");
                         COLLADABU_ASSERT ( mHasFaceVertexNormals );
                         return;
                     }

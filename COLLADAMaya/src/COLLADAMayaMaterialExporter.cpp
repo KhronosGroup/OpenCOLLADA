@@ -716,7 +716,7 @@ namespace COLLADAMaya
         const cgfxRCPtr<const cgfxEffect>& cgEffect = shaderNodeCgfx->effect();
         if( cgEffect.isNull() )
         {
-            MGlobal::displayWarning ( "cgEffect is null." );
+            MGlobal::displayError ( "cgEffect is null." );
             return;
         }
 
