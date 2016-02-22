@@ -104,7 +104,37 @@ namespace COLLADAMaya
 
         // Set the current include file
         if ( ExportOptions::exportCgfxFileReferences () )
-            mEffectProfile->setInclude ( shaderFxFileUri, shaderFxFileUri.getPathFileBase() );
+        {
+            if ( shaderFxFileUri.getScheme ().empty () )
+                shaderFxFileUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
+
+            if ( ExportOptions::relativePaths() )
+            {
+                // Get the URI of the COLLADA file.
+                String targetColladaFile = mDocumentExporter->getFilename();
+                COLLADASW::URI targetColladaUri ( COLLADASW::URI::nativePathToUri ( targetColladaFile ) );
+                if ( targetColladaUri.getScheme ().empty () )
+                    targetColladaUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
+
+                // Get the texture URI relative to the COLLADA file URI.
+                bool success = false;
+                COLLADASW::URI targetUri = shaderFxFileUri.getRelativeTo( targetColladaUri, success );
+                if ( !success ) 
+                {
+                    String message = "Not able to generate a relative path from " 
+                        + shaderFxFileUri.getURIString() + " to " + targetColladaUri.getURIString() 
+                        + ". An absolute path will be written! ";
+                    MGlobal::displayError ( message.c_str() );
+                    targetUri = shaderFxFileUri;
+                }
+
+                mEffectProfile->setInclude ( targetUri, shaderFxFileUri.getPathFileBase() );
+            }
+            else
+            {
+                mEffectProfile->setInclude ( shaderFxFileUri, shaderFxFileUri.getPathFileBase() );
+            }
+        }
         else
         {
             // Add the source code
