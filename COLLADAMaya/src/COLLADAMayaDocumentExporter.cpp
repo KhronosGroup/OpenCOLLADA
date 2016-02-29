@@ -305,7 +305,7 @@ namespace COLLADAMaya
 		{}
 
 	protected:
-		virtual void addExtra()
+		virtual void addExtra() override
 		{
 			mSW->openElement(COLLADASW::CSWC::CSW_ELEMENT_EXTRA);
 			{
