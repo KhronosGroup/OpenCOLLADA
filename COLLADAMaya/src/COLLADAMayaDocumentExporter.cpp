@@ -297,9 +297,41 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
+	class MayaAsset : public COLLADASW::Asset
+	{
+	public:
+		MayaAsset(COLLADASW::StreamWriter* sw)
+			: COLLADASW::Asset(sw)
+		{}
+
+	protected:
+		virtual void addExtra()
+		{
+			mSW->openElement(COLLADASW::CSWC::CSW_ELEMENT_EXTRA);
+			{
+				mSW->openElement(COLLADASW::CSWC::CSW_ELEMENT_TECHNIQUE);
+				mSW->appendAttribute(COLLADASW::CSWC::CSW_ATTRIBUTE_PROFILE, COLLADAMaya::PROFILE_MAYA);
+				{
+					mSW->openElement(COLLADASW::CSWC::CSW_ELEMENT_PLUGIN_VERSION);
+					mSW->appendValues(COLLADAMaya::CURRENT_REVISION);
+					mSW->closeElement();
+
+					if (COLLADAMaya::CURRENT_SHA1.compare("undefined") != 0)
+					{
+						mSW->openElement(COLLADASW::CSWC::CSW_ELEMENT_SHA1);
+						mSW->appendValues(COLLADAMaya::CURRENT_SHA1);
+						mSW->closeElement();
+					}
+				}
+				mSW->closeElement();
+			}
+			mSW->closeElement();
+		}
+	};
+
     void DocumentExporter::exportAsset()
     {
-        COLLADASW::Asset asset ( &mStreamWriter );
+        MayaAsset asset ( &mStreamWriter );
 
         // Add contributor information
         // Set the author
@@ -389,10 +421,7 @@ namespace COLLADAMaya
         asset.setUnit ( linearUnitName, colladaConversionFactor );
 
         // Asset heraus schreiben
-		asset.openAsset();
         asset.add();
-		asset.addVersionNumber(COLLADAMaya::CURRENT_REVISION, COLLADAMaya::CURRENT_SHA1, COLLADAMaya::PROFILE_MAYA);
-		asset.closeAsset();
     }
 
     //---------------------------------------------------------------

@@ -24,39 +24,11 @@ namespace COLLADASW
             mUpAxisType ( NONE )
     {}
 
-	void Asset::closeAsset()
-	{
-		assetCloser.close();
-	}
-
-	void Asset::openAsset()
-	{
-		assetCloser = mSW->openElement(CSWC::CSW_ELEMENT_ASSET);
-	}
-
-	void Asset::addVersionNumber(const String& versionNumber, const String& sha1, const String& extraAttributeProfile)
-	{
-		mSW->openElement(COLLADASW::CSWC::CSW_ELEMENT_EXTRA);
-		mSW->openElement(COLLADASW::CSWC::CSW_ELEMENT_TECHNIQUE);
-		mSW->appendAttribute(COLLADASW::CSWC::CSW_ATTRIBUTE_PROFILE, extraAttributeProfile);
-			mSW->openElement(COLLADASW::CSWC::CSW_ELEMENT_PLUGIN_VERSION);
-				mSW->appendValues(versionNumber);
-			mSW->closeElement();
-
-			if (sha1.compare("undefined") != 0)
-			{
-				mSW->openElement(COLLADASW::CSWC::CSW_ELEMENT_SHA1);
-				mSW->appendValues(sha1);
-				mSW->closeElement();
-			}
-
-		mSW->closeElement();
-		mSW->closeElement();
-	}
-
     //---------------------------------------------------------------
     void Asset::add()
     {
+		TagCloser asset = mSW->openElement(CSWC::CSW_ELEMENT_ASSET);
+
         // add contributor only if at least one attribute is not empty
 
         if ( !mContributor.mAuthor.empty()   ||
@@ -147,6 +119,10 @@ namespace COLLADASW
         default:
             mSW->appendTextElement ( CSWC::CSW_ELEMENT_UP_AXIS, CSWC::CSW_TEXT_Z_UP );
         }
+
+		addExtra();
+
+		asset.close();
     }
 
 } //namespace COLLADASW
