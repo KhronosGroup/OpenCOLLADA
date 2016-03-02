@@ -318,6 +318,13 @@ namespace COLLADAMaya
         // Get the maya mesh id.
         String mayaMeshId = mDocumentExporter->dagPathToColladaId ( dagPath );
 
+		if (dagPath.isInstanced())
+		{
+			MDagPathArray paths;
+			dagPath.getAllPathsTo(dagPath.node(), paths);
+			mayaMeshId = mDocumentExporter->dagPathToColladaId(paths[0]);
+		}
+
         // Generate a COLLADA id for the new object.
         String colladaMeshId = findColladaGeometryId ( mayaMeshId );
 
