@@ -198,6 +198,7 @@ namespace COLLADAMaya
 
 	private:
 		ShaderFXShaderExporter & mShaderFXExporter;
+        std::map<std::string, COLLADASW::TagCloser> mOpenTags;
 
 	protected:
         virtual bool onBeforeAttribute(MFnDependencyNode & node, MObject & attr) override
@@ -213,7 +214,7 @@ namespace COLLADAMaya
 			if (shouldSkipAttribute(attrName))
 				return false;
 
-			mShaderFXExporter.mStreamWriter.openElement(SHADERFX_ATTRIBUTE);
+			mOpenTags[std::string(fnAttr.name().asChar())] = mShaderFXExporter.mStreamWriter.openElement(SHADERFX_ATTRIBUTE);
 			mShaderFXExporter.mStreamWriter.appendAttribute("name", attrName.asChar());
 
             return true;
@@ -221,7 +222,13 @@ namespace COLLADAMaya
 
         virtual void onAfterAttribute(MFnDependencyNode & fnNode, MObject & attribute) override
 		{
-			mShaderFXExporter.mStreamWriter.closeElement();
+            MFnAttribute fnAttr(attribute);
+            std::map<std::string, COLLADASW::TagCloser>::iterator it = mOpenTags.find(std::string(fnAttr.name().asChar()));
+            if (it != mOpenTags.end())
+            {
+                it->second.close();
+                mOpenTags.erase(it);
+            }
 		}
 
         virtual void onBoolean(MPlug & plug, const MString & name, bool value) override
