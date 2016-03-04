@@ -83,7 +83,7 @@ namespace COLLADAMaya
 //         if ( ( ( mSampleType & kAngle ) == kAngle ) ||
 //                 ( ( mSampleType & kQualifiedAngle ) == kQualifiedAngle ) )
 //         {
-//             MGlobal::displayWarning ( MString ( "Unknown dimension: " ) + mSampleType );
+//             MGlobal::displayError ( MString ( "Unknown dimension: " ) + mSampleType );
 //             return 0;
 //         }
 

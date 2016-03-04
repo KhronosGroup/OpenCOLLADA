@@ -237,8 +237,8 @@ namespace COLLADAMaya
 
                 // Don't export Physics if required PhysX plugin is not loaded
                 if (ExportOptions::exportPhysics() && !PhysXExporter::CheckPhysXPluginVersion()) {
-                    MGlobal::displayWarning(MString("Physics not exported. Minimum PhysX plugin version: ") + PhysXExporter::GetRequiredPhysXPluginVersion());
-                    MGlobal::displayWarning(MString("Installed version: ") + PhysXExporter::GetInstalledPhysXPluginVersion());
+                    MGlobal::displayError(MString("Physics not exported. Minimum PhysX plugin version: ") + PhysXExporter::GetRequiredPhysXPluginVersion());
+                    MGlobal::displayError(MString("Installed version: ") + PhysXExporter::GetInstalledPhysXPluginVersion());
                     ExportOptions::setExportPhysics(false);
                 }
 
@@ -246,7 +246,7 @@ namespace COLLADAMaya
                 if (ExportOptions::exportPhysics() && !mPhysXExporter->generatePhysXXML()) {
                     // Don't try to export Physics if xml export has failed
                     ExportOptions::setExportPhysics(false);
-                    MGlobal::displayWarning(MString("Error while exporting PhysX scene to XML. Physics not exported."));
+                    MGlobal::displayError(MString("Error while exporting PhysX scene to XML. Physics not exported."));
                 }
 
                 // Export the geometries

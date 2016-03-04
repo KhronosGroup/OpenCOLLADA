@@ -1704,7 +1704,7 @@ namespace COLLADAMaya
             MFnMesh meshNode ( node, &status );
             if ( status != MStatus::kSuccess ) 
             {
-                MGlobal::displayWarning ( "No mesh object!" );
+                MGlobal::displayError ( "No mesh object!" );
                 return EMPTY_STRING;
             }
             MDagPath dagPath = meshNode.dagPath ();

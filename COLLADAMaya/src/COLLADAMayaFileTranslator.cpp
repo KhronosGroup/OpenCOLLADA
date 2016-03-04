@@ -108,7 +108,7 @@
         if ( !status )
         {
             status.perror ( "registerFileTranslator" );
-            MGlobal::displayWarning ( MString ( "Unable to register OpenCOLLADA exporter: " ) + status );
+            MGlobal::displayError ( MString ( "Unable to register OpenCOLLADA exporter: " ) + status );
             return status;
         }
 
@@ -122,7 +122,7 @@
         if ( !status )
         {
             status.perror ( "registerFileTranslator" );
-            MGlobal::displayWarning ( MString ( "Unable to register OpenCOLLADA importer: " ) + status );
+            MGlobal::displayError ( MString ( "Unable to register OpenCOLLADA importer: " ) + status );
         }
 
         // TODO
@@ -161,7 +161,7 @@
         if ( !status )
         {
             status.perror ( "deregisterFileTranslator" );
-            MGlobal::displayWarning ( MString ( "Unable to unregister OpenCOLLADA exporter: " ) + status );
+            MGlobal::displayError ( MString ( "Unable to unregister OpenCOLLADA exporter: " ) + status );
             return status;
         }
 
@@ -170,7 +170,7 @@
         if ( !status )
         {
             status.perror ( "deregisterFileTranslator" );
-            MGlobal::displayWarning ( MString ( "Unable to unregister OpenCOLLADA importer: " ) + status );
+            MGlobal::displayError ( MString ( "Unable to unregister OpenCOLLADA importer: " ) + status );
             return status;
         }
 
@@ -292,11 +292,11 @@ namespace COLLADAMaya
         catch ( COLLADASW::StreamWriterException* swException  )
         {
             String message = "StreamWriterException: " + swException->getMessage();
-            MGlobal::displayWarning ( message.c_str() );
+            MGlobal::displayError ( message.c_str() );
         }
         catch ( ... )
         {
-            MGlobal::displayWarning ( "ColladaMaya has thrown an exception!" );
+            MGlobal::displayError ( "ColladaMaya has thrown an exception!" );
         }
 
         return status;
@@ -378,11 +378,11 @@ namespace COLLADAMaya
         }
         catch ( COLLADABU::Exception* exception  )
         {
-            MGlobal::displayWarning ( exception->getMessage().c_str() );
+            MGlobal::displayError ( exception->getMessage().c_str() );
         }
         catch ( ... )
         {
-            MGlobal::displayWarning ( "ColladaMaya has thrown an exception!" );
+            MGlobal::displayError ( "ColladaMaya has thrown an exception!" );
         }
 
         return status;
