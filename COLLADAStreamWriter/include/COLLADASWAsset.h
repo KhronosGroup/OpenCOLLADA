@@ -93,23 +93,12 @@ namespace COLLADASW
         to the right, and which is considered inward. */
         UpAxisType mUpAxisType;
 
-		TagCloser assetCloser;
-
     public:
         /** Constructor that sets the stream the asset should be written to*/
         Asset ( StreamWriter * streamWriter );
 
         /** Adds the asset to the stream, i.e. performes the actual writing*/
         void add();
-
-		/** Writes the opening @a \<asset\>  tag */
-		void openAsset();
-
-		/** Closes the tag opened by openAsset()*/
-		void closeAsset();
-
-		/** add versionNumber/ Build Version from jenkins into extra attribute pluginVersion*/
-		void addVersionNumber(const String& versionNumber, const String& sha1, const String& extraAttributeProfile);
 
         /** Returns a reference to the contributor of th asset*/
         Contributor& getContributor()
@@ -208,7 +197,8 @@ namespace COLLADASW
             return mUpAxisType;
         }
 
-
+	protected:
+		virtual void addExtra() {}
     };
 
 } //namespace COLLADASW
