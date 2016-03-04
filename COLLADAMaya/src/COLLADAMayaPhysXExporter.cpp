@@ -652,6 +652,11 @@ namespace COLLADAMaya
         return mPhysXDoc->findShape(targetName.asChar(), shapeName.asChar());
     }
 
+	PhysXXML::PxRigidStatic* PhysXExporter::findPxRigidStatic(uint64_t id)
+	{
+		return mPhysXDoc->findRigidStatic(id);
+	}
+
     PhysXXML::PxRigidStatic* PhysXExporter::findPxRigidStatic(const MObject& rigidBody)
     {
         MObject target;
@@ -665,6 +670,11 @@ namespace COLLADAMaya
     {
         return mPhysXDoc->findRigidStatic(name);
     }
+
+	PhysXXML::PxRigidDynamic* PhysXExporter::findPxRigidDynamic(uint64_t id)
+	{
+		return mPhysXDoc->findRigidDynamic(id);
+	}
 
     PhysXXML::PxRigidDynamic* PhysXExporter::findPxRigidDynamic(const MObject& rigidBody)
     {
@@ -681,6 +691,54 @@ namespace COLLADAMaya
         MString constraintName = constraintNode.fullPathName();
         return mPhysXDoc->findD6Joint(constraintName.asChar());
     }
+
+	MObject PhysXExporter::getNodeRigidBody(const MObject& node)
+	{
+		if (node.isNull())
+			return MObject::kNullObj;
+
+		class RigidBodyParser
+		{
+		public:
+			RigidBodyParser(PhysXExporter & exporter, const MObject & node)
+				: mPhysXExporter(exporter)
+				, mNode(node)
+			{}
+
+			bool operator()(SceneElement & element)
+			{
+				if (element.getType() == SceneElement::PHYSX_RIGID_BODY &&
+					element.getIsLocal())
+				{
+					const MObject & rigidBody = element.getNode();
+
+					MObject target;
+					mPhysXExporter.getRigidBodyTarget(rigidBody, target);
+
+					if (target == mNode)
+					{
+						mRigidBody = rigidBody;
+						return false;
+					}
+				}
+				return true;
+			}
+
+			const MObject & getRigidBody() const
+			{
+				return mRigidBody;
+			}
+
+		private:
+			PhysXExporter & mPhysXExporter;
+			const MObject & mNode;
+			MObject mRigidBody;
+		};
+
+		RigidBodyParser parser(*this, node);
+		parseSceneElements(parser);
+		return parser.getRigidBody();
+	}
 
     MObject PhysXExporter::getShapeRigidBody(const MObject& shape)
     {
@@ -2101,39 +2159,16 @@ namespace COLLADAMaya
     private:
         void exportRotateTranslate(const MObject & rigidConstraint)
         {
-            // get attached rigid body (parent)
-            MObject ref;
-            PhysXExporter::GetPluggedObject(rigidConstraint, ATTR_RIGID_BODY_1, ref);
+			PhysXXML::PxD6Joint* pxJoint = getPhysXExporter().findPxD6Joint(rigidConstraint);
+			if (!pxJoint)
+				return;
 
-            MMatrix refLocalToWorld = MMatrix::identity;
-            if (!ref.isNull())
-            {
-                MDagPath refDagPath;
-                MDagPath::getAPathTo(ref, refDagPath);
-                refLocalToWorld = refDagPath.inclusiveMatrix();
-            }
+			MVector translation = pxJoint->localPose.eActor0.translation;
+			MEulerRotation rotation;
+			rotation = pxJoint->localPose.eActor0.rotation;
 
-            MDagPath constraintDagPath;
-            MDagPath::getAPathTo(rigidConstraint, constraintDagPath);
-
-            MMatrix constraintLocalToWorld = constraintDagPath.inclusiveMatrix();
-            MMatrix constraintLocalToRef = constraintLocalToWorld * refLocalToWorld.inverse();
-
-            MTransformationMatrix constraintLocalToRefTM(constraintLocalToRef);
-            MVector translation = constraintLocalToRefTM.getTranslation(MSpace::kTransform);
-            double angles[3];
-            MTransformationMatrix::RotationOrder rotationOrder;
-            constraintLocalToRefTM.getRotation(angles, rotationOrder);
-            MEulerRotation rotation;
-            rotation.x = angles[0];
-            rotation.y = angles[1];
-            rotation.z = angles[2];
-            rotation.order = static_cast<MEulerRotation::RotationOrder>(
-                static_cast<int>(rotationOrder)-MTransformationMatrix::kXYZ + MEulerRotation::kXYZ
-                );
-
-            getPhysXExporter().exportTranslation(translation, ATTR_TRANSLATE);
-            getPhysXExporter().exportRotation(rotation, ATTR_ROTATE);
+			getPhysXExporter().exportRotation(rotation, ATTR_ROTATE);
+			getPhysXExporter().exportTranslationWithoutConversion(translation, ATTR_TRANSLATE);
         }
     };
 
@@ -2152,86 +2187,13 @@ namespace COLLADAMaya
     private:
         void exportRotateTranslate(const MObject & rigidConstraint)
         {
-            // get attached rigid body (child)
-            MObject attachment;
-            PhysXExporter::GetPluggedObject(rigidConstraint, ATTR_RIGID_BODY_2, attachment);
+			PhysXXML::PxD6Joint* pxJoint = getPhysXExporter().findPxD6Joint(rigidConstraint);
+			MVector translation = pxJoint->localPose.eActor1.translation;
+			MEulerRotation rotation;
+			rotation = pxJoint->localPose.eActor1.rotation;
 
-            MDagPath constraintDagPath;
-            MDagPath attachmentDagPath;
-            
-            MDagPath::getAPathTo(rigidConstraint, constraintDagPath);
-            MDagPath::getAPathTo(attachment, attachmentDagPath);
-
-            MMatrix constraintLocalToWorld = constraintDagPath.inclusiveMatrix();
-            MMatrix attachmentLocalToWorld = attachmentDagPath.inclusiveMatrix();
-
-            MTransformationMatrix constraintLocalToWorldTM(constraintLocalToWorld);
-            MTransformationMatrix attachmentLocalToWorldTM(attachmentLocalToWorld);
-            
-            int dummy = 0;
-            MString orientationMode;
-            DagHelper::getPlugValue(rigidConstraint, ATTR_ORIENTATION_MODE, dummy, orientationMode);
-            if (orientationMode == TARGET_ORIGIN)
-            {
-                // World space target origin
-                MVector targetOrigin = attachmentLocalToWorldTM.translation(MSpace::kTransform);
-
-                // World space constraint origin
-                MVector constraintOrigin = constraintLocalToWorldTM.translation(MSpace::kTransform);
-
-                MVector x = targetOrigin - constraintOrigin;
-
-                // if target origin and constraint origin are at the same place, we'll get wrong results
-                if (x.length() < getPhysXExporter().getDocumentExporter().getTolerance()) {
-                    MGlobal::displayWarning("constraint origin and target origin too close");
-                }
-
-                x.normalize();
-
-                MVector z = constraintLocalToWorld[2];
-                
-                MVector y = z ^ x;
-                y.normalize();
-
-                z = x ^ y;
-                z.normalize();
-                
-                MMatrix adjustedConstraintLocalToWorld = MMatrix::identity;
-                adjustedConstraintLocalToWorld(0, 0) = x.x;
-                adjustedConstraintLocalToWorld(0, 1) = x.y;
-                adjustedConstraintLocalToWorld(0, 2) = x.z;
-                adjustedConstraintLocalToWorld(1, 0) = y.x;
-                adjustedConstraintLocalToWorld(1, 1) = y.y;
-                adjustedConstraintLocalToWorld(1, 2) = y.z;
-                adjustedConstraintLocalToWorld(2, 0) = z.x;
-                adjustedConstraintLocalToWorld(2, 1) = z.y;
-                adjustedConstraintLocalToWorld(2, 2) = z.z;
-                adjustedConstraintLocalToWorld(3, 0) = constraintOrigin.x;
-                adjustedConstraintLocalToWorld(3, 1) = constraintOrigin.y;
-                adjustedConstraintLocalToWorld(3, 2) = constraintOrigin.z;
-
-                MMatrix constraintLocalToAttachment = adjustedConstraintLocalToWorld * attachmentLocalToWorld.inverse();
-                MTransformationMatrix constraintLocalToAttachmentTM(constraintLocalToAttachment);
-                MVector translation = constraintLocalToAttachmentTM.getTranslation(MSpace::kTransform);
-
-                double angles[3];
-                MTransformationMatrix::RotationOrder rotationOrder;
-                constraintLocalToAttachmentTM.getRotation(angles, rotationOrder);
-                MEulerRotation rotation;
-                rotation.x = angles[0];
-                rotation.y = angles[1];
-                rotation.z = angles[2];
-                rotation.order = static_cast<MEulerRotation::RotationOrder>(
-                    static_cast<int>(rotationOrder)-MTransformationMatrix::kXYZ + MEulerRotation::kXYZ
-                    );
-
-                getPhysXExporter().exportTranslation(translation, ATTR_TRANSLATE);
-                getPhysXExporter().exportRotation(rotation, ATTR_ROTATE);
-            }
-            else if (orientationMode == CENTERED)
-            {
-                // TODO
-            }
+			getPhysXExporter().exportRotation(rotation, ATTR_ROTATE);
+			getPhysXExporter().exportTranslationWithoutConversion(translation, ATTR_TRANSLATE);
         }
     };
 
@@ -2359,8 +2321,23 @@ namespace COLLADAMaya
     private:
         void exportRefAttachment(const MObject & rigidConstraint)
         {
-            MObject rigidBody;
-            PhysXExporter::GetPluggedObject(rigidConstraint, ATTR_RIGID_BODY_1, rigidBody);
+			PhysXXML::PxD6Joint* pxJoint = getPhysXExporter().findPxD6Joint(rigidConstraint);
+			if (!pxJoint)
+				return;
+			PhysXXML::PxRigidDynamic* pxRigidDynamic = getPhysXExporter().findPxRigidDynamic(pxJoint->actors.actor0.actor0);
+			PhysXXML::PxRigidStatic* pxRigidStatic = getPhysXExporter().findPxRigidStatic(pxJoint->actors.actor0.actor0);
+			
+			MObject target;
+			if (pxRigidDynamic)
+			{
+				target = DagHelper::getNode(pxRigidDynamic->name.name.c_str());
+			}
+			else if (pxRigidStatic)
+			{
+				target = DagHelper::getNode(pxRigidStatic->name.name.c_str());
+			}
+
+			MObject rigidBody = getPhysXExporter().getNodeRigidBody(target);
 
             URI rigidBodyURI;
             if (rigidBody.isNull())
@@ -2381,8 +2358,23 @@ namespace COLLADAMaya
 
         void exportAttachment(const MObject & rigidConstraint)
         {
-            MObject rigidBody;
-            PhysXExporter::GetPluggedObject(rigidConstraint, ATTR_RIGID_BODY_2, rigidBody);
+			PhysXXML::PxD6Joint* pxJoint = getPhysXExporter().findPxD6Joint(rigidConstraint);
+			if (!pxJoint)
+				return;
+			PhysXXML::PxRigidDynamic* pxRigidDynamic = getPhysXExporter().findPxRigidDynamic(pxJoint->actors.actor1.actor1);
+			PhysXXML::PxRigidStatic* pxRigidStatic = getPhysXExporter().findPxRigidStatic(pxJoint->actors.actor1.actor1);
+
+			MObject target;
+			if (pxRigidDynamic)
+			{
+				target = DagHelper::getNode(pxRigidDynamic->name.name.c_str());
+			}
+			else if (pxRigidStatic)
+			{
+				target = DagHelper::getNode(pxRigidStatic->name.name.c_str());
+			}
+
+			MObject rigidBody = getPhysXExporter().getNodeRigidBody(target);
 
             MDagPath rigidBodyDagPath;
             MDagPath::getAPathTo(rigidBody, rigidBodyDagPath);
@@ -3403,6 +3395,16 @@ namespace COLLADAMaya
     {
         return mDocumentExporter;
     }
+
+	void PhysXExporter::exportTranslationWithoutConversion(const MVector & translation, const String & sid)
+	{
+		if (!(COLLADABU::Math::Utils::equalsZero(translation.x, mDocumentExporter.getTolerance()) &&
+			COLLADABU::Math::Utils::equalsZero(translation.y, mDocumentExporter.getTolerance()) &&
+			COLLADABU::Math::Utils::equalsZero(translation.z, mDocumentExporter.getTolerance())))
+		{
+			Translate(*this, translation, sid);
+		}
+	}
 
     void PhysXExporter::exportTranslation(const MVector & translation, const String & sid)
     {

@@ -2308,6 +2308,17 @@ namespace COLLADAMaya
             return NULL;
         }
 
+		PxRigidStatic* PhysXDoc::findRigidStatic(uint64_t id)
+		{
+			for (size_t i = 0; i < physX30Collection.rigidStatics.size(); ++i) {
+				PxRigidStatic& rigid = physX30Collection.rigidStatics[i];
+				if (rigid.id.id == id) {
+					return &rigid;
+				}
+			}
+			return NULL;
+		}
+
         PxRigidStatic* PhysXDoc::findRigidStatic(const String& bodyName)
         {
             for (size_t i = 0; i < physX30Collection.rigidStatics.size(); ++i) {
@@ -2318,6 +2329,17 @@ namespace COLLADAMaya
             }
             return NULL;
         }
+
+		PxRigidDynamic* PhysXDoc::findRigidDynamic(uint64_t id)
+		{
+			for (size_t i = 0; i < physX30Collection.rigidDynamics.size(); ++i) {
+				PxRigidDynamic& rigid = physX30Collection.rigidDynamics[i];
+				if (rigid.id.id == id) {
+					return &rigid;
+				}
+			}
+			return NULL;
+		}
 
         PxRigidDynamic* PhysXDoc::findRigidDynamic(const String& bodyName)
         {
