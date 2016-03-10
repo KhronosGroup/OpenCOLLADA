@@ -448,6 +448,15 @@ namespace COLLADAMaya
 									std::vector<float>::iterator itFound;
 
 									itFound = find(times.begin(), times.end(), stepTime);
+									
+									if (ExportOptions::bakeTransforms() && interpolationType == COLLADASW::LibraryAnimations::STEP)
+									{
+										if (itFound != times.begin())
+											stepTime = *(itFound - 1);
+										else
+											continue;
+									}
+
 									{
 										std::vector<float>::iterator itLower = lower_bound(times.begin(), times.end(), stepTime);
 										int element = (int)(itLower - times.begin());
