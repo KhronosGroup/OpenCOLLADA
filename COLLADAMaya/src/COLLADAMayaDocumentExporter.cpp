@@ -213,73 +213,90 @@ namespace COLLADAMaya
 
             if ( !ExportOptions::exportMaterialsOnly () )
             {
-                // Start by caching the expressions that will be sampled
-                mSceneGraph->sampleAnimationExpressions();
+				bool physicsSceneExported = false;
 
-                // Export the lights.
-                mLightExporter->exportLights();
+				// Start by caching the expressions that will be sampled
+				mSceneGraph->sampleAnimationExpressions();
 
-                // Export the cameras.
-                mCameraExporter->exportCameras();
-
-                // Export the material URLs and get the material list
-                MaterialMap* materialMap = mMaterialExporter->exportMaterials();
-
-                // Export the effects (materials)
-                const ImageMap* imageMap = mEffectExporter->exportEffects ( materialMap );
-
-                // Export the images
-                mImageExporter->exportImages ( imageMap );
-
-                // Export the controllers. Must be done before the geometries, to decide, which
-                // geometries have to be exported (for example, if the controller need an invisible 
-                // geometry, we also have to export it).
-                mControllerExporter->exportControllers();
-
-                // Don't export Physics if required PhysX plugin is not loaded
-                if (ExportOptions::exportPhysics() && !PhysXExporter::CheckPhysXPluginVersion()) {
-                    MGlobal::displayError(MString("Physics not exported. Minimum PhysX plugin version: ") + PhysXExporter::GetRequiredPhysXPluginVersion());
-                    MGlobal::displayError(MString("Installed version: ") + PhysXExporter::GetInstalledPhysXPluginVersion());
-                    ExportOptions::setExportPhysics(false);
-                }
-
-                // Export PhysX to XML before exporting geometries
-                if (ExportOptions::exportPhysics() && !mPhysXExporter->generatePhysXXML()) {
-                    // Don't try to export Physics if xml export has failed
-                    ExportOptions::setExportPhysics(false);
-                    MGlobal::displayError(MString("Error while exporting PhysX scene to XML. Physics not exported."));
-                }
-
-                // Export the geometries
-                mGeometryExporter->exportGeometries();
-
-                bool physicsSceneExported = false;
-                if (ExportOptions::exportPhysics()) {
-                    // Export PhysX
-                    physicsSceneExported = mPhysXExporter->exportPhysicsLibraries();
-                }
-
-				saveParamClip();
-
-                // Export the visual scene
-                bool visualSceneExported = mVisualSceneExporter->exportVisualScenes();
-
-                // Export the animations
-				if (ExportOptions::exportAnimations())
+				if (!ExportOptions::isSplittedFile() || (ExportOptions::isSplittedFile() && !ExportOptions::isSplittedAnimOnly()))
 				{
-					const AnimationClipList* animationClips = mAnimationExporter->exportAnimations();
+					// Export the lights.
+					mLightExporter->exportLights();
 
-					// Export the animation clips
-					mAnimationClipExporter->exportAnimationClips(animationClips);
+					// Export the cameras.
+					mCameraExporter->exportCameras();
+
+					// Export the material URLs and get the material list
+					MaterialMap* materialMap = mMaterialExporter->exportMaterials();
+
+					// Export the effects (materials)
+					const ImageMap* imageMap = mEffectExporter->exportEffects(materialMap);
+
+					// Export the images
+					mImageExporter->exportImages(imageMap);
+				}
+				
+					// Export the controllers. Must be done before the geometries, to decide, which
+					// geometries have to be exported (for example, if the controller need an invisible 
+					// geometry, we also have to export it).
+					mControllerExporter->exportControllers();
+
+				if (!ExportOptions::isSplittedFile() || (ExportOptions::isSplittedFile() && !ExportOptions::isSplittedAnimOnly()))
+				{
+					// Don't export Physics if required PhysX plugin is not loaded
+					if (ExportOptions::exportPhysics() && !PhysXExporter::CheckPhysXPluginVersion()) {
+						MGlobal::displayError(MString("Physics not exported. Minimum PhysX plugin version: ") + PhysXExporter::GetRequiredPhysXPluginVersion());
+						MGlobal::displayError(MString("Installed version: ") + PhysXExporter::GetInstalledPhysXPluginVersion());
+						ExportOptions::setExportPhysics(false);
+					}
+
+					// Export PhysX to XML before exporting geometries
+					if (ExportOptions::exportPhysics() && !mPhysXExporter->generatePhysXXML()) {
+						// Don't try to export Physics if xml export has failed
+						ExportOptions::setExportPhysics(false);
+						MGlobal::displayError(MString("Error while exporting PhysX scene to XML. Physics not exported."));
+					}
+
+					// Export the geometries (NO geometry export if splitted and onlyAnim)
+					//					if (!ExportOptions::isSplittedFile() || (ExportOptions::isSplittedFile() && !ExportOptions::isSplittedAnimOnly()))
+					mGeometryExporter->exportGeometries();
+
+					if (ExportOptions::exportPhysics()) {
+						// Export PhysX
+						physicsSceneExported = mPhysXExporter->exportPhysicsLibraries();
+					}
 				}
 
-				restoreParamClip();
 
-                // Export the scene
-                exportScene(visualSceneExported, physicsSceneExported);
+				if (!ExportOptions::isSplittedFile() || (ExportOptions::isSplittedFile() && ExportOptions::isSplittedAnimOnly()))
+				{
 
-                // Export the light probes.
-                mLightProbeExporter->exportLightProbes();
+					saveParamClip();
+
+					// Export the visual scene
+					bool visualSceneExported = false;
+
+					//Export Splitted and only Animation
+					visualSceneExported = mVisualSceneExporter->exportVisualScenes();
+
+					// Export the animations
+					if (ExportOptions::exportAnimations())
+					{
+						const AnimationClipList* animationClips = mAnimationExporter->exportAnimations();
+
+						// Export the animation clips
+						mAnimationClipExporter->exportAnimationClips(animationClips);
+					}
+
+					restoreParamClip();
+
+					// Export the scene
+					exportScene(visualSceneExported, physicsSceneExported);
+				}
+
+				// Export the light probes.
+				mLightProbeExporter->exportLightProbes();
+               
             }
             else
             {

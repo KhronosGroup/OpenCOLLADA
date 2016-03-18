@@ -552,7 +552,8 @@ namespace COLLADAMaya
         createJoints ( &skinController );
 
         // Write the data into the collada document.
-        writeSkinController ( skinTarget, skinController );
+		if (!ExportOptions::isSplittedFile() || (ExportOptions::isSplittedFile() && !ExportOptions::isSplittedAnimOnly()))
+			writeSkinController ( skinTarget, skinController );
 
     }
 

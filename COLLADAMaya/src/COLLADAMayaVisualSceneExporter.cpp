@@ -495,7 +495,12 @@ namespace COLLADAMaya
                 const String& colladaMaterialId = materialExporter->findColladaMaterialId ( mayaMaterialId );
                 
                 // Create the material instance object.
-                COLLADASW::InstanceMaterial materialInstance ( shadingEngineName, COLLADASW::URI ( EMPTY_STRING, colladaMaterialId ) );
+				COLLADASW::URI uri;
+				if (ExportOptions::isSplittedFile())
+					uri = getSceneElementURI(dagPath, mayaMaterialId, true);
+				else
+					uri = COLLADASW::URI(EMPTY_STRING, colladaMaterialId);
+				COLLADASW::InstanceMaterial materialInstance(shadingEngineName, uri);
 
                 // Retrieve all the file textures with the blend modes, if exist.
                 MObjectArray fileTextures;
@@ -1232,7 +1237,7 @@ namespace COLLADAMaya
 //             colladaId += COLLADASW::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
 
         // Get the uri of the current scene
-        COLLADASW::URI uri ( getSceneElementURI ( sceneElement, colladaId  ) );
+		COLLADASW::URI uri(getSceneElementURI(sceneElement, ExportOptions::isSplittedFile() ? mayaControllerId : colladaId, ExportOptions::isSplittedFile()? true : false));
 
         // Create the collada controller instance
         COLLADASW::InstanceController instanceController ( streamWriter );
@@ -1373,17 +1378,18 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     COLLADASW::URI VisualSceneExporter::getSceneElementURI (
         const SceneElement* sceneElement,
-        const String& elementId /** = EMPTY_STRING */ )
+        const String& elementId, /** = EMPTY_STRING */
+		bool forceExternal)
     {
-        return getSceneElementURI(sceneElement->getPath(), elementId);
+		return getSceneElementURI(sceneElement->getPath(), elementId, forceExternal);
     }
 
     //---------------------------------------------------------------
-    COLLADASW::URI VisualSceneExporter::getSceneElementURI(const MDagPath& dagPath, const String& id /*= EMPTY_STRING*/)
+	COLLADASW::URI VisualSceneExporter::getSceneElementURI(const MDagPath& dagPath, const String& id /*= EMPTY_STRING*/, bool forceExternal)
     {
         MFnDagNode dagFn(dagPath);
         bool isLocal = !dagFn.isFromReferencedFile();
-        if (ExportOptions::exportXRefs() && ExportOptions::dereferenceXRefs()) {
+		if (ExportOptions::exportXRefs() && ExportOptions::dereferenceXRefs() && !forceExternal) {
             isLocal = true;
         }
 
@@ -1422,6 +1428,9 @@ namespace COLLADAMaya
             COLLADASW::URI sceneElementURI(referencedFileURI);
             const bool removeFirstNamespace = true;
             String refNodeId = getColladaNodeId(dagPath, removeFirstNamespace);
+
+			if (ExportOptions::isSplittedFile())
+				refNodeId = id;
             sceneElementURI.setFragment(refNodeId);
             return sceneElementURI;
         }

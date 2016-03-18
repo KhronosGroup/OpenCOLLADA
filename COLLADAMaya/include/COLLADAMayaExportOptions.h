@@ -37,6 +37,12 @@ namespace COLLADAMaya
         /** General export options  */
         /****************************/
 
+		/**  */
+//		static MString mDAEmasterName;
+
+		static bool mSplitFile;
+		static bool mExportSplittedAnimOnly;
+
         /** True, if we should a write transform matrix. */
         static bool mBakeTransforms;
 
@@ -110,6 +116,9 @@ namespace COLLADAMaya
         /****************************/
         /** General export options  */
         /****************************/
+
+		static bool isSplittedFile();
+		static bool isSplittedAnimOnly();
 
         /** Should the transforms be baked into a single matrix, as opposed to decomposed into 
         primitive collada transforms (e.g. translate, rotate, scale)? Default: FALSE */
