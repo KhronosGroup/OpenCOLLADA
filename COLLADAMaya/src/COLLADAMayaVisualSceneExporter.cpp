@@ -1278,7 +1278,7 @@ namespace COLLADAMaya
         if ( colladaMeshId.empty () ) return;
 
         // Get the uri of the current scene
-        COLLADASW::URI uri ( getSceneElementURI ( sceneElement, colladaMeshId ) );
+		COLLADASW::URI uri(getSceneElementURI(sceneElement, colladaMeshId, ExportOptions::isSplittedFile() ? true : false));
 
         // Get the streamWriter from the export document
         COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
@@ -1307,7 +1307,7 @@ namespace COLLADAMaya
         String colladaLightProbeId = lightProbeExporter->findColladaLightProbeId ( mayaLightProbeId );
 
         // Get the uri of the current scene
-        COLLADASW::URI uri ( getSceneElementURI ( sceneElement, colladaLightProbeId ) );
+		COLLADASW::URI uri(getSceneElementURI(sceneElement, colladaLightProbeId, ExportOptions::isSplittedFile() ? true : false));
 
         // Create and write the light probe instance
         //COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
@@ -1327,7 +1327,7 @@ namespace COLLADAMaya
         String colladaLightId = lightExporter->findColladaLightId ( mayaLightId );
 
         // Get the uri of the current scene
-        COLLADASW::URI uri ( getSceneElementURI ( sceneElement, colladaLightId ) );
+		COLLADASW::URI uri(getSceneElementURI(sceneElement, colladaLightId, ExportOptions::isSplittedFile() ? true : false));
 
         // Create and write the light instance
         COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
@@ -1345,7 +1345,7 @@ namespace COLLADAMaya
         String colladaId = cameraExporter->findColladaCameraId ( mayaId );
 
         // Get the uri of the current scene
-        COLLADASW::URI uri ( getSceneElementURI ( sceneElement, colladaId ) );
+		COLLADASW::URI uri(getSceneElementURI(sceneElement, colladaId, ExportOptions::isSplittedFile() ? true : false));
 
         // Create and write the camera instance
         COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();

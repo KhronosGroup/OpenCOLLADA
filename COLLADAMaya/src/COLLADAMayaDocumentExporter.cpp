@@ -218,7 +218,7 @@ namespace COLLADAMaya
 				// Start by caching the expressions that will be sampled
 				mSceneGraph->sampleAnimationExpressions();
 
-				if (!ExportOptions::isSplittedFile() || (ExportOptions::isSplittedFile() && !ExportOptions::isSplittedAnimOnly()))
+//				if (!ExportOptions::isSplittedFile() || (ExportOptions::isSplittedFile() && !ExportOptions::isSplittedAnimOnly()))
 				{
 					// Export the lights.
 					mLightExporter->exportLights();
@@ -226,6 +226,8 @@ namespace COLLADAMaya
 					// Export the cameras.
 					mCameraExporter->exportCameras();
 
+				if (!ExportOptions::isSplittedFile() || (ExportOptions::isSplittedFile() && !ExportOptions::isSplittedAnimOnly()))
+				{
 					// Export the material URLs and get the material list
 					MaterialMap* materialMap = mMaterialExporter->exportMaterials();
 
@@ -241,7 +243,7 @@ namespace COLLADAMaya
 					// geometry, we also have to export it).
 					mControllerExporter->exportControllers();
 
-				if (!ExportOptions::isSplittedFile() || (ExportOptions::isSplittedFile() && !ExportOptions::isSplittedAnimOnly()))
+//				if (!ExportOptions::isSplittedFile() || (ExportOptions::isSplittedFile() && !ExportOptions::isSplittedAnimOnly()))
 				{
 					// Don't export Physics if required PhysX plugin is not loaded
 					if (ExportOptions::exportPhysics() && !PhysXExporter::CheckPhysXPluginVersion()) {

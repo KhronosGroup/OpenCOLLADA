@@ -16,6 +16,7 @@
 #include "COLLADAMayaSyntax.h"
 #include "COLLADAMayaDagHelper.h"
 #include "COLLADASWConstants.h"
+#include "COLLADAMayaExportOptions.h"
 
 namespace COLLADASW
 {
@@ -147,13 +148,17 @@ namespace COLLADAMaya
                 SceneElement* exportedElement = sceneGraph->findExportedElement ( instancedPath );
                 if ( exportedElement == 0 )
                 {
-                    // Export the original instanced element and push it in the exported scene graph. 
-                    if ( exportLightProbe ( instancedPath ) )
-                    {
-                        SceneElement* instancedSceneElement = sceneGraph->findElement ( instancedPath );
-                        SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
-                        sceneGraph->addExportedElement( instancedSceneElement );
-                    }
+					bool result = false;
+					if (!ExportOptions::isSplittedFile() || (ExportOptions::isSplittedFile() && !ExportOptions::isSplittedAnimOnly()))
+					{
+						// Export the original instanced element and push it in the exported scene graph. 
+						if (exportLightProbe(instancedPath))
+						{
+							SceneElement* instancedSceneElement = sceneGraph->findElement(instancedPath);
+							SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
+							sceneGraph->addExportedElement(instancedSceneElement);
+						}
+					}
                 }
             }
             else
