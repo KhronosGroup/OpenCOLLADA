@@ -92,21 +92,16 @@ namespace COLLADAMaya
                 // Check if the original instanced element is already exported.
                 SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
                 SceneElement* exportedElement = sceneGraph->findExportedElement ( instancedPath );
-                if ( exportedElement == 0 )
-                {
-                    // Export the original instanced element and push it in the exported scene graph. 
-
-					bool result = false;
-					if (!ExportOptions::isSplittedFile() || (ExportOptions::isSplittedFile() && !ExportOptions::isSplittedAnimOnly()))
+				if (exportedElement == 0)
+				{
+					// Export the original instanced element and push it in the exported scene graph. 
+					if (exportLight(instancedPath))
 					{
-						if (exportLight(instancedPath))
-						{
-							SceneElement* instancedSceneElement = sceneGraph->findElement(instancedPath);
-							SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
-							sceneGraph->addExportedElement(instancedSceneElement);
-						}
+						SceneElement* instancedSceneElement = sceneGraph->findElement(instancedPath);
+						SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
+						sceneGraph->addExportedElement(instancedSceneElement);
 					}
-                }
+				}
             }
             else
             {

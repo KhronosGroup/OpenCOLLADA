@@ -121,12 +121,12 @@ namespace COLLADAMaya
         * Creates the uri for the scene element. Checks for instances 
         * and creates the right element.
         */
-		COLLADASW::URI getSceneElementURI(const SceneElement* sceneElement, const String& elementId = EMPTY_STRING, bool forceExternal = false);
+		COLLADASW::URI getSceneElementURI(const SceneElement* sceneElement, const String& elementId = EMPTY_STRING);
 
         /**
         * Creates the uri for the given DagPath.
         */
-		COLLADASW::URI getSceneElementURI(const MDagPath& dagPath, const String& id = EMPTY_STRING, bool forceExternal = false);
+		COLLADASW::URI getSceneElementURI(const MDagPath& dagPath, const String& id = EMPTY_STRING);
 
         /**
          * Returns the collada id of the current node, if it is a transform node.

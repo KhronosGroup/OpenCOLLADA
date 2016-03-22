@@ -23,8 +23,6 @@ namespace COLLADAMaya
 
     // Static Members
 
-	bool ExportOptions::mExportSplittedAnimOnly = false;
-	bool ExportOptions::mSplitFile = false;
     bool ExportOptions::mBakeTransforms = true;
     bool ExportOptions::mRelativePaths = true;
 	bool ExportOptions::mPreserveSourceTree = false;
@@ -35,7 +33,8 @@ namespace COLLADAMaya
     bool ExportOptions::mExportLights  = true;
     bool ExportOptions::mExportCgfxFileReferences = true;
     bool ExportOptions::mExportCameras = true;
-    bool ExportOptions::mExportJointsAndSkin = true;
+    bool ExportOptions::mExportJoints = true;
+	bool ExportOptions::mExportSkin = true;
     bool ExportOptions::mExportMaterialsOnly = false;
     bool ExportOptions::mExportReferencedMaterials = true;
     bool ExportOptions::mExportAnimations = true;
@@ -64,8 +63,6 @@ namespace COLLADAMaya
     void ExportOptions::set ( const MString& optionsString )
     {
         // Reset everything to the default value
-		mSplitFile = false;
-		mExportSplittedAnimOnly = false;
 		mBakeTransforms = false;
         mRelativePaths = true;
 		mPreserveSourceTree = false;
@@ -86,7 +83,8 @@ namespace COLLADAMaya
         mExportCameras = true;
         mExportMaterialsOnly = false;
         mExportReferencedMaterials = true;
-        mExportJointsAndSkin = true;
+        mExportJoints = true;
+		mExportSkin = true;
         mExportAnimations = true;
 		mExportOptimizedBezierAnimations = false;
         mExportInvisibleNodes = false;
@@ -142,7 +140,8 @@ namespace COLLADAMaya
                 else if (optionName == "exportConvexMeshGeometries") mExportConvexMeshGeometries = value;
                 else if ( optionName == "exportLights" ) mExportLights = value;
                 else if ( optionName == "exportCameras" ) mExportCameras = value;
-                else if ( optionName == "exportJointsAndSkin" ) mExportJointsAndSkin = value;
+                else if ( optionName == "exportJoints" ) mExportJoints = value;
+				else if (optionName == "exportSkin") mExportSkin = value;
                 else if ( optionName == "exportMaterialsOnly" ) mExportMaterialsOnly = value;
                 else if ( optionName == "exportReferencedMaterials" ) mExportReferencedMaterials = value;
                 else if ( optionName == "exportAnimations" ) mExportAnimations = value;
@@ -165,20 +164,14 @@ namespace COLLADAMaya
                 else if ( optionName == "removeStaticCurves" ) mRemoveStaticCurves = value;
                 else if ( optionName == "exportXRefs" ) mExportXRefs = value;
                 else if ( optionName == "dereferenceXRefs" ) mDereferenceXRefs = value;
-				else if (optionName == "splitFile") mSplitFile = value;
-				else if (optionName == "splittedAnimOnly") mExportSplittedAnimOnly = value;
             }
 
-			// If we split DAE with Mesh.dae and Anim.dae, we need to force some options
-			if (mSplitFile)
-			{
-				mExportPolygonMeshes = true;
-				mExportConvexMeshGeometries = true;
-				mExportJointsAndSkin = true;
-				mExportAnimations = true;
-				mExportXRefs = true;
-				mDereferenceXRefs = true;
-			}
+			if (mExportSkin)
+				mExportJoints = true;
+
+			if (mExportAnimations)
+				mExportJoints = true;
+
         }
 
         if ( !mIsSampling )
@@ -186,15 +179,6 @@ namespace COLLADAMaya
             AnimationHelper::generateSamplingFunction();
         }
     }
-
-	bool ExportOptions::isSplittedFile()
-	{
-		return mSplitFile;
-	}
-	bool ExportOptions::isSplittedAnimOnly()
-	{
-		return mExportSplittedAnimOnly;
-	}
 
     bool ExportOptions::bakeTransforms()
     {
@@ -261,10 +245,15 @@ namespace COLLADAMaya
         return mExportCameras;
     }
 
-    bool ExportOptions::exportJointsAndSkin()
+    bool ExportOptions::exportJoints()
     {
-        return mExportJointsAndSkin;
+        return mExportJoints;
     }
+
+	bool ExportOptions::exportSkin()
+	{
+		return mExportSkin;
+	}
 
     bool ExportOptions::exportMaterialsOnly ()  
     {

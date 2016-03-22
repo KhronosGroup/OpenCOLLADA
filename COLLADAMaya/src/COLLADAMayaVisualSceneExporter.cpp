@@ -181,7 +181,7 @@ namespace COLLADAMaya
             if ( dagPath.hasFn ( MFn::kJoint ) )
             {
                 sceneElement->setHasJoint(true);
-                if ( ExportOptions::exportJointsAndSkin() )
+				if (ExportOptions::exportJoints())
                 {
                     if ( animationExport )
                     {
@@ -248,7 +248,7 @@ namespace COLLADAMaya
             break;
 
         case MFn::kIkHandle:
-            if ( ExportOptions::exportJointsAndSkin() )
+			if (ExportOptions::exportJoints())
             {
                 MGlobal::displayError ( "Export of ik handles not supported: " 
                     + MString ( sceneElement->getNodeName ().c_str () ) );
@@ -495,12 +495,7 @@ namespace COLLADAMaya
                 const String& colladaMaterialId = materialExporter->findColladaMaterialId ( mayaMaterialId );
                 
                 // Create the material instance object.
-				COLLADASW::URI uri;
-				if (ExportOptions::isSplittedFile())
-					uri = getSceneElementURI(dagPath, mayaMaterialId, true);
-				else
-					uri = COLLADASW::URI(EMPTY_STRING, colladaMaterialId);
-				COLLADASW::InstanceMaterial materialInstance(shadingEngineName, uri);
+				COLLADASW::InstanceMaterial materialInstance(shadingEngineName, COLLADASW::URI(EMPTY_STRING, colladaMaterialId));
 
                 // Retrieve all the file textures with the blend modes, if exist.
                 MObjectArray fileTextures;
@@ -1237,7 +1232,7 @@ namespace COLLADAMaya
 //             colladaId += COLLADASW::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
 
         // Get the uri of the current scene
-		COLLADASW::URI uri(getSceneElementURI(sceneElement, ExportOptions::isSplittedFile() ? mayaControllerId : colladaId, ExportOptions::isSplittedFile()? true : false));
+		COLLADASW::URI uri(getSceneElementURI(sceneElement, colladaId));
 
         // Create the collada controller instance
         COLLADASW::InstanceController instanceController ( streamWriter );
@@ -1278,7 +1273,7 @@ namespace COLLADAMaya
         if ( colladaMeshId.empty () ) return;
 
         // Get the uri of the current scene
-		COLLADASW::URI uri(getSceneElementURI(sceneElement, colladaMeshId, ExportOptions::isSplittedFile() ? true : false));
+		COLLADASW::URI uri(getSceneElementURI(sceneElement, colladaMeshId));
 
         // Get the streamWriter from the export document
         COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
@@ -1307,7 +1302,7 @@ namespace COLLADAMaya
         String colladaLightProbeId = lightProbeExporter->findColladaLightProbeId ( mayaLightProbeId );
 
         // Get the uri of the current scene
-		COLLADASW::URI uri(getSceneElementURI(sceneElement, colladaLightProbeId, ExportOptions::isSplittedFile() ? true : false));
+		COLLADASW::URI uri(getSceneElementURI(sceneElement, colladaLightProbeId));
 
         // Create and write the light probe instance
         //COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
@@ -1327,7 +1322,7 @@ namespace COLLADAMaya
         String colladaLightId = lightExporter->findColladaLightId ( mayaLightId );
 
         // Get the uri of the current scene
-		COLLADASW::URI uri(getSceneElementURI(sceneElement, colladaLightId, ExportOptions::isSplittedFile() ? true : false));
+		COLLADASW::URI uri(getSceneElementURI(sceneElement, colladaLightId));
 
         // Create and write the light instance
         COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
@@ -1345,7 +1340,7 @@ namespace COLLADAMaya
         String colladaId = cameraExporter->findColladaCameraId ( mayaId );
 
         // Get the uri of the current scene
-		COLLADASW::URI uri(getSceneElementURI(sceneElement, colladaId, ExportOptions::isSplittedFile() ? true : false));
+		COLLADASW::URI uri(getSceneElementURI(sceneElement, colladaId));
 
         // Create and write the camera instance
         COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
@@ -1378,18 +1373,17 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     COLLADASW::URI VisualSceneExporter::getSceneElementURI (
         const SceneElement* sceneElement,
-        const String& elementId, /** = EMPTY_STRING */
-		bool forceExternal)
+        const String& elementId /** = EMPTY_STRING */)
     {
-		return getSceneElementURI(sceneElement->getPath(), elementId, forceExternal);
+		return getSceneElementURI(sceneElement->getPath(), elementId);
     }
 
     //---------------------------------------------------------------
-	COLLADASW::URI VisualSceneExporter::getSceneElementURI(const MDagPath& dagPath, const String& id /*= EMPTY_STRING*/, bool forceExternal)
+	COLLADASW::URI VisualSceneExporter::getSceneElementURI(const MDagPath& dagPath, const String& id /*= EMPTY_STRING*/)
     {
         MFnDagNode dagFn(dagPath);
         bool isLocal = !dagFn.isFromReferencedFile();
-		if (ExportOptions::exportXRefs() && ExportOptions::dereferenceXRefs() && !forceExternal) {
+		if (ExportOptions::exportXRefs() && ExportOptions::dereferenceXRefs()) {
             isLocal = true;
         }
 
@@ -1428,9 +1422,6 @@ namespace COLLADAMaya
             COLLADASW::URI sceneElementURI(referencedFileURI);
             const bool removeFirstNamespace = true;
             String refNodeId = getColladaNodeId(dagPath, removeFirstNamespace);
-
-			if (ExportOptions::isSplittedFile())
-				refNodeId = id;
             sceneElementURI.setFragment(refNodeId);
             return sceneElementURI;
         }
@@ -1485,9 +1476,10 @@ namespace COLLADAMaya
 
                 // Check for controllers, otherwise instantiate the geometry.
                 // Add the controller and/or geometry to our libraries
-                if ( ( ExportOptions::exportJointsAndSkin() && hasSkinController ) || hasMorphController )
+				if ((ExportOptions::exportJoints() && hasSkinController) || hasMorphController)
                 {
-                    exportInstanceController ( childElement, hasSkinController, hasMorphController );
+					if (ExportOptions::exportSkin())
+	                    exportInstanceController ( childElement, hasSkinController, hasMorphController );
                 }
                 else
                 {

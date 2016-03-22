@@ -290,7 +290,7 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     void AnimationExporter::lookForSamples()
     {
-        if ( ExportOptions::exportJointsAndSkin() )
+		if (ExportOptions::exportJoints())
         {
             // Get the list with the transform nodes.
             SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();

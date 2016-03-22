@@ -203,7 +203,7 @@ namespace COLLADAMaya
             ControllerStackItem* item = stack[i];
             if ( item->isSkin )
             {
-                if ( ExportOptions::exportJointsAndSkin() && !alreadyHasSkin )
+				if (ExportOptions::exportJoints() && !alreadyHasSkin)
                 {
                     // Correctly avoid chained joint-clusters: only export the first
                     // joint cluster which exports the subsequent joint-clusters with it.
@@ -552,7 +552,7 @@ namespace COLLADAMaya
         createJoints ( &skinController );
 
         // Write the data into the collada document.
-		if (!ExportOptions::isSplittedFile() || (ExportOptions::isSplittedFile() && !ExportOptions::isSplittedAnimOnly()))
+		if (!((ExportOptions::exportAnimations()) && (ExportOptions::exportJoints() && !ExportOptions::exportSkin())))
 			writeSkinController ( skinTarget, skinController );
 
     }
