@@ -45,6 +45,7 @@ namespace COLLADAMaya
     class LightExporter;
     class LightProbeExporter;
     class CameraExporter;
+	class LODExporter;
 
 
     typedef std::map<String, String> StringToStringMap;
@@ -105,6 +106,9 @@ namespace COLLADAMaya
 
         /** Exports the cameras. */
         CameraExporter* mCameraExporter;
+
+		/** Exports LODs. */
+		LODExporter*	mLODExporter;
 
         /*
         CAnimCache* animCache;
@@ -260,6 +264,12 @@ namespace COLLADAMaya
         * @return LightExporter* Pointer to the light exporter
         */
         LightExporter* getLightExporter();
+
+		/**
+		* Returns a pointer to the light exporter.
+		* @return LightExporter* Pointer to the light exporter
+		*/
+		LODExporter* getLODExporter();
 
         /**
         * Returns a pointer to the light probe exporter.

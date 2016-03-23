@@ -29,6 +29,7 @@
 #include "COLLADAMayaAnimationSampleCache.h"
 #include "COLLADAMayaControllerExporter.h"
 #include "COLLADAMayaLightExporter.h"
+#include "COLLADAMayaLODExporter.h"
 #include "COLLADAMayaLightProbeExporter.h"
 #include "COLLADAMayaCameraExporter.h"
 #include "COLLADAMayaDagHelper.h"
@@ -74,6 +75,7 @@ namespace COLLADAMaya
             , mAnimationClipExporter ( NULL )
             , mControllerExporter ( NULL )
             , mLightExporter ( NULL )
+			, mLODExporter ( NULL )
             , mLightProbeExporter( NULL )
             , mCameraExporter ( NULL )
             , mSceneId ( "MayaScene" )
@@ -123,6 +125,7 @@ namespace COLLADAMaya
         mAnimationClipExporter = new AnimationClipExporter ( &mStreamWriter );
         mControllerExporter = new ControllerExporter ( &mStreamWriter, this );
         mLightExporter = new LightExporter ( &mStreamWriter, this );
+		mLODExporter = new LODExporter(&mStreamWriter, this);
         mLightProbeExporter = new LightProbeExporter(&mStreamWriter, this);
         mCameraExporter = new CameraExporter ( &mStreamWriter, this );
     }
@@ -143,6 +146,7 @@ namespace COLLADAMaya
         delete mAnimationClipExporter;
         delete mControllerExporter;
         delete mLightExporter;
+		delete mLODExporter;
         delete mLightProbeExporter;
         delete mCameraExporter;
     }
@@ -216,6 +220,9 @@ namespace COLLADAMaya
 				// Start by caching the expressions that will be sampled
 				mSceneGraph->sampleAnimationExpressions();
 
+				// Export the LOD
+				mLODExporter->exportLODs();
+				
 				if (!ExportOptions::exportAnimations() || ExportOptions::exportPolygonMeshes())
 				{
 					// Export the lights.
@@ -599,6 +606,11 @@ namespace COLLADAMaya
     {
         return mLightExporter;
     }
+
+	LODExporter* DocumentExporter::getLODExporter()
+	{
+		return mLODExporter;
+	}
 
     //---------------------------
     LightProbeExporter* DocumentExporter::getLightProbeExporter()

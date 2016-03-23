@@ -1175,6 +1175,7 @@
     <ClCompile Include="..\src\COLLADASWLibraryGeometries.cpp" />
     <ClCompile Include="..\src\COLLADASWLibraryImages.cpp" />
     <ClCompile Include="..\src\COLLADASWLibraryLights.cpp" />
+    <ClCompile Include="..\src\COLLADASWLibraryLOD.cpp" />
     <ClCompile Include="..\src\COLLADASWLibraryMaterials.cpp" />
     <ClCompile Include="..\src\COLLADASWLibraryNodes.cpp" />
     <ClCompile Include="..\src\COLLADASWLibraryPhysicsModels.cpp" />
@@ -1237,6 +1238,7 @@
     <ClInclude Include="..\include\COLLADASWLibraryGeometries.h" />
     <ClInclude Include="..\include\COLLADASWLibraryImages.h" />
     <ClInclude Include="..\include\COLLADASWLibraryLights.h" />
+    <ClInclude Include="..\include\COLLADASWLibraryLOD.h" />
     <ClInclude Include="..\include\COLLADASWLibraryMaterials.h" />
     <ClInclude Include="..\include\COLLADASWLibraryNodes.h" />
     <ClInclude Include="..\include\COLLADASWLibraryPhysicsModels.h" />

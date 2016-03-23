@@ -194,6 +194,10 @@ namespace COLLADAMaya
             return TRANSFORM;
             break;
 
+		case MFn::kLodGroup:
+			return LOD;
+			break;
+
         default:
             return UNKNOWN;
             break;

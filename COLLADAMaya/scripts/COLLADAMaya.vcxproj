@@ -3421,6 +3421,7 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2012_X64%25\scripts\others"
     <ClCompile Include="..\src\COLLADAMayaImportOptions.cpp" />
     <ClCompile Include="..\src\COLLADAMayaLightExporter.cpp" />
     <ClCompile Include="..\src\COLLADAMayaLightProbeExporter.cpp" />
+    <ClCompile Include="..\src\COLLADAMayaLODExporter.cpp" />
     <ClCompile Include="..\src\COLLADAMayaMaterialExporter.cpp" />
     <ClCompile Include="..\src\COLLADAMayaPhysicsSceneExporter.cpp" />
     <ClCompile Include="..\src\COLLADAMayaPhysicsExporter.cpp" />
@@ -3515,6 +3516,7 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2012_X64%25\scripts\others"
     <ClInclude Include="..\include\COLLADAMayaImportOptions.h" />
     <ClInclude Include="..\include\COLLADAMayaLightExporter.h" />
     <ClInclude Include="..\include\COLLADAMayaLightProbeExporter.h" />
+    <ClInclude Include="..\include\COLLADAMayaLODExporter.h" />
     <ClInclude Include="..\include\COLLADAMayaMaterialExporter.h" />
     <ClInclude Include="..\include\COLLADAMayaMorphController.h" />
     <ClInclude Include="..\include\COLLADAMayaPhysicsSceneExporter.h" />

@@ -179,6 +179,9 @@
     <ClCompile Include="..\src\COLLADASWInstancePhysicsModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\COLLADASWLibraryLOD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\COLLADASWAnnotation.h">
@@ -377,6 +380,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\include\COLLADASWInstancePhysicsModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADASWLibraryLOD.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
