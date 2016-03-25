@@ -2227,6 +2227,9 @@ namespace COLLADAMaya
 				MFnClip clipFn ( clipNode, &status );
                 if ( status != MStatus::kSuccess ) continue;
 
+				// Only Export Bezier Clip Enabled
+				if (!clipFn.getEnabled()) continue;
+
 				String clipNameSource;
 				MPlugArray nodePlugs;
 				MFnDependencyNode node(clipNode);
