@@ -20,6 +20,7 @@
 #include "COLLADAMayaLODExporter.h"
 #include "COLLADAMayaExportOptions.h"
 #include "COLLADAMayaAnimationExporter.h"
+#include "COLLADAMayaVisualSceneExporter.h"
 
 #include <maya/MFnAttribute.h>
 //#include <maya/MFnLight.h>
@@ -41,23 +42,57 @@ namespace COLLADAMaya
 
 
     //---------------------------------------------------------------
-	void LODExporter::exportLODs()
+	void LODExporter::exportLODs(VisualSceneExporter* mVisualSceneExporter)
     {
-//        if ( !ExportOptions::exportLights() ) return;
+        //// Get the list with the transform nodes.
+        //SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
+        //SceneElementsList* exportNodesTree = sceneGraph->getExportNodesTree();
 
-        // Get the list with the transform nodes.
-        SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
-        SceneElementsList* exportNodesTree = sceneGraph->getExportNodesTree();
+        //// Export all/selected DAG nodes
+        //size_t length = exportNodesTree->size();
+        //for ( uint i = 0; i < length; ++i )
+        //{
+        //    SceneElement* sceneElement = ( *exportNodesTree ) [i];
+        //    exportLODs ( sceneElement );
+        //}
 
-        // Export all/selected DAG nodes
-        size_t length = exportNodesTree->size();
-        for ( uint i = 0; i < length; ++i )
-        {
-            SceneElement* sceneElement = ( *exportNodesTree ) [i];
-            exportLODs ( sceneElement );
-        }
+        //closeLibrary();
 
-        closeLibrary();
+		mDocumentExporter->exportLOD = true;
+
+		// Get the list with the transform nodes.
+		SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
+		SceneElementsList* exportNodesTree = sceneGraph->getExportNodesTree();
+
+		// The flag, if a node was exported and the visual scene tags must to be closed
+		bool nodeExported = false;
+
+		// Export all/selected DAG nodes
+		size_t length = exportNodesTree->size();
+		for (size_t i = 0; i < length; ++i)
+		{
+			// No instance node under the visual scene!
+			SceneElement* sceneElement = (*exportNodesTree)[i];
+
+			SceneElement::Type sceneElementType = sceneElement->getType();
+			if (sceneElementType == SceneElement::LOD)
+			{
+				openLibrary();
+
+				// Exports all the nodes in a node and all its child nodes recursive
+				if (mVisualSceneExporter->exportVisualSceneNodes(sceneElement)) nodeExported = true;
+			}
+		}
+
+		// Just if a node was exported, the visual scene tag
+		// in the collada document is open and should be closed.
+		//if (nodeExported) closeVisualScene();
+
+		mDocumentExporter->exportLOD = false;
+
+		closeLibrary();
+
+
     }
 
     //---------------------------------------------------------------
@@ -75,8 +110,14 @@ namespace COLLADAMaya
 			{
 				SceneElement* childElement = sceneElement->getChild(i);
 				MDagPath dagPath = childElement->getPath();
-				exportLOD(dagPath);
+				//exportLOD(dagPath);
+
+				openNode(childElement->getNodeId(), childElement->getNodeName());
+
 			}
+
+			closeNode();
+
 
 
             //// Get the current dag path

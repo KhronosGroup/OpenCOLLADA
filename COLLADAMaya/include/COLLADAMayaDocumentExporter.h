@@ -56,6 +56,8 @@ namespace COLLADAMaya
      */
     class DocumentExporter
     {
+	public :
+		bool exportLOD;
 
     private:
 

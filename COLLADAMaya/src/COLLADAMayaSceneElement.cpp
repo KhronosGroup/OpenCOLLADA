@@ -88,17 +88,27 @@ namespace COLLADAMaya
     }
 
     // -------------------------------------------
-    const SceneElement::Type& SceneElement::getType() const
+	const SceneElement::Type& SceneElement::getType(bool cached) const
     {
-        if ( mType == UNDETERMINED ) mType = determineType();
+		if (cached)
+		{
+			if (mType == UNDETERMINED)
+				mType = determineType(cached);
+		}
+		else
+			mType = determineType(cached);
+
 
         return mType;
     }
 
     // -------------------------------------------
-    const SceneElement::Type SceneElement::determineType() const
+	const SceneElement::Type SceneElement::determineType(bool cached) const
     {
-        if ( mType != UNDETERMINED ) return mType;
+		if (cached)
+		{
+			if (mType != UNDETERMINED) return mType;
+		}
 
         MFn::Type mayaType = mDagPath.apiType();
 		

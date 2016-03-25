@@ -47,6 +47,8 @@ namespace COLLADAMaya
     class VisualSceneExporter : public COLLADASW::LibraryVisualScenes
     {
 
+		friend class LODExporter;
+
     private:
 
         /**

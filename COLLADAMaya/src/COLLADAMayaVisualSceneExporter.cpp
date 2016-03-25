@@ -169,9 +169,23 @@ namespace COLLADAMaya
         bool nodeExported = false;
 
         // Export the transform
-        bool isTransform = dagPath.hasFn ( MFn::kTransform );
-        if ( isTransform )
-        {
+		SceneElement::Type sceneElementType = sceneElement->getType();
+		bool isTransform = dagPath.hasFn ( MFn::kTransform );
+	
+		bool export = true;
+		if ((mDocumentExporter->exportLOD && sceneElementType == SceneElement::LOD))
+			export = false;
+		
+		static int onlyFirst = 0;
+		if (sceneElement->getParentCount())
+		{
+			SceneElement::Type sceneParentElementType = sceneElement->getParent()->getType(false);
+			if ((!mDocumentExporter->exportLOD && sceneParentElementType == SceneElement::LOD))
+				onlyFirst++;
+		}
+
+		if (isTransform && export && onlyFirst < 2)
+	    {
             sceneElement->setType ( SceneElement::TRANSFORM );
 
             // Taken out of unvisible transforms. 
@@ -221,7 +235,7 @@ namespace COLLADAMaya
                 }
             }
         }
-
+		
         // Export type-specific information
         MFn::Type type = dagPath.apiType();
         switch (type)
@@ -574,17 +588,20 @@ namespace COLLADAMaya
         const MDagPath dagPath = sceneElement->getPath();
 
         // Add the visual scene, if not done before
-        if ( !mVisualSceneAdded )
-        {
-            MString sceneName;
-            MGlobal::executeCommand ( MString ( "file -q -ns" ), sceneName );
-            if ( sceneName.length() != 0 ) mSceneId = sceneName.asChar();
+		if (!mDocumentExporter->exportLOD)
+		{
+			if (!mVisualSceneAdded)
+			{
+				MString sceneName;
+				MGlobal::executeCommand(MString("file -q -ns"), sceneName);
+				if (sceneName.length() != 0) mSceneId = sceneName.asChar();
 
-            // There is always just one visual scene. Give it a valid unique id.
-            String visualSceneName = COLLADABU::Utils::checkNCName( mSceneId );
-            openVisualScene ( VISUAL_SCENE_NODE_ID, visualSceneName );
-            mVisualSceneAdded = true;
-        }
+				// There is always just one visual scene. Give it a valid unique id.
+				String visualSceneName = COLLADABU::Utils::checkNCName(mSceneId);
+				openVisualScene(VISUAL_SCENE_NODE_ID, visualSceneName);
+				mVisualSceneAdded = true;
+			}
+		}
         
         bool isInstanceNode = mVisualSceneNode->getIsInstanceNode();
         if ( isInstanceNode )
@@ -624,7 +641,8 @@ namespace COLLADAMaya
             String colladaNodeId = getColladaNodeId ( dagPath );
 
             // Make the id unique and store it in a map.
-            colladaNodeId = mNodeIdList.addId ( colladaNodeId );
+			colladaNodeId = mNodeIdList.addId(colladaNodeId, mDocumentExporter->exportLOD ? true: false);
+
             mMayaIdColladaNodeId [mayaNodeId] = colladaNodeId;
 
             // Set the node id and the name.
