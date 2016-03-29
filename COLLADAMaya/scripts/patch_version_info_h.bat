@@ -3,8 +3,8 @@ REM  This script will replace undefined SHA1 with the right one into the input f
 
 
 set "TEMP_FILE=temp.h"
-set "INPUT_FILE=..\include\COLLADAMayaVersionInfo.h"
-set CURRENT_SHA1="CURRENT_SHA1"
+set "INPUT_FILE=..\..\COLLADABaseUtils\include\COLLADABUVersionInfo.h"
+set CURRENT_REV="CURRENT_REVISION"
 
 
 REM GET GIT SHA1
@@ -13,7 +13,7 @@ FOR /f  %%A in ('git describe  --always') do set SHA=%%A
 
 REM SEARCH FOR STRING TO CHANGED
 For /f "tokens=1,2,3,4,5 delims= " %%A in (%INPUT_FILE%) do (
-  if "%%C"==%CURRENT_SHA1% (
+  if "%%C"==%CURRENT_REV% (
   set SEARCHED_STRING="%%E"
   )  
 )

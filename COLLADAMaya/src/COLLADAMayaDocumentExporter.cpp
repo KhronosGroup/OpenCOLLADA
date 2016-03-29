@@ -37,7 +37,8 @@
 #include "COLLADAMayaExportOptions.h"
 #include "COLLADAMayaSyntax.h"
 #include "COLLADAMayaReferenceManager.h"
-#include "COLLADAMayaVersionInfo.h"
+
+#include "COLLADABUVersionInfo.h"
 
 #include "COLLADASWAsset.h"
 #include "COLLADASWScene.h"
@@ -297,41 +298,9 @@ namespace COLLADAMaya
     }
 
     //---------------------------------------------------------------
-	class MayaAsset : public COLLADASW::Asset
-	{
-	public:
-		MayaAsset(COLLADASW::StreamWriter* sw)
-			: COLLADASW::Asset(sw)
-		{}
-
-	protected:
-		virtual void addExtra() override
-		{
-			mSW->openElement(COLLADASW::CSWC::CSW_ELEMENT_EXTRA);
-			{
-				mSW->openElement(COLLADASW::CSWC::CSW_ELEMENT_TECHNIQUE);
-				mSW->appendAttribute(COLLADASW::CSWC::CSW_ATTRIBUTE_PROFILE, COLLADAMaya::PROFILE_MAYA);
-				{
-					mSW->openElement(COLLADASW::CSWC::CSW_ELEMENT_PLUGIN_VERSION);
-					mSW->appendValues(COLLADAMaya::CURRENT_REVISION);
-					mSW->closeElement();
-
-					if (COLLADAMaya::CURRENT_SHA1.compare("undefined") != 0)
-					{
-						mSW->openElement(COLLADASW::CSWC::CSW_ELEMENT_SHA1);
-						mSW->appendValues(COLLADAMaya::CURRENT_SHA1);
-						mSW->closeElement();
-					}
-				}
-				mSW->closeElement();
-			}
-			mSW->closeElement();
-		}
-	};
-
-    void DocumentExporter::exportAsset()
+	void DocumentExporter::exportAsset()
     {
-        MayaAsset asset ( &mStreamWriter );
+		COLLADASW::Asset asset(&mStreamWriter);
 
         // Add contributor information
         // Set the author
@@ -356,44 +325,46 @@ namespace COLLADAMaya
             asset.getContributor().mSourceData = sourceFileUri.getURIString();
         }
 
-        asset.getContributor().mAuthoringTool = AUTHORING_TOOL_NAME + MGlobal::mayaVersion().asChar();
+        asset.getContributor().mAuthoringTool = AUTHORING_TOOL_NAME + MGlobal::mayaVersion().asChar() + 
+			(COLLADAMaya::PLUGIN_VERSION_STRING.empty() ? "" : String(";  ") + COLLADAMaya::PLUGIN_VERSION_STRING) +
+			(COLLADAMaya::REVISION_STRING.empty() ? "" : String(";  ") + COLLADAMaya::REVISION_STRING);
 		
         // comments
 		MString optstr = MString("\n\t\t\tColladaMaya export options: ")
 			+ "\n\t\t\tbakeTransforms=" + ExportOptions::bakeTransforms()
 			+ ";relativePaths=" + ExportOptions::relativePaths()
-			+ ";preserveSourceTree=" + ExportOptions::preserveSourceTree() 
-            + ";copyTextures=" + ExportOptions::copyTextures() 
-            + ";exportTriangles=" + ExportOptions::exportTriangles() 
-            + ";exportCgfxFileReferences=" + ExportOptions::exportCgfxFileReferences() 
-            + ";\n\t\t\tisSampling=" + ExportOptions::isSampling() 
-            + ";curveConstrainSampling=" + ExportOptions::curveConstrainSampling()
-            + ";removeStaticCurves=" + ExportOptions::removeStaticCurves() 
+			+ ";preserveSourceTree=" + ExportOptions::preserveSourceTree()
+			+ ";copyTextures=" + ExportOptions::copyTextures()
+			+ ";exportTriangles=" + ExportOptions::exportTriangles()
+			+ ";exportCgfxFileReferences=" + ExportOptions::exportCgfxFileReferences()
+			+ ";\n\t\t\tisSampling=" + ExportOptions::isSampling()
+			+ ";curveConstrainSampling=" + ExportOptions::curveConstrainSampling()
+			+ ";removeStaticCurves=" + ExportOptions::removeStaticCurves()
 			+ ";exportPhysics=" + ExportOptions::exportPhysics()
-            + ";exportConvexMeshGeometries=" + ExportOptions::exportConvexMeshGeometries()
-            + ";exportPolygonMeshes=" + ExportOptions::exportPolygonMeshes() 
-            + ";exportLights=" + ExportOptions::exportLights() 
-            + ";\n\t\t\texportCameras=" + ExportOptions::exportCameras() 
-            + ";exportJointsAndSkin=" + ExportOptions::exportJointsAndSkin() 
-            + ";exportAnimations=" + ExportOptions::exportAnimations()
-            + ";exportOptimizedBezierAnimation=" + ExportOptions::exportOptimizedBezierAnimations()
-            + ";exportInvisibleNodes=" + ExportOptions::exportInvisibleNodes()
-            + ";exportDefaultCameras=" + ExportOptions::exportDefaultCameras()
-            + ";\n\t\t\texportTexCoords=" + ExportOptions::exportTexCoords()
-            + ";exportNormals=" + ExportOptions::exportNormals() 
-            + ";exportNormalsPerVertex=" + ExportOptions::exportNormalsPerVertex() 
-            + ";exportVertexColors=" + ExportOptions::exportVertexColors()
-            + ";exportVertexColorsPerVertex=" + ExportOptions::exportVertexColorsPerVertex()
-            + ";\n\t\t\texportTexTangents=" + ExportOptions::exportTexTangents() 
-            + ";exportTangents=" + ExportOptions::exportTangents() 
-            + ";exportReferencedMaterials=" + ExportOptions::exportReferencedMaterials() 
-            + ";exportMaterialsOnly=" + ExportOptions::exportMaterialsOnly() 
-            + ";\n\t\t\texportXRefs=" + ExportOptions::exportXRefs() 
-            + ";dereferenceXRefs=" + ExportOptions::dereferenceXRefs() 
-            + ";exportCameraAsLookat=" + ExportOptions::exportCameraAsLookat() 
-            + ";cameraXFov=" + ExportOptions::cameraXFov() 
-            + ";cameraYFov=" + ExportOptions::cameraYFov() 
-            + ";doublePrecision=" + ExportOptions::doublePrecision () + "\n\t\t";
+			+ ";exportConvexMeshGeometries=" + ExportOptions::exportConvexMeshGeometries()
+			+ ";exportPolygonMeshes=" + ExportOptions::exportPolygonMeshes()
+			+ ";exportLights=" + ExportOptions::exportLights()
+			+ ";\n\t\t\texportCameras=" + ExportOptions::exportCameras()
+			+ ";exportJointsAndSkin=" + ExportOptions::exportJointsAndSkin()
+			+ ";exportAnimations=" + ExportOptions::exportAnimations()
+			+ ";exportOptimizedBezierAnimation=" + ExportOptions::exportOptimizedBezierAnimations()
+			+ ";exportInvisibleNodes=" + ExportOptions::exportInvisibleNodes()
+			+ ";exportDefaultCameras=" + ExportOptions::exportDefaultCameras()
+			+ ";\n\t\t\texportTexCoords=" + ExportOptions::exportTexCoords()
+			+ ";exportNormals=" + ExportOptions::exportNormals()
+			+ ";exportNormalsPerVertex=" + ExportOptions::exportNormalsPerVertex()
+			+ ";exportVertexColors=" + ExportOptions::exportVertexColors()
+			+ ";exportVertexColorsPerVertex=" + ExportOptions::exportVertexColorsPerVertex()
+			+ ";\n\t\t\texportTexTangents=" + ExportOptions::exportTexTangents()
+			+ ";exportTangents=" + ExportOptions::exportTangents()
+			+ ";exportReferencedMaterials=" + ExportOptions::exportReferencedMaterials()
+			+ ";exportMaterialsOnly=" + ExportOptions::exportMaterialsOnly()
+			+ ";\n\t\t\texportXRefs=" + ExportOptions::exportXRefs()
+			+ ";dereferenceXRefs=" + ExportOptions::dereferenceXRefs()
+			+ ";exportCameraAsLookat=" + ExportOptions::exportCameraAsLookat()
+			+ ";cameraXFov=" + ExportOptions::cameraXFov()
+			+ ";cameraYFov=" + ExportOptions::cameraYFov()
+			+ ";doublePrecision=" + ExportOptions::doublePrecision() + "\n\t\t";
         asset.getContributor().mComments = optstr.asChar();
 
         // Up axis
