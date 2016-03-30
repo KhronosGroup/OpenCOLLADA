@@ -46,7 +46,7 @@ namespace COLLADAMax
 
 	const String DocumentExporter::AUTHORING_TOOL = String("OpenCOLLADA for 3ds Max") + 
 		(COLLADAPlugin::PLUGIN_VERSION_STRING.empty() ? "" : String(";  ") + COLLADAPlugin::PLUGIN_VERSION_STRING) +
-		(COLLADAPlugin::REVISION_STRING.empty() ? "" : String(";  ") + COLLADAPlugin::REVISION_STRING)
+		(COLLADAPlugin::REVISION_STRING.empty() ? "" : String(";  ") + COLLADAPlugin::REVISION_STRING);
 
     //---------------------------------------------------------------
 	DocumentExporter::DocumentExporter ( Interface * i, const NativeString &filepath, COLLADABU::IDList& xRefExportFileNames, bool exportOnlySelected  )
