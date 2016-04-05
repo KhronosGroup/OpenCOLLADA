@@ -17,7 +17,6 @@
 #include "COLLADAMayaPrerequisites.h"
 #include "COLLADAMayaPlatform.h"
 #include "COLLADAMayaSyntax.h"
-#include "COLLADAMayaVersionInfo.h"
 #include "COLLADAMayaFileTranslator.h"
 #include "COLLADAMayaDocumentExporter.h"
 #include "COLLADAMayaExportOptions.h"
@@ -29,6 +28,8 @@
 #include "COLLADAMayaImportOptions.h"
 
 #include "COLLADASWException.h"
+
+#include "COLLADABUVersionInfo.h"
 
 #include <time.h>
 
@@ -82,17 +83,9 @@
         std::ostringstream stream; 
         stream << MAYA_API_VERSION;
 
-        COLLADAMaya::String revision ( COLLADAMaya::TRANSLATOR_VERSION );
-        revision += "." + COLLADAMaya::CURRENT_REVISION;
-
-		if (COLLADAMaya::CURRENT_SHA1.compare("undefined") != 0)
-		{
-			revision += "__sha1__" + COLLADAMaya::CURRENT_SHA1;
-		}
-
         MFnPlugin plugin ( obj, 
             COLLADAMaya::TRANSLATOR_VENDOR, 
-            revision.c_str (), 
+			COLLADABU::CURRENT_REVISION.c_str(),
             stream.str ().c_str () );
 
         // --------------------------------------------------------------

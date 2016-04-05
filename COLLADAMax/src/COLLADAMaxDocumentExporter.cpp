@@ -35,6 +35,8 @@
 #include "COLLADASWScene.h"
 #include "COLLADASWConstants.h"
 
+#include "COLLADABUVersionInfo.h"
+
 #include <max.h>
 
 namespace COLLADAMax
@@ -42,13 +44,17 @@ namespace COLLADAMax
 
     const String DocumentExporter::SCENE_ID = "MaxScene";
 	const String DocumentExporter::PHYSIC_SCENE_ID = "PhysicMaxScene";
+	
+	std::size_t foundLast = COLLADABU::CURRENT_REVISION.find_last_of(".");
+	std::size_t foundFirst = COLLADABU::CURRENT_REVISION.find_first_of(".");
 
+	String versionMajor = COLLADABU::CURRENT_REVISION.substr(0, foundFirst);
+	String versionMinor = COLLADABU::CURRENT_REVISION.substr(foundFirst + 1, foundLast - foundFirst - 1);
 
 	const String DocumentExporter::AUTHORING_TOOL = String("OpenCOLLADA for 3ds Max") + 
-		(COLLADAPlugin::PLUGIN_VERSION_STRING.empty() ? "" : String(";  ") + COLLADAPlugin::PLUGIN_VERSION_STRING) +
-		(COLLADAPlugin::REVISION_STRING.empty() ? "" : String(";  ") + COLLADAPlugin::REVISION_STRING) +
-		String(";  ") + COLLADAPlugin::PLATFORM_STRING + 
-		String(";  ") + COLLADAPlugin::CONFIGURATION_STRING;
+	(COLLADAPlugin::PLUGIN_VERSION_STRING.empty() ? "" : String(";  ") + COLLADAPlugin::PLUGIN_VERSION_STRING) +
+	(COLLADABU::CURRENT_REVISION.empty() ? "" : String(";  ") + String("Version: ") + versionMajor + "." + versionMinor) +
+	(COLLADABU::CURRENT_REVISION.empty() ? "" : String(";  ") + String("Revision: ") + COLLADABU::CURRENT_REVISION.substr(foundLast + 1));
 
     //---------------------------------------------------------------
 	DocumentExporter::DocumentExporter ( Interface * i, const NativeString &filepath, COLLADABU::IDList& xRefExportFileNames, bool exportOnlySelected  )

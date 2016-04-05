@@ -17,14 +17,12 @@
 #define __COLLADA_MAYA_SYNTAX_H__
 
 #include "COLLADAMayaPrerequisites.h"
-
+#include "COLLADABUVersionInfo.h"
 
 namespace COLLADAMaya
 {
-    
     // COLLADA NetAllied Systems
     static const char* TRANSLATOR_VENDOR                            = "NetAllied Systems GmbH";
-    static const char* TRANSLATOR_VERSION                           = "1.3.0";
     static const char* USERNAME                                     = "USERNAME";
     static const char* USER                                         = "USER";
 

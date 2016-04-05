@@ -1001,6 +1001,7 @@
     <ClInclude Include="..\include\COLLADABUStringUtils.h" />
     <ClInclude Include="..\include\COLLADABUURI.h" />
     <ClInclude Include="..\include\COLLADABUUtils.h" />
+    <ClInclude Include="..\include\COLLADABUVersionInfo.h" />
     <ClInclude Include="..\include\Math\COLLADABUMathMatrix3.h" />
     <ClInclude Include="..\include\Math\COLLADABUMathMatrix4.h" />
     <ClInclude Include="..\include\Math\COLLADABUMathPrerequisites.h" />

@@ -127,5 +127,8 @@
     <ClInclude Include="..\..\Externals\UTF\include\ConvertUTF.h">
       <Filter>Header Files\UTF</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\COLLADABUVersionInfo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

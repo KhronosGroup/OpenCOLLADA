@@ -21,8 +21,6 @@ namespace COLLADAMax
 		static const TCHAR* PLUGIN_VERSION_TCHAR;
 		static const String PLUGIN_VERSION_STRING;
 		static const String REVISION_STRING;
-		static const String PLATFORM_STRING;
-		static const String CONFIGURATION_STRING;
 
 
 		static const TCHAR* FATALERROR;

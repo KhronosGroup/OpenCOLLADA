@@ -1,7 +1,7 @@
 #include "COLLADAMaxStableHeaders.h"
 #include "COLLADAMaxCOLLADAPlugin.h"
 
-#include "COLLADAMaxVersionInfo.h"
+#include "COLLADABUVersionInfo.h"
 
 namespace COLLADAMax
 {
@@ -16,10 +16,7 @@ namespace COLLADAMax
 
 	const TCHAR* COLLADAPlugin::PLUGIN_VERSION_TCHAR = __T("Version: 1.4.1");
 	const String COLLADAPlugin::PLUGIN_VERSION_STRING = "Version: 1.4.1";
-	const String COLLADAPlugin::REVISION_STRING = (CURRENT_REVISION.empty() ? "" : String("Revision: ") + CURRENT_REVISION);
-	const String COLLADAPlugin::PLATFORM_STRING = String("Platform: ") + CURRENT_PLATFORM;
-	const String COLLADAPlugin::CONFIGURATION_STRING = String("Configuration: ") + CURRENT_CONFIGURATION;
-
+	const String COLLADAPlugin::REVISION_STRING = (COLLADABU::CURRENT_REVISION.empty() ? "" : String("Revision: ") + COLLADABU::CURRENT_REVISION);
 
 	const TCHAR* COLLADAPlugin::FATALERROR = __T("Fatal Error: exception caught.");
 
