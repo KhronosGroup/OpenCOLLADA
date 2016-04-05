@@ -2167,8 +2167,8 @@ namespace COLLADAMaya
 			MEulerRotation rotation;
 			rotation = pxJoint->localPose.eActor0.rotation;
 
-			getPhysXExporter().exportRotation(rotation, ATTR_ROTATE);
 			getPhysXExporter().exportTranslationWithoutConversion(translation, ATTR_TRANSLATE);
+			getPhysXExporter().exportRotation(rotation, ATTR_ROTATE);
         }
     };
 
@@ -2192,8 +2192,8 @@ namespace COLLADAMaya
 			MEulerRotation rotation;
 			rotation = pxJoint->localPose.eActor1.rotation;
 
-			getPhysXExporter().exportRotation(rotation, ATTR_ROTATE);
 			getPhysXExporter().exportTranslationWithoutConversion(translation, ATTR_TRANSLATE);
+			getPhysXExporter().exportRotation(rotation, ATTR_ROTATE);
         }
     };
 
