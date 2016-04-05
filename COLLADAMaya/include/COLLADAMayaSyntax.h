@@ -21,12 +21,8 @@
 
 namespace COLLADAMaya
 {
-    
     // COLLADA NetAllied Systems
     static const char* TRANSLATOR_VENDOR                            = "NetAllied Systems GmbH";
-    static const char* TRANSLATOR_VERSION                           = "1.3.0";
-	static const String PLUGIN_VERSION_STRING						= String(TRANSLATOR_VERSION).empty() ? "" : String("Version: ") + TRANSLATOR_VERSION;
-	static const String REVISION_STRING								= COLLADABU::CURRENT_REVISION.empty() ? "" : String("Revision: ") + COLLADABU::CURRENT_REVISION;
     static const char* USERNAME                                     = "USERNAME";
     static const char* USER                                         = "USER";
 

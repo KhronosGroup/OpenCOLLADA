@@ -324,10 +324,16 @@ namespace COLLADAMaya
                 sourceFileUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
             asset.getContributor().mSourceData = sourceFileUri.getURIString();
         }
+		
+		std::size_t foundLast = COLLADABU::CURRENT_REVISION.find_last_of(".");
+		std::size_t foundFirst = COLLADABU::CURRENT_REVISION.find_first_of(".");
+		
+		String versionMajor = COLLADABU::CURRENT_REVISION.substr(0, foundFirst);
+		String versionMinor = COLLADABU::CURRENT_REVISION.substr(foundFirst + 1, foundLast - foundFirst -1 );
 
-        asset.getContributor().mAuthoringTool = AUTHORING_TOOL_NAME + MGlobal::mayaVersion().asChar() + 
-			(COLLADAMaya::PLUGIN_VERSION_STRING.empty() ? "" : String(";  ") + COLLADAMaya::PLUGIN_VERSION_STRING) +
-			(COLLADAMaya::REVISION_STRING.empty() ? "" : String(";  ") + COLLADAMaya::REVISION_STRING);
+		asset.getContributor().mAuthoringTool = AUTHORING_TOOL_NAME + MGlobal::mayaVersion().asChar() +
+			(COLLADABU::CURRENT_REVISION.empty() ? "" : String(";  ") + String("Version: ") + versionMajor + "." + versionMinor) +
+			(COLLADABU::CURRENT_REVISION.empty() ? "" : String(";  ") + String("Revision: ") + COLLADABU::CURRENT_REVISION.substr(foundLast + 1));
 		
         // comments
 		MString optstr = MString("\n\t\t\tColladaMaya export options: ")

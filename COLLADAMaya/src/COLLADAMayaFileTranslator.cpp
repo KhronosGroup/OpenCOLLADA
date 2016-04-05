@@ -83,12 +83,9 @@
         std::ostringstream stream; 
         stream << MAYA_API_VERSION;
 
-        COLLADAMaya::String revision ( COLLADAMaya::TRANSLATOR_VERSION );
-        revision += "." + COLLADABU::CURRENT_REVISION;
-
         MFnPlugin plugin ( obj, 
             COLLADAMaya::TRANSLATOR_VENDOR, 
-            revision.c_str (), 
+			COLLADABU::CURRENT_REVISION.c_str(),
             stream.str ().c_str () );
 
         // --------------------------------------------------------------
