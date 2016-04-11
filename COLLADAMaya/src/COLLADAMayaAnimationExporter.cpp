@@ -290,7 +290,7 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
     void AnimationExporter::lookForSamples()
     {
-        if ( ExportOptions::exportJointsAndSkin() )
+		if (ExportOptions::exportJoints())
         {
             // Get the list with the transform nodes.
             SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
@@ -2226,6 +2226,9 @@ namespace COLLADAMaya
  				MObject clipNode = characterFn.getScheduledClip(i);
 				MFnClip clipFn ( clipNode, &status );
                 if ( status != MStatus::kSuccess ) continue;
+
+				// Only Export Bezier Clip Enabled
+				if (!clipFn.getEnabled()) continue;
 
 				String clipNameSource;
 				MPlugArray nodePlugs;

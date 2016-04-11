@@ -213,58 +213,62 @@ namespace COLLADAMaya
 
             if ( !ExportOptions::exportMaterialsOnly () )
             {
-                // Start by caching the expressions that will be sampled
-                mSceneGraph->sampleAnimationExpressions();
+				// Start by caching the expressions that will be sampled
+				mSceneGraph->sampleAnimationExpressions();
 
-                // Export the lights.
-                mLightExporter->exportLights();
+				if (!ExportOptions::exportAnimations() || ExportOptions::exportPolygonMeshes())
+				{
+					// Export the lights.
+					mLightExporter->exportLights();
 
-                // Export the cameras.
-                mCameraExporter->exportCameras();
+					// Export the cameras.
+					mCameraExporter->exportCameras();
+				
+					// Export the material URLs and get the material list
+					MaterialMap* materialMap = mMaterialExporter->exportMaterials();
 
-                // Export the material URLs and get the material list
-                MaterialMap* materialMap = mMaterialExporter->exportMaterials();
+					// Export the effects (materials)
+					const ImageMap* imageMap = mEffectExporter->exportEffects(materialMap);
 
-                // Export the effects (materials)
-                const ImageMap* imageMap = mEffectExporter->exportEffects ( materialMap );
+					// Export the images
+					mImageExporter->exportImages(imageMap);
+				}
+				
+				// Export the controllers. Must be done before the geometries, to decide, which
+				// geometries have to be exported (for example, if the controller need an invisible 
+				// geometry, we also have to export it).
+				mControllerExporter->exportControllers();
 
-                // Export the images
-                mImageExporter->exportImages ( imageMap );
+				// Don't export Physics if required PhysX plugin is not loaded
+				if (ExportOptions::exportPhysics() && !PhysXExporter::CheckPhysXPluginVersion()) {
+					MGlobal::displayError(MString("Physics not exported. Minimum PhysX plugin version: ") + PhysXExporter::GetRequiredPhysXPluginVersion());
+					MGlobal::displayError(MString("Installed version: ") + PhysXExporter::GetInstalledPhysXPluginVersion());
+					ExportOptions::setExportPhysics(false);
+				}
 
-                // Export the controllers. Must be done before the geometries, to decide, which
-                // geometries have to be exported (for example, if the controller need an invisible 
-                // geometry, we also have to export it).
-                mControllerExporter->exportControllers();
+				// Export PhysX to XML before exporting geometries
+				if (ExportOptions::exportPhysics() && !mPhysXExporter->generatePhysXXML()) {
+					// Don't try to export Physics if xml export has failed
+					ExportOptions::setExportPhysics(false);
+					MGlobal::displayError(MString("Error while exporting PhysX scene to XML. Physics not exported."));
+				}
 
-                // Don't export Physics if required PhysX plugin is not loaded
-                if (ExportOptions::exportPhysics() && !PhysXExporter::CheckPhysXPluginVersion()) {
-                    MGlobal::displayError(MString("Physics not exported. Minimum PhysX plugin version: ") + PhysXExporter::GetRequiredPhysXPluginVersion());
-                    MGlobal::displayError(MString("Installed version: ") + PhysXExporter::GetInstalledPhysXPluginVersion());
-                    ExportOptions::setExportPhysics(false);
-                }
+				// Export the geometries
+				mGeometryExporter->exportGeometries();
 
-                // Export PhysX to XML before exporting geometries
-                if (ExportOptions::exportPhysics() && !mPhysXExporter->generatePhysXXML()) {
-                    // Don't try to export Physics if xml export has failed
-                    ExportOptions::setExportPhysics(false);
-                    MGlobal::displayError(MString("Error while exporting PhysX scene to XML. Physics not exported."));
-                }
+				bool physicsSceneExported = false;
+				if (ExportOptions::exportPhysics()) {
+					// Export PhysX
+					physicsSceneExported = mPhysXExporter->exportPhysicsLibraries();
+				}
 
-                // Export the geometries
-                mGeometryExporter->exportGeometries();
-
-                bool physicsSceneExported = false;
-                if (ExportOptions::exportPhysics()) {
-                    // Export PhysX
-                    physicsSceneExported = mPhysXExporter->exportPhysicsLibraries();
-                }
 
 				saveParamClip();
 
-                // Export the visual scene
-                bool visualSceneExported = mVisualSceneExporter->exportVisualScenes();
+				// Export the visual scene
+				bool visualSceneExported = mVisualSceneExporter->exportVisualScenes();
 
-                // Export the animations
+				// Export the animations
 				if (ExportOptions::exportAnimations())
 				{
 					const AnimationClipList* animationClips = mAnimationExporter->exportAnimations();
@@ -275,11 +279,12 @@ namespace COLLADAMaya
 
 				restoreParamClip();
 
-                // Export the scene
-                exportScene(visualSceneExported, physicsSceneExported);
+				// Export the scene
+				exportScene(visualSceneExported, physicsSceneExported);
 
-                // Export the light probes.
-                mLightProbeExporter->exportLightProbes();
+				// Export the light probes.
+				mLightProbeExporter->exportLightProbes();
+               
             }
             else
             {
@@ -347,30 +352,31 @@ namespace COLLADAMaya
 			+ ";curveConstrainSampling=" + ExportOptions::curveConstrainSampling()
 			+ ";removeStaticCurves=" + ExportOptions::removeStaticCurves()
 			+ ";exportPhysics=" + ExportOptions::exportPhysics()
-			+ ";exportConvexMeshGeometries=" + ExportOptions::exportConvexMeshGeometries()
-			+ ";exportPolygonMeshes=" + ExportOptions::exportPolygonMeshes()
-			+ ";exportLights=" + ExportOptions::exportLights()
-			+ ";\n\t\t\texportCameras=" + ExportOptions::exportCameras()
-			+ ";exportJointsAndSkin=" + ExportOptions::exportJointsAndSkin()
-			+ ";exportAnimations=" + ExportOptions::exportAnimations()
-			+ ";exportOptimizedBezierAnimation=" + ExportOptions::exportOptimizedBezierAnimations()
-			+ ";exportInvisibleNodes=" + ExportOptions::exportInvisibleNodes()
-			+ ";exportDefaultCameras=" + ExportOptions::exportDefaultCameras()
-			+ ";\n\t\t\texportTexCoords=" + ExportOptions::exportTexCoords()
-			+ ";exportNormals=" + ExportOptions::exportNormals()
-			+ ";exportNormalsPerVertex=" + ExportOptions::exportNormalsPerVertex()
-			+ ";exportVertexColors=" + ExportOptions::exportVertexColors()
-			+ ";exportVertexColorsPerVertex=" + ExportOptions::exportVertexColorsPerVertex()
-			+ ";\n\t\t\texportTexTangents=" + ExportOptions::exportTexTangents()
-			+ ";exportTangents=" + ExportOptions::exportTangents()
-			+ ";exportReferencedMaterials=" + ExportOptions::exportReferencedMaterials()
-			+ ";exportMaterialsOnly=" + ExportOptions::exportMaterialsOnly()
-			+ ";\n\t\t\texportXRefs=" + ExportOptions::exportXRefs()
-			+ ";dereferenceXRefs=" + ExportOptions::dereferenceXRefs()
-			+ ";exportCameraAsLookat=" + ExportOptions::exportCameraAsLookat()
-			+ ";cameraXFov=" + ExportOptions::cameraXFov()
-			+ ";cameraYFov=" + ExportOptions::cameraYFov()
-			+ ";doublePrecision=" + ExportOptions::doublePrecision() + "\n\t\t";
+            + ";exportConvexMeshGeometries=" + ExportOptions::exportConvexMeshGeometries()
+            + ";exportPolygonMeshes=" + ExportOptions::exportPolygonMeshes() 
+            + ";exportLights=" + ExportOptions::exportLights() 
+            + ";\n\t\t\texportCameras=" + ExportOptions::exportCameras() 
+            + ";exportJoints=" + ExportOptions::exportJoints() 
+			+ ";exportSkin=" + ExportOptions::exportSkin()
+            + ";exportAnimations=" + ExportOptions::exportAnimations()
+            + ";exportOptimizedBezierAnimation=" + ExportOptions::exportOptimizedBezierAnimations()
+            + ";exportInvisibleNodes=" + ExportOptions::exportInvisibleNodes()
+            + ";exportDefaultCameras=" + ExportOptions::exportDefaultCameras()
+            + ";\n\t\t\texportTexCoords=" + ExportOptions::exportTexCoords()
+            + ";exportNormals=" + ExportOptions::exportNormals() 
+            + ";exportNormalsPerVertex=" + ExportOptions::exportNormalsPerVertex() 
+            + ";exportVertexColors=" + ExportOptions::exportVertexColors()
+            + ";exportVertexColorsPerVertex=" + ExportOptions::exportVertexColorsPerVertex()
+            + ";\n\t\t\texportTexTangents=" + ExportOptions::exportTexTangents() 
+            + ";exportTangents=" + ExportOptions::exportTangents() 
+            + ";exportReferencedMaterials=" + ExportOptions::exportReferencedMaterials() 
+            + ";exportMaterialsOnly=" + ExportOptions::exportMaterialsOnly() 
+            + ";\n\t\t\texportXRefs=" + ExportOptions::exportXRefs() 
+            + ";dereferenceXRefs=" + ExportOptions::dereferenceXRefs() 
+            + ";exportCameraAsLookat=" + ExportOptions::exportCameraAsLookat() 
+            + ";cameraXFov=" + ExportOptions::cameraXFov() 
+            + ";cameraYFov=" + ExportOptions::cameraYFov() 
+            + ";doublePrecision=" + ExportOptions::doublePrecision () + "\n\t\t";
         asset.getContributor().mComments = optstr.asChar();
 
         // Up axis

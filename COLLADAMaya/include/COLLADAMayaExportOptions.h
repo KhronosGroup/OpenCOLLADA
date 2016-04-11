@@ -66,8 +66,9 @@ namespace COLLADAMaya
         static bool mExportPolygonMeshes;
         static bool mExportLights;
         static bool mExportCameras;
-        static bool mExportJointsAndSkin;
-        static bool mExportAnimations;
+		static bool mExportJoints;
+		static bool mExportSkin;
+		static bool mExportAnimations;
 		static bool mExportOptimizedBezierAnimations;
         static bool mExportInvisibleNodes;
         static bool mExportDefaultCameras;
@@ -138,7 +139,8 @@ namespace COLLADAMaya
         static bool exportPolygonMeshes();
         static bool exportLights();
         static bool exportCameras();
-        static bool exportJointsAndSkin();
+        static bool exportJoints();
+		static bool exportSkin();
         static bool exportAnimations();
 		static bool exportOptimizedBezierAnimations();
         static bool exportInvisibleNodes();
