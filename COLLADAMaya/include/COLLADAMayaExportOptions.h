@@ -112,9 +112,6 @@ namespace COLLADAMaya
         /** General export options  */
         /****************************/
 
-		static bool isSplittedFile();
-		static bool isSplittedAnimOnly();
-
         /** Should the transforms be baked into a single matrix, as opposed to decomposed into 
         primitive collada transforms (e.g. translate, rotate, scale)? Default: FALSE */
         static bool bakeTransforms();
