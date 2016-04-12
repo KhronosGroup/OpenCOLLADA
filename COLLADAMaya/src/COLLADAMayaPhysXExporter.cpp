@@ -2058,6 +2058,9 @@ namespace COLLADAMaya
             else if (profile == PhysXExporter::GetProfileXML()) {
                 exporter.exportRigidBodyPhysXXML(rigidBody);
             }
+			else if (profile == PROFILE_MAYA) {
+				exporter.exportExtraAttributes(rigidBody);
+			}
         }
 
     private:
@@ -2110,6 +2113,7 @@ namespace COLLADAMaya
         RigidBodyExtra(PhysXExporter& exporter, const MObject & rigidBody)
             : Element(exporter, CSWC::CSW_ELEMENT_EXTRA)
         {
+			exportProfile(rigidBody, PROFILE_MAYA);
             exportProfile(rigidBody, PhysXExporter::GetProfile());
             exportProfile(rigidBody, PhysXExporter::GetProfileXML());
         }
