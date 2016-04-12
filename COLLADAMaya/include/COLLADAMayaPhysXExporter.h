@@ -78,6 +78,7 @@ namespace COLLADAMaya
         void exportTranslation(const MVector & translation, const String & sid = "");
         void exportRotation(const MEulerRotation & rotation, const String & sid = "");
         void exportAttributes(const MObject & object, const std::set<MString, MStringComp> & attributes);
+        void exportExtraAttributes(const MObject & object);
         void exportMaterialPhysXXML(const MObject& material);
         void exportShapePhysXXML(const MObject& rigidBody, const MObject& shape);
         void exportRigidBodyPhysXXML(const MObject& shape);
