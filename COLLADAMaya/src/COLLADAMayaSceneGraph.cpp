@@ -380,23 +380,6 @@ namespace COLLADAMaya
             return false;
         }
 
-        // If rigid body has no target then export it as a node
-        if (nodeTypeName == NX_RIGID_BODY)
-        {
-            MObject target = DagHelper::getNodeConnectedTo(object, ATTR_TARGET);
-            if (target.isNull())
-            {
-                isForced = false;
-                isVisible = true;
-                isPhysics = false;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
         // If we are not already forcing this node, its children
         // check whether we should be forcing it (skinning of hidden joints).
         isForced = isForcedNode ( dagPath );
