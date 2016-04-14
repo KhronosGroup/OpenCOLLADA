@@ -16,15 +16,35 @@ set(SRC
 )
 
 set(libValidator_libs
-	OpenCOLLADASaxFrameworkLoader
-	GeneratedSaxParser
-	OpenCOLLADAFramework
-	OpenCOLLADABaseUtils
-	MathMLSolver
-	${PCRE_LIBRARIES}
-	${LIBXML2_LIBRARIES}
-	UTF
+	optimized OpenCOLLADASaxFrameworkLoader
+	optimized GeneratedSaxParser
+	optimized OpenCOLLADAFramework
+	optimized OpenCOLLADABaseUtils
+	optimized MathMLSolver
+	optimized UTF
+	
+	debug OpenCOLLADASaxFrameworkLoader${CMAKE_DEBUG_POSTFIX}
+	debug GeneratedSaxParser${CMAKE_DEBUG_POSTFIX}
+	debug OpenCOLLADAFramework${CMAKE_DEBUG_POSTFIX}
+	debug OpenCOLLADABaseUtils${CMAKE_DEBUG_POSTFIX}
+	debug MathMLSolver${CMAKE_DEBUG_POSTFIX}	
+	debug UTF${CMAKE_DEBUG_POSTFIX}
 )
+
+if(DEFINED PCRE_LIBRARY)
+    LIST(APPEND libValidator_libs
+        optimized ${PCRE_LIBRARY}
+        debug ${PCRE_LIBRARY}${CMAKE_DEBUG_POSTFIX}
+    )
+endif(DEFINED PCRE_LIBRARY)
+
+if(DEFINED LIBXML2_LIBRARY)
+    LIST(APPEND libValidator_libs
+	    optimized ${LIBXML2_LIBRARY}
+    	debug ${LIBXML2_LIBRARY}${CMAKE_DEBUG_POSTFIX}
+    )
+endif(DEFINED LIBXML2_LIBRARY)
+
 
 include_directories(
 	${libValidator_include_dirs}
@@ -36,5 +56,6 @@ include_directories(
 link_directories(${LIBRARY_OUTPUT_PATH})
 
 add_executable(${name} ${SRC})
+
 target_link_libraries(${name} ${libValidator_libs})
 add_dependencies(${name} ${CMAKE_REQUIRED_LIBRARIES})
