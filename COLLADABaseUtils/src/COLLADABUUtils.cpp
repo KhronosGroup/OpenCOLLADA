@@ -286,9 +286,10 @@ namespace COLLADABU
 
 		std::list<WideString> paths;
 		size_t offset = WideString::npos;
-		while ((offset = pathString.find_last_of(L"/\\", offset)) != WideString::npos)
+		while ((offset != 0) && (offset = pathString.find_last_of(L"/\\", offset)) != WideString::npos)
 		{
 			paths.push_front(pathString.substr(0, offset + 1));
+			if (offset != 0) --offset;
 		}
 
 		bool pathExists = true;
@@ -329,10 +330,10 @@ namespace COLLADABU
 
 		std::list<String> paths;
 		size_t offset = String::npos;
-		while ((offset = pathString.find_last_of("/\\", offset)) != String::npos)
+		while ((offset != 0) && (offset = pathString.find_last_of("/\\", offset)) != String::npos)
 		{
 			paths.push_front(pathString.substr(0, offset + 1));
-			--offset;
+			if (offset !=0) --offset;
 		}
 
 		bool pathExists = true;
