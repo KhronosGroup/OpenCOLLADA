@@ -201,8 +201,7 @@ namespace COLLADASaxFWL
                 FloatArrayElement& arrayElement = source->getArrayElement ();
                 COLLADAFW::ArrayPrimitiveType<float>& valuesArray = arrayElement.getValues ();
 
-                // TODO
-                /* unsigned long long stride = source->getStride (); */ /* UNUSED */
+                unsigned long long stride = source->getStride ();
 
                 // Check if there are already some values in the positions list.
                 // If so, we have to store the last index to increment the following indexes.
@@ -212,15 +211,7 @@ namespace COLLADASaxFWL
 
                 // Push the new positions into the list of positions.
                 positions.setType ( COLLADAFW::MeshVertexData::DATA_TYPE_FLOAT );
-                if ( initialIndex != 0 ) 
-				{
-					positions.appendValues ( valuesArray );
-				}
-                else
-				{
-					positions.setData ( valuesArray.getData (), valuesArray.getCount () );
-					valuesArray.yieldOwnerShip();
-				}
+				positions.appendValues ( valuesArray, "", stride );
 
                 // Set the source base as loaded element.
                 sourceBase->addLoadedInputElement ( semantic );
@@ -233,6 +224,8 @@ namespace COLLADASaxFWL
                 DoubleSource* source = ( DoubleSource* ) sourceBase;
                 DoubleArrayElement& arrayElement = source->getArrayElement ();
                 COLLADAFW::ArrayPrimitiveType<double>& valuesArray = arrayElement.getValues ();
+                
+                unsigned long long stride = source->getStride ();
 
                 // Check if there are already some values in the positions list.
                 // If so, we have to store the last index to increment the following indexes.
@@ -242,15 +235,7 @@ namespace COLLADASaxFWL
 
                 // Push the new positions into the list of positions.
                 positions.setType ( COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE );
-                if ( initialIndex != 0 ) 
-				{
-					positions.appendValues ( valuesArray );
-				}
-                else 
-				{
-					positions.setData ( valuesArray.getData (), valuesArray.getCount () );
-					valuesArray.yieldOwnerShip();
-				}
+				positions.appendValues ( valuesArray , "", stride);
                 
                 // Set the source base as loaded element.
                 sourceBase->addLoadedInputElement ( semantic );
@@ -751,11 +736,6 @@ namespace COLLADASaxFWL
         COLLADABU_ASSERT ( sourceBase != 0 );
         if ( sourceBase == 0 )
             handleFWLError ( SaxFWLError::ERROR_DATA_NOT_VALID, "Positions sourceBase is null.", IError::SEVERITY_CRITICAL );
-
-        // only stride 3 makes sense for normals
-        unsigned long long stride = sourceBase->getStride();
-        if ( stride != 3 )
-            handleFWLError ( SaxFWLError::ERROR_DATA_NOT_VALID, "Positios stride is not three.", IError::SEVERITY_CRITICAL );
 
         mPositionsIndexOffset = (unsigned int)sourceBase->getInitialIndex();
     }
@@ -1578,9 +1558,6 @@ namespace COLLADASaxFWL
 			}
 			break;
 		case POLYLIST:
-			{
-
-			}
 			break;
 		case POLYGONS:
 			{
