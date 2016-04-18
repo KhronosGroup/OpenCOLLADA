@@ -133,6 +133,8 @@ namespace COLLADAMaya
         static const String& GetProfile();
         static const String& GetProfileXML();
 
+		static bool HasExtraAttributes(const MObject & object);
+
         enum Filter
         {
             All,

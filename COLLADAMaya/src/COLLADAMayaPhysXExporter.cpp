@@ -1333,7 +1333,9 @@ namespace COLLADAMaya
         ShapeExtra(PhysXExporter& exporter, const MObject& rigidBody, const MObject& shape)
             : Element(exporter, CSWC::CSW_ELEMENT_EXTRA)
         {
-            exportProfile(rigidBody, shape, PROFILE_MAYA);
+			if (PhysXExporter::HasExtraAttributes(shape)) {
+				exportProfile(rigidBody, shape, PROFILE_MAYA);
+			}
             exportProfile(rigidBody, shape, PhysXExporter::GetProfile());
             exportProfile(rigidBody, shape, PhysXExporter::GetProfileXML());
         }
@@ -2113,7 +2115,9 @@ namespace COLLADAMaya
         RigidBodyExtra(PhysXExporter& exporter, const MObject & rigidBody)
             : Element(exporter, CSWC::CSW_ELEMENT_EXTRA)
         {
-			exportProfile(rigidBody, PROFILE_MAYA);
+			if (PhysXExporter::HasExtraAttributes(rigidBody)) {
+				exportProfile(rigidBody, PROFILE_MAYA);
+			}
             exportProfile(rigidBody, PhysXExporter::GetProfile());
             exportProfile(rigidBody, PhysXExporter::GetProfileXML());
         }
@@ -2301,7 +2305,9 @@ namespace COLLADAMaya
         RigidConstraintExtra(PhysXExporter& exporter, const MObject & rigidConstraint)
             : Element(exporter, CSWC::CSW_ELEMENT_EXTRA)
         {
-			exportTechnique(rigidConstraint, PROFILE_MAYA);
+			if (PhysXExporter::HasExtraAttributes(rigidConstraint)) {
+				exportTechnique(rigidConstraint, PROFILE_MAYA);
+			}
             exportTechnique(rigidConstraint, PhysXExporter::GetProfile());
             exportTechnique(rigidConstraint, PhysXExporter::GetProfileXML());
         }
@@ -3756,6 +3762,59 @@ namespace COLLADAMaya
     {
         return mProfileXML;
     }
+
+	namespace local
+	{
+		class ExtraAttributeParser : public AttributeParser
+		{
+		public:
+			ExtraAttributeParser(const MObject & obj)
+				: mObject(obj)
+				, mHasExtraAttributes(false)
+			{}
+
+			bool hasExtraAttributes() const { return mHasExtraAttributes; }
+
+		private:
+			MObject mObject;
+			bool mHasExtraAttributes;
+
+		protected:
+			virtual bool onBeforeAttribute(MFnDependencyNode & node, MObject & attr) override
+			{
+				MStatus status;
+				MFnAttribute fnAttr(attr, &status);
+				if (!status) return false;
+
+				MString attrName = fnAttr.name(&status);
+				if (!status) return false;
+
+				bool isDynamic = fnAttr.isDynamic(&status);
+				if (!status) return false;
+
+				if (!isDynamic)
+					return false;
+
+				bool isHidden = fnAttr.isHidden(&status);
+				if (!status) return false;
+
+				if (isHidden)
+					return false;
+
+				mHasExtraAttributes = true;
+
+				// No need to continue parsing
+				return false;
+			}
+		};
+	}
+
+	bool PhysXExporter::HasExtraAttributes(const MObject & object)
+	{
+		local::ExtraAttributeParser parser(object);
+		AttributeParser::parseAttributes(MFnDependencyNode(object), parser);
+		return parser.hasExtraAttributes();
+	}
 
     const String & PhysXExporter::findColladaId(const String & mayaId)
     {
