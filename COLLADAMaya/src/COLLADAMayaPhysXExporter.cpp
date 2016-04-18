@@ -3619,7 +3619,8 @@ namespace COLLADAMaya
     void PhysXExporter::exportExtraAttributes(const MObject & object)
     {
         local::ExtraAttributeExporter extraAttributeExporter(mStreamWriter, object);
-        AttributeParser::parseAttributes(MFnDependencyNode(object), extraAttributeExporter);
+		MFnDependencyNode node(object);
+        AttributeParser::parseAttributes(node, extraAttributeExporter);
     }
 
     void PhysXExporter::exportMaterialPhysXXML(const MObject& rigidBody)
@@ -3812,7 +3813,8 @@ namespace COLLADAMaya
 	bool PhysXExporter::HasExtraAttributes(const MObject & object)
 	{
 		local::ExtraAttributeParser parser(object);
-		AttributeParser::parseAttributes(MFnDependencyNode(object), parser);
+		MFnDependencyNode node(object);
+		AttributeParser::parseAttributes(node, parser);
 		return parser.hasExtraAttributes();
 	}
 
