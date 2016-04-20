@@ -974,9 +974,6 @@ namespace COLLADAMaya
 		status = plug.getValue(value);
 		if (!status) return;
 
-		if (value.length() == 0)
-			return;
-
 		MFnAttribute fnAttr(attr, &status);
 		if (!status) return;
 
