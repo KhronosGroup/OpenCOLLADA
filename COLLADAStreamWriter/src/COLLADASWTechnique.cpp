@@ -64,6 +64,16 @@ namespace COLLADASW
 		mSW->closeElement();
     }
 
+
+	void Technique::addParameterURL(const String &paramName, const String &url)
+	{
+		mSW->openElement(paramName);
+		if (!url.empty())
+			mSW->appendURIAttribute(CSWC::CSW_ATTRIBUTE_URL, url);
+			//mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_URL, url);
+		mSW->closeElement();
+	}
+
 	//---------------------------------------------------------------
 	void Technique::addParameter(const String &paramName, const String &value, const String &sid, const String &type, const String& tagName)
     {

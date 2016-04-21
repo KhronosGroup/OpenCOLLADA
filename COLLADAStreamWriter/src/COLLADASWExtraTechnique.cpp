@@ -60,6 +60,24 @@ namespace COLLADASW
         profile.mText = text;
     }
 
+
+	void BaseExtraTechnique::addExtraTechniqueURLParameter(
+		const String& profileName,
+		const String& paramName,
+		const String &paramURL)
+	{
+		// Get the current Profile from the map or create a new one.
+		Profile& profile = getProfile(profileName);
+
+		// Create the value
+		ParamData paramValue;
+		paramValue.url = paramURL;
+		paramValue.paramType = STRING;
+		
+		// Insert the value into the parameters map of the current profile.
+		profile.mParameters.push_back(Parameter(paramName, paramValue));
+	}
+
     //---------------------------------------------------------------
     void BaseExtraTechnique::addExtraTechniqueParameter ( 
         const String& profileName,
@@ -624,7 +642,10 @@ namespace COLLADASW
             {
 
             case STRING:
-				colladaTechnique.addParameter(paramName, paramData.stringValue, paramData.sid, CSWC::VALUE_TYPE_STRING, paramData.tagName);
+				if (!paramData.url.empty())
+					colladaTechnique.addParameterURL(paramName, paramData.url);
+				else
+					colladaTechnique.addParameter(paramName, paramData.stringValue, paramData.sid, CSWC::VALUE_TYPE_STRING, paramData.tagName);
                 break;
 
             case INTEGER:

@@ -57,7 +57,16 @@ namespace COLLADAMaya
     class DocumentExporter
     {
 	public :
-		bool exportLOD;
+
+		enum LOD_PASS
+		{
+			NO_PASS = 0,
+			FIRST,
+			SECOND,
+			DEFAULT = NO_PASS
+		};
+
+		LOD_PASS exportLOD;
 
     private:
 

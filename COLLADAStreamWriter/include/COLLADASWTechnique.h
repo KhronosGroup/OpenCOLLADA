@@ -46,6 +46,7 @@ namespace COLLADASW
 
         /** Adds a parameter to the technique */
 		void addParameter(const String &paramName, const String &value = "", const String &sid = "", const String &type = "", const String& tagName = "");
+		void addParameterURL(const String &paramName, const String &url = "");
 
         /** Adds a parameter to the technique */
 		void addParameter(const String &paramName, const int &value, const String &sid = "", const String &type = "", const String& tagName = "");

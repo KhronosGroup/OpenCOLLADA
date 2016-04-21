@@ -44,28 +44,12 @@ namespace COLLADAMaya
     //---------------------------------------------------------------
 	void LODExporter::exportLODs(VisualSceneExporter* mVisualSceneExporter)
     {
-        //// Get the list with the transform nodes.
-        //SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
-        //SceneElementsList* exportNodesTree = sceneGraph->getExportNodesTree();
-
-        //// Export all/selected DAG nodes
-        //size_t length = exportNodesTree->size();
-        //for ( uint i = 0; i < length; ++i )
-        //{
-        //    SceneElement* sceneElement = ( *exportNodesTree ) [i];
-        //    exportLODs ( sceneElement );
-        //}
-
-        //closeLibrary();
-
-		mDocumentExporter->exportLOD = true;
+		if (!ExportOptions::exportLOD())
+			return;
 
 		// Get the list with the transform nodes.
 		SceneGraph* sceneGraph = mDocumentExporter->getSceneGraph();
 		SceneElementsList* exportNodesTree = sceneGraph->getExportNodesTree();
-
-		// The flag, if a node was exported and the visual scene tags must to be closed
-		bool nodeExported = false;
 
 		// Export all/selected DAG nodes
 		size_t length = exportNodesTree->size();
@@ -79,20 +63,19 @@ namespace COLLADAMaya
 			{
 				openLibrary();
 
-				// Exports all the nodes in a node and all its child nodes recursive
-				if (mVisualSceneExporter->exportVisualSceneNodes(sceneElement)) nodeExported = true;
+				// First Pass
+				mDocumentExporter->exportLOD = DocumentExporter::LOD_PASS::FIRST;
+				mVisualSceneExporter->exportVisualSceneNodes(sceneElement);
+
+				// Second Pass
+				mDocumentExporter->exportLOD = DocumentExporter::LOD_PASS::SECOND;
+				mVisualSceneExporter->exportVisualSceneNodes(sceneElement);
 			}
 		}
 
-		// Just if a node was exported, the visual scene tag
-		// in the collada document is open and should be closed.
-		//if (nodeExported) closeVisualScene();
-
-		mDocumentExporter->exportLOD = false;
+		mDocumentExporter->exportLOD = DocumentExporter::LOD_PASS::NO_PASS;
 
 		closeLibrary();
-
-
     }
 
     //---------------------------------------------------------------

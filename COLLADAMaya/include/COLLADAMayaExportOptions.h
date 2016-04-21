@@ -37,6 +37,9 @@ namespace COLLADAMaya
         /** General export options  */
         /****************************/
 
+		/** True, if we want to export LOD from LODGroup. */
+		static bool mLOD;
+
         /** True, if we should a write transform matrix. */
         static bool mBakeTransforms;
 
@@ -111,6 +114,7 @@ namespace COLLADAMaya
         /****************************/
         /** General export options  */
         /****************************/
+		static bool exportLOD();
 
         /** Should the transforms be baked into a single matrix, as opposed to decomposed into 
         primitive collada transforms (e.g. translate, rotate, scale)? Default: FALSE */

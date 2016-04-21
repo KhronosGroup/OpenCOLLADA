@@ -17,9 +17,9 @@ namespace COLLADASW
 {
 
     //---------------------------------------------------------------
-    void Node::start()
+    void Node::start(bool forceNonInstancedNode)
     {
-        if ( !mIsInstanceNode )
+		if (!mIsInstanceNode || forceNonInstancedNode)
         {
             mNodeCloser = mSW->openElement ( CSWC::CSW_ELEMENT_NODE );
 

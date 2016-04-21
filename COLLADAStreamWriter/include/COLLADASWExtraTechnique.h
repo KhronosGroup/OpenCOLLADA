@@ -52,6 +52,7 @@ namespace COLLADASW
 	struct ParamData
     {
 		String sid;
+		String url;
 
         String stringValue;
         int integerValue[3];
@@ -161,6 +162,7 @@ namespace COLLADASW
         void addExtraTechniqueParameter(const String& profileName, const String& paramName, const float &value0, const float &value1, const float &value2, const String &paramSid = "", const String& tagName = "");
 		void addExtraTechniqueParameter(const String& profileName, const String& paramName, const bool &value, const String &paramSid = "", const String& tagName = "");
         void addExtraTechniqueEnumParameter(const String& profileName, const String& paramName, const String &enumStr = "", const String &paramSid = "", const String& tagName = "");
+		void addExtraTechniqueURLParameter(const String& profileName, const String& paramName, const String &paramUR );
 
         /** Adds a child element under the given profile. */
 		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, const String &value = "", const String &paramSid = "", const String& tagName = "");
