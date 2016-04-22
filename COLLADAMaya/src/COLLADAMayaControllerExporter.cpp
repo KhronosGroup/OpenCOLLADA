@@ -780,7 +780,7 @@ namespace COLLADAMaya
             MDagPath dagPath = influences[i];
 
             SkinControllerJoint &joint = joints[i];
-            joint.first = mDocumentExporter->dagPathToColladaId ( dagPath );
+            joint.first = mDocumentExporter->dagPathToColladaSid ( dagPath );
             joint.second = skinController->getBindPoses()[i];
         }
     }
