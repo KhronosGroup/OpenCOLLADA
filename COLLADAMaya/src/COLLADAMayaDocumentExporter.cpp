@@ -80,7 +80,7 @@ namespace COLLADAMaya
             , mCameraExporter ( NULL )
             , mSceneId ( "MayaScene" )
             , mDigitTolerance (FLOAT_TOLERANCE)
-			, exportLOD(DocumentExporter::LOD_PASS::NO_PASS)
+			, mExportPass(DocumentExporter::PASS::VISUAL_SCENE_PASS)
     {
         if ( ExportOptions::doublePrecision () )
         {

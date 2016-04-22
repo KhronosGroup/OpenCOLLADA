@@ -75,8 +75,8 @@ namespace COLLADAMaya
     , mIsFirstRotation ( true )
     , mVisualSceneAdded ( false )
     , mVisualSceneNode ( NULL )
-	, mCounter1(0)
-	, mCounter2(0)
+	, mLODIndexCounter1(0)
+	, mLODIndexCounter2(0)
     {
     }
 
@@ -175,34 +175,34 @@ namespace COLLADAMaya
 		bool isTransform = dagPath.hasFn ( MFn::kTransform );
 	
 		bool doExport = true;
-		if ((mDocumentExporter->exportLOD != mDocumentExporter->DocumentExporter::LOD_PASS::NO_PASS && sceneElementType == SceneElement::LOD))
+
+		// Do export LOD Group Node only during "NO_PASS" (in library_visual_scenes)
+		if ((mDocumentExporter->mExportPass != mDocumentExporter->DocumentExporter::PASS::VISUAL_SCENE_PASS && sceneElementType == SceneElement::LOD))
 			doExport = false;
 		
 
 		if (sceneElement->getParentCount())
 		{
-			SceneElement::Type sceneParentElementType = sceneElement->getParent()->getType(false);
-			if ((mDocumentExporter->exportLOD == mDocumentExporter->DocumentExporter::LOD_PASS::NO_PASS && sceneParentElementType == SceneElement::LOD))
-				mCounter1++;
+			SceneElement::Type sceneParentElementType = sceneElement->getParent()->getType();
+			if ((mDocumentExporter->mExportPass == mDocumentExporter->DocumentExporter::PASS::VISUAL_SCENE_PASS && sceneParentElementType == SceneElement::LOD))
+				mLODIndexCounter1++;
 
-			if (mDocumentExporter->exportLOD == mDocumentExporter->DocumentExporter::LOD_PASS::SECOND && sceneParentElementType == SceneElement::LOD)
-				mCounter2++;
+			if (mDocumentExporter->mExportPass == mDocumentExporter->DocumentExporter::PASS::SECOND_LOD_PASS && sceneParentElementType == SceneElement::LOD)
+				mLODIndexCounter2++;
 		}
 
 		bool ContinueExport = false;
 
-		// DO not export first LOD during "LOD second Pass" (in library_nodes)
-		if (mDocumentExporter->exportLOD == mDocumentExporter->DocumentExporter::LOD_PASS::SECOND && mCounter2 > 1)
+		// DO export only from second LOD Node during "LOD second Pass" (in library_nodes)
+		if (mDocumentExporter->mExportPass == mDocumentExporter->DocumentExporter::PASS::SECOND_LOD_PASS && mLODIndexCounter2 > 1)
 			ContinueExport = true;
 
-		// Do export only first LOD during "NO_PASS" (in library_visual_scenes)
-		if (ExportOptions::exportLOD() && (mDocumentExporter->exportLOD != mDocumentExporter->DocumentExporter::LOD_PASS::SECOND && isTransform && doExport && mCounter1 < 2) || !ExportOptions::exportLOD() && isTransform)
+		// Do export only first LOD Node during "NO_PASS" (in library_visual_scenes)
+		if (ExportOptions::exportLOD() && (mDocumentExporter->mExportPass != mDocumentExporter->DocumentExporter::PASS::SECOND_LOD_PASS && isTransform && doExport && mLODIndexCounter1 < 2) || !ExportOptions::exportLOD() && isTransform)
 			ContinueExport = true;
 
 		if (ContinueExport)
 	    {
-//            sceneElement->setType ( SceneElement::TRANSFORM );
-
             // Taken out of unvisible transforms. 
 			if ((!ExportOptions::exportInvisibleNodes() && !isVisible && !isExportNode) || (ExportOptions::exportPhysics() && isPhysicsNode)) return false;
 
@@ -420,7 +420,7 @@ namespace COLLADAMaya
 
 
         // Do all the stuff if we export a full node.
-		if (!isInstanceNode || mDocumentExporter->exportLOD == mDocumentExporter->DocumentExporter::LOD_PASS::SECOND)
+		if (!isInstanceNode || mDocumentExporter->mExportPass == mDocumentExporter->DocumentExporter::PASS::SECOND_LOD_PASS)
         {
             // Initialize the member variables
             if ( !initializeTransform ( sceneElement ) )
@@ -438,17 +438,18 @@ namespace COLLADAMaya
 
 
 		bool exportTransformation = false;
-		if (mDocumentExporter->exportLOD == mDocumentExporter->DocumentExporter::LOD_PASS::NO_PASS)
+		if (mDocumentExporter->mExportPass == mDocumentExporter->DocumentExporter::PASS::VISUAL_SCENE_PASS)
 		{
 			if (!isLocal || !isInstanceNode)
 				exportTransformation = true;
 		}
 		else
 		{
-			if (sceneElement->getType(false) != SceneElement::LOD)
+			if (sceneElement->getType() != SceneElement::LOD)
 			{
-				SceneElement::Type sceneParentElementType = sceneElement->getParent()->getType(false);
-				if ((mDocumentExporter->exportLOD == mDocumentExporter->DocumentExporter::LOD_PASS::FIRST && sceneParentElementType == SceneElement::LOD))
+				// Do export Transformation for LOD node only during 2nd Pass Library node 
+				SceneElement::Type sceneParentElementType = sceneElement->getParent()->getType();
+				if ((mDocumentExporter->mExportPass == mDocumentExporter->DocumentExporter::PASS::SECOND_LOD_PASS && sceneParentElementType == SceneElement::LOD))
 					exportTransformation = false;
 				else
 					exportTransformation = true;
@@ -471,33 +472,12 @@ namespace COLLADAMaya
 				exportDecomposedTransform();
 			}
 			
-			if (ExportOptions::exportLOD() && sceneElement->getType(false) == SceneElement::LOD && sceneElement->getChildCount() > 0)
-			{
-				// LOD0 will be an instance node of LODnode, so when we export transformation we export do it with LODnode Transform AND LOD0 transform
-				SceneElement* childrenLOD0 = sceneElement->getChild(0);
-				initializeTransform(childrenLOD0);
-
-				// Export the transformation information
-				if (ExportOptions::bakeTransforms())
-				{
-					exportMatrixTransform();
-				}
-				else if (ExportOptions::exportCameraAsLookat() && dagPath.hasFn(MFn::kCamera))
-				{
-					exportLookatTransform();
-				}
-				else
-				{
-					exportDecomposedTransform();
-				}
-			}
-
 			// Exports the visibility technique tag and the visibility animation.
 			exportVisibility(sceneNode);
 		}
 
 
-		if (!isLocal || mDocumentExporter->exportLOD == mDocumentExporter->DocumentExporter::LOD_PASS::SECOND)
+		if (!isLocal || mDocumentExporter->mExportPass == mDocumentExporter->DocumentExporter::PASS::SECOND_LOD_PASS)
         {
             // Export the node external reference
             exportInstanceNode ( sceneElement );
@@ -638,6 +618,39 @@ namespace COLLADAMaya
         return false;
     }
 
+	static float GetThresholdPlugValue(const SceneElement* sceneElement, int indexLOD)
+	{
+
+		// Add Threshold value To switch to Next LOD Node
+		float threshold = -1;
+		MDagPath dagPath;
+
+		SceneElement::Type sceneElementType = sceneElement->getType();
+		if (sceneElementType == SceneElement::LOD)
+			dagPath = sceneElement->getPath();
+		else
+			dagPath = sceneElement->getParent()->getPath();
+
+		MStatus status;
+		MObject transformNode = dagPath.transform(&status);
+
+		MPlug plugThreshold = MFnDependencyNode(transformNode).findPlug(ATTR_THRESHOLD, &status);
+		if (status == MStatus::kSuccess)
+		{
+
+			char indexLODString[50];
+			sprintf(indexLODString, "%d", indexLOD);
+
+			MPlug plug = plugThreshold.elementByPhysicalIndex(indexLOD, &status);
+
+			String thresholdLOD = String(ATTR_THRESHOLD) + String("[") + String(indexLODString) + String("]");
+			plug.getValue(threshold);
+
+		}
+			
+		return threshold;
+	}
+
     //---------------------------------------------------------------
     void VisualSceneExporter::openVisualSceneNode ( const SceneElement* sceneElement )
     {
@@ -645,7 +658,7 @@ namespace COLLADAMaya
         const MDagPath dagPath = sceneElement->getPath();
 
         // Add the visual scene, if not done before
-		if (mDocumentExporter->exportLOD == mDocumentExporter->DocumentExporter::LOD_PASS::NO_PASS)
+		if (mDocumentExporter->mExportPass == mDocumentExporter->DocumentExporter::PASS::VISUAL_SCENE_PASS)
 		{
 			if (!mVisualSceneAdded)
 			{
@@ -686,7 +699,7 @@ namespace COLLADAMaya
 
             mVisualSceneNode->setNodeURL ( COLLADASW::URI ( EMPTY_STRING, colladaNodeId ) );
 
-			if (mDocumentExporter->exportLOD == mDocumentExporter->DocumentExporter::LOD_PASS::SECOND)
+			if (mDocumentExporter->mExportPass == mDocumentExporter->DocumentExporter::PASS::SECOND_LOD_PASS)
 			{
 				// Get the dag node.
 				MFnDagNode node(dagPath.node());
@@ -694,14 +707,19 @@ namespace COLLADAMaya
 				// The maya node id.
 				String mayaNodeId = mDocumentExporter->dagPathToColladaId(dagPath);
 				
-				// Export the original maya name.
-				if (mDocumentExporter->exportLOD == mDocumentExporter->DocumentExporter::LOD_PASS::SECOND)
+				if (mDocumentExporter->mExportPass == mDocumentExporter->DocumentExporter::PASS::SECOND_LOD_PASS)
 				{
-					String proxy = findNextColladaNodeId(sceneElement);
+					// Add Proxy to Next LOD Node (during Library Node second Pass)
+					int indexLOD;
+					String proxy = findNextColladaNodeId(sceneElement, indexLOD);
 					if (proxy.compare(EMPTY_STRING) != 0)
-						mVisualSceneNode->addExtraTechniqueURLParameter(PROFILE_MAYA, "proxy", String("#LOD__") + proxy);
+					{
+						mVisualSceneNode->addExtraTechniqueURLParameter(PROFILE_MAYA, PARAMETER_PROXY, String("#LOD__") + proxy);
+						mVisualSceneNode->addExtraTechniqueParameter(PROFILE_MAYA, ATTR_THRESHOLD, GetThresholdPlugValue(sceneElement, indexLOD));
+					}
 				}
 
+				// Export the original maya name.
 				mVisualSceneNode->setNodeId(String("LOD__") + mayaNodeId);
 				mVisualSceneNode->setNodeName(mayaNodeId);
 
@@ -720,10 +738,9 @@ namespace COLLADAMaya
 			String colladaNodeId = getColladaNodeId(dagPath);
 
 			// Make the id unique and store it in a map.
-			colladaNodeId = mNodeIdList.addId(colladaNodeId, mDocumentExporter->exportLOD == mDocumentExporter->DocumentExporter::LOD_PASS::NO_PASS ? false : true);
+			colladaNodeId = mNodeIdList.addId(colladaNodeId, mDocumentExporter->mExportPass == mDocumentExporter->DocumentExporter::PASS::VISUAL_SCENE_PASS ? false : true);
 
 			mMayaIdColladaNodeId[mayaNodeId] = colladaNodeId;
-//			LodNode.push_back(mayaNodeId);
 
 			// Set the node id and the name.
 			mVisualSceneNode->setNodeId(colladaNodeId);
@@ -731,11 +748,16 @@ namespace COLLADAMaya
 
 			mVisualSceneNode->setNodeName(nodeName);
 
-			if (ExportOptions::exportLOD() && mDocumentExporter->exportLOD == mDocumentExporter->DocumentExporter::LOD_PASS::NO_PASS)
-			{
-				String proxy = findNextColladaNodeId(sceneElement);
+			if (ExportOptions::exportLOD() && mDocumentExporter->mExportPass == mDocumentExporter->DocumentExporter::PASS::VISUAL_SCENE_PASS && (sceneElement->getType() == SceneElement::LOD))
+			{ 
+				// Add Proxy with second LOD Node (during library visual scene Pass)
+				int indexLOD;
+				String proxy = findNextColladaNodeId(sceneElement, indexLOD);
 				if (proxy.compare(EMPTY_STRING) != 0)
-					mVisualSceneNode->addExtraTechniqueURLParameter(PROFILE_MAYA, "proxy", String("#LOD__") + proxy);
+				{
+					mVisualSceneNode->addExtraTechniqueURLParameter(PROFILE_MAYA, PARAMETER_PROXY, String("#LOD__") + proxy);
+					mVisualSceneNode->addExtraTechniqueParameter(PROFILE_MAYA, ATTR_THRESHOLD, GetThresholdPlugValue(sceneElement, indexLOD));
+				}
 			}
 
 			mVisualSceneNode->addExtraTechniqueParameter(PROFILE_MAYA, PARAMETER_MAYA_ID, nodeName);   
@@ -747,7 +769,7 @@ namespace COLLADAMaya
         
 
         // open the scene node
-		mVisualSceneNode->start(mDocumentExporter->exportLOD == mDocumentExporter->DocumentExporter::LOD_PASS::SECOND);
+		mVisualSceneNode->start(mDocumentExporter->mExportPass == mDocumentExporter->DocumentExporter::PASS::SECOND_LOD_PASS);
     }
 
     //---------------------------------------------------------------
@@ -1622,50 +1644,18 @@ namespace COLLADAMaya
         return EMPTY_STRING;
     }
 
-	const String VisualSceneExporter::findNextColladaNodeId(const SceneElement* sceneElement)
+	const String VisualSceneExporter::findNextColladaNodeId(const SceneElement* sceneElement, int& indexLOD)
 	{
-		//int index = 0;
-		//bool found = false;
-		//for (std::vector<String>::iterator it = LodNode.begin(); it != LodNode.end(); ++it)
-		//{
-		//	if ((*it).compare(mayaNodeId) == 0)
-		//	{
-		//		found = true;
-		//		break;
-		//	}
-
-		//	index++;
-		//}
-
-
-		//if (!found)
-		//	return EMPTY_STRING;
-
-		//String NextString;
-		//if (mDocumentExporter->exportLOD == mDocumentExporter->DocumentExporter::LOD_PASS::NO_PASS)
-		//{
-		//	if (found)
-		//	{
-		//		int newIndex = (index + 2) % LodNode.size();
-		//		NextString = LodNode.at(newIndex);
-		//	}
-		//}
-		//else
-		//{
-		//	if ((index + 1) < LodNode.size())
-		//		NextString = LodNode.at(index + 1);
-		//	else
-		//		return EMPTY_STRING;
-		//}
-
 		MDagPath dag;
+		int index = 0;
+		indexLOD = index;
 
-		if (mDocumentExporter->exportLOD == mDocumentExporter->DocumentExporter::LOD_PASS::NO_PASS)
+		if (mDocumentExporter->mExportPass == mDocumentExporter->DocumentExporter::PASS::VISUAL_SCENE_PASS)
 			dag = sceneElement->getChild(1)->getPath();
 		else
 		{
 			SceneElement* parent = sceneElement->getParent();
-			int index;
+			
 			bool found = false;
 			for (index = 0; index < parent->getChildCount(); index++)
 			{
@@ -1684,6 +1674,8 @@ namespace COLLADAMaya
 			else
 				dag = parent->getChild(index + 1)->getPath();
 		}
+
+		indexLOD = index;
 
 		String mayaNodeId = mDocumentExporter->dagPathToColladaId(dag);
 

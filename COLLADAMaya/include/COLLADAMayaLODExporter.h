@@ -18,7 +18,6 @@
 
 #include "COLLADAMayaPrerequisites.h"
 #include "COLLADASWStreamWriter.h"
-//#include "COLLADASWLibraryLOD.h"
 #include "COLLADASWLibraryNodes.h"
 #include "COLLADAMayaDocumentExporter.h"
 
@@ -34,16 +33,6 @@ namespace COLLADAMaya
         /** Pointer to the document exporter */
         DocumentExporter* mDocumentExporter;
 
-        /**
-        * The list of the unique collada ids.
-        */
-//        COLLADABU::IDList mLightIdList;
-
-        /**
-        * A collada id for every maya id.
-        */
- //       StringToStringMap mMayaIdColladaIdMap;
-
     public:
 
         /**
@@ -55,22 +44,6 @@ namespace COLLADAMaya
 
         /** Exports the lights in the scene graph. */
 		void exportLODs(VisualSceneExporter* mVisualSceneExporter);
-
-        /** Exports the current scene element and all it's children. */
-        void exportLODs ( SceneElement* sceneElement );
-
-        /**
-        * A collada id for every maya id.
-        */
-  //      const String findColladaLightId ( const String& mayaLightId );
-
-    private:
-
-        /** Exports the geometry data of the current object, if it is a valid mesh object to export. */
-        bool exportLOD ( const MDagPath& dagPath );
-
-   //     void exportExtraAttributes(const SceneElement* sceneElement, COLLADASW::Light* light);
-
     };
 
 }

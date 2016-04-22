@@ -60,7 +60,6 @@ namespace COLLADAMaya
         * A collada id for every maya id.
         */
         StringToStringMap mMayaIdColladaNodeId;
-//		std::vector< String > LodNode;
 
         /** Flag, if the current node is a joint. */
         bool mIsJoint;
@@ -94,9 +93,11 @@ namespace COLLADAMaya
         /** The current transform matrix. */
         MTransformationMatrix mTransformMatrix;
 
-		int mCounter1;
+		/** Lod Index Counter during visual scene Pass*/
+		int mLODIndexCounter1;
 
-		int mCounter2;
+		/** Lod Index Counter during Library node Pass*/
+		int mLODIndexCounter2;
 
     public:
 
@@ -123,7 +124,7 @@ namespace COLLADAMaya
         * A collada id for every maya id.
         */
         const String findColladaNodeId ( const String& mayaNodeId );
-		const String findNextColladaNodeId(const SceneElement* sceneElement);
+		const String findNextColladaNodeId(const SceneElement* sceneElement, int& indexLOD);
 
         /**
         * Creates the uri for the scene element. Checks for instances 

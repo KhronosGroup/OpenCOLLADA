@@ -40,7 +40,8 @@ namespace COLLADAMaya
     /** Extra technique parameters. */
     static const String PARAMETER_MAYA_ID                           = "originalMayaNodeId";
     static const String PARAMETER_DOUBLE_SIDED                      = "double_sided";
-	
+	static const String PARAMETER_PROXY								= "proxy";
+
     /** Empty strings. */
     static const String EMPTY_STRING                                = "";
     static const char* EMPTY_CSTRING                                = "";
@@ -297,7 +298,7 @@ namespace COLLADAMaya
 	static const char* ATTR_EVENT_ANIMATION							= "animationEvent";
 	static const char* ATTR_CLIP_SOURCE_START						= "sourceStart";
 	static const char* ATTR_CLIP_SOURCE_END							= "sourceEnd";
-
+	static const char* ATTR_THRESHOLD								= "threshold";
 
     /** Constants for the cameras */
     static const char* CAMERA_PERSP                                 = "persp";

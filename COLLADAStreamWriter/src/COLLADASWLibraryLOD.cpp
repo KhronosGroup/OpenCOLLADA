@@ -21,13 +21,4 @@ namespace COLLADASW
     , BaseExtraTechnique()
     {}
 
-
-    //---------------------------------------------------------------
-	//void LibraryLOD::addLod(const Light& light)
- //   {
- //       openLibrary();
- ////       lod.add();
- //   }
-
-
 } //namespace COLLADASW

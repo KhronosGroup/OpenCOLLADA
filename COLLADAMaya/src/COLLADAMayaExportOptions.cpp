@@ -65,7 +65,7 @@ namespace COLLADAMaya
     {
 		mLOD = true;
         // Reset everything to the default value
-		mBakeTransforms = false;
+        mBakeTransforms = true;
         mRelativePaths = true;
 		mPreserveSourceTree = false;
 
@@ -85,8 +85,7 @@ namespace COLLADAMaya
         mExportCameras = true;
         mExportMaterialsOnly = false;
         mExportReferencedMaterials = true;
-        mExportJoints = true;
-		mExportSkin = true;
+        mExportJointsAndSkin = true;
         mExportAnimations = true;
 		mExportOptimizedBezierAnimations = false;
         mExportInvisibleNodes = false;

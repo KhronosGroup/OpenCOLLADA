@@ -58,15 +58,15 @@ namespace COLLADAMaya
     {
 	public :
 
-		enum LOD_PASS
+		enum PASS
 		{
-			NO_PASS = 0,
-			FIRST,
-			SECOND,
-			DEFAULT = NO_PASS
+			VISUAL_SCENE_PASS = 0,
+			FIRST_LOD_PASS,
+			SECOND_LOD_PASS,
+			DEFAULT = VISUAL_SCENE_PASS
 		};
 
-		LOD_PASS exportLOD;
+		PASS mExportPass;
 
     private:
 

@@ -128,7 +128,7 @@ namespace COLLADAMaya
         const MObject& getNode () const;
 
         /** Returns the type of the node*/
-		const Type& getType(bool cached=true) const;
+		const Type& getType() const;
         void setType ( const Type& _type )
         {
             mType = _type;
@@ -300,7 +300,7 @@ namespace COLLADAMaya
     private:
 
         /** Returns the type of the node*/
-        const Type determineType(bool cached = true) const;
+        const Type determineType(/*bool cached = true*/) const;
     };
 }
 
