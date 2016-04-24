@@ -290,6 +290,13 @@ namespace COLLADAMaya
          */
 		String dagPathToColladaId(const MDagPath& dagPath, bool removeFirstNamespace = false);
 
+		/**
+		 * Make a unique COLLADA SID from a dagPath.
+		 * @param dagPath The dag path to convert.
+		 * @return MString The converted COLLADA SID.
+		 */
+		String dagPathToColladaSid(const MDagPath & dagPath);
+
         /**
          * Get a COLLADA suitable node name from a DAG path
          * @param dagPath The dag path to convert.

@@ -341,8 +341,8 @@ namespace COLLADAMaya
         MDagPath dagPath = sceneElement->getPath();
         MObject node = dagPath.node();
 
-        // Generate a COLLADA id for the new object
-        String nodeSid = mDocumentExporter->dagPathToColladaId ( dagPath );
+        // Generate a COLLADA sid for the new object
+        String nodeSid = mDocumentExporter->dagPathToColladaSid(dagPath);
         sceneNode->setNodeSid( nodeSid );
 
 //         // Export the segment-scale-compensate flag.

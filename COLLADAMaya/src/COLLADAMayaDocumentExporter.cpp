@@ -487,6 +487,11 @@ namespace COLLADAMaya
         return mayaNameToColladaName(dagPath.fullPathName(), false, removeFirstNamespace);
     }
 
+	String DocumentExporter::dagPathToColladaSid(const MDagPath & dagPath)
+	{
+		return mayaNameToColladaName(dagPath.partialPathName());
+	}
+
     //---------------------------
     String DocumentExporter::dagPathToColladaName ( const MDagPath& dagPath )
     {
