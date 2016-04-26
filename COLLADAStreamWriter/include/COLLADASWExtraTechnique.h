@@ -67,7 +67,6 @@ namespace COLLADASW
 
 	struct CustomParamData
 	{
-		String attributeName;
 		String stringValue;
 		float floatValue;
 	};
@@ -96,6 +95,8 @@ namespace COLLADASW
 
 	typedef std::map<String, CustomParameters> ChildCustomTagMap;
 	typedef std::pair<String, CustomParameters> ChildCustomElement;
+	typedef std::map<String, CustomTagData> ParentCustomTagMap;
+	typedef std::pair<String, CustomTagData> ParentCustomElement;
 
 
     typedef std::map<String, CustomTagData> CustomTags;
@@ -125,6 +126,8 @@ namespace COLLADASW
 
 		/** The child custom Tag with their parameters under the current profile */
 		ChildCustomTagMap mChildCustomTags;
+
+		ParentCustomTagMap mParentCustomTags;
 
         CustomTags mCustomTags;
     };
@@ -191,9 +194,9 @@ namespace COLLADASW
 		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, const bool &value, const String &paramSid = "", const String& tagName = "");
 		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, double matrix[][4], const String &paramSid = "", const String& tagName = "");
 
-		void addExtraTechniqueCustomTag(const String& profileName, const String& tagName, const String& attributeName, const String& attributeValue);
+		void addExtraTechniqueElement(const String& profileName, const String& tagName, const String& attributeName, const String& attributeValue);
 
-		void addExtraTechniqueChildCustomTag(const String& profileName, const String& tagName);
+		void addExtraTechniqueParentElement(const String& profileName, const String& tagName, const String& attributeName = "", const String& attributeValue = "");
 		void addExtraTechniqueChildElement(const String& profileName, const String& ParentTagName, const String& childTagName, const float& childAttributeValue);
 		void addExtraTechniqueChildElement(const String& profileName, const String& ParentTagName, const String& childTagName, const String& childAttributeValue);
 		void addExtraTechniques(StreamWriter* streamWriter) const;
@@ -215,6 +218,7 @@ namespace COLLADASW
         Gets the current child element from the map or create a new one. */
         Parameters& getChildParameters ( ChildElementsMap& childElements, const String& childName );
 		CustomParameters& getChildCustomTag(ChildCustomTagMap& childElements, const String& childName);
+		CustomTagData& BaseExtraTechnique::getParentCustomTag(ParentCustomTagMap& parentElements, const String& ParentName);
 
     };
 

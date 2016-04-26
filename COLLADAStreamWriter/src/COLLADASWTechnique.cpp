@@ -36,6 +36,19 @@ namespace COLLADASW
         mOpenChildElements[childElementName] = childElementCloser;
     }
 
+	//---------------------------------------------------------------
+	void Technique::addCustomChildElement(const String &childElementName, const String& attributeName, const String& attributeValue)
+	{
+		TagCloser childElementCloser = mSW->openElement(childElementName);
+
+		if (!attributeName.empty())
+		{
+			mSW->appendAttribute(attributeName, attributeValue);
+		}
+
+		mOpenChildElements[childElementName] = childElementCloser;
+	}
+
     //---------------------------------------------------------------
     void Technique::closeChildElement ( const String &childElementName )
     {

@@ -714,13 +714,11 @@ namespace COLLADAMaya
 					String proxy = findNextColladaNodeId(sceneElement, indexLOD);
 					if (proxy.compare(EMPTY_STRING) != 0)
 					{
-						mVisualSceneNode->addExtraTechniqueChildCustomTag(PROFILE_MAYA, PARAMETER_PROXY);
+						const String url = String("#LOD__") + proxy;
+						mVisualSceneNode->addExtraTechniqueParentElement(PROFILE_MAYA, PARAMETER_PROXY, "url", url);
 
-							const String url = String("#LOD__") + proxy;
-							mVisualSceneNode->addExtraTechniqueChildElement(PROFILE_MAYA, PARAMETER_PROXY, "url", url);
-
-							const String threshold = String(ATTR_THRESHOLD);
-							mVisualSceneNode->addExtraTechniqueChildElement(PROFILE_MAYA, PARAMETER_PROXY, threshold, GetThresholdPlugValue(sceneElement, indexLOD));
+						const String threshold = String(ATTR_THRESHOLD);
+						mVisualSceneNode->addExtraTechniqueChildElement(PROFILE_MAYA, PARAMETER_PROXY, threshold, GetThresholdPlugValue(sceneElement, indexLOD));
 					}
 				}
 
@@ -760,11 +758,9 @@ namespace COLLADAMaya
 				String proxy = findNextColladaNodeId(sceneElement, indexLOD);
 				if (proxy.compare(EMPTY_STRING) != 0)
 				{
-					mVisualSceneNode->addExtraTechniqueChildCustomTag(PROFILE_MAYA, PARAMETER_PROXY);
-
 					const String url = String("#LOD__") + proxy;
-					mVisualSceneNode->addExtraTechniqueChildElement(PROFILE_MAYA, PARAMETER_PROXY, "url", url);
-					
+					mVisualSceneNode->addExtraTechniqueParentElement(PROFILE_MAYA, PARAMETER_PROXY, "url", url);
+
 					const String threshold = String(ATTR_THRESHOLD);
 					mVisualSceneNode->addExtraTechniqueChildElement(PROFILE_MAYA, PARAMETER_PROXY, threshold, GetThresholdPlugValue(sceneElement, indexLOD));
 				}
@@ -1446,7 +1442,7 @@ namespace COLLADAMaya
         //COLLADASW::InstanceLightProbe instanceLightProbe ( streamWriter, uri );
         //instanceLightProbe.add();
 
-		mVisualSceneNode->addExtraTechniqueCustomTag(COLLADAMaya::PROFILE_MAYA, COLLADAMaya::CSW_ELEMENT_INSTANCE_LIGHT_PROBE, COLLADASW::CSWC::CSW_ATTRIBUTE_URL, uri.getURIString());
+		mVisualSceneNode->addExtraTechniqueElement(COLLADAMaya::PROFILE_MAYA, COLLADAMaya::CSW_ELEMENT_INSTANCE_LIGHT_PROBE, COLLADASW::CSWC::CSW_ATTRIBUTE_URL, uri.getURIString());
     }
 
     //---------------------------------------------------------------
