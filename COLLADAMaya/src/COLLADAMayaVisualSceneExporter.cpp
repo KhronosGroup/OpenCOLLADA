@@ -714,8 +714,10 @@ namespace COLLADAMaya
 					String proxy = findNextColladaNodeId(sceneElement, indexLOD);
 					if (proxy.compare(EMPTY_STRING) != 0)
 					{
-						mVisualSceneNode->addExtraTechniqueURLParameter(PROFILE_MAYA, PARAMETER_PROXY, String("#LOD__") + proxy);
-						mVisualSceneNode->addExtraTechniqueParameter(PROFILE_MAYA, ATTR_THRESHOLD, GetThresholdPlugValue(sceneElement, indexLOD));
+						mVisualSceneNode->addExtraTechniqueChildCustomTag(PROFILE_MAYA, PARAMETER_PROXY, "url", String("#LOD__") + proxy);
+
+						const String threshold = String(ATTR_THRESHOLD);
+						mVisualSceneNode->addExtraTechniqueElement(PROFILE_MAYA, threshold, GetThresholdPlugValue(sceneElement, indexLOD));
 					}
 				}
 
@@ -755,8 +757,18 @@ namespace COLLADAMaya
 				String proxy = findNextColladaNodeId(sceneElement, indexLOD);
 				if (proxy.compare(EMPTY_STRING) != 0)
 				{
-					mVisualSceneNode->addExtraTechniqueURLParameter(PROFILE_MAYA, PARAMETER_PROXY, String("#LOD__") + proxy);
-					mVisualSceneNode->addExtraTechniqueParameter(PROFILE_MAYA, ATTR_THRESHOLD, GetThresholdPlugValue(sceneElement, indexLOD));
+					//mVisualSceneNode->addExtraTechniqueElement(PROFILE_MAYA, PARAMETER_PROXY, "url", String("#LOD__") + proxy);
+					mVisualSceneNode->addExtraTechniqueChildCustomTag(PROFILE_MAYA, PARAMETER_PROXY, "url", String("#LOD__") + proxy);
+
+					const String threshold = String(ATTR_THRESHOLD);
+					mVisualSceneNode->addExtraTechniqueElement(PROFILE_MAYA, threshold, GetThresholdPlugValue(sceneElement, indexLOD));
+
+					mVisualSceneNode->addExtraTechniqueElement(PROFILE_MAYA, "toto", 12.56f);
+
+					
+					mVisualSceneNode->addExtraTechniqueChildCustomTag(PROFILE_MAYA, "proxy2", "url2", String("#LOD__") + proxy);
+					mVisualSceneNode->addExtraTechniqueElement(PROFILE_MAYA, "threshold2", 2432.23f);
+					mVisualSceneNode->addExtraTechniqueElement(PROFILE_MAYA, "toto2", 12.56f);
 				}
 			}
 

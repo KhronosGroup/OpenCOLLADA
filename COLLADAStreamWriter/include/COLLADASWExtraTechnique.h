@@ -52,7 +52,6 @@ namespace COLLADASW
 	struct ParamData
     {
 		String sid;
-		String url;
 
         String stringValue;
         int integerValue[3];
@@ -72,6 +71,12 @@ namespace COLLADASW
         String attributeValue;
     };
 
+	struct CustomTagData2
+	{
+		//String attributeName;
+		float attributeValue;
+	};
+
 
     //---------------------------------------------------------------
     /** Map with the parameter names and the value */
@@ -82,8 +87,19 @@ namespace COLLADASW
     typedef std::map<String, Parameters> ChildElementsMap;
     typedef std::pair<String, Parameters> ChildElement;
 
+
+//	typedef std::pair<String, CustomTagData> CustomParameter;
+//	typedef std::vector<CustomParameter> CustomParameters;
+
+	typedef std::map<String, CustomTagData> ChildCustomTagMap;
+	typedef std::pair<String, CustomTagData> ChildCustomElement;
+
+
     typedef std::map<String, CustomTagData> CustomTags;
     typedef std::pair<String, CustomTagData> CustomTag;
+
+	typedef std::map<String, CustomTagData2> CustomTags2;
+	typedef std::pair<String, CustomTagData2> CustomTag2;
 
     //---------------------------------------------------------------
 
@@ -106,7 +122,11 @@ namespace COLLADASW
         /** The child elements with their parameters under the current profile */
         ChildElementsMap mChildElements;
 
+		ChildCustomTagMap mChildCustomTags;
+
         CustomTags mCustomTags;
+
+		CustomTags2 mCustomTags2;
     };
 
 
@@ -162,7 +182,6 @@ namespace COLLADASW
         void addExtraTechniqueParameter(const String& profileName, const String& paramName, const float &value0, const float &value1, const float &value2, const String &paramSid = "", const String& tagName = "");
 		void addExtraTechniqueParameter(const String& profileName, const String& paramName, const bool &value, const String &paramSid = "", const String& tagName = "");
         void addExtraTechniqueEnumParameter(const String& profileName, const String& paramName, const String &enumStr = "", const String &paramSid = "", const String& tagName = "");
-		void addExtraTechniqueURLParameter(const String& profileName, const String& paramName, const String &paramUR );
 
         /** Adds a child element under the given profile. */
 		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, const String &value = "", const String &paramSid = "", const String& tagName = "");
@@ -173,13 +192,15 @@ namespace COLLADASW
 		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, double matrix[][4], const String &paramSid = "", const String& tagName = "");
 
         void addExtraTechniqueElement(const String& profileName, const String& tagName, const String& attributeName, const String& attributeValue);
+		void addExtraTechniqueElement(const String& profileName, const String& tagName, const float& attributeValue);
 
-        /** Writes the extra techniques of the texture in the COLLADASW file. */
+		void addExtraTechniqueChildCustomTag(const String& profileName, const String& tagName, const String& attributeName, const String& attributeValue);
 		void addExtraTechniques(StreamWriter* streamWriter) const;
 
     private:
 
         void addCustomTags(COLLADASW::Technique & technique, const CustomTags & customTags) const;
+		void addCustomTags2(COLLADASW::Technique & technique, const CustomTags2 & customTags) const;
 
         /** Adds the parameters in the list to the given technique tag. */
 		void addTechniqueParameters(COLLADASW::Technique &colladaTechnique, const Parameters &parameters) const;
@@ -191,6 +212,7 @@ namespace COLLADASW
         /** Returns the child element of the list with the given name.
         Gets the current child element from the map or create a new one. */
         Parameters& getChildParameters ( ChildElementsMap& childElements, const String& childName );
+		CustomTagData& getChildCustomTag(ChildCustomTagMap& childElements, const String& childName);
 
     };
 

@@ -43,6 +43,7 @@ namespace COLLADASW
         void addValue ( const String& value );
 
         void addElement(const String & tagName, const String & attributeName, const String & attributeValue);
+		void addElement(const String & tagName, const float & attributeValue);
 
         /** Adds a parameter to the technique */
 		void addParameter(const String &paramName, const String &value = "", const String &sid = "", const String &type = "", const String& tagName = "");
@@ -72,6 +73,8 @@ namespace COLLADASW
 
         /** Opens a tag with the given name and adds the TagCloser to the child element into a map */
         void addChildElement ( const String &childElementName );
+		void addCustomChildElement(const String& childElementName, const String& attributeName, const String& attributeValue);
+//		void addCustomChildElement(const String& childElementName, const CustomParameter& parameters);
 
         /** Closes the tag with the given name, if it is open */
         void closeChildElement ( const String &childElementName );

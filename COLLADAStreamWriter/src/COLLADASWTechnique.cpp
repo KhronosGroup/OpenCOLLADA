@@ -36,6 +36,19 @@ namespace COLLADASW
         mOpenChildElements[childElementName] = childElementCloser;
     }
 
+	//---------------------------------------------------------------
+	void Technique::addCustomChildElement(const String &childElementName, const String& attributeName, const String& attributeValue)
+	{
+		TagCloser childElementCloser = mSW->openElement(childElementName);
+
+		if (!attributeName.empty())
+		{
+			mSW->appendAttribute(attributeName, attributeValue);
+		}
+
+		mOpenChildElements[childElementName] = childElementCloser;
+	}
+
     //---------------------------------------------------------------
     void Technique::closeChildElement ( const String &childElementName )
     {
@@ -63,6 +76,17 @@ namespace COLLADASW
 
 		mSW->closeElement();
     }
+
+	//---------------------------------------------------------------
+	void Technique::addElement(const String & tagName, const float & attributeValue)
+	{
+		mSW->openElement(tagName);
+
+		mSW->appendValues(attributeValue);
+		//mSW->appendAttribute(attributeName, attributeValue);
+
+		mSW->closeElement();
+	}
 
 
 	void Technique::addParameterURL(const String &paramName, const String &url)
