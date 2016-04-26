@@ -65,17 +65,20 @@ namespace COLLADASW
 
 	};
 
+	struct CustomParamData
+	{
+		String attributeName;
+		String stringValue;
+		float floatValue;
+	};
+
+
     struct CustomTagData
     {
         String attributeName;
         String attributeValue;
     };
-
-	struct CustomTagData2
-	{
-		//String attributeName;
-		float attributeValue;
-	};
+	
 
 
     //---------------------------------------------------------------
@@ -88,18 +91,16 @@ namespace COLLADASW
     typedef std::pair<String, Parameters> ChildElement;
 
 
-//	typedef std::pair<String, CustomTagData> CustomParameter;
-//	typedef std::vector<CustomParameter> CustomParameters;
+	typedef std::pair<String, CustomParamData> CustomParameter;
+	typedef std::vector<CustomParameter> CustomParameters;
 
-	typedef std::map<String, CustomTagData> ChildCustomTagMap;
-	typedef std::pair<String, CustomTagData> ChildCustomElement;
+	typedef std::map<String, CustomParameters> ChildCustomTagMap;
+	typedef std::pair<String, CustomParameters> ChildCustomElement;
 
 
     typedef std::map<String, CustomTagData> CustomTags;
     typedef std::pair<String, CustomTagData> CustomTag;
 
-	typedef std::map<String, CustomTagData2> CustomTags2;
-	typedef std::pair<String, CustomTagData2> CustomTag2;
 
     //---------------------------------------------------------------
 
@@ -122,11 +123,10 @@ namespace COLLADASW
         /** The child elements with their parameters under the current profile */
         ChildElementsMap mChildElements;
 
+		/** The child custom Tag with their parameters under the current profile */
 		ChildCustomTagMap mChildCustomTags;
 
         CustomTags mCustomTags;
-
-		CustomTags2 mCustomTags2;
     };
 
 
@@ -191,19 +191,21 @@ namespace COLLADASW
 		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, const bool &value, const String &paramSid = "", const String& tagName = "");
 		void addExtraTechniqueChildParameter(const String& profileName, const String& childName, const String& paramName, double matrix[][4], const String &paramSid = "", const String& tagName = "");
 
-        void addExtraTechniqueElement(const String& profileName, const String& tagName, const String& attributeName, const String& attributeValue);
-		void addExtraTechniqueElement(const String& profileName, const String& tagName, const float& attributeValue);
+		void addExtraTechniqueCustomTag(const String& profileName, const String& tagName, const String& attributeName, const String& attributeValue);
 
-		void addExtraTechniqueChildCustomTag(const String& profileName, const String& tagName, const String& attributeName, const String& attributeValue);
+		void addExtraTechniqueChildCustomTag(const String& profileName, const String& tagName);
+		void addExtraTechniqueChildElement(const String& profileName, const String& ParentTagName, const String& childTagName, const float& childAttributeValue);
+		void addExtraTechniqueChildElement(const String& profileName, const String& ParentTagName, const String& childTagName, const String& childAttributeValue);
 		void addExtraTechniques(StreamWriter* streamWriter) const;
 
     private:
 
         void addCustomTags(COLLADASW::Technique & technique, const CustomTags & customTags) const;
-		void addCustomTags2(COLLADASW::Technique & technique, const CustomTags2 & customTags) const;
+		
 
         /** Adds the parameters in the list to the given technique tag. */
 		void addTechniqueParameters(COLLADASW::Technique &colladaTechnique, const Parameters &parameters) const;
+		void addTechniqueParameters(COLLADASW::Technique &colladaTechnique, const CustomParameters &parameters) const;
 
         /** Returns the profile with the given name.
         Gets the current profile from the map or create a new one. */
@@ -212,7 +214,7 @@ namespace COLLADASW
         /** Returns the child element of the list with the given name.
         Gets the current child element from the map or create a new one. */
         Parameters& getChildParameters ( ChildElementsMap& childElements, const String& childName );
-		CustomTagData& getChildCustomTag(ChildCustomTagMap& childElements, const String& childName);
+		CustomParameters& getChildCustomTag(ChildCustomTagMap& childElements, const String& childName);
 
     };
 

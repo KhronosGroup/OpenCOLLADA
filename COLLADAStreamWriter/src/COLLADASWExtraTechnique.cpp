@@ -49,7 +49,7 @@ namespace COLLADASW
     }
 
 	//---------------------------------------------------------------
-	CustomTagData& BaseExtraTechnique::getChildCustomTag(
+	CustomParameters& BaseExtraTechnique::getChildCustomTag(
 		ChildCustomTagMap& childElements,
 		const String& childName)
 	{
@@ -57,7 +57,7 @@ namespace COLLADASW
 		ChildCustomTagMap::iterator it = childElements.find(childName);
 
 		if (it == childElements.end())
-			childElements.insert(ChildCustomElement(childName, CustomTagData()));
+			childElements.insert(ChildCustomElement(childName, CustomParameters()));
 
 		it = childElements.find(childName);
 		if (it == childElements.end()) { COLLADABU_ASSERT("Can't create a child parameter!"); }
@@ -547,7 +547,7 @@ namespace COLLADASW
     }
 
     //---------------------------------------------------------------
-    void BaseExtraTechnique::addExtraTechniqueElement(const String& profileName, const String& tagName, const String& attributeName, const String& attributeValue)
+	void BaseExtraTechnique::addExtraTechniqueCustomTag(const String& profileName, const String& tagName, const String& attributeName, const String& attributeValue)
     {
         Profile& profile = getProfile(profileName);
 
@@ -558,51 +558,46 @@ namespace COLLADASW
         profile.mCustomTags.insert(CustomTag(tagName, customTagData));
     }
 
+
 	//---------------------------------------------------------------
 	void BaseExtraTechnique::addExtraTechniqueChildCustomTag(
 		const String& profileName,
-		const String& tagName,
-		const String& attributeName,
-		const String & attributeValue)
+		const String& tagName)
 	{
 		// Get the current Profile from the map or create a new one.
 		Profile& profile = getProfile(profileName);
 
 		// Get the current childElement from the map or create a new one.
-		CustomTagData& childParameter = getChildCustomTag(profile.mChildCustomTags, tagName);
-
-		// Create the value
-		childParameter.attributeName = attributeName;
-		childParameter.attributeValue = attributeValue;
+		getChildCustomTag(profile.mChildCustomTags, tagName);
 	}
 
-
 	//---------------------------------------------------------------
-	void BaseExtraTechnique::addExtraTechniqueElement(const String& profileName, const String& tagName,  const float& attributeValue)
+	void BaseExtraTechnique::addExtraTechniqueChildElement(const String& profileName, const String& ParentTagName, const String& childTagName, const float& childAttributeValue)
 	{
 		Profile& profile = getProfile(profileName);
 
-		CustomTagData2 customTagData;
-		customTagData.attributeValue = attributeValue;
+		// Get the current childElement from the map or create a new one.
+		CustomParameters& childParameter = getChildCustomTag(profile.mChildCustomTags, ParentTagName);
 
-		profile.mCustomTags2.insert(CustomTag2(tagName, customTagData));
+		CustomParamData customTagData;
+		customTagData.floatValue = childAttributeValue;
+
+		childParameter.push_back(CustomParameter(childTagName, customTagData));
 	}
 
 	//---------------------------------------------------------------
-	//void BaseExtraTechnique::addExtraTechniqueChildElement(const String& profileName, const String& ParentTagName, const String& tagName, const float& attributeValue)
-	//{
-	//	Profile& profile = getProfile(profileName);
+	void BaseExtraTechnique::addExtraTechniqueChildElement(const String& profileName, const String& ParentTagName, const String& childTagName, const String& childAttributeValue)
+	{
+		Profile& profile = getProfile(profileName);
 
-	//	// Get the current childElement from the map or create a new one.
-	//	CustomTagData& childParameter = getChildCustomTag(profile.mChildCustomTags, ParentTagName);
+		// Get the current childElement from the map or create a new one.
+		CustomParameters& childParameter = getChildCustomTag(profile.mChildCustomTags, ParentTagName);
 
-	//	CustomTagData2 customTagData;
-	//	customTagData.attributeValue = attributeValue;
+		CustomParamData customTagData;
+		customTagData.stringValue = childAttributeValue;
 
-	//	profile.mCustomTags2.insert(CustomTag2(tagName, customTagData));
-
-	//	childParameters.push_back(Parameter(paramName, paramValue));
-	//}
+		childParameter.push_back(CustomParameter(childTagName, customTagData));
+	}
 
 
     //---------------------------------------------------------------
@@ -658,9 +653,9 @@ namespace COLLADASW
 				{
 					const String childElementName = (*childCustomIt).first;
 
-					colladaTechnique.addCustomChildElement(childElementName, /*(*childCustomIt).second*/(*childCustomIt).second.attributeName, (*childCustomIt).second.attributeValue);
+					colladaTechnique.addChildElement(childElementName);
 
-					addCustomTags2(colladaTechnique, profile.mCustomTags2);
+					addTechniqueParameters(colladaTechnique, (*childCustomIt).second);
 
 					colladaTechnique.closeChildElement(childElementName);
 
@@ -690,13 +685,17 @@ namespace COLLADASW
     }
 
 	//---------------------------------------------------------------
-	void BaseExtraTechnique::addCustomTags2(COLLADASW::Technique & technique, const CustomTags2 & customTags2) const
+	void BaseExtraTechnique::addTechniqueParameters(COLLADASW::Technique & colladaTechnique, const CustomParameters &parameters) const
 	{
-		for (CustomTags2::const_iterator it = customTags2.begin(); it != customTags2.end(); ++it)
+		for (CustomParameters::const_iterator it = parameters.begin(); it != parameters.end(); ++it)
 		{
 			const String & tagName = it->first;
-			const CustomTagData2 & customTagData2 = it->second;
-			technique.addElement(tagName, customTagData2.attributeValue);
+			const CustomParamData & paramData = it->second;
+			
+			if (!paramData.stringValue.empty())
+				colladaTechnique.addElement(tagName, paramData.stringValue);
+			else
+				colladaTechnique.addElement(tagName, paramData.floatValue);
 		}
 	}
 
