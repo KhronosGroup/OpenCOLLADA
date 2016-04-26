@@ -61,16 +61,16 @@ namespace COLLADAMaya
 				openLibrary();
 
 				// First Pass
-				mDocumentExporter->mExportPass = DocumentExporter::PASS::FIRST_LOD_PASS;
+                mDocumentExporter->mExportPass = FIRST_LOD_PASS;
 				mVisualSceneExporter->exportVisualSceneNodes(sceneElement);
 
 				// Second Pass
-				mDocumentExporter->mExportPass = DocumentExporter::PASS::SECOND_LOD_PASS;
+                mDocumentExporter->mExportPass = SECOND_LOD_PASS;
 				mVisualSceneExporter->exportVisualSceneNodes(sceneElement);
 			}
 		}
 
-		mDocumentExporter->mExportPass = DocumentExporter::PASS::VISUAL_SCENE_PASS;
+        mDocumentExporter->mExportPass = VISUAL_SCENE_PASS;
 
 		closeLibrary();
     }

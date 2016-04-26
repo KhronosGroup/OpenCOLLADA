@@ -50,6 +50,13 @@ namespace COLLADAMaya
 
     typedef std::map<String, String> StringToStringMap;
 
+    enum PASS
+    {
+        VISUAL_SCENE_PASS = 0,
+        FIRST_LOD_PASS,
+        SECOND_LOD_PASS,
+        DEFAULT = VISUAL_SCENE_PASS
+    };
 
     /**
      * The main exporter class. This class exports all data of the scene.
@@ -57,14 +64,6 @@ namespace COLLADAMaya
     class DocumentExporter
     {
 	public :
-
-		enum PASS
-		{
-			VISUAL_SCENE_PASS = 0,
-			FIRST_LOD_PASS,
-			SECOND_LOD_PASS,
-			DEFAULT = VISUAL_SCENE_PASS
-		};
 
 		PASS mExportPass;
 

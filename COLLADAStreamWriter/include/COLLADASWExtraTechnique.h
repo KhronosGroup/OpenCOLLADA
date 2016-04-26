@@ -218,7 +218,7 @@ namespace COLLADASW
         Gets the current child element from the map or create a new one. */
         Parameters& getChildParameters ( ChildElementsMap& childElements, const String& childName );
 		CustomParameters& getChildCustomTag(ChildCustomTagMap& childElements, const String& childName);
-		CustomTagData& BaseExtraTechnique::getParentCustomTag(ParentCustomTagMap& parentElements, const String& ParentName);
+		CustomTagData& getParentCustomTag(ParentCustomTagMap& parentElements, const String& ParentName);
 
     };
 
