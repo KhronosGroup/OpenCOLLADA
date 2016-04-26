@@ -85,7 +85,8 @@ namespace COLLADAMaya
         mExportCameras = true;
         mExportMaterialsOnly = false;
         mExportReferencedMaterials = true;
-        mExportJointsAndSkin = true;
+		mExportJoints = true;
+		mExportSkin = true;
         mExportAnimations = true;
 		mExportOptimizedBezierAnimations = false;
         mExportInvisibleNodes = false;

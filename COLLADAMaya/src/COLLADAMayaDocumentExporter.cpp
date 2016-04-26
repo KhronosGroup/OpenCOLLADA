@@ -220,9 +220,6 @@ namespace COLLADAMaya
             {
 				// Start by caching the expressions that will be sampled
 				mSceneGraph->sampleAnimationExpressions();
-
-				// Export the LOD
-				mLODExporter->exportLODs();
 				
 				if (!ExportOptions::exportAnimations() || ExportOptions::exportPolygonMeshes())
 				{
@@ -263,6 +260,9 @@ namespace COLLADAMaya
 
 				// Export the geometries
 				mGeometryExporter->exportGeometries();
+
+				// Export the LOD
+				mLODExporter->exportLODs(mVisualSceneExporter);
 
 				bool physicsSceneExported = false;
 				if (ExportOptions::exportPhysics()) {
