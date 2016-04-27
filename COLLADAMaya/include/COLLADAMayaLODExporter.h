@@ -44,6 +44,8 @@ namespace COLLADAMaya
 
         /** Exports the nodes in <library_nodes> and add extra techniques with <proxy> to instance_node. */
 		void exportLODs(VisualSceneExporter* mVisualSceneExporter);
+
+		void exportLOD(VisualSceneExporter* mVisualSceneExporter, SceneElement* sceneElement);
     };
 
 }

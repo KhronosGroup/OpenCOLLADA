@@ -623,7 +623,7 @@ namespace COLLADAMaya
 	{
 
 		// Add Threshold value To switch to Next LOD Node
-		float threshold = -1;
+		double threshold = -1;
 		MDagPath dagPath;
 
 		SceneElement::Type sceneElementType = sceneElement->getType();
@@ -646,10 +646,10 @@ namespace COLLADAMaya
 
 			String thresholdLOD = String(ATTR_THRESHOLD) + String("[") + String(indexLODString) + String("]");
 			plug.getValue(threshold);
-
+			threshold = MDistance::internalToUI(threshold);
 		}
 			
-		return threshold;
+		return (float)threshold;
 	}
 
     //---------------------------------------------------------------

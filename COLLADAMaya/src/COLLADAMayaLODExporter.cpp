@@ -55,23 +55,41 @@ namespace COLLADAMaya
 			// No instance node under the visual scene!
 			SceneElement* sceneElement = (*exportNodesTree)[i];
 
-			SceneElement::Type sceneElementType = sceneElement->getType();
-			if (sceneElementType == SceneElement::LOD)
-			{
-				openLibrary();
-
-				// First Pass
-                mDocumentExporter->mExportPass = FIRST_LOD_PASS;
-				mVisualSceneExporter->exportVisualSceneNodes(sceneElement);
-
-				// Second Pass
-                mDocumentExporter->mExportPass = SECOND_LOD_PASS;
-				mVisualSceneExporter->exportVisualSceneNodes(sceneElement);
-			}
+			exportLOD(mVisualSceneExporter, sceneElement);
 		}
 
         mDocumentExporter->mExportPass = VISUAL_SCENE_PASS;
 
 		closeLibrary();
     }
+
+
+	void LODExporter::exportLOD(VisualSceneExporter* mVisualSceneExporter, SceneElement* sceneElement)
+	{
+		SceneElement::Type sceneElementType = sceneElement->getType();
+		if (sceneElementType == SceneElement::LOD)
+		{
+			openLibrary();
+
+			// First Pass
+			mDocumentExporter->mExportPass = FIRST_LOD_PASS;
+			mVisualSceneExporter->exportVisualSceneNodes(sceneElement);
+
+			// Second Pass
+			mDocumentExporter->mExportPass = SECOND_LOD_PASS;
+			mVisualSceneExporter->exportVisualSceneNodes(sceneElement);
+		}
+		else
+		{
+			size_t childCount = sceneElement->getChildCount();
+			for (size_t i = 0; i < childCount; ++i)
+			{
+				SceneElement* childSceneElement = sceneElement->getChild(i);
+				{
+					exportLOD(mVisualSceneExporter, childSceneElement);
+				}
+			}
+		}
+			
+	}
 }
