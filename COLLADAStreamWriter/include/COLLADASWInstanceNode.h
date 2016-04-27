@@ -14,12 +14,13 @@
 #include "COLLADASWPrerequisites.h"
 #include "COLLADASWElementWriter.h"
 #include "COLLADABUURI.h"
+#include "COLLADASWExtraTechnique.h"
 
 namespace COLLADASW
 {
 
     /** A class that holds informations of an @a \<instance_node\> element and writes it to stream. */
-    class InstanceNode : public ElementWriter
+	class InstanceNode : public ElementWriter, public BaseExtraTechnique
     {
 
     private:
@@ -63,6 +64,9 @@ namespace COLLADASW
 
         /** Write the instance node to the stream*/
         void add();
+
+		/** Add Extra Techniques for LOD */
+		void addExtraTechnique();
 
     };
 

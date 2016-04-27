@@ -477,7 +477,8 @@ namespace COLLADAMaya
 		}
 
 
-		if (!isLocal || mDocumentExporter->mExportPass == SECOND_LOD_PASS)
+		if (!isLocal || mDocumentExporter->mExportPass == SECOND_LOD_PASS ||
+			(mDocumentExporter->mExportPass == VISUAL_SCENE_PASS && (ExportOptions::exportLOD() && (sceneElement->getParentCount() > 0 && sceneElement->getParent()->getType() == SceneElement::LOD))))
         {
             // Export the node external reference
             exportInstanceNode ( sceneElement );
@@ -707,21 +708,6 @@ namespace COLLADAMaya
 				// The maya node id.
 				String mayaNodeId = mDocumentExporter->dagPathToColladaId(dagPath);
 				
-				if (mDocumentExporter->mExportPass == SECOND_LOD_PASS)
-				{
-					// Add Proxy to Next LOD Node (during Library Node second Pass)
-					int indexLOD;
-					String proxy = findNextColladaNodeId(sceneElement, indexLOD);
-					if (proxy.compare(EMPTY_STRING) != 0)
-					{
-						const String url = String("#LOD__") + proxy;
-						mVisualSceneNode->addExtraTechniqueParentElement(PROFILE_MAYA, PARAMETER_PROXY, "url", url);
-
-						const String threshold = String(ATTR_THRESHOLD);
-						mVisualSceneNode->addExtraTechniqueChildElement(PROFILE_MAYA, PARAMETER_PROXY, threshold, GetThresholdPlugValue(sceneElement, indexLOD));
-					}
-				}
-
 				// Export the original maya name.
 				mVisualSceneNode->setNodeId(String("LOD__") + mayaNodeId);
 				mVisualSceneNode->setNodeName(mayaNodeId);
@@ -750,22 +736,7 @@ namespace COLLADAMaya
 			String nodeName = mDocumentExporter->dagPathToColladaName(dagPath);
 
 			mVisualSceneNode->setNodeName(nodeName);
-
-			if (ExportOptions::exportLOD() && mDocumentExporter->mExportPass == VISUAL_SCENE_PASS && (sceneElement->getType() == SceneElement::LOD))
-			{ 
-				// Add Proxy with second LOD Node (during library visual scene Pass)
-				int indexLOD;
-				String proxy = findNextColladaNodeId(sceneElement, indexLOD);
-				if (proxy.compare(EMPTY_STRING) != 0)
-				{
-					const String url = String("#LOD__") + proxy;
-					mVisualSceneNode->addExtraTechniqueParentElement(PROFILE_MAYA, PARAMETER_PROXY, "url", url);
-
-					const String threshold = String(ATTR_THRESHOLD);
-					mVisualSceneNode->addExtraTechniqueChildElement(PROFILE_MAYA, PARAMETER_PROXY, threshold, GetThresholdPlugValue(sceneElement, indexLOD));
-				}
-			}
-
+			
 			mVisualSceneNode->addExtraTechniqueParameter(PROFILE_MAYA, PARAMETER_MAYA_ID, nodeName);   
         }
 
@@ -1500,7 +1471,38 @@ namespace COLLADAMaya
         // Create and write the camera instance
         COLLADASW::StreamWriter* streamWriter = mDocumentExporter->getStreamWriter();
         COLLADASW::InstanceNode instanceNode ( streamWriter, uri );
-        instanceNode.add();
+
+		// Add Proxy to Next LOD Node (during Library Node second Pass)
+		// Or during Visual Scene Pass only for element inside LOD Group
+		if ((mDocumentExporter->mExportPass == SECOND_LOD_PASS) || 
+			(ExportOptions::exportLOD() && mDocumentExporter->mExportPass == VISUAL_SCENE_PASS && (sceneElement->getParentCount()>0 && sceneElement->getParent()->getType() == SceneElement::LOD)))
+		{
+			int indexLOD;
+
+			SceneElement* element;
+
+			if (mDocumentExporter->mExportPass == VISUAL_SCENE_PASS)
+				element = sceneElement->getParent();
+			else
+				element = sceneElement;
+
+			String proxy = findNextColladaNodeId(element, indexLOD);
+			if (proxy.compare(EMPTY_STRING) != 0)
+			{
+				const String url = String("#LOD__") + proxy;
+				instanceNode.addExtraTechniqueParentElement(PROFILE_MAYA, PARAMETER_PROXY, "url", url);
+
+				const String threshold = String(ATTR_THRESHOLD);
+				instanceNode.addExtraTechniqueChildElement(PROFILE_MAYA, PARAMETER_PROXY, threshold, GetThresholdPlugValue(element, indexLOD));
+			}			
+
+			if (mDocumentExporter->mExportPass == VISUAL_SCENE_PASS)
+				instanceNode.addExtraTechnique();		// Only Add Extra, Instance node has been added before
+			else 
+				instanceNode.add();	// Add Instance Node with proxy if != EMPTY_STRING, Add extra too
+		}
+		else
+			instanceNode.add();
     }
 
     //---------------------------------------------------------------
