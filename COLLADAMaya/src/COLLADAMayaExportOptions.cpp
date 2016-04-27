@@ -65,7 +65,7 @@ namespace COLLADAMaya
     {
 		mLOD = true;
         // Reset everything to the default value
-        mBakeTransforms = true;
+        mBakeTransforms = false;
         mRelativePaths = true;
 		mPreserveSourceTree = false;
 

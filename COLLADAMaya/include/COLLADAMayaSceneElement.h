@@ -125,7 +125,7 @@ namespace COLLADAMaya
         const MDagPath& getPath () const;
 
         /** Returns the node */
-        const MObject& getNode () const;
+		const MObject& getNode () const;
 
         /** Returns the type of the node*/
 		const Type& getType() const;
@@ -300,7 +300,7 @@ namespace COLLADAMaya
     private:
 
         /** Returns the type of the node*/
-        const Type determineType(/*bool cached = true*/) const;
+        const Type determineType() const;
     };
 }
 

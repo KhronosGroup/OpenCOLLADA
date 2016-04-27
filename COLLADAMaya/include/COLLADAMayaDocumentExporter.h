@@ -276,8 +276,8 @@ namespace COLLADAMaya
         LightExporter* getLightExporter();
 
 		/**
-		* Returns a pointer to the light exporter.
-		* @return LightExporter* Pointer to the light exporter
+		* Returns a pointer to the LOD exporter.
+		* @return LODExporter* Pointer to the lod exporter
 		*/
 		LODExporter* getLODExporter();
 

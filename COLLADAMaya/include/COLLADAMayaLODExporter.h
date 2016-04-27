@@ -24,7 +24,7 @@
 namespace COLLADAMaya
 {
 
-    /** This class writes the <library_lod>. */
+    /** This class writes the <library_nodes>. */
 	class LODExporter : public COLLADASW::LibraryNodes
     {
 
@@ -42,7 +42,7 @@ namespace COLLADAMaya
 		LODExporter(COLLADASW::StreamWriter* streamWriter, DocumentExporter* documentExporter);
         virtual ~LODExporter() {};
 
-        /** Exports the lights in the scene graph. */
+        /** Exports the nodes in <library_nodes> and add extra techniques with <proxy> to instance_node. */
 		void exportLODs(VisualSceneExporter* mVisualSceneExporter);
     };
 
