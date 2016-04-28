@@ -387,7 +387,8 @@ namespace COLLADAMaya
         clock_t startClock, endClock;
         startClock = clock();
 
-   
+        // Set the imported file name and path.
+        COLLADABU::URI mayaAsciiFileURI ( importFileName ); 
         mayaAsciiFileURI.setPathExtension ( ".opencollada.ma" );
 
         String mayaAsciiFileName = mayaAsciiFileURI.getURIString ();
