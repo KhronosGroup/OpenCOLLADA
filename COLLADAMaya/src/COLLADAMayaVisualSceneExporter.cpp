@@ -434,7 +434,8 @@ namespace COLLADAMaya
 
         // Prepares the visual scene node
         // (open the visual scene node o a node instance, if we need this).
-        openVisualSceneNode ( sceneElement );
+		if (!openVisualSceneNode(sceneElement))
+			return false;
 
 
 		bool exportTransformation = false;
@@ -653,7 +654,7 @@ namespace COLLADAMaya
 	}
 
     //---------------------------------------------------------------
-    void VisualSceneExporter::openVisualSceneNode ( const SceneElement* sceneElement )
+    bool VisualSceneExporter::openVisualSceneNode ( const SceneElement* sceneElement )
     {
         // Get the dagPath from the scene element
         const MDagPath dagPath = sceneElement->getPath();
@@ -746,7 +747,22 @@ namespace COLLADAMaya
         
 
         // open the scene node
-		mVisualSceneNode->start(mDocumentExporter->mExportPass == SECOND_LOD_PASS);
+
+		bool lodPass = false;
+		if (mDocumentExporter->mExportPass == SECOND_LOD_PASS || mDocumentExporter->mExportPass == FIRST_LOD_PASS)
+			lodPass = true;
+
+		if (mDocumentExporter->mExportPass == SECOND_LOD_PASS)
+		{
+			int indexLOD;
+			String proxy = findNextColladaNodeId(sceneElement, indexLOD);
+			if (proxy.compare(EMPTY_STRING) == 0)
+				return false;
+
+		}
+
+		mVisualSceneNode->start(lodPass);
+		return true;
     }
 
     //---------------------------------------------------------------
@@ -1489,7 +1505,14 @@ namespace COLLADAMaya
 			String proxy = findNextColladaNodeId(element, indexLOD);
 			if (proxy.compare(EMPTY_STRING) != 0)
 			{
-				const String url = String("#LOD__") + proxy;
+				String prefix = "LOD__";
+				SceneElement* parent = sceneElement->getParent();
+				
+				if (indexLOD == parent->getChildCount() - 2)
+					prefix = "";
+				
+
+				const String url = "#" + prefix + proxy;
 				instanceNode.addExtraTechniqueParentElement(PROFILE_MAYA, PARAMETER_PROXY, "url", url);
 
 				const String threshold = String(ATTR_THRESHOLD);

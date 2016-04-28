@@ -258,7 +258,7 @@ namespace COLLADAMaya
          * Prepares a new the visual scene node.
          * @param sceneElement The scene element of the node.
          */
-        void openVisualSceneNode ( const SceneElement *sceneElement );
+        bool openVisualSceneNode ( const SceneElement *sceneElement );
 
         /**
          * Compute local space parameters and export them. These parameters are:
