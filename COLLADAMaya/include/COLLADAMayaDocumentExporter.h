@@ -45,16 +45,27 @@ namespace COLLADAMaya
     class LightExporter;
     class LightProbeExporter;
     class CameraExporter;
+	class LODExporter;
 
 
     typedef std::map<String, String> StringToStringMap;
 
+    enum PASS
+    {
+        VISUAL_SCENE_PASS = 0,
+        FIRST_LOD_PASS,
+        SECOND_LOD_PASS,
+        DEFAULT = VISUAL_SCENE_PASS
+    };
 
     /**
      * The main exporter class. This class exports all data of the scene.
      */
     class DocumentExporter
     {
+	public :
+
+		PASS mExportPass;
 
     private:
 
@@ -105,6 +116,9 @@ namespace COLLADAMaya
 
         /** Exports the cameras. */
         CameraExporter* mCameraExporter;
+
+		/** Exports LODs. */
+		LODExporter*	mLODExporter;
 
         /*
         CAnimCache* animCache;
@@ -260,6 +274,12 @@ namespace COLLADAMaya
         * @return LightExporter* Pointer to the light exporter
         */
         LightExporter* getLightExporter();
+
+		/**
+		* Returns a pointer to the LOD exporter.
+		* @return LODExporter* Pointer to the lod exporter
+		*/
+		LODExporter* getLODExporter();
 
         /**
         * Returns a pointer to the light probe exporter.

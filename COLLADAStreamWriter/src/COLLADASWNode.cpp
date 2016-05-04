@@ -17,9 +17,9 @@ namespace COLLADASW
 {
 
     //---------------------------------------------------------------
-    void Node::start()
+    void Node::start(bool lodPass)
     {
-        if ( !mIsInstanceNode )
+		if (!mIsInstanceNode || lodPass)
         {
             mNodeCloser = mSW->openElement ( CSWC::CSW_ELEMENT_NODE );
 
@@ -34,17 +34,21 @@ namespace COLLADASW
 
             switch ( mType )
             {
-            case NODE:
-                mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_TYPE, CSWC::CSW_NODE_TYPE_NODE );
-                break;
+				case NODE:
+				{
+					if (!lodPass)
+						mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_TYPE, CSWC::CSW_NODE_TYPE_NODE);
+				}
+				break;
 
-            case JOINT:
-                mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_TYPE, CSWC::CSW_NODE_TYPE_JOINT );
-                break;
 
-            default:
-                fprintf ( stderr, "Not a valid node type: %d", mType );
-                break;
+				case JOINT:
+					mSW->appendAttribute ( CSWC::CSW_ATTRIBUTE_TYPE, CSWC::CSW_NODE_TYPE_JOINT );
+					break;
+
+				default:
+					fprintf ( stderr, "Not a valid node type: %d", mType );
+					break;
             }
         }
         else

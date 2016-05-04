@@ -23,6 +23,7 @@ namespace COLLADAMaya
 
     // Static Members
 
+	bool ExportOptions::mLOD = true;
     bool ExportOptions::mBakeTransforms = true;
     bool ExportOptions::mRelativePaths = true;
 	bool ExportOptions::mPreserveSourceTree = false;
@@ -62,8 +63,9 @@ namespace COLLADAMaya
     // Parse the options String
     void ExportOptions::set ( const MString& optionsString )
     {
+		mLOD = true;
         // Reset everything to the default value
-		mBakeTransforms = false;
+        mBakeTransforms = false;
         mRelativePaths = true;
 		mPreserveSourceTree = false;
 
@@ -83,7 +85,7 @@ namespace COLLADAMaya
         mExportCameras = true;
         mExportMaterialsOnly = false;
         mExportReferencedMaterials = true;
-        mExportJoints = true;
+		mExportJoints = true;
 		mExportSkin = true;
         mExportAnimations = true;
 		mExportOptimizedBezierAnimations = false;
@@ -164,6 +166,7 @@ namespace COLLADAMaya
                 else if ( optionName == "removeStaticCurves" ) mRemoveStaticCurves = value;
                 else if ( optionName == "exportXRefs" ) mExportXRefs = value;
                 else if ( optionName == "dereferenceXRefs" ) mDereferenceXRefs = value;
+//				else if ( optionName == "exportLOD") mLOD = value;
             }
 
 			if (mExportSkin)
@@ -179,6 +182,11 @@ namespace COLLADAMaya
             AnimationHelper::generateSamplingFunction();
         }
     }
+
+	bool ExportOptions::exportLOD()
+	{
+		return mLOD;
+	}
 
     bool ExportOptions::bakeTransforms()
     {

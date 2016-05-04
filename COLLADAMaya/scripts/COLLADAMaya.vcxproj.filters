@@ -182,6 +182,9 @@
     <ClCompile Include="..\src\COLLADAMayaPhysXXML.cpp">
       <Filter>Source Files\Exporters</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\COLLADAMayaLODExporter.cpp">
+      <Filter>Source Files\Exporters</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\COLLADAMayaConversion.h">
@@ -326,6 +329,12 @@
       <Filter>Header Files\Exporters</Filter>
     </ClInclude>
     <ClInclude Include="..\include\COLLADAMayaPhysXXML.h">
+      <Filter>Header Files\Exporters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaVersionInfo.h">
+      <Filter>Header Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\COLLADAMayaLODExporter.h">
       <Filter>Header Files\Exporters</Filter>
     </ClInclude>
   </ItemGroup>

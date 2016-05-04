@@ -20,9 +20,15 @@ namespace COLLADASW
     {
         mSW->openElement ( CSWC::CSW_ELEMENT_INSTANCE_NODE );
         mSW->appendURIAttribute ( CSWC::CSW_ATTRIBUTE_URL, mUrl );
-        mSW->closeElement();
+		
+			addExtraTechniques(mSW);
+        
+		mSW->closeElement();
     }
 
-
+	void InstanceNode::addExtraTechnique()
+	{
+		addExtraTechniques(mSW);
+	}
 
 } //namespace COLLADASW

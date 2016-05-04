@@ -143,7 +143,7 @@ namespace COLLADASW
 
         /** Opens the node
         It should be closed using close()*/
-        void start();
+		void start(bool forceNonInstancedNode = false);
 
         /** Adds a translation with sid @a sid*/
         void addTranslate ( const String& sid, double x, double y, double z ) const ;

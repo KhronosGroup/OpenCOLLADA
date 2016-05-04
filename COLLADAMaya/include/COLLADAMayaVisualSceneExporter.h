@@ -47,6 +47,8 @@ namespace COLLADAMaya
     class VisualSceneExporter : public COLLADASW::LibraryVisualScenes
     {
 
+		friend class LODExporter;
+
     private:
 
         /**
@@ -91,6 +93,12 @@ namespace COLLADAMaya
         /** The current transform matrix. */
         MTransformationMatrix mTransformMatrix;
 
+		/** Lod Index Counter during visual scene Pass*/
+		int mLODIndexCounter1;
+
+		/** Lod Index Counter during Library node Pass*/
+		int mLODIndexCounter2;
+
     public:
 
         /**
@@ -116,6 +124,7 @@ namespace COLLADAMaya
         * A collada id for every maya id.
         */
         const String findColladaNodeId ( const String& mayaNodeId );
+		const String findNextColladaNodeId(const SceneElement* sceneElement, int& indexLOD);
 
         /**
         * Creates the uri for the scene element. Checks for instances 
@@ -249,7 +258,7 @@ namespace COLLADAMaya
          * Prepares a new the visual scene node.
          * @param sceneElement The scene element of the node.
          */
-        void openVisualSceneNode ( const SceneElement *sceneElement );
+        bool openVisualSceneNode ( const SceneElement *sceneElement );
 
         /**
          * Compute local space parameters and export them. These parameters are:
