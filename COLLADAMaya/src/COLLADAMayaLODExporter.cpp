@@ -71,6 +71,8 @@ namespace COLLADAMaya
 		{
 			openLibrary();
 
+			mVisualSceneExporter->ResetLODCounter();
+
 			// First Pass
 			mDocumentExporter->mExportPass = FIRST_LOD_PASS;
 			mVisualSceneExporter->exportVisualSceneNodes(sceneElement);

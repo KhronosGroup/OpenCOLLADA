@@ -80,6 +80,11 @@ namespace COLLADAMaya
     {
     }
 
+	VisualSceneExporter::~VisualSceneExporter()
+	{
+		lodCounterMap.clear();
+	}
+
 
     // ------------------------------------------------------------
     bool VisualSceneExporter::exportVisualScenes()
@@ -180,12 +185,21 @@ namespace COLLADAMaya
 		if ((mDocumentExporter->mExportPass != VISUAL_SCENE_PASS && sceneElementType == SceneElement::LOD))
 			doExport = false;
 		
+		mLODIndexCounter1 = 1;
 
 		if (sceneElement->getParentCount())
 		{
 			SceneElement::Type sceneParentElementType = sceneElement->getParent()->getType();
 			if ((mDocumentExporter->mExportPass == VISUAL_SCENE_PASS && sceneParentElementType == SceneElement::LOD))
-				mLODIndexCounter1++;
+			{
+				
+				std::map<SceneElement*, int>::iterator iterator = lodCounterMap.find(sceneElement->getParent());
+				if (iterator != lodCounterMap.end())
+					mLODIndexCounter1 = ++iterator->second;
+				else
+					lodCounterMap.insert(std::make_pair(sceneElement->getParent(), mLODIndexCounter1));
+			}
+				
 
 			if (mDocumentExporter->mExportPass == SECOND_LOD_PASS && sceneParentElementType == SceneElement::LOD)
 				mLODIndexCounter2++;
@@ -1744,4 +1758,8 @@ namespace COLLADAMaya
         return colladaNodeId;
     }
 
+	void VisualSceneExporter::ResetLODCounter()
+	{
+		mLODIndexCounter2 = 0;
+	}
 }

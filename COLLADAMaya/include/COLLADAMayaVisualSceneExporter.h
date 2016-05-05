@@ -95,9 +95,12 @@ namespace COLLADAMaya
 
 		/** Lod Index Counter during visual scene Pass*/
 		int mLODIndexCounter1;
+		std::map<SceneElement*, int> lodCounterMap;
 
 		/** Lod Index Counter during Library node Pass*/
 		int mLODIndexCounter2;
+
+		
 
     public:
 
@@ -113,7 +116,7 @@ namespace COLLADAMaya
         /**
          * Destructor.
          */
-        virtual ~VisualSceneExporter() {};
+        virtual ~VisualSceneExporter();
 
         /** 
          * Exports the visual scene with the transforms of all included elements 
@@ -147,6 +150,8 @@ namespace COLLADAMaya
 		 * |namespace:nodeName -> _nodeName
          */
 		String getColladaNodeId(const MDagPath& dagPath, bool removeFirstNamespace = false);
+
+		void ResetLODCounter();
 
     private:
 
