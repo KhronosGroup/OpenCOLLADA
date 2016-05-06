@@ -186,9 +186,6 @@
 namespace COLLADAMaya
 {
 
-    const String FileTranslator::ASCII_PATH_EXTENSION = ".ma";
-    const String FileTranslator::ASCII_PATH_EXTENSION_DEBUG = ".opencollada.ma";
-
 
     /************************************************************************/
     /* Constructor and Destructor of the DaeFileTranslator class                                                                     */
@@ -390,20 +387,10 @@ namespace COLLADAMaya
         clock_t startClock, endClock;
         startClock = clock();
 
-        // TODO Ask the user where to save the maya file.
-//         MString command = "fileBrowserDialog -m 0 -fc \"importFromFile\" -ft \"mayaAscii\" -fl \"*.ma\" -an \"Save_import_as\" -om \"SaveAs\"";
-//         MString mayaAsciiFileNameM = MGlobal::executeCommandStringResult ( command );
-//         String mayaAsciiFileName ( mayaAsciiFileNameM.asChar () );
-//         MGlobal::displayInfo ( mayaAsciiFileName.c_str() );
-
         // Set the imported file name and path.
-//        COLLADABU::URI mayaAsciiFileURI ( mayaAsciiFileName );
-        COLLADABU::URI mayaAsciiFileURI ( importFileName );
-#ifdef NDEBUG
-        mayaAsciiFileURI.setPathExtension ( ASCII_PATH_EXTENSION );
-#else
-        mayaAsciiFileURI.setPathExtension ( ASCII_PATH_EXTENSION_DEBUG );
-#endif
+        COLLADABU::URI mayaAsciiFileURI ( importFileName ); 
+        mayaAsciiFileURI.setPathExtension ( ".opencollada.ma" );
+
         String mayaAsciiFileName = mayaAsciiFileURI.getURIString ();
 		const char* cpMayaAsciiFileName = mayaAsciiFileName.c_str();
 
