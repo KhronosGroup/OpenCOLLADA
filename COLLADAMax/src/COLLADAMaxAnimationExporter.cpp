@@ -255,8 +255,11 @@ namespace COLLADAMax
 				}
 				closeAnimation();
 			}
+#endif
+
             closeLibrary();
 
+#if defined(MAX_RELEASE_R17) && (MAX_RELEASE >= MAX_RELEASE_R17)
 			// Export the animation clips to go with the named animations
 			if (mAnimationMap.size() != 0) {
 				mClipExporter.open();
