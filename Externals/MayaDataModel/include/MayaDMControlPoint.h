@@ -20,16 +20,16 @@ public:
 	struct UvSet{
 		string uvSetName;
 		float2* uvSetPoints;
+		size_t nbUvSetPoints;
 		void write(FILE* file) const
 		{
 			uvSetName.write(file);
 			fprintf(file, " ");
-			size_t size = sizeof(uvSetPoints)/sizeof(float2);
-			for(size_t i=0; i<size; ++i)
+			for (size_t i = 0; i<nbUvSetPoints; ++i)
 			{
 				uvSetPoints[i].write(file);
 				fprintf(file, " ");
-				if(i+1<size) fprintf(file," ");
+				if (i + 1<nbUvSetPoints) fprintf(file, " ");
 			}
 		}
 	};
@@ -50,17 +50,17 @@ public:
 				fprintf(file,"%f", colorSetPointsA);
 			}
 		}* colorSetPoints;
+		size_t nbColorSetPoints;
 		void write(FILE* file) const
 		{
 			colorName.write(file);
 			fprintf(file, " ");
 			fprintf(file,"%i ", clamped);
 			fprintf(file,"%i ", representation);
-			size_t size = sizeof(colorSetPoints)/sizeof(ColorSetPoints);
-			for(size_t i=0; i<size; ++i)
+			for (size_t i = 0; i<nbColorSetPoints; ++i)
 			{
 				colorSetPoints[i].write(file);
-				if(i+1<size) fprintf(file," ");
+				if (i + 1<nbColorSetPoints) fprintf(file, " ");
 			}
 		}
 	};

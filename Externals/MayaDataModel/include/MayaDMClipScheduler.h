@@ -27,6 +27,7 @@ public:
 				fprintf(file,"%i", blendList_InmapFrom);
 			}
 		}* blendList_Inmap;
+		size_t nbBlendList_Inmap;
 		struct BlendList_Outmap{
 			short blendList_OutmapTo;
 			short blendList_OutmapFrom;
@@ -36,20 +37,19 @@ public:
 				fprintf(file,"%i", blendList_OutmapFrom);
 			}
 		}* blendList_Outmap;
+		size_t nbBlendList_Outmap;
 		void write(FILE* file) const
 		{
-			size_t size = sizeof(blendList_Inmap)/sizeof(BlendList_Inmap);
-			for(size_t i=0; i<size; ++i)
+			for (size_t i = 0; i<nbBlendList_Inmap; ++i)
 			{
 				blendList_Inmap[i].write(file);
 				fprintf(file, " ");
-				if(i+1<size) fprintf(file," ");
+				if (i + 1<nbBlendList_Inmap) fprintf(file, " ");
 			}
-			size = sizeof(blendList_Outmap)/sizeof(BlendList_Outmap);
-			for(size_t i=0; i<size; ++i)
+			for (size_t i = 0; i<nbBlendList_Outmap; ++i)
 			{
 				blendList_Outmap[i].write(file);
-				if(i+1<size) fprintf(file," ");
+				if (i + 1<nbBlendList_Outmap) fprintf(file, " ");
 			}
 		}
 	};
@@ -72,6 +72,7 @@ public:
 				fprintf(file,"%i", clipFunction_InmapFrom);
 			}
 		}* clipFunction_Inmap;
+		size_t nbClipFunction_Inmap;
 		struct ClipFunction_Outmap{
 			short clipFunction_OutmapTo;
 			short clipFunction_OutmapFrom;
@@ -81,20 +82,19 @@ public:
 				fprintf(file,"%i", clipFunction_OutmapFrom);
 			}
 		}* clipFunction_Outmap;
+		size_t nbClipFunction_Outmap;
 		void write(FILE* file) const
 		{
-			size_t size = sizeof(clipFunction_Inmap)/sizeof(ClipFunction_Inmap);
-			for(size_t i=0; i<size; ++i)
+			for (size_t i = 0; i<nbClipFunction_Inmap; ++i)
 			{
 				clipFunction_Inmap[i].write(file);
 				fprintf(file, " ");
-				if(i+1<size) fprintf(file," ");
+				if (i + 1<nbClipFunction_Inmap) fprintf(file, " ");
 			}
-			size = sizeof(clipFunction_Outmap)/sizeof(ClipFunction_Outmap);
-			for(size_t i=0; i<size; ++i)
+			for (size_t i = 0; i<nbClipFunction_Outmap; ++i)
 			{
 				clipFunction_Outmap[i].write(file);
-				if(i+1<size) fprintf(file," ");
+				if (i + 1<nbClipFunction_Outmap) fprintf(file, " ");
 			}
 		}
 	};

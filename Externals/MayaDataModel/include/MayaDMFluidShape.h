@@ -55,6 +55,7 @@ public:
 					fprintf(file,"%i", fieldFunction_InmapFrom);
 				}
 			}* fieldFunction_Inmap;
+			size_t nbFieldFunction_Inmap;
 			struct FieldFunction_Outmap{
 				short fieldFunction_OutmapTo;
 				short fieldFunction_OutmapFrom;
@@ -64,20 +65,19 @@ public:
 					fprintf(file,"%i", fieldFunction_OutmapFrom);
 				}
 			}* fieldFunction_Outmap;
+			size_t nbFieldFunction_Outmap;
 			void write(FILE* file) const
 			{
-				size_t size = sizeof(fieldFunction_Inmap)/sizeof(FieldFunction_Inmap);
-				for(size_t i=0; i<size; ++i)
+				for (size_t i = 0; i<nbFieldFunction_Inmap; ++i)
 				{
 					fieldFunction_Inmap[i].write(file);
 					fprintf(file, " ");
-					if(i+1<size) fprintf(file," ");
+					if (i + 1<nbFieldFunction_Inmap) fprintf(file, " ");
 				}
-				size = sizeof(fieldFunction_Outmap)/sizeof(FieldFunction_Outmap);
-				for(size_t i=0; i<size; ++i)
+				for (size_t i = 0; i<nbFieldFunction_Outmap; ++i)
 				{
 					fieldFunction_Outmap[i].write(file);
-					if(i+1<size) fprintf(file," ");
+					if (i + 1<nbFieldFunction_Outmap) fprintf(file, " ");
 				}
 			}
 		} fieldFunction;
@@ -97,6 +97,7 @@ public:
 					fprintf(file,"%i", emissionFunction_InmapFrom);
 				}
 			}* emissionFunction_Inmap;
+			size_t nbEmissionFunction_Inmap;
 			struct EmissionFunction_Outmap{
 				short emissionFunction_OutmapTo;
 				short emissionFunction_OutmapFrom;
@@ -106,20 +107,19 @@ public:
 					fprintf(file,"%i", emissionFunction_OutmapFrom);
 				}
 			}* emissionFunction_Outmap;
+			size_t nbEmissionFunction_Outmap;
 			void write(FILE* file) const
 			{
-				size_t size = sizeof(emissionFunction_Inmap)/sizeof(EmissionFunction_Inmap);
-				for(size_t i=0; i<size; ++i)
+				for (size_t i = 0; i<nbEmissionFunction_Inmap; ++i)
 				{
 					emissionFunction_Inmap[i].write(file);
 					fprintf(file, " ");
-					if(i+1<size) fprintf(file," ");
+					if (i + 1<nbEmissionFunction_Inmap) fprintf(file, " ");
 				}
-				size = sizeof(emissionFunction_Outmap)/sizeof(EmissionFunction_Outmap);
-				for(size_t i=0; i<size; ++i)
+				for (size_t i = 0; i<nbEmissionFunction_Outmap; ++i)
 				{
 					emissionFunction_Outmap[i].write(file);
-					if(i+1<size) fprintf(file," ");
+					if (i + 1<nbEmissionFunction_Outmap) fprintf(file, " ");
 				}
 			}
 		} emissionFunction;

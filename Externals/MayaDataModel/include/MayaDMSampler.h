@@ -27,6 +27,7 @@ public:
 				fprintf(file,"%i", function_InmapFrom);
 			}
 		}* function_Inmap;
+		size_t nbFunction_Inmap;
 		struct Function_Outmap{
 			short function_OutmapTo;
 			short function_OutmapFrom;
@@ -36,22 +37,21 @@ public:
 				fprintf(file,"%i", function_OutmapFrom);
 			}
 		}* function_Outmap;
+		size_t nbFunction_Outmap;
 		double function_Default;
 		void write(FILE* file) const
 		{
-			size_t size = sizeof(function_Inmap)/sizeof(Function_Inmap);
-			for(size_t i=0; i<size; ++i)
+			for (size_t i = 0; i<nbFunction_Inmap; ++i)
 			{
 				function_Inmap[i].write(file);
 				fprintf(file, " ");
-				if(i+1<size) fprintf(file," ");
+				if (i + 1<nbFunction_Inmap) fprintf(file, " ");
 			}
-			size = sizeof(function_Outmap)/sizeof(Function_Outmap);
-			for(size_t i=0; i<size; ++i)
+			for (size_t i = 0; i<nbFunction_Outmap; ++i)
 			{
 				function_Outmap[i].write(file);
 				fprintf(file, " ");
-				if(i+1<size) fprintf(file," ");
+				if (i + 1<nbFunction_Outmap) fprintf(file, " ");
 			}
 			fprintf(file,"%f", function_Default);
 		}

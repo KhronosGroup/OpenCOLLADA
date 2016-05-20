@@ -654,7 +654,7 @@ struct vector
 	double z;
 	void write(FILE* file) const
 	{
-		fprintf(file,"%f %f %f %f", x, y, z);
+		fprintf(file,"%f %f %f", x, y, z);
 	}
 };
 struct vectorArray
@@ -1725,7 +1725,7 @@ struct lattice
 	{
 		fprintf(file,"%i %i %i %i ", sDivisionCount, tDivisionCount, uDivisionCount, pointCount);
 		size_t size = pointCount*3;
-		for(size_t i; i<size; ++i)
+		for(size_t i = 0; i<size; ++i)
 		{
 			fprintf(file, "%f", points[i]);
 			if(i+1<size) fprintf(file, " ");

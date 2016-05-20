@@ -19,13 +19,13 @@ class CacheBlend : public CacheBase
 public:
 	struct InCache{
 		doubleArray* perPtWeights;
+		size_t nbPerPtWeights;
 		void write(FILE* file) const
 		{
-			size_t size = sizeof(perPtWeights)/sizeof(doubleArray);
-			for(size_t i=0; i<size; ++i)
+			for (size_t i = 0; i<nbPerPtWeights; ++i)
 			{
 				perPtWeights[i].write(file);
-				if(i+1<size) fprintf(file," ");
+				if (i + 1<nbPerPtWeights) fprintf(file, " ");
 			}
 		}
 	};

@@ -28,6 +28,7 @@ public:
 					fprintf(file,"%i", clipEval_InmapFrom);
 				}
 			}* clipEval_Inmap;
+			size_t nbClipEval_Inmap;
 			struct ClipEval_Outmap{
 				short clipEval_OutmapTo;
 				short clipEval_OutmapFrom;
@@ -37,30 +38,29 @@ public:
 					fprintf(file,"%i", clipEval_OutmapFrom);
 				}
 			}* clipEval_Outmap;
+			size_t nbClipEval_Outmap;
 			void write(FILE* file) const
 			{
-				size_t size = sizeof(clipEval_Inmap)/sizeof(ClipEval_Inmap);
-				for(size_t i=0; i<size; ++i)
+				for (size_t i = 0; i<nbClipEval_Inmap; ++i)
 				{
 					clipEval_Inmap[i].write(file);
 					fprintf(file, " ");
-					if(i+1<size) fprintf(file," ");
+					if (i + 1<nbClipEval_Inmap) fprintf(file, " ");
 				}
-				size = sizeof(clipEval_Outmap)/sizeof(ClipEval_Outmap);
-				for(size_t i=0; i<size; ++i)
+				for (size_t i = 0; i<nbClipEval_Outmap; ++i)
 				{
 					clipEval_Outmap[i].write(file);
-					if(i+1<size) fprintf(file," ");
+					if (i + 1<nbClipEval_Outmap) fprintf(file, " ");
 				}
 			}
 		}* clipEval;
+		size_t nbClipEval;
 		void write(FILE* file) const
 		{
-			size_t size = sizeof(clipEval)/sizeof(ClipEval);
-			for(size_t i=0; i<size; ++i)
+			for (size_t i = 0; i<nbClipEval; ++i)
 			{
 				clipEval[i].write(file);
-				if(i+1<size) fprintf(file," ");
+				if (i + 1<nbClipEval) fprintf(file, " ");
 			}
 		}
 	};

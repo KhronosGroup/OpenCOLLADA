@@ -27,25 +27,25 @@ public:
 					vertexFaceNormalXYZ.write(file);
 				}
 			}* vertexFaceNormal;
+			size_t nbVertexFaceNormal;
 			void write(FILE* file) const
 			{
 				vertexNormalXYZ.write(file);
 				fprintf(file, " ");
-				size_t size = sizeof(vertexFaceNormal)/sizeof(VertexFaceNormal);
-				for(size_t i=0; i<size; ++i)
+				for (size_t i = 0; i<nbVertexFaceNormal; ++i)
 				{
 					vertexFaceNormal[i].write(file);
-					if(i+1<size) fprintf(file," ");
+					if (i + 1<nbVertexFaceNormal) fprintf(file, " ");
 				}
 			}
 		}* vertexNormal;
+		size_t nbVertexNormal;
 		void write(FILE* file) const
 		{
-			size_t size = sizeof(vertexNormal)/sizeof(VertexNormal);
-			for(size_t i=0; i<size; ++i)
+			for (size_t i = 0; i<nbVertexNormal; ++i)
 			{
 				vertexNormal[i].write(file);
-				if(i+1<size) fprintf(file," ");
+				if (i + 1<nbVertexNormal) fprintf(file, " ");
 			}
 		}
 	};

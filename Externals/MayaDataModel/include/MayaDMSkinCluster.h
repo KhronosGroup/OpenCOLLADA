@@ -19,13 +19,13 @@ class SkinCluster : public GeometryFilter
 public:
 	struct WeightList{
 		double* weights;
+		size_t nbWeights;
 		void write(FILE* file) const
 		{
-			size_t size = sizeof(weights)/sizeof(double);
-			for(size_t i=0; i<size; ++i)
+			for (size_t i = 0; i<nbWeights; ++i)
 			{
 				fprintf(file,"%f", weights[i]);
-				if(i+1<size) fprintf(file," ");
+				if (i + 1<nbWeights) fprintf(file, " ");
 			}
 		}
 	};
