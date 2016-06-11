@@ -94,6 +94,10 @@
 #  define MAX_2014
 #endif
 
+#if ( MAX_2014_SP5 ||  MAX_VERSION_MAJOR > 16 )
+#  define MAX_2014_SP5_OR_NEWER
+#endif
+
 #if ( MAX_VERSION_MAJOR >= 17 )
 #  define MAX_2015_OR_NEWER
 #endif
