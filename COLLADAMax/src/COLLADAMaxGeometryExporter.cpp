@@ -41,6 +41,7 @@ http://www.opensource.org/licenses/mit-license.php
 #include <algorithm>
 
 #include <max.h>
+#include <shape.h>
 #include <modstack.h>
 #include <MeshNormalSpec.h>
 #include <iparamb2.h>
