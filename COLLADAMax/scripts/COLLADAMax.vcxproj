@@ -2462,7 +2462,7 @@
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
-      <AdditionalIncludeDirectories>..\include;..\res;$(MAX_SDK_PATH2014)\include;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;$(BOOST_ROOT)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\include;..\res;$(MAX_SDK_PATH2014_SP5)\include;..\..\COLLADAFramework\include;..\..\COLLADAFramework\include\Math;..\..\COLLADADomHelper\include;..\..\COLLADAStreamWriter\include;..\..\COLLADABaseUtils\include;..\..\GeneratedSaxParser\include;..\..\COLLADASaxFrameworkLoader\include;..\..\G3DWarehouseBrowser\include;$(BOOST_ROOT)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;MAX_2014_SP5;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -2478,7 +2478,7 @@
       <AdditionalDependencies>maxutil.lib;core.lib;paramblk2.lib;geom.lib;bmm.lib;mesh.lib;mnmath.lib;poly.lib;gup.lib;menus.lib;morpher_2014_x64.lib;comctl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(ProjectName)New.dle</OutputFile>
       <Version>1.3</Version>
-      <AdditionalLibraryDirectories>$(MAX_SDK_PATH2014)\lib\x64\Release;..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(MAX_SDK_PATH2014_SP5)\lib\x64\Release;..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries> ;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
