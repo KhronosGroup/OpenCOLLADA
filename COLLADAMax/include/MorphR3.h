@@ -101,7 +101,7 @@ public:
 	DLLImport void AllocBuffers(int sizeA, int sizeB);
 
 	// Initialize a channel using a scene node
-#ifdef MAX_2015_OR_NEWER  
+#ifdef MAX_2014_SP5_OR_NEWER  
 	DLLImport void buildFromNode(INode *node, BOOL resetTime = TRUE, TimeValue t = 0, BOOL picked = FALSE, BOOL inModify = FALSE);
 #else
 	DLLImport void buildFromNode(INode *node , BOOL resetTime=TRUE , TimeValue t=0, BOOL picked = FALSE);
