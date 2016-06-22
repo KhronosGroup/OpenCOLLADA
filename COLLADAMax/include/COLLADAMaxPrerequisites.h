@@ -89,7 +89,11 @@
 
 #if ( MAX_VERSION_MAJOR >= 16 )
 #  define MAX_2014_OR_NEWER
+#if ((MAX_2014_SP5 && MAX_VERSION_MAJOR == 16) ||  MAX_VERSION_MAJOR > 16) 
+		#  define MAX_2014_SP5_OR_NEWER
+	#endif	
 #endif
+
 #if ( MAX_VERSION_MAJOR == 16 )
 #  define MAX_2014
 #endif
@@ -101,12 +105,18 @@
 #  define MAX_2015
 #endif
 
-
 #if ( MAX_VERSION_MAJOR >= 18 )
 #  define MAX_2016_OR_NEWER
 #endif
 #if ( MAX_VERSION_MAJOR == 18 )
 #  define MAX_2016
+#endif
+
+#if ( MAX_VERSION_MAJOR >= 19 )
+#  define MAX_2017_OR_NEWER
+#endif
+#if ( MAX_VERSION_MAJOR == 19 )
+#  define MAX_2017
 #endif
 
 // Max 2009 requires RTTI to be enabled
