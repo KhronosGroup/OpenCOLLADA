@@ -28,13 +28,13 @@ public:
 				fprintf(file,"%i", compObjectGroupId);
 			}
 		}* compObjectGroups;
+		size_t nbCompObjectGroups;
 		void write(FILE* file) const
 		{
-			size_t size = sizeof(compObjectGroups)/sizeof(CompObjectGroups);
-			for(size_t i=0; i<size; ++i)
+			for (size_t i = 0; i<nbCompObjectGroups; ++i)
 			{
 				compObjectGroups[i].write(file);
-				if(i+1<size) fprintf(file," ");
+				if (i + 1<nbCompObjectGroups) fprintf(file, " ");
 			}
 		}
 	};

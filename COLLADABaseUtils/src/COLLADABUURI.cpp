@@ -141,7 +141,7 @@ namespace COLLADABU
 	}
 
 
-	void URI::initialize() 
+	void URI::initialize()
 	{
 		reset();
 	}
@@ -149,7 +149,9 @@ namespace COLLADABU
 	URI::~URI() { }
 
 
-	URI::URI(const String& uriStr, bool nofrag) {
+	URI::URI(const String& uriStr, bool nofrag)
+		: mIsValid(false)
+	{
 		initialize();
 
 		if (nofrag) {
@@ -164,29 +166,28 @@ namespace COLLADABU
 	}
 
 
-    URI::URI(const char* uriString) {
-        if (!uriString) {
-            URI();
-        }
-        else {
-            initialize();
+    URI::URI(const char* uriString)
+		: mIsValid(false)
+	{
+		initialize();
+        if (uriString) {
             set(uriString);
         }
     }
 
 
-    URI::URI(const char* uriString, size_t length) {
-        if (!uriString || length == 0) {
-            URI();
-        }
-        else {
-            initialize();
+    URI::URI(const char* uriString, size_t length)
+		: mIsValid(false)
+	{
+		initialize();
+        if (uriString && length > 0) {
             set(uriString, length);
         }
     }
 
 
     URI::URI( const String& path, const String& fragment )
+		: mIsValid(false)
 	{
 		initialize();
 		set("", "", path, "", fragment);
@@ -200,12 +201,14 @@ namespace COLLADABU
 	}
 
 	URI::URI(const URI& baseURI, const String& uriStr)
+		: mIsValid(false)
 	{
 		initialize();
 		set(uriStr, &baseURI);
 	}
 
 	URI::URI(const URI& copyFrom_, bool nofrag) 
+		: mIsValid(false)
 	{
 		initialize();
 		if (nofrag) {

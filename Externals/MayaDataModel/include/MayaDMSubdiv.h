@@ -24,13 +24,13 @@ public:
 	};
 	struct VertexTweak{
 		double3* singleVertexTweak;
+		size_t nbSingleVertexTweak;
 		void write(FILE* file) const
 		{
-			size_t size = sizeof(singleVertexTweak)/sizeof(double3);
-			for(size_t i=0; i<size; ++i)
+			for (size_t i = 0; i<nbSingleVertexTweak; ++i)
 			{
 				singleVertexTweak[i].write(file);
-				if(i+1<size) fprintf(file," ");
+				if (i + 1<nbSingleVertexTweak) fprintf(file, " ");
 			}
 		}
 	};

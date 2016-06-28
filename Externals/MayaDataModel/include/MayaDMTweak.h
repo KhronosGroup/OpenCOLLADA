@@ -19,25 +19,25 @@ class Tweak : public GeometryFilter
 public:
 	struct Plist{
 		double3* controlPoints;
+		size_t nbControlPoints;
 		void write(FILE* file) const
 		{
-			size_t size = sizeof(controlPoints)/sizeof(double3);
-			for(size_t i=0; i<size; ++i)
+			for (size_t i = 0; i<nbControlPoints; ++i)
 			{
 				controlPoints[i].write(file);
-				if(i+1<size) fprintf(file," ");
+				if (i + 1<nbControlPoints) fprintf(file, " ");
 			}
 		}
 	};
 	struct Vlist{
 		float3* vertex;
+		size_t nbVertex;
 		void write(FILE* file) const
 		{
-			size_t size = sizeof(vertex)/sizeof(float3);
-			for(size_t i=0; i<size; ++i)
+			for (size_t i = 0; i<nbVertex; ++i)
 			{
 				vertex[i].write(file);
-				if(i+1<size) fprintf(file," ");
+				if (i + 1<nbVertex) fprintf(file, " ");
 			}
 		}
 	};

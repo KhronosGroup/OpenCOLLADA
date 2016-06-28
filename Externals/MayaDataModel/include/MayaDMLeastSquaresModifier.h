@@ -32,16 +32,16 @@ public:
 				fprintf(file,"%f", pointWeight);
 			}
 		}* pointConstraint;
+		size_t nbPointConstraint;
 		void write(FILE* file) const
 		{
 			worldSpaceToObjectSpace.write(file);
 			fprintf(file, " ");
-			size_t size = sizeof(pointConstraint)/sizeof(PointConstraint);
-			for(size_t i=0; i<size; ++i)
+			for (size_t i = 0; i<nbPointConstraint; ++i)
 			{
 				pointConstraint[i].write(file);
 				fprintf(file, " ");
-				if(i+1<size) fprintf(file," ");
+				if (i + 1<nbPointConstraint) fprintf(file, " ");
 			}
 		}
 	};

@@ -53,7 +53,8 @@ namespace GeneratedSaxParser
          */
         ParserString(const int& val)
         {
-            ParserString();
+			UnionString::str = 0;
+			UnionString::length = 0;
         }
     };
 

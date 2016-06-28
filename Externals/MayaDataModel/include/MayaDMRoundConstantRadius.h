@@ -19,37 +19,37 @@ class RoundConstantRadius : public AbstractBaseCreate
 public:
 	struct Edge{
 		nurbsCurve* inputCurveA;
+		size_t nbInputCurveA;
 		nurbsCurve* inputCurveB;
+		size_t nbInputCurveB;
 		int* inSurfIdxA;
+		size_t nbInSurfIdxA;
 		int* inSurfIdxB;
+		size_t nbInSurfIdxB;
 		bool edgeValid;
 		void write(FILE* file) const
 		{
-			size_t size = sizeof(inputCurveA)/sizeof(nurbsCurve);
-			for(size_t i=0; i<size; ++i)
+			for (size_t i = 0; i<nbInputCurveA; ++i)
 			{
 				inputCurveA[i].write(file);
 				fprintf(file, " ");
-				if(i+1<size) fprintf(file," ");
+				if (i + 1<nbInputCurveA) fprintf(file, " ");
 			}
-			size = sizeof(inputCurveB)/sizeof(nurbsCurve);
-			for(size_t i=0; i<size; ++i)
+			for (size_t i = 0; i<nbInputCurveB; ++i)
 			{
 				inputCurveB[i].write(file);
 				fprintf(file, " ");
-				if(i+1<size) fprintf(file," ");
+				if (i + 1<nbInputCurveB) fprintf(file, " ");
 			}
-			size = sizeof(inSurfIdxA)/sizeof(int);
-			for(size_t i=0; i<size; ++i)
+			for (size_t i = 0; i<nbInSurfIdxA; ++i)
 			{
 				fprintf(file,"%i ", inSurfIdxA[i]);
-				if(i+1<size) fprintf(file," ");
+				if (i + 1<nbInSurfIdxA) fprintf(file, " ");
 			}
-			size = sizeof(inSurfIdxB)/sizeof(int);
-			for(size_t i=0; i<size; ++i)
+			for (size_t i = 0; i<nbInSurfIdxB; ++i)
 			{
 				fprintf(file,"%i ", inSurfIdxB[i]);
-				if(i+1<size) fprintf(file," ");
+				if (i + 1<nbInSurfIdxB) fprintf(file, " ");
 			}
 			fprintf(file,"%i", edgeValid);
 		}

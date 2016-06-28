@@ -35,13 +35,13 @@ public:
 				fprintf(file,"%i", objectGrpColor);
 			}
 		}* objectGroups;
+		size_t nbObjectGroups;
 		void write(FILE* file) const
 		{
-			size_t size = sizeof(objectGroups)/sizeof(ObjectGroups);
-			for(size_t i=0; i<size; ++i)
+			for (size_t i = 0; i<nbObjectGroups; ++i)
 			{
 				objectGroups[i].write(file);
-				if(i+1<size) fprintf(file," ");
+				if (i + 1<nbObjectGroups) fprintf(file, " ");
 			}
 		}
 	};

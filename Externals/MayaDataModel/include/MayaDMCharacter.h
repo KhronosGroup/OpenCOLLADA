@@ -27,6 +27,7 @@ public:
 				fprintf(file,"%i", clipEvaluate_InmapFrom);
 			}
 		}* clipEvaluate_Inmap;
+		size_t nbClipEvaluate_Inmap;
 		struct ClipEvaluate_Outmap{
 			short clipEvaluate_OutmapTo;
 			short clipEvaluate_OutmapFrom;
@@ -36,20 +37,19 @@ public:
 				fprintf(file,"%i", clipEvaluate_OutmapFrom);
 			}
 		}* clipEvaluate_Outmap;
+		size_t nbClipEvaluate_Outmap;
 		void write(FILE* file) const
 		{
-			size_t size = sizeof(clipEvaluate_Inmap)/sizeof(ClipEvaluate_Inmap);
-			for(size_t i=0; i<size; ++i)
+			for (size_t i = 0; i<nbClipEvaluate_Inmap; ++i)
 			{
 				clipEvaluate_Inmap[i].write(file);
 				fprintf(file, " ");
-				if(i+1<size) fprintf(file," ");
+				if (i + 1<nbClipEvaluate_Inmap) fprintf(file, " ");
 			}
-			size = sizeof(clipEvaluate_Outmap)/sizeof(ClipEvaluate_Outmap);
-			for(size_t i=0; i<size; ++i)
+			for (size_t i = 0; i<nbClipEvaluate_Outmap; ++i)
 			{
 				clipEvaluate_Outmap[i].write(file);
-				if(i+1<size) fprintf(file," ");
+				if (i + 1<nbClipEvaluate_Outmap) fprintf(file, " ");
 			}
 		}
 	};

@@ -29,15 +29,15 @@ public:
 				bdPresetValue.write(file);
 			}
 		}* bdPresetElements;
+		size_t nbBdPresetElements;
 		void write(FILE* file) const
 		{
 			bdPresetName.write(file);
 			fprintf(file, " ");
-			size_t size = sizeof(bdPresetElements)/sizeof(BdPresetElements);
-			for(size_t i=0; i<size; ++i)
+			for (size_t i = 0; i<nbBdPresetElements; ++i)
 			{
 				bdPresetElements[i].write(file);
-				if(i+1<size) fprintf(file," ");
+				if (i + 1<nbBdPresetElements) fprintf(file, " ");
 			}
 		}
 	};

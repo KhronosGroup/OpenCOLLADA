@@ -480,7 +480,7 @@ namespace COLLADAMaya
         buffer[length] = '\0';
 
         MString mayaReturnString ( buffer );
-        delete buffer;
+        delete [] buffer;
 
         return COLLADABU::Utils::checkNCName( mayaReturnString.asChar() );
     }

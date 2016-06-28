@@ -39,13 +39,13 @@ public:
 	};
 	struct StuCacheList{
 		double* stuCache;
+		size_t nbStuCache;
 		void write(FILE* file) const
 		{
-			size_t size = sizeof(stuCache)/sizeof(double);
-			for(size_t i=0; i<size; ++i)
+			for (size_t i = 0; i<nbStuCache; ++i)
 			{
 				fprintf(file,"%f", stuCache[i]);
-				if(i+1<size) fprintf(file," ");
+				if (i + 1<nbStuCache) fprintf(file, " ");
 			}
 		}
 	};

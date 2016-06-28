@@ -44,26 +44,26 @@ public:
 					fprintf(file,"%f", vertexFaceAlpha);
 				}
 			}* vertexFaceColor;
+			size_t nbVertexFaceColor;
 			void write(FILE* file) const
 			{
 				vertexColorRGB.write(file);
 				fprintf(file, " ");
 				fprintf(file,"%f ", vertexAlpha);
-				size_t size = sizeof(vertexFaceColor)/sizeof(VertexFaceColor);
-				for(size_t i=0; i<size; ++i)
+				for (size_t i = 0; i<nbVertexFaceColor; ++i)
 				{
 					vertexFaceColor[i].write(file);
-					if(i+1<size) fprintf(file," ");
+					if (i + 1<nbVertexFaceColor) fprintf(file, " ");
 				}
 			}
 		}* vertexColor;
+		size_t nbVertexColor;
 		void write(FILE* file) const
 		{
-			size_t size = sizeof(vertexColor)/sizeof(VertexColor);
-			for(size_t i=0; i<size; ++i)
+			for (size_t i = 0; i<nbVertexColor; ++i)
 			{
 				vertexColor[i].write(file);
-				if(i+1<size) fprintf(file," ");
+				if (i + 1<nbVertexColor) fprintf(file, " ");
 			}
 		}
 	};
@@ -77,25 +77,25 @@ public:
 					vertexFaceNormalXYZ.write(file);
 				}
 			}* vertexFaceNormal;
+			size_t nbVertexFaceNormal;
 			void write(FILE* file) const
 			{
 				vertexNormalXYZ.write(file);
 				fprintf(file, " ");
-				size_t size = sizeof(vertexFaceNormal)/sizeof(VertexFaceNormal);
-				for(size_t i=0; i<size; ++i)
+				for (size_t i = 0; i<nbVertexFaceNormal; ++i)
 				{
 					vertexFaceNormal[i].write(file);
-					if(i+1<size) fprintf(file," ");
+					if (i + 1<nbVertexFaceNormal) fprintf(file, " ");
 				}
 			}
 		}* vertexNormal;
+		size_t nbVertexNormal;
 		void write(FILE* file) const
 		{
-			size_t size = sizeof(vertexNormal)/sizeof(VertexNormal);
-			for(size_t i=0; i<size; ++i)
+			for (size_t i = 0; i<nbVertexNormal; ++i)
 			{
 				vertexNormal[i].write(file);
-				if(i+1<size) fprintf(file," ");
+				if (i + 1<nbVertexNormal) fprintf(file, " ");
 			}
 		}
 	};

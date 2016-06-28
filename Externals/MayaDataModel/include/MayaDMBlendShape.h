@@ -29,31 +29,31 @@ public:
 					inputComponentsTarget.write(file);
 				}
 			}* inputTargetItem;
+			size_t nbInputTargetItem;
 			float* targetWeights;
+			size_t nbTargetWeights;
 			void write(FILE* file) const
 			{
-				size_t size = sizeof(inputTargetItem)/sizeof(InputTargetItem);
-				for(size_t i=0; i<size; ++i)
+				for (size_t i = 0; i<nbInputTargetItem; ++i)
 				{
 					inputTargetItem[i].write(file);
 					fprintf(file, " ");
-					if(i+1<size) fprintf(file," ");
+					if (i + 1<nbInputTargetItem) fprintf(file, " ");
 				}
-				size = sizeof(targetWeights)/sizeof(float);
-				for(size_t i=0; i<size; ++i)
+				for (size_t i = 0; i<nbTargetWeights; ++i)
 				{
 					fprintf(file,"%f", targetWeights[i]);
-					if(i+1<size) fprintf(file," ");
+					if (i + 1<nbTargetWeights) fprintf(file, " ");
 				}
 			}
 		}* inputTargetGroup;
+		size_t nbInputTargetGroup;
 		void write(FILE* file) const
 		{
-			size_t size = sizeof(inputTargetGroup)/sizeof(InputTargetGroup);
-			for(size_t i=0; i<size; ++i)
+			for (size_t i = 0; i<nbInputTargetGroup; ++i)
 			{
 				inputTargetGroup[i].write(file);
-				if(i+1<size) fprintf(file," ");
+				if (i + 1<nbInputTargetGroup) fprintf(file, " ");
 			}
 		}
 	};

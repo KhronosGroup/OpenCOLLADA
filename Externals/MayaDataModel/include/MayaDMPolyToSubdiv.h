@@ -19,13 +19,13 @@ class PolyToSubdiv : public DependNode
 public:
 	struct CachedUVs{
 		float2* uvPoints;
+		size_t nbUvPoints;
 		void write(FILE* file) const
 		{
-			size_t size = sizeof(uvPoints)/sizeof(float2);
-			for(size_t i=0; i<size; ++i)
+			for (size_t i = 0; i<nbUvPoints; ++i)
 			{
 				uvPoints[i].write(file);
-				if(i+1<size) fprintf(file," ");
+				if (i + 1<nbUvPoints) fprintf(file, " ");
 			}
 		}
 	};
