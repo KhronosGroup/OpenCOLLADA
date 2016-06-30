@@ -1366,7 +1366,24 @@ namespace COLLADAMaya
 //             colladaId += COLLADASW::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
 
         // Get the uri of the current scene
-		COLLADASW::URI uri(getSceneElementURI(sceneElement, colladaId));
+		COLLADASW::URI uri;
+		if (!ExportOptions::exportAnimationsOnly())
+			uri = getSceneElementURI(sceneElement, colladaId);
+		else
+		{
+			String daeName = ExportOptions::getDAEmodelName().asChar();
+
+			if (daeName.compare("") != 0)
+			{
+				uri = URI(daeName + String("#") + colladaId);
+			}
+			else
+			{
+				MGlobal::displayWarning(MString("Please provide Model DAE path to not lose association between animation and a specific model "));
+				return;
+			}
+				
+		}
 
         // Create the collada controller instance
         COLLADASW::InstanceController instanceController ( streamWriter );
@@ -1650,7 +1667,7 @@ namespace COLLADAMaya
                 // Add the controller and/or geometry to our libraries
 				if ((ExportOptions::exportJoints() && hasSkinController) || hasMorphController)
                 {
-					if (ExportOptions::exportSkin())
+					if (ExportOptions::exportSkin() || ExportOptions::exportAnimationsOnly())
 	                    exportInstanceController ( childElement, hasSkinController, hasMorphController );
                 }
                 else

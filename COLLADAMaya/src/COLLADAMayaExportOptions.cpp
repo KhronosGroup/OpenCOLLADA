@@ -23,6 +23,7 @@ namespace COLLADAMaya
 
     // Static Members
 
+	MString  ExportOptions::mDAEmodelName = "";
 	bool ExportOptions::mLOD = true;
     bool ExportOptions::mBakeTransforms = true;
     bool ExportOptions::mRelativePaths = true;
@@ -36,6 +37,7 @@ namespace COLLADAMaya
     bool ExportOptions::mExportCameras = true;
     bool ExportOptions::mExportJoints = true;
 	bool ExportOptions::mExportSkin = true;
+	bool ExportOptions::mExportAnimationOnly = true;
     bool ExportOptions::mExportMaterialsOnly = false;
     bool ExportOptions::mExportReferencedMaterials = true;
     bool ExportOptions::mExportAnimations = true;
@@ -64,7 +66,9 @@ namespace COLLADAMaya
     void ExportOptions::set ( const MString& optionsString )
     {
 		mLOD = true;
-        // Reset everything to the default value
+		mDAEmodelName = "";
+        
+		// Reset everything to the default value
         mBakeTransforms = false;
         mRelativePaths = true;
 		mPreserveSourceTree = false;
@@ -88,6 +92,7 @@ namespace COLLADAMaya
 		mExportJoints = true;
 		mExportSkin = true;
         mExportAnimations = true;
+		mExportAnimationOnly = false;
 		mExportOptimizedBezierAnimations = false;
         mExportInvisibleNodes = false;
         mExportDefaultCameras = false;
@@ -166,9 +171,11 @@ namespace COLLADAMaya
                 else if ( optionName == "removeStaticCurves" ) mRemoveStaticCurves = value;
                 else if ( optionName == "exportXRefs" ) mExportXRefs = value;
                 else if ( optionName == "dereferenceXRefs" ) mDereferenceXRefs = value;
-//				else if ( optionName == "exportLOD") mLOD = value;
+				
+				else if (optionName == "modelNameDAE") mDAEmodelName = decomposedOption[1];
+				else if (optionName == "exportAnimFileOnly") mExportAnimationOnly = value;
             }
-
+			
 			if (mExportSkin)
 				mExportJoints = true;
 
@@ -183,6 +190,11 @@ namespace COLLADAMaya
         }
     }
 
+	MString ExportOptions::getDAEmodelName()
+	{
+		return mDAEmodelName;
+	}
+	
 	bool ExportOptions::exportLOD()
 	{
 		return mLOD;
@@ -261,6 +273,11 @@ namespace COLLADAMaya
 	bool ExportOptions::exportSkin()
 	{
 		return mExportSkin;
+	}
+
+	bool ExportOptions::exportAnimationsOnly()
+	{
+		return mExportAnimationOnly;
 	}
 
     bool ExportOptions::exportMaterialsOnly ()  
