@@ -138,6 +138,8 @@ namespace COLLADASW
     const String CSWC::CSW_ELEMENT_RESTITUTION = "restitution";
     const String CSWC::CSW_ELEMENT_DYNAMIC_FRICTION = "dynamic_friction";
     const String CSWC::CSW_ELEMENT_STATIC_FRICTION = "static_friction";
+	const String CSWC::CSW_ELEMENT_FRICTION_COMBINE_MODE = "friction_combine_mode";
+	const String CSWC::CSW_ELEMENT_RESTITUTION_COMBINE_MODE = "restitution_combine_mode";
     const String CSWC::CSW_ELEMENT_HOLLOW = "hollow";
     const String CSWC::CSW_ELEMENT_DENSITY = "density";
 	const String CSWC::CSW_ELEMENT_RIGID_BODY = "rigid_body";

@@ -1019,6 +1019,26 @@ namespace COLLADAMaya
         }
     };
 
+	class FrictionCombineMode : public Element
+	{
+	public:
+		FrictionCombineMode(PhysXExporter & exporter, const String & combineMode)
+			: Element(exporter, CSWC::CSW_ELEMENT_FRICTION_COMBINE_MODE)
+		{
+			getStreamWriter().appendValues(combineMode);
+		}
+	};
+
+	class RestitutionCombineMode : public Element
+	{
+	public:
+		RestitutionCombineMode(PhysXExporter & exporter, const String & combineMode)
+			: Element(exporter, CSWC::CSW_ELEMENT_RESTITUTION_COMBINE_MODE)
+		{
+			getStreamWriter().appendValues(combineMode);
+		}
+	};
+
     class PhysicsMaterialTechnique : public Element
     {
     public:
@@ -1026,10 +1046,42 @@ namespace COLLADAMaya
             : Element(exporter, CSWC::CSW_ELEMENT_TECHNIQUE)
         {
             getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, profile);
+			if (profile == PhysXExporter::GetPhysXProfile())
+			{
+				exportFrictionCombineMode(rigidBody);
+				exportRestitutionCombineMode(rigidBody);
+			}
             if (profile == PhysXExporter::GetProfileXML()) {
                 exporter.exportMaterialPhysXXML(rigidBody);
             }
         }
+
+	private:
+		void exportFrictionCombineMode(const MObject & rb)
+		{
+			PhysXXML::PxMaterial* mat = getPhysXExporter().findPxMaterial(rb);
+			if (mat)
+			{
+				String combineMode = PhysXExporter::PhysXCombineModeToCOLLADA(mat->frictionCombineMode.frictionCombineMode);
+				if (!combineMode.empty())
+				{
+					FrictionCombineMode e(getPhysXExporter(), combineMode);
+				}
+			}
+		}
+
+		void exportRestitutionCombineMode(const MObject & rb)
+		{
+			PhysXXML::PxMaterial* mat = getPhysXExporter().findPxMaterial(rb);
+			if (mat)
+			{
+				String combineMode = PhysXExporter::PhysXCombineModeToCOLLADA(mat->restitutionCombineMode.restitutionCombineMode);
+				if (!combineMode.empty())
+				{
+					RestitutionCombineMode e(getPhysXExporter(), combineMode);
+				}
+			}
+		}
     };
 
     class PhysicsMaterialExtra : public Element
@@ -1038,11 +1090,17 @@ namespace COLLADAMaya
         PhysicsMaterialExtra(PhysXExporter& exporter, const MObject& rigidBody)
             : Element(exporter, CSWC::CSW_ELEMENT_EXTRA)
         {
-            exportTechnique(rigidBody, PhysXExporter::GetProfileXML());
+			exportTechnique(rigidBody, PhysXExporter::GetPhysXProfile());
+            deprecated_exportTechnique(rigidBody, PhysXExporter::GetProfileXML());
         }
 
     private:
-        void exportTechnique(const MObject& rigidBody, const String& profile)
+		void exportTechnique(const MObject & rigidBody, const String & profile)
+		{
+			PhysicsMaterialTechnique e(getPhysXExporter(), rigidBody, profile);
+		}
+
+        void deprecated_exportTechnique(const MObject& rigidBody, const String& profile)
         {
             PhysicsMaterialTechnique e(getPhysXExporter(), rigidBody, profile);
         }
@@ -1054,8 +1112,8 @@ namespace COLLADAMaya
         PhysicsMaterialTechniqueCommon(PhysXExporter& exporter, const MObject& rigidBody)
             : Element(exporter, CSWC::CSW_ELEMENT_TECHNIQUE_COMMON)
         {
+			exportDynamicFriction(rigidBody);
             exportRestitution(rigidBody);
-            exportDynamicFriction(rigidBody);
             exportStaticFriction(rigidBody);
         }
 
@@ -2729,6 +2787,19 @@ namespace COLLADAMaya
 
                                     sw.openElement(CSWC::CSW_ELEMENT_EXTRA);
                                     {
+										sw.openElement(CSWC::CSW_ELEMENT_TECHNIQUE);
+										sw.appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, PhysXExporter::GetPhysXProfile());
+										{
+											sw.openElement(CSWC::CSW_ELEMENT_FRICTION_COMBINE_MODE);
+											sw.appendValues(PhysXExporter::PhysXCombineModeToCOLLADA(mat->frictionCombineMode.frictionCombineMode));
+											sw.closeElement();
+
+											sw.openElement(CSWC::CSW_ELEMENT_RESTITUTION_COMBINE_MODE);
+											sw.appendValues(PhysXExporter::PhysXCombineModeToCOLLADA(mat->restitutionCombineMode.restitutionCombineMode));
+											sw.closeElement();
+										}
+										sw.closeElement();
+
                                         sw.openElement(CSWC::CSW_ELEMENT_TECHNIQUE);
                                         sw.appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, PhysXExporter::GetProfileXML());
                                         {
@@ -2969,6 +3040,18 @@ namespace COLLADAMaya
     String PhysXExporter::mDefaultInstancePhysicsModelSid = "instancePhysicsModel";
     String PhysXExporter::mProfile = "OpenCOLLADAMayaPhysX";
     String PhysXExporter::mProfileXML = "OpenCOLLADAMayaPhysXXML";
+	String PhysXExporter::mPhysXProfile = "PhysX_3.x";
+	std::map<String, String> PhysXExporter::mCombineModeMap = PhysXExporter::InitializeCombineModeMap();
+
+	std::map<String, String> PhysXExporter::InitializeCombineModeMap()
+	{
+		std::map<String, String> m;
+		m["eAVERAGE"] = "AVERAGE";
+		m["eMIN"] = "MIN";
+		m["eMULTIPLY"] = "MULTIPLY";
+		m["eMAX"] = "MAX";
+		return m;
+	}
 
     PhysXExporter::PhysXExporter(StreamWriter& streamWriter, DocumentExporter& documentExporter)
         : mStreamWriter(streamWriter)
@@ -3764,6 +3847,11 @@ namespace COLLADAMaya
         return mProfileXML;
     }
 
+	const String & PhysXExporter::GetPhysXProfile()
+	{
+		return mPhysXProfile;
+	}
+
 	namespace local
 	{
 		class ExtraAttributeParser : public AttributeParser
@@ -3816,6 +3904,14 @@ namespace COLLADAMaya
 		MFnDependencyNode node(object);
 		AttributeParser::parseAttributes(node, parser);
 		return parser.hasExtraAttributes();
+	}
+
+	String PhysXExporter::PhysXCombineModeToCOLLADA(const String & PhysXString)
+	{
+		std::map<String, String>::const_iterator it = mCombineModeMap.find(PhysXString);
+		if (it != mCombineModeMap.end())
+			return it->second;
+		return "";
 	}
 
     const String & PhysXExporter::findColladaId(const String & mayaId)

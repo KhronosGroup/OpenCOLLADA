@@ -149,6 +149,8 @@ namespace COLLADASW
         static const String CSW_ELEMENT_RESTITUTION;
         static const String CSW_ELEMENT_DYNAMIC_FRICTION;
         static const String CSW_ELEMENT_STATIC_FRICTION;
+		static const String CSW_ELEMENT_FRICTION_COMBINE_MODE;
+		static const String CSW_ELEMENT_RESTITUTION_COMBINE_MODE;
         static const String CSW_ELEMENT_HOLLOW;
         static const String CSW_ELEMENT_DENSITY;
 		static const String	CSW_ELEMENT_RIGID_BODY;

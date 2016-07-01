@@ -132,8 +132,12 @@ namespace COLLADAMaya
         static const String& GetDefaultInstancePhysicsModelSid();
         static const String& GetProfile();
         static const String& GetProfileXML();
+		static const String& GetPhysXProfile();
 
 		static bool HasExtraAttributes(const MObject & object);
+
+		// Convert PhysX enum string to COLLADA string
+		static String PhysXCombineModeToCOLLADA(const String & PhysXString);
 
         enum Filter
         {
@@ -193,6 +197,10 @@ namespace COLLADAMaya
         static String mDefaultInstancePhysicsModelSid;
         static String mProfile;
         static String mProfileXML;
+		static String mPhysXProfile;
+
+		static std::map<String, String> mCombineModeMap;
+		static std::map<String, String> InitializeCombineModeMap();
     };
 }
 
