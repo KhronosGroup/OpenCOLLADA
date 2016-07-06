@@ -37,7 +37,8 @@ namespace COLLADAMaya
     bool ExportOptions::mExportCameras = true;
     bool ExportOptions::mExportJoints = true;
 	bool ExportOptions::mExportSkin = true;
-	bool ExportOptions::mExportAnimationOnly = true;
+	bool ExportOptions::mExportAnimationsOnly = true;
+	bool ExportOptions::mExportSeparateFile = false;
     bool ExportOptions::mExportMaterialsOnly = false;
     bool ExportOptions::mExportReferencedMaterials = true;
     bool ExportOptions::mExportAnimations = true;
@@ -92,7 +93,8 @@ namespace COLLADAMaya
 		mExportJoints = true;
 		mExportSkin = true;
         mExportAnimations = true;
-		mExportAnimationOnly = false;
+		mExportAnimationsOnly = false;
+		mExportSeparateFile = false;
 		mExportOptimizedBezierAnimations = false;
         mExportInvisibleNodes = false;
         mExportDefaultCameras = false;
@@ -116,7 +118,7 @@ namespace COLLADAMaya
             MStringArray optionList;
             optionsString.split ( ';', optionList );
             uint optionCount = optionList.length();
-
+			
             for ( uint i = 0; i < optionCount; ++i )
             {
                 MString& currentOption = optionList[i];
@@ -173,7 +175,8 @@ namespace COLLADAMaya
                 else if ( optionName == "dereferenceXRefs" ) mDereferenceXRefs = value;
 				
 				else if (optionName == "modelNameDAE") mDAEmodelName = decomposedOption[1];
-				else if (optionName == "exportAnimFileOnly") mExportAnimationOnly = value;
+				else if (optionName == "exportAnimationsOnly") mExportAnimationsOnly = value;
+				else if (optionName == "exportSeparateFile") mExportSeparateFile = value;
             }
 			
 			if (mExportSkin)
@@ -277,7 +280,12 @@ namespace COLLADAMaya
 
 	bool ExportOptions::exportAnimationsOnly()
 	{
-		return mExportAnimationOnly;
+		return mExportAnimationsOnly;
+	}
+
+	bool ExportOptions::exportSeparateFile()
+	{
+		return mExportSeparateFile;
 	}
 
     bool ExportOptions::exportMaterialsOnly ()  

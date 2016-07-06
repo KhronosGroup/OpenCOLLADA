@@ -1364,25 +1364,34 @@ namespace COLLADAMaya
 //             colladaId += COLLADASW::LibraryControllers::MORPH_CONTROLLER_ID_SUFFIX;
 //         if ( hasSkinController )
 //             colladaId += COLLADASW::LibraryControllers::SKIN_CONTROLLER_ID_SUFFIX;
-
+		
         // Get the uri of the current scene
 		COLLADASW::URI uri;
-		if (!ExportOptions::exportAnimationsOnly())
+		if (!ExportOptions::exportSeparateFile() || (ExportOptions::exportSeparateFile() && !ExportOptions::exportAnimationsOnly()))
 			uri = getSceneElementURI(sceneElement, colladaId);
 		else
 		{
 			String daeName = ExportOptions::getDAEmodelName().asChar();
+			
+			MString exportedFile = mDocumentExporter->getFilename().c_str();
 
-			if (daeName.compare("") != 0)
+			// Make referenced file path relative to exported file directory
+			COLLADASW::URI exportedFileURI = exportedFile.asChar();
+			COLLADASW::URI exportedFileDirURI = exportedFileURI.getPathDir();
+			exportedFileDirURI.setScheme(exportedFileURI.getScheme());
+			
+			COLLADASW::URI referencedFileURI = MString(daeName.c_str()).asChar();
+			referencedFileURI.makeRelativeTo(exportedFileDirURI);
+		 
+			if (ExportOptions::exportAnimationsOnly() && daeName.compare("") != 0)
 			{
-				uri = URI(daeName + String("#") + colladaId);
+				uri = URI(referencedFileURI.getURIString() + String("#") + colladaId);
 			}
 			else
 			{
 				MGlobal::displayWarning(MString("Please provide Model DAE path to not lose association between animation and a specific model "));
 				return;
-			}
-				
+			}	
 		}
 
         // Create the collada controller instance
@@ -1667,7 +1676,7 @@ namespace COLLADAMaya
                 // Add the controller and/or geometry to our libraries
 				if ((ExportOptions::exportJoints() && hasSkinController) || hasMorphController)
                 {
-					if (ExportOptions::exportSkin() || ExportOptions::exportAnimationsOnly())
+					if (ExportOptions::exportSkin() || ExportOptions::exportSeparateFile())
 	                    exportInstanceController ( childElement, hasSkinController, hasMorphController );
                 }
                 else

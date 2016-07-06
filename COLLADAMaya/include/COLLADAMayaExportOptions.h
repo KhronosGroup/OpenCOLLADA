@@ -74,7 +74,8 @@ namespace COLLADAMaya
         static bool mExportCameras;
 		static bool mExportJoints;
 		static bool mExportSkin;
-		static bool mExportAnimationOnly;
+		static bool mExportAnimationsOnly;
+		static bool mExportSeparateFile;
 		static bool mExportAnimations;
 		static bool mExportOptimizedBezierAnimations;
         static bool mExportInvisibleNodes;
@@ -151,6 +152,7 @@ namespace COLLADAMaya
         static bool exportJoints();
 		static bool exportSkin();
 		static bool exportAnimationsOnly();
+		static bool exportSeparateFile();
         static bool exportAnimations();
 		static bool exportOptimizedBezierAnimations();
         static bool exportInvisibleNodes();

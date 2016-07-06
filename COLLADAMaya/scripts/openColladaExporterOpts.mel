@@ -13,6 +13,18 @@
     http://www.opensource.org/licenses/mit-license.php
 */
 
+global string $colladaExportFilter10 = "DAE";
+
+global proc defaultButtonPush()
+{
+	global string $colladaExportFilter10;
+
+	string $basicFilter = "*.dae";
+	string $result[] = `fileDialog2 -fileMode 1 -fileFilter $basicFilter -dialogStyle 2`;
+	
+	textFieldGrp -e -text $result $colladaExportFilter10;
+}
+
 global proc int openColladaExporterOpts ( string $parent,
 							  			  string $action,
 										  string $initialSettings,
@@ -40,7 +52,7 @@ global proc int openColladaExporterOpts ( string $parent,
 //	Returns:
 //		1 if successfull.
 //		0 otherwise.
-//
+//				
 {
 	int		$intVal;
 	int		$bResult;
@@ -50,6 +62,8 @@ global proc int openColladaExporterOpts ( string $parent,
 	int		$index;
     float   $version;
     
+	global string $colladaExportFilter10;
+	
     $version = getApplicationVersionAsFloat();
 
 	if ($action == "post") 
@@ -227,25 +241,31 @@ global proc int openColladaExporterOpts ( string $parent,
                             colladaExportFilter8;
 					
 					
-					text
-							-l " "
-							colladaExportFilterSeparator3;
-							
+								
+					frameLayout -cll true -cl false -bv true -bs "etchedIn" -l "Separate File Export" colladaFilterFrame2;
+					
 					checkBoxGrp
 							-ncb 1
 							-v1 false
-							-l1 "Export Animation into separate files"
+							-l1 "Export into separate files"
+							-on1 "checkBoxGrp -e -en1 false colladaExportFilter1; checkBoxGrp -e -en1 false colladaExportFilter2; checkBoxGrp -e -en2 false colladaExportFilter2; checkBoxGrp -e -en1 false colladaExportFilter3"
+							-of1 "checkBoxGrp -e -en1 true colladaExportFilter1; checkBoxGrp -e -en1 true colladaExportFilter2; checkBoxGrp -e -en2 true colladaExportFilter2; checkBoxGrp -e -en1 true colladaExportFilter3"
 							colladaExportFilter11;
-							
-					textFieldGrp
-							-label "model DAE"
-							-width 100
-							-text  ""
-							-p colladaFilterOptions
-							colladaExportFilter10;
-							
-											
 					
+					columnLayout;
+						radioButtonGrp -numberOfRadioButtons 2 -label "Export" -labelArray2 "Model" "Anim"
+						-sl	2					
+						-on1 "textFieldButtonGrp -e -en false $colladaExportFilter10"
+						-on2 "textFieldButtonGrp -e -en true $colladaExportFilter10"
+						colladaExportFilter12;
+					setParent ..;  // columnLayout
+					
+					columnLayout;
+					textFieldButtonGrp -label "Model DAE" -buttonLabel "Search" -text "" -bc "defaultButtonPush" $colladaExportFilter10;
+					setParent ..; // RowLayout
+					
+					setParent ..;  // frameLayout
+							
 				setParent ..; // columnLayout
 			setParent ..; // frameLayout
 
@@ -471,7 +491,7 @@ global proc int openColladaExporterOpts ( string $parent,
 					$intVal = $optionBreakDown[1];
 					checkBoxGrp -e -v1 $intVal colladaExportFilter9;
 				}
-				else if ($optionBreakDown[0] == "exportAnimFileOnly")
+				else if ($optionBreakDown[0] == "exportSeparateFile")
 				{
 					$intVal = $optionBreakDown[1];
 					checkBoxGrp -e -v1 $intVal colladaExportFilter11;
@@ -542,12 +562,36 @@ global proc int openColladaExporterOpts ( string $parent,
 
 // Query filter options
 //
- 		$currentOptions = $currentOptions + "exportPolygonMeshes=" + `checkBoxGrp -q -v1 colladaExportFilter1` + ";";
+
  		$currentOptions = $currentOptions + "exportLights=" + `checkBoxGrp -q -v2 colladaExportFilter1` + ";";
  		$currentOptions = $currentOptions + "exportCameras=" + `checkBoxGrp -q -v1 colladaExportFilter1a` + ";";
- 		$currentOptions = $currentOptions + "exportJoints=" + `checkBoxGrp -q -v1 colladaExportFilter2` + ";";
+		
+	
+		// Export Separate File
+		if (`checkBoxGrp -q -v1 colladaExportFilter11`)
+ 		{
+			// Export Only Model
+			if (`radioButtonGrp -q -sl colladaExportFilter12` > 1)
+			{	
+				checkBoxGrp -e -v1 true colladaExportFilter2;
+				checkBoxGrp -e -v1 true colladaExportFilter3;
+				checkBoxGrp -e -v2 false colladaExportFilter2;
+				checkBoxGrp -e -v1 false colladaExportFilter1;
+			}
+			else
+			{	
+				checkBoxGrp -e -v1 false colladaExportFilter2;
+				checkBoxGrp -e -v1 false colladaExportFilter3;
+				checkBoxGrp -e -v2 true colladaExportFilter2;
+				checkBoxGrp -e -v1 true colladaExportFilter1;
+			}
+		}
+		
+		$currentOptions = $currentOptions + "exportPolygonMeshes=" + `checkBoxGrp -q -v1 colladaExportFilter1` + ";";
+		$currentOptions = $currentOptions + "exportJoints=" + `checkBoxGrp -q -v1 colladaExportFilter2` + ";";
 		$currentOptions = $currentOptions + "exportSkin=" + `checkBoxGrp -q -v2 colladaExportFilter2` + ";";
-		$currentOptions = $currentOptions + "exportAnimations=" + `checkBoxGrp -q -v1 colladaExportFilter3` + ";";
+		$currentOptions = $currentOptions + "exportAnimations=" + `checkBoxGrp -q -v1 colladaExportFilter3` + ";";	
+			
 		$currentOptions = $currentOptions + "exportOptimizedBezierAnimation=" + `checkBoxGrp -q -v2 colladaExportFilter3` + ";";
  		$currentOptions = $currentOptions + "exportInvisibleNodes=" + `checkBoxGrp -q -v1 colladaExportFilter4` + ";";
  		$currentOptions = $currentOptions + "exportDefaultCameras=" + `checkBoxGrp -q -v2 colladaExportFilter4` + ";";
@@ -566,8 +610,23 @@ global proc int openColladaExporterOpts ( string $parent,
         }
 		$currentOptions = $currentOptions + "exportConvexMeshGeometries=" + `checkBoxGrp -q -v1 colladaExportFilter9` + ";";
 		
-		$currentOptions = $currentOptions + "exportAnimFileOnly=" + `checkBoxGrp -q -v1 colladaExportFilter11` + ";";
-		$currentOptions = $currentOptions + "modelNameDAE=" + `textFieldGrp -q -text colladaExportFilter10` + ";";
+		
+		if (`checkBoxGrp -q -v1 colladaExportFilter11`)
+		{
+			if (`radioButtonGrp -q -sl colladaExportFilter12` > 1)
+			{
+				$currentOptions = $currentOptions + "exportAnimationsOnly=1;";
+			}	
+			else
+			{
+				$currentOptions = $currentOptions + "exportAnimationsOnly=0;";
+			}
+			
+			$currentOptions = $currentOptions + "modelNameDAE=" + `textFieldGrp -q -text $colladaExportFilter10` + ";";
+		}
+		
+		$currentOptions = $currentOptions + "exportSeparateFile=" + `checkBoxGrp -q -v1 colladaExportFilter11` + ";";
+		
 		
 // External references options
 //
