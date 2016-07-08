@@ -41,6 +41,7 @@ namespace COLLADAMaya
     static const String PARAMETER_MAYA_ID                           = "originalMayaNodeId";
     static const String PARAMETER_DOUBLE_SIDED                      = "double_sided";
 	static const String PARAMETER_PROXY								= "proxy";
+	static const String PARAMETER_EVENT								= "event";
 
     /** Empty strings. */
     static const String EMPTY_STRING                                = "";
