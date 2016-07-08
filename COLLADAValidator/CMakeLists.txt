@@ -33,6 +33,8 @@ include_directories(
 	${libSaxFrameworkLoader_include_dirs}
 	${libGeneratedSaxParser_include_dirs}
 )
+
+SET(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
 link_directories(${LIBRARY_OUTPUT_PATH})
 
 add_executable(${name} ${SRC})
