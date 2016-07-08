@@ -66,7 +66,7 @@ namespace COLLADASW
             mSW->closeElement();
         }
 		
-		if (animationClip.isAnimationEvent())
+//		if (animationClip.isAnimationEvent())
 			animationClip.addExtraTechniques(mSW);
 
         mSW->closeElement();

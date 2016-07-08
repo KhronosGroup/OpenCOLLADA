@@ -34,6 +34,9 @@
 #include "COLLADABUIDList.h"
 #include <maya/MFnClip.h>
 
+#include "COLLADAMayaAttributeParser.h"
+#include <maya/MFnAttribute.h>
+
 
 namespace COLLADAMaya
 {
@@ -685,13 +688,66 @@ namespace COLLADAMaya
 
 		void saveParamInstancedClip(std::vector<bool>& OriginalValues);
 		void restoreParamInstancedClip(std::vector<bool>& OriginalValues);
-		void createAnimationClip(MFnClip& currentMfnclip);
+		void createAnimationClip(MObject& ClipObject);
 
 
 		void generateSamplingFunctionForClip(MFnClip& clipFn);
 
 		static const String getNameOfStepInterpolation(const Step & type);
 		static const String getNameOfOrder(const MEulerRotation::RotationOrder & order);
+
+
+		class ExtraAttributeExporter : public AttributeParser
+		{
+
+			public:
+				ExtraAttributeExporter(COLLADASW::ColladaAnimationClip & clip)
+					: colladaClip(clip)
+				{}
+
+			private:
+				COLLADASW::ColladaAnimationClip& colladaClip;
+
+			protected:
+				virtual bool onBeforeAttribute(MFnDependencyNode & node, MObject & attr) override
+				{
+					MStatus status;
+					MFnAttribute fnAttr(attr, &status);
+					if (!status) return false;
+
+					MString attrName = fnAttr.name(&status);
+					if (!status) return false;
+
+					bool isDynamic = fnAttr.isDynamic(&status);
+					if (!status) return false;
+
+					if (!isDynamic)
+						return false;
+
+					bool isHidden = fnAttr.isHidden(&status);
+					if (!status) return false;
+
+					if (isHidden)
+						return false;
+
+					return true;
+				}
+
+
+				virtual void onString(MPlug & plug, const MString & name, const MString & value) override
+				{
+					std::size_t found = String(name.asChar()).find_last_of("_");
+
+					if (String(name.asChar()).substr(0, found).compare("markup_event") == 0)
+					{
+						colladaClip.addExtraTechniqueParentElement(PROFILE_MAYA, PARAMETER_EVENT);
+						colladaClip.addExtraTechniqueChildElement(PROFILE_MAYA, PARAMETER_EVENT, name.asChar(), value.asChar());
+					}
+				}
+
+		};
+
+
     };
 
 }
