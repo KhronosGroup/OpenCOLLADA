@@ -137,7 +137,8 @@ namespace COLLADAMaya
 		static bool HasExtraAttributes(const MObject & object);
 
 		// Convert PhysX enum string to COLLADA string
-		static String PhysXCombineModeToCOLLADA(const String & PhysXString);
+		static String PhysXCombineModeToCOLLADA(const String & PhysXFlag);
+		static String PhysXShapeFlagsToCOLLADA(const String & PhysXFlags);
 
         enum Filter
         {
@@ -201,6 +202,9 @@ namespace COLLADAMaya
 
 		static std::map<String, String> mCombineModeMap;
 		static std::map<String, String> InitializeCombineModeMap();
+
+		static std::map<String, String> mShapeFlagMap;
+		static std::map<String, String> InitializeShapeFlagMap();
     };
 }
 

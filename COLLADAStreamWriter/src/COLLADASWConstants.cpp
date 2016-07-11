@@ -142,6 +142,11 @@ namespace COLLADASW
 	const String CSWC::CSW_ELEMENT_RESTITUTION_COMBINE_MODE = "restitution_combine_mode";
     const String CSWC::CSW_ELEMENT_HOLLOW = "hollow";
     const String CSWC::CSW_ELEMENT_DENSITY = "density";
+	const String CSWC::CSW_ELEMENT_SIMULATION_FILTER_DATA = "simulation_filter_data";
+	const String CSWC::CSW_ELEMENT_QUERY_FILTER_DATA = "query_filter_data";
+	const String CSWC::CSW_ELEMENT_CONTACT_OFFSET = "contact_offset";
+	const String CSWC::CSW_ELEMENT_REST_OFFSET = "rest_offset";
+	const String CSWC::CSW_ELEMENT_SHAPE_FLAGS = "shape_flags";
 	const String CSWC::CSW_ELEMENT_RIGID_BODY = "rigid_body";
 	const String CSWC::CSW_ELEMENT_RIGID_BODY_DYNAMIC = "dynamic";
 	const String CSWC::CSW_ELEMENT_RIGID_BODY_MASS = "mass";

@@ -153,6 +153,11 @@ namespace COLLADASW
 		static const String CSW_ELEMENT_RESTITUTION_COMBINE_MODE;
         static const String CSW_ELEMENT_HOLLOW;
         static const String CSW_ELEMENT_DENSITY;
+		static const String CSW_ELEMENT_SIMULATION_FILTER_DATA;
+		static const String CSW_ELEMENT_QUERY_FILTER_DATA;
+		static const String CSW_ELEMENT_CONTACT_OFFSET;
+		static const String CSW_ELEMENT_REST_OFFSET;
+		static const String CSW_ELEMENT_SHAPE_FLAGS;
 		static const String	CSW_ELEMENT_RIGID_BODY;
 		static const String CSW_ELEMENT_RIGID_BODY_DYNAMIC;
 		static const String CSW_ELEMENT_RIGID_BODY_MASS;

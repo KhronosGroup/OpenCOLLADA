@@ -1202,25 +1202,21 @@ namespace COLLADAMaya
     class ShapeBox : public Element
     {
     public:
-        ShapeBox(PhysXExporter& exporter, const MObject & shape)
+		ShapeBox(PhysXExporter& exporter, const MObject & rigidBody, const MObject & shape)
             : Element(exporter, CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_BOX)
         {
-            exportHalfExtents(shape);
+            exportHalfExtents(rigidBody, shape);
         }
 
     private:
-        void exportHalfExtents(const MObject & shape)
+		void exportHalfExtents(const MObject & rigidBody, const MObject & shape)
         {
-            double inflate = 0.0;
-            DagHelper::getPlugValue(shape, ATTR_INFLATE, inflate);
-            inflate = MDistance::internalToUI(inflate);
-
-            MVector size;
-            DagHelper::getPlugValue(shape, ATTR_SIZE, size);
-            size.x = MDistance::internalToUI(size.x) + inflate * 2.0;
-            size.y = MDistance::internalToUI(size.y) + inflate * 2.0;
-            size.z = MDistance::internalToUI(size.z) + inflate * 2.0;
-            HalfExtents e(getPhysXExporter(), size / 2.0);
+			PhysXXML::PxShape* pxShape = getPhysXExporter().findPxShape(rigidBody, shape);
+			if (pxShape)
+			{
+				MVector halfExtents = pxShape->geometry.boxGeometry.halfExtents.halfExtents;
+				HalfExtents e(getPhysXExporter(), halfExtents);
+			}
         }
     };
 
@@ -1247,23 +1243,20 @@ namespace COLLADAMaya
     class ShapeSphere : public Element
     {
     public:
-        ShapeSphere(PhysXExporter& exporter, const MObject & shape)
+		ShapeSphere(PhysXExporter& exporter, const MObject & rigidBody, const MObject & shape)
             : Element(exporter, CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_SPHERE)
         {
-            exportRadius(shape);
+            exportRadius(rigidBody, shape);
         }
 
     private:
-        void exportRadius(const MObject & shape)
+        void exportRadius(const MObject & rigidBody, const MObject & shape)
         {
-            double inflate = 0.0;
-            DagHelper::getPlugValue(shape, ATTR_INFLATE, inflate);
-            inflate = MDistance::internalToUI(inflate);
-
-            double radius;
-            DagHelper::getPlugValue(shape, ATTR_RADIUS, radius);
-            radius = MDistance::internalToUI(radius) + inflate;
-            SphereRadius e(getPhysXExporter(), radius);
+			PhysXXML::PxShape* pxShape = getPhysXExporter().findPxShape(rigidBody, shape);
+			if (pxShape)
+			{
+				SphereRadius e(getPhysXExporter(), pxShape->geometry.sphereGeometry.radius.radius);
+			}
         }
     };
 
@@ -1280,32 +1273,26 @@ namespace COLLADAMaya
     class ShapeCapsule : public Element
     {
     public:
-        ShapeCapsule(PhysXExporter& exporter, const MObject & shape)
+		ShapeCapsule(PhysXExporter& exporter, const MObject & rigidBody, const MObject & shape)
             : Element(exporter, CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_CAPSULE)
         {
-            exportRadius(shape);
-            exportHeight(shape);
+			PhysXXML::PxShape* pxShape = getPhysXExporter().findPxShape(rigidBody, shape);
+			if (pxShape)
+			{
+				exportRadius(*pxShape);
+				exportHeight(*pxShape);
+			}
         }
 
     private:
-        void exportRadius(const MObject & shape)
+        void exportRadius(const PhysXXML::PxShape & shape)
         {
-            double inflate = 0.0;
-            DagHelper::getPlugValue(shape, ATTR_INFLATE, inflate);
-            inflate = MDistance::internalToUI(inflate);
-
-            double radius;
-            DagHelper::getPlugValue(shape, ATTR_RADIUS, radius);
-            radius = MDistance::internalToUI(radius) + inflate;
-            CapsuleRadius e(getPhysXExporter(), radius, radius);
+            CapsuleRadius e(getPhysXExporter(), shape.geometry.capsuleGeometry.radius.radius, shape.geometry.capsuleGeometry.radius.radius);
         }
 
-        void exportHeight(const MObject & shape)
+		void exportHeight(const PhysXXML::PxShape & shape)
         {
-            double height;
-            DagHelper::getPlugValue(shape, ATTR_HEIGHT, height);
-            height = MDistance::internalToUI(height);
-            Height e(getPhysXExporter(), height);
+			Height e(getPhysXExporter(), shape.geometry.capsuleGeometry.halfHeight.halfHeight * 2.0);
         }
     };
 
@@ -1340,6 +1327,66 @@ namespace COLLADAMaya
         }
     };
 
+	class SimulationFilterData : public Element
+	{
+	public:
+		SimulationFilterData(PhysXExporter & exporter, int f0, int f1, int f2, int f3)
+			: Element(exporter, CSWC::CSW_ELEMENT_SIMULATION_FILTER_DATA)
+		{
+			exporter.getStreamWriter().appendValues(f0, f1, f2, f3);
+		}
+	};
+
+	class QueryFilterData : public Element
+	{
+	public:
+		QueryFilterData(PhysXExporter & exporter, int f0, int f1, int f2, int f3)
+			: Element(exporter, CSWC::CSW_ELEMENT_QUERY_FILTER_DATA)
+		{
+			exporter.getStreamWriter().appendValues(f0, f1, f2, f3);
+		}
+	};
+
+	class ContactOffset : public Element
+	{
+	public:
+		ContactOffset(PhysXExporter & exporter, double contactOffset)
+			: Element(exporter, CSWC::CSW_ELEMENT_CONTACT_OFFSET)
+		{
+			exporter.getStreamWriter().appendValues(contactOffset);
+		}
+	};
+
+	class RestOffset : public Element
+	{
+	public:
+		RestOffset(PhysXExporter & exporter, double restOffset)
+			: Element(exporter, CSWC::CSW_ELEMENT_REST_OFFSET)
+		{
+			exporter.getStreamWriter().appendValues(restOffset);
+		}
+	};
+
+	class ShapeFlags : public Element
+	{
+	public:
+		ShapeFlags(PhysXExporter & exporter, const String & flags)
+			: Element(exporter, CSWC::CSW_ELEMENT_SHAPE_FLAGS)
+		{
+			exporter.getStreamWriter().appendText(flags);
+		}
+	};
+
+	class DebugName : public Element
+	{
+	public:
+		DebugName(PhysXExporter & exporter, const String & name)
+			: Element(exporter, CSWC::CSW_ELEMENT_NAME)
+		{
+			exporter.getStreamWriter().appendText(name);
+		}
+	};
+
     class ShapeTechnique : public Element
     {
     public:
@@ -1357,6 +1404,18 @@ namespace COLLADAMaya
             else if (profile == PROFILE_MAYA) {
                 exporter.exportExtraAttributes(shape);
             }
+			else if (profile == PhysXExporter::GetPhysXProfile()) {
+				PhysXXML::PxShape* pxShape = getPhysXExporter().findPxShape(rigidBody, shape);
+				if (pxShape)
+				{
+					exportSimulationFilterData(*pxShape);
+					exportQueryFilterData(*pxShape);
+					exportContactOffset(*pxShape);
+					exportRestOffset(*pxShape);
+					exportShapeFlags(*pxShape);
+					exportName(*pxShape);
+				}
+			}
         }
 
     private:
@@ -1380,6 +1439,76 @@ namespace COLLADAMaya
             return mAttributes;
         }
 
+		void exportSimulationFilterData(const PhysXXML::PxShape & shape)
+		{
+			if (shape.simulationFilterData.filter0 != 0 ||
+				shape.simulationFilterData.filter1 != 0 ||
+				shape.simulationFilterData.filter2 != 0 ||
+				shape.simulationFilterData.filter3 != 0)
+			{
+				SimulationFilterData e(
+					getPhysXExporter(),
+					shape.simulationFilterData.filter0,
+					shape.simulationFilterData.filter1,
+					shape.simulationFilterData.filter2,
+					shape.simulationFilterData.filter3
+					);
+			}
+		}
+
+		void exportQueryFilterData(const PhysXXML::PxShape & shape)
+		{
+			if (shape.queryFilterData.filter0 != 0 ||
+				shape.queryFilterData.filter1 != 0 ||
+				shape.queryFilterData.filter2 != 0 ||
+				shape.queryFilterData.filter3 != 0)
+			{
+				QueryFilterData e(
+					getPhysXExporter(),
+					shape.queryFilterData.filter0,
+					shape.queryFilterData.filter1,
+					shape.queryFilterData.filter2,
+					shape.queryFilterData.filter3
+					);
+			}
+		}
+
+		void exportContactOffset(const PhysXXML::PxShape & shape)
+		{
+			if (shape.contactOffset.contactOffset != 0.02)
+			{
+				ContactOffset e(getPhysXExporter(), shape.contactOffset.contactOffset);
+			}
+		}
+
+		void exportRestOffset(const PhysXXML::PxShape & shape)
+		{
+			if (shape.restOffset.restOffset != 0.0)
+			{
+				RestOffset e(getPhysXExporter(), shape.restOffset.restOffset);
+			}
+		}
+
+		void exportShapeFlags(const PhysXXML::PxShape & shape)
+		{
+			if (!shape.flags.flags.empty())
+			{
+				String flags = PhysXExporter::PhysXShapeFlagsToCOLLADA(shape.flags.flags);
+				if (!flags.empty())
+				{
+					ShapeFlags e(getPhysXExporter(), flags);
+				}
+			}
+		}
+
+		void exportName(const PhysXXML::PxShape & shape)
+		{
+			if (!shape.name.name.empty())
+			{
+				DebugName e(getPhysXExporter(), shape.name.name);
+			}
+		}
+
     private:
         static std::set<MString, MStringComp> mAttributes;
     };
@@ -1396,6 +1525,7 @@ namespace COLLADAMaya
 			}
             exportProfile(rigidBody, shape, PhysXExporter::GetProfile());
             exportProfile(rigidBody, shape, PhysXExporter::GetProfileXML());
+			exportProfile(rigidBody, shape, PhysXExporter::GetPhysXProfile());
         }
 
     private:
@@ -1431,27 +1561,27 @@ namespace COLLADAMaya
             PhysXShape::GetType(shape, shapeType);
             if (shapeType == SHAPE_TYPE_BOX)
             {
-                exportBox(shape);
+                exportBox(rigidBody, shape);
             }
             else if (shapeType == SHAPE_TYPE_SPHERE)
             {
-                exportSphere(shape);
+				exportSphere(rigidBody, shape);
             }
             else if (shapeType == SHAPE_TYPE_CAPSULE)
             {
-                exportCapsule(shape);
+				exportCapsule(rigidBody, shape);
             }
             else if (shapeType == SHAPE_TYPE_CONVEX_HULL)
             {
-                exportConvexHull(shape);
+				exportConvexHull(rigidBody, shape);
             }
             else if (shapeType == SHAPE_TYPE_TRIANGLE_MESH)
             {
-                exportTriangleMesh(shape);
+				exportTriangleMesh(rigidBody, shape);
             }
             else if (shapeType == SHAPE_TYPE_CLOTH_SPHERES)
             {
-                exportSphere(shape);
+				exportSphere(rigidBody, shape);
             }
 
             exportRotateTranslate(rigidBody, shape);
@@ -1478,35 +1608,35 @@ namespace COLLADAMaya
             Density e(getPhysXExporter(), density);
         }
 
-        void exportBox(const MObject & shape)
+        void exportBox(const MObject & rigidBody, const MObject & shape)
         {
-            ShapeBox e(getPhysXExporter(), shape);
+            ShapeBox e(getPhysXExporter(), rigidBody, shape);
         }
 
-        void exportSphere(const MObject & shape)
+		void exportSphere(const MObject & rigidBody, const MObject & shape)
         {
-            ShapeSphere e(getPhysXExporter(), shape);
+			ShapeSphere e(getPhysXExporter(), rigidBody, shape);
         }
 
-        void exportCapsule(const MObject & shape)
+		void exportCapsule(const MObject & rigidBody, const MObject & shape)
         {
-            ShapeCapsule e(getPhysXExporter(), shape);
+			ShapeCapsule e(getPhysXExporter(), rigidBody, shape);
         }
 
-        void exportConvexHull(const MObject & shape)
+		void exportConvexHull(const MObject & rigidBody, const MObject & shape)
         {
             // TODO PhysX: apply "inflate" attribute to convex hull geometry.
             // Note: apply inflation like done for box shape. See ShapeBox::exportHalfExtents().
             // However "inflate" attribute is limited to [0; 0.839] for some unknown reason.
-            exportInstanceGeometry(shape, "_");
+			exportInstanceGeometry(rigidBody, shape, "_");
         }
 
-        void exportTriangleMesh(const MObject & shape)
+		void exportTriangleMesh(const MObject & rigidBody, const MObject & shape)
         {
-            exportInstanceGeometry(shape);
+			exportInstanceGeometry(rigidBody, shape);
         }
 
-        void exportInstanceGeometry(const MObject & shape, const String & URISuffix = "")
+		void exportInstanceGeometry(const MObject & rigidBody, const MObject & shape, const String & URISuffix = "")
         {
             // Get geometry URI
             MObject meshObject;
@@ -2843,6 +2973,35 @@ namespace COLLADAMaya
                                         shape.exportElement(sw);
                                     }
                                     sw.closeElement();
+
+									sw.openElement(CSWC::CSW_ELEMENT_TECHNIQUE);
+									sw.appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, PhysXExporter::GetPhysXProfile());
+									{
+										sw.openElement(CSWC::CSW_ELEMENT_SIMULATION_FILTER_DATA);
+										sw.appendValues(shape.simulationFilterData.filter0, shape.simulationFilterData.filter1, shape.simulationFilterData.filter2, shape.simulationFilterData.filter3);
+										sw.closeElement();
+
+										sw.openElement(CSWC::CSW_ELEMENT_QUERY_FILTER_DATA);
+										sw.appendValues(shape.queryFilterData.filter0, shape.queryFilterData.filter1, shape.queryFilterData.filter2, shape.queryFilterData.filter3);
+										sw.closeElement();
+
+										sw.openElement(CSWC::CSW_ELEMENT_CONTACT_OFFSET);
+										sw.appendValues(shape.contactOffset.contactOffset);
+										sw.closeElement();
+
+										sw.openElement(CSWC::CSW_ELEMENT_REST_OFFSET);
+										sw.appendValues(shape.restOffset.restOffset);
+										sw.closeElement();
+
+										sw.openElement(CSWC::CSW_ELEMENT_SHAPE_FLAGS);
+										sw.appendValues(PhysXExporter::PhysXShapeFlagsToCOLLADA(shape.flags.flags));
+										sw.closeElement();
+
+										sw.openElement(CSWC::CSW_ELEMENT_NAME);
+										sw.appendValues(shape.name.name);
+										sw.closeElement();
+									}
+									sw.closeElement();
                                 }
                                 sw.closeElement();
                             }
@@ -3042,6 +3201,7 @@ namespace COLLADAMaya
     String PhysXExporter::mProfileXML = "OpenCOLLADAMayaPhysXXML";
 	String PhysXExporter::mPhysXProfile = "PhysX_3.x";
 	std::map<String, String> PhysXExporter::mCombineModeMap = PhysXExporter::InitializeCombineModeMap();
+	std::map<String, String> PhysXExporter::mShapeFlagMap = PhysXExporter::InitializeShapeFlagMap();
 
 	std::map<String, String> PhysXExporter::InitializeCombineModeMap()
 	{
@@ -3050,6 +3210,17 @@ namespace COLLADAMaya
 		m["eMIN"] = "MIN";
 		m["eMULTIPLY"] = "MULTIPLY";
 		m["eMAX"] = "MAX";
+		return m;
+	}
+
+	std::map<String, String> PhysXExporter::InitializeShapeFlagMap()
+	{
+		std::map<String, String> m;
+		m["eSIMULATION_SHAPE"] = "SIMULATION_SHAPE";
+		m["eSCENE_QUERY_SHAPE"] = "SCENE_QUERY_SHAPE";
+		m["eTRIGGER_SHAPE"] = "TRIGGER_SHAPE";
+		m["eVISUALIZATION"] = "VISUALIZATION";
+		m["ePARTICLE_DRAIN"] = "PARTICLE_DRAIN";
 		return m;
 	}
 
@@ -3912,6 +4083,24 @@ namespace COLLADAMaya
 		if (it != mCombineModeMap.end())
 			return it->second;
 		return "";
+	}
+
+	String PhysXExporter::PhysXShapeFlagsToCOLLADA(const String & PhysXFlags)
+	{
+		std::vector<String> flags;
+		COLLADABU::Utils::split(PhysXFlags, "|", flags);
+		String res;
+		for (size_t i = 0; i < flags.size(); ++i)
+		{
+			std::map<String, String>::const_iterator it = mShapeFlagMap.find(flags[i]);
+			if (it != mShapeFlagMap.end())
+			{
+				if (res.size() > 0)
+					res += ' ';
+				res += it->second;
+			}
+		}
+		return res;
 	}
 
     const String & PhysXExporter::findColladaId(const String & mayaId)

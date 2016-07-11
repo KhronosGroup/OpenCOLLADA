@@ -592,6 +592,21 @@ namespace COLLADASW
         mOpenTags.back().mHasText = true;
     }
 
+	//---------------------------------------------------------------
+	void StreamWriter::appendValues(int number, int number2, int number3, int number4)
+	{
+		prepareToAddContents();
+		if (mOpenTags.back().mHasText) appendChar(' ');
+		appendNumber(number);
+		appendChar(' ');
+		appendNumber(number2);
+		appendChar(' ');
+		appendNumber(number3);
+		appendChar(' ');
+		appendNumber(number4);
+		mOpenTags.back().mHasText = true;
+	}
+
     //---------------------------------------------------------------
     void StreamWriter::appendValues ( unsigned int number )
     {

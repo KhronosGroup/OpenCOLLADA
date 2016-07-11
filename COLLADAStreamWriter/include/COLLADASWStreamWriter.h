@@ -232,6 +232,9 @@ namespace COLLADASW
         /** Adds @a number to the COLLADASW file.*/
         void appendValues(int number, int number2, int number3);
 
+		/** Adds @a number to the COLLADASW file.*/
+		void appendValues(int number, int number2, int number3, int number4);
+
         /** Adds @a number to the COLLADASW file.*/
         void appendValues ( unsigned int number );
 
