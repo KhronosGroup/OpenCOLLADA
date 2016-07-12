@@ -139,6 +139,8 @@ namespace COLLADAMaya
 		// Convert PhysX enum string to COLLADA string
 		static String PhysXCombineModeToCOLLADA(const String & PhysXFlag);
 		static String PhysXShapeFlagsToCOLLADA(const String & PhysXFlags);
+		static String PhysXActorFlagsToCOLLADA(const String & PhysXFlags);
+		static String PhysXRigidBodyFlagsToCOLLADA(const String & PhysXFlags);
 
         enum Filter
         {
@@ -205,6 +207,12 @@ namespace COLLADAMaya
 
 		static std::map<String, String> mShapeFlagMap;
 		static std::map<String, String> InitializeShapeFlagMap();
+
+		static std::map<String, String> mActorFlagMap;
+		static std::map<String, String> InitializeActorFlagMap();
+
+		static std::map<String, String> mRigidBodyFlagMap;
+		static std::map<String, String> InitializeRigidBodyFlagMap();
     };
 }
 

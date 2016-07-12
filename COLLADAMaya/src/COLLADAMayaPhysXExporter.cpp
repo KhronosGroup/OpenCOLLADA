@@ -1333,7 +1333,7 @@ namespace COLLADAMaya
 		SimulationFilterData(PhysXExporter & exporter, int f0, int f1, int f2, int f3)
 			: Element(exporter, CSWC::CSW_ELEMENT_SIMULATION_FILTER_DATA)
 		{
-			exporter.getStreamWriter().appendValues(f0, f1, f2, f3);
+			getStreamWriter().appendValues(f0, f1, f2, f3);
 		}
 	};
 
@@ -1343,7 +1343,7 @@ namespace COLLADAMaya
 		QueryFilterData(PhysXExporter & exporter, int f0, int f1, int f2, int f3)
 			: Element(exporter, CSWC::CSW_ELEMENT_QUERY_FILTER_DATA)
 		{
-			exporter.getStreamWriter().appendValues(f0, f1, f2, f3);
+			getStreamWriter().appendValues(f0, f1, f2, f3);
 		}
 	};
 
@@ -1353,7 +1353,7 @@ namespace COLLADAMaya
 		ContactOffset(PhysXExporter & exporter, double contactOffset)
 			: Element(exporter, CSWC::CSW_ELEMENT_CONTACT_OFFSET)
 		{
-			exporter.getStreamWriter().appendValues(contactOffset);
+			getStreamWriter().appendValues(contactOffset);
 		}
 	};
 
@@ -1363,7 +1363,7 @@ namespace COLLADAMaya
 		RestOffset(PhysXExporter & exporter, double restOffset)
 			: Element(exporter, CSWC::CSW_ELEMENT_REST_OFFSET)
 		{
-			exporter.getStreamWriter().appendValues(restOffset);
+			getStreamWriter().appendValues(restOffset);
 		}
 	};
 
@@ -1373,7 +1373,7 @@ namespace COLLADAMaya
 		ShapeFlags(PhysXExporter & exporter, const String & flags)
 			: Element(exporter, CSWC::CSW_ELEMENT_SHAPE_FLAGS)
 		{
-			exporter.getStreamWriter().appendText(flags);
+			getStreamWriter().appendText(flags);
 		}
 	};
 
@@ -1383,7 +1383,7 @@ namespace COLLADAMaya
 		DebugName(PhysXExporter & exporter, const String & name)
 			: Element(exporter, CSWC::CSW_ELEMENT_NAME)
 		{
-			exporter.getStreamWriter().appendText(name);
+			getStreamWriter().appendText(name);
 		}
 	};
 
@@ -2234,6 +2234,166 @@ namespace COLLADAMaya
         }
     };
 
+	class ActorFlags : public Element
+	{
+	public:
+		ActorFlags(PhysXExporter & exporter, const String & flags)
+			: Element(exporter, CSWC::CSW_ELEMENT_ACTOR_FLAGS)
+		{
+			getStreamWriter().appendValues(flags);
+		}
+	};
+
+	class DominanceGroup : public Element
+	{
+	public:
+		DominanceGroup(PhysXExporter & exporter, int dominanceGroup)
+			: Element(exporter, CSWC::CSW_ELEMENT_DOMINANCE_GROUP)
+		{
+			getStreamWriter().appendValues(dominanceGroup);
+		}
+	};
+	
+	class OwnerClient : public Element
+	{
+	public:
+		OwnerClient(PhysXExporter & exporter, int ownerClient)
+			: Element(exporter, CSWC::CSW_ELEMENT_OWNER_CLIENT)
+		{
+			getStreamWriter().appendValues(ownerClient);
+		}
+	};
+
+	class CMassLocalPose : public Element
+	{
+	public:
+		CMassLocalPose(PhysXExporter & exporter, const MMatrix & cMassLocalPose)
+			: Element(exporter, CSWC::CSW_ELEMENT_CMASS_LOCAL_POSE)
+		{
+			getStreamWriter().appendValues(cMassLocalPose.matrix);
+		}
+	};
+
+	class RigidBodyFlags : public Element
+	{
+	public:
+		RigidBodyFlags(PhysXExporter & exporter, const String & flags)
+			: Element(exporter, CSWC::CSW_ELEMENT_RIGID_BODY_FLAGS)
+		{
+			getStreamWriter().appendValues(flags);
+		}
+	};
+	
+	class MinCCDAdvanceCoefficient : public Element
+	{
+	public:
+		MinCCDAdvanceCoefficient(PhysXExporter & exporter, double minCCDAdvanceCoefficient)
+			: Element(exporter, CSWC::CSW_ELEMENT_MIN_CCD_ADVANCE_COEFFICIENT)
+		{
+			getStreamWriter().appendValues(minCCDAdvanceCoefficient);
+		}
+	};
+
+	class MaxDepenetrationVelocity : public Element
+	{
+	public:
+		MaxDepenetrationVelocity(PhysXExporter & exporter, double maxDepenetrationVelocity)
+			: Element(exporter, CSWC::CSW_ELEMENT_MAX_DEPENETRATION_VELOCITY)
+		{
+			getStreamWriter().appendValues(maxDepenetrationVelocity);
+		}
+	};
+
+	class LinearDamping : public Element
+	{
+	public:
+		LinearDamping(PhysXExporter & exporter, double linearDamping)
+			: Element(exporter, CSWC::CSW_ELEMENT_LINEAR_DAMPING)
+		{
+			getStreamWriter().appendValues(linearDamping);
+		}
+	};
+
+	class AngularDamping : public Element
+	{
+	public:
+		AngularDamping(PhysXExporter & exporter, double angularDamping)
+			: Element(exporter, CSWC::CSW_ELEMENT_ANGULAR_DAMPING)
+		{
+			getStreamWriter().appendValues(angularDamping);
+		}
+	};
+
+	class MaxAngularVelocity : public Element
+	{
+	public:
+		MaxAngularVelocity(PhysXExporter & exporter, double maxAngularDamping)
+			: Element(exporter, CSWC::CSW_ELEMENT_MAX_ANGULAR_VELOCITY)
+		{
+			getStreamWriter().appendValues(maxAngularDamping);
+		}
+	};
+
+	class SleepThreshold : public Element
+	{
+	public:
+		SleepThreshold(PhysXExporter & exporter, float sleepThreshold)
+			: Element(exporter, CSWC::CSW_ELEMENT_SLEEP_THRESHOLD)
+		{
+			getStreamWriter().appendValues(sleepThreshold);
+		}
+	};
+
+	class StabilizationThreshold : public Element
+	{
+	public:
+		StabilizationThreshold(PhysXExporter & exporter, float stabilizationThreshold)
+			: Element(exporter, CSWC::CSW_ELEMENT_STABILIZATION_THRESHOLD)
+		{
+			getStreamWriter().appendValues(stabilizationThreshold);
+		}
+	};
+
+	class WakeCounter : public Element
+	{
+	public:
+		WakeCounter(PhysXExporter & exporter, float wakeCounter)
+			: Element(exporter, CSWC::CSW_ELEMENT_WAKE_COUNTER)
+		{
+			getStreamWriter().appendValues(wakeCounter);
+		}
+	};
+
+	class MinPositionIters : public Element
+	{
+	public:
+		MinPositionIters(PhysXExporter & exporter, int minPositionIters)
+			: Element(exporter, CSWC::CSW_ELEMENT_MIN_POSITION_ITERS)
+		{
+			getStreamWriter().appendValues(minPositionIters);
+		}
+	};
+
+	class MinVelocityIters : public Element
+	{
+	public:
+		MinVelocityIters(PhysXExporter & exporter, int minVelocityIters)
+			: Element(exporter, CSWC::CSW_ELEMENT_MIN_VELOCITY_ITERS)
+		{
+			getStreamWriter().appendValues(minVelocityIters);
+		}
+	};
+
+	class ContactReportThreshold : public Element
+	{
+	public:
+		ContactReportThreshold(PhysXExporter & exporter, float contactReportThreshold)
+			: Element(exporter, CSWC::CSW_ELEMENT_CONTACT_REPORT_THRESHOLD)
+		{
+			getStreamWriter().appendValues(contactReportThreshold);
+		}
+	};
+
     class RigidBodyTechnique : public Element
     {
     public:
@@ -2250,6 +2410,33 @@ namespace COLLADAMaya
             }
 			else if (profile == PROFILE_MAYA) {
 				exporter.exportExtraAttributes(rigidBody);
+			}
+			else if (profile == PhysXExporter::GetPhysXProfile()) {
+				PhysXXML::PxRigidDynamic* pxRigidDynamic = exporter.findPxRigidDynamic(rigidBody);
+				PhysXXML::PxRigidStatic* pxRigidStatic = exporter.findPxRigidStatic(rigidBody);
+				PhysXXML::PxRigidBody* pxRigidBody = pxRigidDynamic ? static_cast<PhysXXML::PxRigidBody*>(pxRigidDynamic) : static_cast<PhysXXML::PxRigidBody*>(pxRigidStatic);
+				if (pxRigidBody)
+				{
+					exportActorFlags(*pxRigidBody);
+					exportDominanceGroup(*pxRigidBody);
+					exportOwnerClient(*pxRigidBody);
+				}
+				if (pxRigidDynamic)
+				{
+					exportCMassLocalPose(*pxRigidDynamic);
+					exportRigidBodyFlags(*pxRigidDynamic);
+					exportMinCCDAdvanceCoefficient(*pxRigidDynamic);
+					exportMaxDepenetrationVelocity(*pxRigidDynamic);
+					exportLinearDamping(*pxRigidDynamic);
+					exportAngularDamping(*pxRigidDynamic);
+					exportMaxAngularVelocity(*pxRigidDynamic);
+					exportSleepThreshold(*pxRigidDynamic);
+					exportStabilizationThreshold(*pxRigidDynamic);
+					exportWakeCounter(*pxRigidDynamic);
+					exportMinPositionIters(*pxRigidDynamic);
+					exportMinVelocityIters(*pxRigidDynamic);
+					exportContactReportThreshold(*pxRigidDynamic);
+				}
 			}
         }
 
@@ -2292,6 +2479,157 @@ namespace COLLADAMaya
             return mAttributes;
         }
 
+		void exportActorFlags(const PhysXXML::PxRigidBody & pxRigidBody)
+		{
+			if (!pxRigidBody.actorFlags.actorFlags.empty())
+			{
+				String flags = PhysXExporter::PhysXActorFlagsToCOLLADA(pxRigidBody.actorFlags.actorFlags);
+				if (!flags.empty())
+				{
+					ActorFlags e(getPhysXExporter(), flags);
+				}
+			}
+		}
+
+		void exportDominanceGroup(const PhysXXML::PxRigidBody & pxRigidBody)
+		{
+			if (pxRigidBody.dominanceGroup.dominanceGroup != 0)
+			{
+				DominanceGroup e(getPhysXExporter(), pxRigidBody.dominanceGroup.dominanceGroup);
+			}
+		}
+
+		void exportOwnerClient(const PhysXXML::PxRigidBody & pxRigidBody)
+		{
+			if (pxRigidBody.ownerClient.ownerClient != 0)
+			{
+				OwnerClient e(getPhysXExporter(), pxRigidBody.ownerClient.ownerClient);
+			}
+		}
+
+		void exportCMassLocalPose(const PhysXXML::PxRigidDynamic & pxRigidDynamic)
+		{
+			if (pxRigidDynamic.cMassLocalPose.rotation != MQuaternion::identity ||
+				pxRigidDynamic.cMassLocalPose.translation != MVector::zero)
+			{
+				MTransformationMatrix tm;
+
+				tm.setRotationQuaternion(
+					pxRigidDynamic.cMassLocalPose.rotation.x,
+					pxRigidDynamic.cMassLocalPose.rotation.y,
+					pxRigidDynamic.cMassLocalPose.rotation.z,
+					pxRigidDynamic.cMassLocalPose.rotation.w);
+
+				tm.setTranslation(MVector(
+					MDistance::uiToInternal(pxRigidDynamic.cMassLocalPose.translation.x),
+					MDistance::uiToInternal(pxRigidDynamic.cMassLocalPose.translation.y),
+					MDistance::uiToInternal(pxRigidDynamic.cMassLocalPose.translation.z)
+					), MSpace::kTransform);
+
+				CMassLocalPose e(getPhysXExporter(), tm.asMatrix());
+			}
+		}
+
+		void exportRigidBodyFlags(const PhysXXML::PxRigidDynamic & pxRigidDynamic)
+		{
+			if (!pxRigidDynamic.rigidBodyFlags.rigidBodyFlags.empty())
+			{
+				String flags = PhysXExporter::PhysXRigidBodyFlagsToCOLLADA(pxRigidDynamic.rigidBodyFlags.rigidBodyFlags);
+				if (!flags.empty())
+				{
+					RigidBodyFlags e(getPhysXExporter(), flags);
+				}
+			}
+		}
+
+		void exportMinCCDAdvanceCoefficient(const PhysXXML::PxRigidDynamic & pxRigidDynamic)
+		{
+			if (pxRigidDynamic.minCCDAdvanceCoefficient.minCCDAdvanceCoefficient != 0.15)
+			{
+				MinCCDAdvanceCoefficient e(getPhysXExporter(), pxRigidDynamic.minCCDAdvanceCoefficient.minCCDAdvanceCoefficient);
+			}
+		}
+
+		void exportMaxDepenetrationVelocity(const PhysXXML::PxRigidDynamic & pxRigidDynamic)
+		{
+			if (pxRigidDynamic.maxDepenetrationVelocity.maxDepenetrationVelocity != infinite())
+			{
+				MaxDepenetrationVelocity e(getPhysXExporter(), pxRigidDynamic.maxDepenetrationVelocity.maxDepenetrationVelocity);
+			}
+		}
+
+		void exportLinearDamping(const PhysXXML::PxRigidDynamic & pxRigidDynamic)
+		{
+			if (pxRigidDynamic.linearDamping.linearDamping != 0.0)
+			{
+				LinearDamping e(getPhysXExporter(), pxRigidDynamic.linearDamping.linearDamping);
+			}
+		}
+
+		void exportAngularDamping(const PhysXXML::PxRigidDynamic & pxRigidDynamic)
+		{
+			if (pxRigidDynamic.angularDamping.angularDamping != 0.0)
+			{
+				AngularDamping e(getPhysXExporter(), pxRigidDynamic.angularDamping.angularDamping);
+			}
+		}
+
+		void exportMaxAngularVelocity(const PhysXXML::PxRigidDynamic & pxRigidDynamic)
+		{
+			if (pxRigidDynamic.maxAngularVelocity.maxAngularVelocity != 7.0)
+			{
+				MaxAngularVelocity e(getPhysXExporter(), pxRigidDynamic.maxAngularVelocity.maxAngularVelocity);
+			}
+		}
+
+		void exportSleepThreshold(const PhysXXML::PxRigidDynamic & pxRigidDynamic)
+		{
+			if (pxRigidDynamic.sleepThreshold.sleepThreshold != 5e-5)
+			{
+				SleepThreshold e(getPhysXExporter(), pxRigidDynamic.sleepThreshold.sleepThreshold);
+			}
+		}
+
+		void exportStabilizationThreshold(const PhysXXML::PxRigidDynamic & pxRigidDynamic)
+		{
+			if (pxRigidDynamic.stabilizationThreshold.stabilizationThreshold != 1e-5)
+			{
+				StabilizationThreshold e(getPhysXExporter(), pxRigidDynamic.stabilizationThreshold.stabilizationThreshold);
+			}
+		}
+
+		void exportWakeCounter(const PhysXXML::PxRigidDynamic & pxRigidDynamic)
+		{
+			if (pxRigidDynamic.wakeCounter.wakeCounter != 0.4)
+			{
+				WakeCounter e(getPhysXExporter(), pxRigidDynamic.wakeCounter.wakeCounter);
+			}
+		}
+
+		void exportMinPositionIters(const PhysXXML::PxRigidDynamic & pxRigidDynamic)
+		{
+			if (pxRigidDynamic.solverIterationCounts.minPositionIters.minPositionIters != 4)
+			{
+				MinPositionIters e(getPhysXExporter(), pxRigidDynamic.solverIterationCounts.minPositionIters.minPositionIters);
+			}
+		}
+
+		void exportMinVelocityIters(const PhysXXML::PxRigidDynamic & pxRigidDynamic)
+		{
+			if (pxRigidDynamic.solverIterationCounts.minVelocityIters.minVelocityIters != 1)
+			{
+				MinVelocityIters e(getPhysXExporter(), pxRigidDynamic.solverIterationCounts.minVelocityIters.minVelocityIters);
+			}
+		}
+
+		void exportContactReportThreshold(const PhysXXML::PxRigidDynamic & pxRigidDynamic)
+		{
+			if (pxRigidDynamic.contactReportThreshold.contactReportThreshold != infinite())
+			{
+				ContactReportThreshold e(getPhysXExporter(), pxRigidDynamic.contactReportThreshold.contactReportThreshold);
+			}
+		}
+
     private:
         static std::set<MString, MStringComp> mAttributes;
     };
@@ -2308,6 +2646,7 @@ namespace COLLADAMaya
 			}
             exportProfile(rigidBody, PhysXExporter::GetProfile());
             exportProfile(rigidBody, PhysXExporter::GetProfileXML());
+			exportProfile(rigidBody, PhysXExporter::GetPhysXProfile());
         }
 
     private:
@@ -3202,6 +3541,8 @@ namespace COLLADAMaya
 	String PhysXExporter::mPhysXProfile = "PhysX_3.x";
 	std::map<String, String> PhysXExporter::mCombineModeMap = PhysXExporter::InitializeCombineModeMap();
 	std::map<String, String> PhysXExporter::mShapeFlagMap = PhysXExporter::InitializeShapeFlagMap();
+	std::map<String, String> PhysXExporter::mActorFlagMap = PhysXExporter::InitializeActorFlagMap();
+	std::map<String, String> PhysXExporter::mRigidBodyFlagMap = PhysXExporter::InitializeRigidBodyFlagMap();
 
 	std::map<String, String> PhysXExporter::InitializeCombineModeMap()
 	{
@@ -3221,6 +3562,26 @@ namespace COLLADAMaya
 		m["eTRIGGER_SHAPE"] = "TRIGGER_SHAPE";
 		m["eVISUALIZATION"] = "VISUALIZATION";
 		m["ePARTICLE_DRAIN"] = "PARTICLE_DRAIN";
+		return m;
+	}
+
+	std::map<String, String> PhysXExporter::InitializeActorFlagMap()
+	{
+		std::map<String, String> m;
+		m["eVISUALIZATION"] = "VISUALIZATION";
+		m["eDISABLE_GRAVITY"] = "DISABLE_GRAVITY";
+		m["eSEND_SLEEP_NOTIFIES"] = "SEND_SLEEP_NOTIFIES";
+		m["eDISABLE_SIMULATION"] = "DISABLE_SIMULATION";
+		return m;
+	}
+
+	std::map<String, String> PhysXExporter::InitializeRigidBodyFlagMap()
+	{
+		std::map<String, String> m;
+		m["eKINEMATIC"] = "KINEMATIC";
+		m["eUSE_KINEMATIC_TARGET_FOR_SCENE_QUERIES"] = "USE_KINEMATIC_TARGET_FOR_SCENE_QUERIES";
+		m["eENABLE_CCD"] = "ENABLE_CCD";
+		m["eENABLE_CCD_FRICTION"] = "ENABLE_CCD_FRICTION";
 		return m;
 	}
 
@@ -4094,6 +4455,42 @@ namespace COLLADAMaya
 		{
 			std::map<String, String>::const_iterator it = mShapeFlagMap.find(flags[i]);
 			if (it != mShapeFlagMap.end())
+			{
+				if (res.size() > 0)
+					res += ' ';
+				res += it->second;
+			}
+		}
+		return res;
+	}
+
+	String PhysXExporter::PhysXActorFlagsToCOLLADA(const String & PhysXFlags)
+	{
+		std::vector<String> flags;
+		COLLADABU::Utils::split(PhysXFlags, "|", flags);
+		String res;
+		for (size_t i = 0; i < flags.size(); ++i)
+		{
+			std::map<String, String>::const_iterator it = mActorFlagMap.find(flags[i]);
+			if (it != mActorFlagMap.end())
+			{
+				if (res.size() > 0)
+					res += ' ';
+				res += it->second;
+			}
+		}
+		return res;
+	}
+
+	String PhysXExporter::PhysXRigidBodyFlagsToCOLLADA(const String & PhysXFlags)
+	{
+		std::vector<String> flags;
+		COLLADABU::Utils::split(PhysXFlags, "|", flags);
+		String res;
+		for (size_t i = 0; i < flags.size(); ++i)
+		{
+			std::map<String, String>::const_iterator it = mRigidBodyFlagMap.find(flags[i]);
+			if (it != mRigidBodyFlagMap.end())
 			{
 				if (res.size() > 0)
 					res += ' ';

@@ -425,18 +425,23 @@ namespace COLLADAMaya
             std::vector<PxShape> shapes;
         };
 
-        struct PxRigidStatic
+		struct PxRigidBody
+		{
+			PxRigidBody(xmlNode* node);
+			PxShape* findShape(const String& shapeName);
+			Id id;
+			Name name;
+			ActorFlags actorFlags;
+			DominanceGroup dominanceGroup;
+			OwnerClient ownerClient;
+			GlobalPose globalPose;
+			Shapes shapes;
+		};
+
+		struct PxRigidStatic : public PxRigidBody
         {
             PxRigidStatic(xmlNode* node);
             void exportElement(COLLADASW::StreamWriter& sw);
-            PxShape* findShape(const String& shapeName);
-            Id id;
-            Name name;
-            ActorFlags actorFlags;
-            DominanceGroup dominanceGroup;
-            OwnerClient ownerClient;
-            GlobalPose globalPose;
-            Shapes shapes;
         };
 
         struct CMassLocalPose
@@ -553,18 +558,10 @@ namespace COLLADAMaya
             double contactReportThreshold;
         };
 
-        struct PxRigidDynamic
+        struct PxRigidDynamic : public PxRigidBody
         {
             PxRigidDynamic(xmlNode* node);
             void exportElement(COLLADASW::StreamWriter& sw);
-            PxShape* findShape(const String& shapeName);
-            Id id;
-            Name name;
-            ActorFlags actorFlags;
-            DominanceGroup dominanceGroup;
-            OwnerClient ownerClient;
-            GlobalPose globalPose;
-            Shapes shapes;
             CMassLocalPose cMassLocalPose;
             Mass mass;
             MassSpaceInertiaTensor massSpaceInertiaTensor;

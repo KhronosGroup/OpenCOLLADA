@@ -1111,7 +1111,7 @@ namespace COLLADAMaya
             sw.closeElement();
         }
 
-        PxRigidStatic::PxRigidStatic(xmlNode* node)
+		PxRigidBody::PxRigidBody(xmlNode* node)
             : id(FindChild(node, Strings::Id))
             , name(FindChild(node, Strings::Name))
             , actorFlags(FindChild(node, Strings::ActorFlags))
@@ -1120,6 +1120,21 @@ namespace COLLADAMaya
             , globalPose(FindChild(node, Strings::GlobalPose))
             , shapes(FindChild(node, Strings::Shapes))
         {}
+
+		PxShape* PxRigidBody::findShape(const String& shapeName)
+		{
+			for (size_t i = 0; i < shapes.shapes.size(); ++i) {
+				PxShape& shape = shapes.shapes[i];
+				if (shape.name.name == shapeName) {
+					return &shape;
+				}
+			}
+			return NULL;
+		}
+
+		PxRigidStatic::PxRigidStatic(xmlNode* node)
+			: PxRigidBody(node)
+		{}
 
         void PxRigidStatic::exportElement(StreamWriter& sw)
         {
@@ -1132,17 +1147,6 @@ namespace COLLADAMaya
             globalPose.exportElement(sw);
             //shapes.exportElement(sw);
             sw.closeElement();
-        }
-
-        PxShape* PxRigidStatic::findShape(const String& shapeName)
-        {
-            for (size_t i = 0; i < shapes.shapes.size(); ++i) {
-                PxShape& shape = shapes.shapes[i];
-                if (shape.name.name == shapeName) {
-                    return &shape;
-                }
-            }
-            return NULL;
         }
 
         CMassLocalPose::CMassLocalPose(xmlNode* node)
@@ -1350,13 +1354,7 @@ namespace COLLADAMaya
         }
 
         PxRigidDynamic::PxRigidDynamic(xmlNode* node)
-            : id(FindChild(node, Strings::Id))
-            , name(FindChild(node, Strings::Name))
-            , actorFlags(FindChild(node, Strings::ActorFlags))
-            , dominanceGroup(FindChild(node, Strings::DominanceGroup))
-            , ownerClient(FindChild(node, Strings::OwnerClient))
-            , globalPose(FindChild(node, Strings::GlobalPose))
-            , shapes(FindChild(node, Strings::Shapes))
+			: PxRigidBody(node)
             , cMassLocalPose(FindChild(node, Strings::CMassLocalPose))
             , mass(FindChild(node, Strings::Mass))
             , massSpaceInertiaTensor(FindChild(node, Strings::MassSpaceInertiaTensor))
@@ -1402,17 +1400,6 @@ namespace COLLADAMaya
             solverIterationCounts.exportElement(sw);
             contactReportThreshold.exportElement(sw);
             sw.closeElement();
-        }
-
-        PxShape* PxRigidDynamic::findShape(const String& shapeName)
-        {
-            for (size_t i = 0; i < shapes.shapes.size(); ++i) {
-                PxShape& shape = shapes.shapes[i];
-                if (shape.name.name == shapeName) {
-                    return &shape;
-                }
-            }
-            return NULL;
         }
 
         Actor0::Actor0(xmlNode* node)
