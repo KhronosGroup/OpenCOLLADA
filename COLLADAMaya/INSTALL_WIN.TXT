@@ -10,6 +10,7 @@ Autodesk Maya 2012
 Autodesk Maya 2013
 Autodesk Maya 2014
 Autodesk Maya 2015
+Autodesk Maya 2016
 
 --------
 
