@@ -3,6 +3,8 @@ Requirements:
 To run the COLLADAMaya plug-in, you need a version of Autodesk Maya installed.
 
 Supported versions are:
+
+Autodesk Maya 2016
 Autodesk Maya 2015
 Autodesk Maya 2014
 Autodesk Maya 2013
