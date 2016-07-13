@@ -37,6 +37,9 @@ namespace COLLADAMaya
         /** General export options  */
         /****************************/
 
+		/** DAE ModelPathName when exporting into two separate files */
+		static MString mDAEmodelName;
+
 		/** True, if we want to export LOD from LODGroup. */
 		static bool mLOD;
 
@@ -71,6 +74,8 @@ namespace COLLADAMaya
         static bool mExportCameras;
 		static bool mExportJoints;
 		static bool mExportSkin;
+		static bool mExportAnimationsOnly;
+		static bool mExportSeparateFile;
 		static bool mExportAnimations;
 		static bool mExportOptimizedBezierAnimations;
         static bool mExportInvisibleNodes;
@@ -114,6 +119,7 @@ namespace COLLADAMaya
         /****************************/
         /** General export options  */
         /****************************/
+		static MString getDAEmodelName();
 		static bool exportLOD();
 
         /** Should the transforms be baked into a single matrix, as opposed to decomposed into 
@@ -145,6 +151,8 @@ namespace COLLADAMaya
         static bool exportCameras();
         static bool exportJoints();
 		static bool exportSkin();
+		static bool exportAnimationsOnly();
+		static bool exportSeparateFile();
         static bool exportAnimations();
 		static bool exportOptimizedBezierAnimations();
         static bool exportInvisibleNodes();
