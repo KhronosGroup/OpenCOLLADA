@@ -205,6 +205,7 @@ namespace COLLADASW
 	const String CSWC::CSW_ELEMENT_PROJECTION_ANGULAR_TOLERANCE = "projection_angular_tolerance";
 	const String CSWC::CSW_ELEMENT_BOUNCE_THRESHOLD = "bounce_threshold";
 	const String CSWC::CSW_ELEMENT_CONTACT_DISTANCE = "contact_distance";
+	const String CSWC::CSW_ELEMENT_LIMITS_EXTRA = "limits_extra";
 	const String CSWC::CSW_ELEMENT_LINEAR_EXTRA = "linear_extra";
 	const String CSWC::CSW_ELEMENT_SWING_CONE_AND_TWIST_EXTRA = "swing_cone_and_twist_extra";
 	const String CSWC::CSW_ELEMENT_TARGET_VALUE_EXTRA = "target_value_extra";

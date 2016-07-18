@@ -2892,7 +2892,7 @@ namespace COLLADAMaya
 		ProjectionAngularTolerance(PhysXExporter & exporter, double projectionAngularTolerance)
 			: Element(exporter, CSWC::CSW_ELEMENT_PROJECTION_ANGULAR_TOLERANCE)
 		{
-			getStreamWriter().appendValues(projectionAngularTolerance);
+			getStreamWriter().appendValues(COLLADABU::Math::Utils::radToDeg(projectionAngularTolerance));
 		}
 
 		static double DefaultValue()
@@ -3068,7 +3068,7 @@ namespace COLLADAMaya
 	{
 	public:
 		LimitsExtra(PhysXExporter & exporter, const PhysXXML::PxD6Joint & joint)
-			: Element(exporter, CSWC::CSW_ELEMENT_PROJECTION_ANGULAR_TOLERANCE)
+			: Element(exporter, CSWC::CSW_ELEMENT_LIMITS_EXTRA)
 		{
 			exportLinearExtra(joint);
 			exportSwingConeAndTwistExtra(joint);
@@ -3111,21 +3111,6 @@ namespace COLLADAMaya
 		{
 			return a == 0.0 && b == 0.0;
 		}
-
-		/*enum ETranslation { Translation };
-		static bool HasDefaultValue(const PhysXXML::PxD6Joint & joint, ETranslation)
-		{
-		return joint.drivePosition.translation.y == 0.0 &&
-		joint.drivePosition.translation.z == 0.0;
-		}
-
-		enum ERotation { Rotation };
-		static bool HasDefaultValue(const PhysXXML::PxD6Joint & joint, ERotation)
-		{
-		MEulerRotation euler = joint.drivePosition.rotation.asEulerRotation();
-		return euler.y == 0.0 &&
-		euler.z == 0.0;
-		}*/
 	};
 
 	class SpringLinearExtra : public Element

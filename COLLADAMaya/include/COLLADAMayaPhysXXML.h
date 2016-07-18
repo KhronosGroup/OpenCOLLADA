@@ -208,10 +208,13 @@ namespace COLLADAMaya
 			};
 
 			static const std::map<String, FlagEnum> & GetStringToFlagMap();
+			static const std::map<FlagEnum, String> & GetFlagToStringMap();
 
 		private:
 			static std::map<String, FlagEnum> mStringToFlagMap;
+			static std::map<FlagEnum, String> mFlagToStringMap;
 			static std::map<String, FlagEnum> InitializeStringToFlagMap();
+			static std::map<FlagEnum, String> InitializeFlagToStringMap();
 		};
 
         struct FrictionCombineMode
@@ -263,7 +266,9 @@ namespace COLLADAMaya
 
 		private:
 			static std::map<String, FlagEnum> mStringToFlagMap;
+			static std::map<FlagEnum, String> mFlagToStringMap;
 			static std::map<String, FlagEnum> InitializeStringToFlagMap();
+			static std::map<FlagEnum, String> InitializeFlagToStringMap();
         };
 
         struct RigidBodyFlags
@@ -282,7 +287,9 @@ namespace COLLADAMaya
 
 		private:
 			static std::map<String, FlagEnum> mStringToFlagMap;
+			static std::map<FlagEnum, String> mFlagToStringMap;
 			static std::map<String, FlagEnum> InitializeStringToFlagMap();
+			static std::map<FlagEnum, String> InitializeFlagToStringMap();
         };
 
         struct DominanceGroup
@@ -504,7 +511,9 @@ namespace COLLADAMaya
 
 		private:
 			static std::map<String, FlagEnum> mStringToFlagMap;
+			static std::map<FlagEnum, String> mFlagToStringMap;
 			static std::map<String, FlagEnum> InitializeStringToFlagMap();
+			static std::map<FlagEnum, String> InitializeFlagToStringMap();
         };
 
         struct PxShape
@@ -774,7 +783,9 @@ namespace COLLADAMaya
 
 		private:
 			static std::map<String, FlagEnum> mStringToFlagMap;
+			static std::map<FlagEnum, String> mFlagToStringMap;
 			static std::map<String, FlagEnum> InitializeStringToFlagMap();
+			static std::map<FlagEnum, String> InitializeFlagToStringMap();
         };
 
         struct InvMassScale0
@@ -805,46 +816,65 @@ namespace COLLADAMaya
             double invInertiaScale1;
         };
 
+		struct MotionFlags
+		{
+			enum FlagEnum
+			{
+				Locked = 1,
+				Limited = 2,
+				Free = 4
+			};
+
+			static const std::map<String, FlagEnum> & GetStringToFlagMap();
+			static const std::map<FlagEnum, String> & GetFlagToStringMap();
+
+		private:
+			static std::map<String, FlagEnum> mStringToFlagMap;
+			static std::map<FlagEnum, String> mFlagToStringMap;
+			static std::map<String, FlagEnum> InitializeStringToFlagMap();
+			static std::map<FlagEnum, String> InitializeFlagToStringMap();
+		};
+
         struct MotionX
         {
             MotionX(xmlNode* node);
             void exportElement(COLLADASW::StreamWriter& sw);
-            String eX;
+            MotionFlags::FlagEnum eX;
         };
 
         struct MotionY
         {
             MotionY(xmlNode* node);
             void exportElement(COLLADASW::StreamWriter& sw);
-            String eY;
+			MotionFlags::FlagEnum eY;
         };
 
         struct MotionZ
         {
             MotionZ(xmlNode* node);
             void exportElement(COLLADASW::StreamWriter& sw);
-            String eZ;
+			MotionFlags::FlagEnum eZ;
         };
 
         struct MotionTwist
         {
             MotionTwist(xmlNode* node);
             void exportElement(COLLADASW::StreamWriter& sw);
-            String eTwist;
+			MotionFlags::FlagEnum eTwist;
         };
 
         struct MotionSwing1
         {
             MotionSwing1(xmlNode* node);
             void exportElement(COLLADASW::StreamWriter& sw);
-            String eSwing1;
+			MotionFlags::FlagEnum eSwing1;
         };
 
         struct MotionSwing2
         {
             MotionSwing2(xmlNode* node);
             void exportElement(COLLADASW::StreamWriter& sw);
-            String eSwing2;
+			MotionFlags::FlagEnum eSwing2;
         };
 
         struct Motion
@@ -980,7 +1010,9 @@ namespace COLLADAMaya
 
 		private:
 			static std::map<String, FlagEnum> mStringToFlagMap;
+			static std::map<FlagEnum, String> mFlagToStringMap;
 			static std::map<String, FlagEnum> InitializeStringToFlagMap();
+			static std::map<FlagEnum, String> InitializeFlagToStringMap();
 		};
 
         struct DriveX

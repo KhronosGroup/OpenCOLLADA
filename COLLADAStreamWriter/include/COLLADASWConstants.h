@@ -216,6 +216,7 @@ namespace COLLADASW
 		static const String CSW_ELEMENT_PROJECTION_ANGULAR_TOLERANCE;
 		static const String CSW_ELEMENT_BOUNCE_THRESHOLD;
 		static const String CSW_ELEMENT_CONTACT_DISTANCE;
+		static const String CSW_ELEMENT_LIMITS_EXTRA;
 		static const String CSW_ELEMENT_LINEAR_EXTRA;
 		static const String CSW_ELEMENT_SWING_CONE_AND_TWIST_EXTRA;
 		static const String CSW_ELEMENT_TARGET_VALUE_EXTRA;
