@@ -997,6 +997,11 @@ namespace COLLADAMaya
         {
             getStreamWriter().appendValues(restitution);
         }
+
+		static double DefaultValue()
+		{
+			return 0.0;
+		}
     };
 
     class DynamicFriction : public Element
@@ -1022,20 +1027,30 @@ namespace COLLADAMaya
 	class FrictionCombineMode : public Element
 	{
 	public:
-		FrictionCombineMode(PhysXExporter & exporter, const String & combineMode)
+		FrictionCombineMode(PhysXExporter & exporter, const PhysXXML::CombineMode::FlagEnum & combineMode)
 			: Element(exporter, CSWC::CSW_ELEMENT_FRICTION_COMBINE_MODE)
 		{
-			getStreamWriter().appendValues(combineMode);
+			getStreamWriter().appendValues(PhysXExporter::CombineModeToCOLLADA(combineMode));
+		}
+
+		static PhysXXML::CombineMode::FlagEnum DefaultValue()
+		{
+			return PhysXXML::CombineMode::FlagEnum::Average;
 		}
 	};
 
 	class RestitutionCombineMode : public Element
 	{
 	public:
-		RestitutionCombineMode(PhysXExporter & exporter, const String & combineMode)
+		RestitutionCombineMode(PhysXExporter & exporter, const PhysXXML::CombineMode::FlagEnum & combineMode)
 			: Element(exporter, CSWC::CSW_ELEMENT_RESTITUTION_COMBINE_MODE)
 		{
-			getStreamWriter().appendValues(combineMode);
+			getStreamWriter().appendValues(PhysXExporter::CombineModeToCOLLADA(combineMode));
+		}
+
+		static PhysXXML::CombineMode::FlagEnum DefaultValue()
+		{
+			return PhysXXML::CombineMode::FlagEnum::Average;
 		}
 	};
 
@@ -1048,8 +1063,12 @@ namespace COLLADAMaya
             getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, profile);
 			if (profile == PhysXExporter::GetPhysXProfile())
 			{
-				exportFrictionCombineMode(rigidBody);
-				exportRestitutionCombineMode(rigidBody);
+				PhysXXML::PxMaterial* mat = getPhysXExporter().findPxMaterial(rigidBody);
+				if (mat)
+				{
+					exportFrictionCombineMode(*mat);
+					exportRestitutionCombineMode(*mat);
+				}
 			}
             if (profile == PhysXExporter::GetProfileXML()) {
                 exporter.exportMaterialPhysXXML(rigidBody);
@@ -1057,29 +1076,19 @@ namespace COLLADAMaya
         }
 
 	private:
-		void exportFrictionCombineMode(const MObject & rb)
+		void exportFrictionCombineMode(const PhysXXML::PxMaterial & mat)
 		{
-			PhysXXML::PxMaterial* mat = getPhysXExporter().findPxMaterial(rb);
-			if (mat)
+			if (mat.frictionCombineMode.frictionCombineMode != FrictionCombineMode::DefaultValue())
 			{
-				String combineMode = PhysXExporter::PhysXCombineModeToCOLLADA(mat->frictionCombineMode.frictionCombineMode);
-				if (!combineMode.empty())
-				{
-					FrictionCombineMode e(getPhysXExporter(), combineMode);
-				}
+				FrictionCombineMode e(getPhysXExporter(), mat.frictionCombineMode.frictionCombineMode);
 			}
 		}
 
-		void exportRestitutionCombineMode(const MObject & rb)
+		void exportRestitutionCombineMode(const PhysXXML::PxMaterial & mat)
 		{
-			PhysXXML::PxMaterial* mat = getPhysXExporter().findPxMaterial(rb);
-			if (mat)
+			if (mat.restitutionCombineMode.restitutionCombineMode != RestitutionCombineMode::DefaultValue())
 			{
-				String combineMode = PhysXExporter::PhysXCombineModeToCOLLADA(mat->restitutionCombineMode.restitutionCombineMode);
-				if (!combineMode.empty())
-				{
-					RestitutionCombineMode e(getPhysXExporter(), combineMode);
-				}
+				RestitutionCombineMode e(getPhysXExporter(), mat.restitutionCombineMode.restitutionCombineMode);
 			}
 		}
     };
@@ -1370,10 +1379,18 @@ namespace COLLADAMaya
 	class ShapeFlags : public Element
 	{
 	public:
-		ShapeFlags(PhysXExporter & exporter, const String & flags)
+		ShapeFlags(PhysXExporter & exporter, const Flags<PhysXXML::ShapeFlags::FlagEnum> & flags)
 			: Element(exporter, CSWC::CSW_ELEMENT_SHAPE_FLAGS)
 		{
-			getStreamWriter().appendText(flags);
+			getStreamWriter().appendText(PhysXExporter::ShapeFlagsToCOLLADA(flags));
+		}
+
+		static Flags<PhysXXML::ShapeFlags::FlagEnum> DefaultValue()
+		{
+			return Flags<PhysXXML::ShapeFlags::FlagEnum>(
+				PhysXXML::ShapeFlags::FlagEnum::Visualization |
+				PhysXXML::ShapeFlags::FlagEnum::SimulationShape |
+				PhysXXML::ShapeFlags::FlagEnum::SceneQueryShape);
 		}
 	};
 
@@ -1491,13 +1508,9 @@ namespace COLLADAMaya
 
 		void exportShapeFlags(const PhysXXML::PxShape & shape)
 		{
-			if (!shape.flags.flags.empty())
+			if (shape.flags.flags != ShapeFlags::DefaultValue())
 			{
-				String flags = PhysXExporter::PhysXShapeFlagsToCOLLADA(shape.flags.flags);
-				if (!flags.empty())
-				{
-					ShapeFlags e(getPhysXExporter(), flags);
-				}
+				ShapeFlags e(getPhysXExporter(), shape.flags.flags);
 			}
 		}
 
@@ -1875,6 +1888,11 @@ namespace COLLADAMaya
             }
             getStreamWriter().appendValues(stiffness);
         }
+
+		static double DefaultValue()
+		{
+			return 0.0;
+		}
     };
 
     class Damping : public Element
@@ -1888,6 +1906,11 @@ namespace COLLADAMaya
             }
             getStreamWriter().appendValues(damping);
         }
+
+		static double DefaultValue()
+		{
+			return 0.0;
+		}
     };
 
     class TargetValue : public Element
@@ -2237,10 +2260,15 @@ namespace COLLADAMaya
 	class ActorFlags : public Element
 	{
 	public:
-		ActorFlags(PhysXExporter & exporter, const String & flags)
+		ActorFlags(PhysXExporter & exporter, const Flags<PhysXXML::ActorFlags::FlagEnum> & flags)
 			: Element(exporter, CSWC::CSW_ELEMENT_ACTOR_FLAGS)
 		{
-			getStreamWriter().appendValues(flags);
+			getStreamWriter().appendValues(PhysXExporter::ActorFlagsToCOLLADA(flags));
+		}
+
+		static Flags<PhysXXML::ActorFlags::FlagEnum> DefaultValue()
+		{
+			return Flags<PhysXXML::ActorFlags::FlagEnum>(PhysXXML::ActorFlags::FlagEnum::Visualization);
 		}
 	};
 
@@ -2251,6 +2279,11 @@ namespace COLLADAMaya
 			: Element(exporter, CSWC::CSW_ELEMENT_DOMINANCE_GROUP)
 		{
 			getStreamWriter().appendValues(dominanceGroup);
+		}
+
+		static int DefaultValue()
+		{
+			return 0;
 		}
 	};
 	
@@ -2277,10 +2310,15 @@ namespace COLLADAMaya
 	class RigidBodyFlags : public Element
 	{
 	public:
-		RigidBodyFlags(PhysXExporter & exporter, const String & flags)
+		RigidBodyFlags(PhysXExporter & exporter, const Flags<PhysXXML::RigidBodyFlags::FlagEnum> & flags)
 			: Element(exporter, CSWC::CSW_ELEMENT_RIGID_BODY_FLAGS)
 		{
-			getStreamWriter().appendValues(flags);
+			getStreamWriter().appendValues(PhysXExporter::RigidBodyFlagsToCOLLADA(flags));
+		}
+
+		static Flags<PhysXXML::RigidBodyFlags::FlagEnum> DefaultValue()
+		{
+			return Flags<PhysXXML::RigidBodyFlags::FlagEnum>();
 		}
 	};
 	
@@ -2337,7 +2375,7 @@ namespace COLLADAMaya
 	class SleepThreshold : public Element
 	{
 	public:
-		SleepThreshold(PhysXExporter & exporter, float sleepThreshold)
+		SleepThreshold(PhysXExporter & exporter, double sleepThreshold)
 			: Element(exporter, CSWC::CSW_ELEMENT_SLEEP_THRESHOLD)
 		{
 			getStreamWriter().appendValues(sleepThreshold);
@@ -2347,7 +2385,7 @@ namespace COLLADAMaya
 	class StabilizationThreshold : public Element
 	{
 	public:
-		StabilizationThreshold(PhysXExporter & exporter, float stabilizationThreshold)
+		StabilizationThreshold(PhysXExporter & exporter, double stabilizationThreshold)
 			: Element(exporter, CSWC::CSW_ELEMENT_STABILIZATION_THRESHOLD)
 		{
 			getStreamWriter().appendValues(stabilizationThreshold);
@@ -2357,7 +2395,7 @@ namespace COLLADAMaya
 	class WakeCounter : public Element
 	{
 	public:
-		WakeCounter(PhysXExporter & exporter, float wakeCounter)
+		WakeCounter(PhysXExporter & exporter, double wakeCounter)
 			: Element(exporter, CSWC::CSW_ELEMENT_WAKE_COUNTER)
 		{
 			getStreamWriter().appendValues(wakeCounter);
@@ -2387,7 +2425,7 @@ namespace COLLADAMaya
 	class ContactReportThreshold : public Element
 	{
 	public:
-		ContactReportThreshold(PhysXExporter & exporter, float contactReportThreshold)
+		ContactReportThreshold(PhysXExporter & exporter, double contactReportThreshold)
 			: Element(exporter, CSWC::CSW_ELEMENT_CONTACT_REPORT_THRESHOLD)
 		{
 			getStreamWriter().appendValues(contactReportThreshold);
@@ -2481,19 +2519,15 @@ namespace COLLADAMaya
 
 		void exportActorFlags(const PhysXXML::PxRigidBody & pxRigidBody)
 		{
-			if (!pxRigidBody.actorFlags.actorFlags.empty())
+			if (pxRigidBody.actorFlags.actorFlags != ActorFlags::DefaultValue())
 			{
-				String flags = PhysXExporter::PhysXActorFlagsToCOLLADA(pxRigidBody.actorFlags.actorFlags);
-				if (!flags.empty())
-				{
-					ActorFlags e(getPhysXExporter(), flags);
-				}
+				ActorFlags e(getPhysXExporter(), pxRigidBody.actorFlags.actorFlags);
 			}
 		}
 
 		void exportDominanceGroup(const PhysXXML::PxRigidBody & pxRigidBody)
 		{
-			if (pxRigidBody.dominanceGroup.dominanceGroup != 0)
+			if (pxRigidBody.dominanceGroup.dominanceGroup != DominanceGroup::DefaultValue())
 			{
 				DominanceGroup e(getPhysXExporter(), pxRigidBody.dominanceGroup.dominanceGroup);
 			}
@@ -2532,13 +2566,9 @@ namespace COLLADAMaya
 
 		void exportRigidBodyFlags(const PhysXXML::PxRigidDynamic & pxRigidDynamic)
 		{
-			if (!pxRigidDynamic.rigidBodyFlags.rigidBodyFlags.empty())
+			if (pxRigidDynamic.rigidBodyFlags.rigidBodyFlags != RigidBodyFlags::DefaultValue())
 			{
-				String flags = PhysXExporter::PhysXRigidBodyFlagsToCOLLADA(pxRigidDynamic.rigidBodyFlags.rigidBodyFlags);
-				if (!flags.empty())
-				{
-					RigidBodyFlags e(getPhysXExporter(), flags);
-				}
+				RigidBodyFlags e(getPhysXExporter(), pxRigidDynamic.rigidBodyFlags.rigidBodyFlags);
 			}
 		}
 
@@ -2736,6 +2766,940 @@ namespace COLLADAMaya
         }
     };
 
+	class BreakForce : public Element
+	{
+	public:
+		BreakForce(PhysXExporter & exporter, double breakForce)
+			: Element(exporter, CSWC::CSW_ELEMENT_BREAK_FORCE)
+		{
+			getStreamWriter().appendValues(breakForce);
+		}
+
+		static double DefaultValue()
+		{
+			return infinite();
+		}
+	};
+	
+	class BreakTorque : public Element
+	{
+	public:
+		BreakTorque(PhysXExporter & exporter, double breakTorque)
+			: Element(exporter, CSWC::CSW_ELEMENT_BREAK_TORQUE)
+		{
+			getStreamWriter().appendValues(breakTorque);
+		}
+
+		static double DefaultValue()
+		{
+			return infinite();
+		}
+	};
+
+	class ConstraintFlags : public Element
+	{
+	public:
+		ConstraintFlags(PhysXExporter & exporter, const Flags<PhysXXML::ConstraintFlags::FlagEnum> & flags)
+			: Element(exporter, CSWC::CSW_ELEMENT_CONSTRAINT_FLAGS)
+		{
+			getStreamWriter().appendValues(PhysXExporter::ConstraintFlagsToCOLLADA(flags));
+		}
+
+		static Flags<PhysXXML::ConstraintFlags::FlagEnum> DefaultValue()
+		{
+			return Flags<PhysXXML::ConstraintFlags::FlagEnum>();
+		}
+	};
+
+	class InvMassScale0 : public Element
+	{
+	public:
+		InvMassScale0(PhysXExporter & exporter, double invMassScale0)
+			: Element(exporter, CSWC::CSW_ELEMENT_INV_MASS_SCALE_0)
+		{
+			getStreamWriter().appendValues(invMassScale0);
+		}
+
+		static double DefaultValue()
+		{
+			return 1.0;
+		}
+	};
+
+	class InvInertiaScale0 : public Element
+	{
+	public:
+		InvInertiaScale0(PhysXExporter & exporter, double invInertiaScale0)
+			: Element(exporter, CSWC::CSW_ELEMENT_INV_INERTIA_SCALE_0)
+		{
+			getStreamWriter().appendValues(invInertiaScale0);
+		}
+
+		static double DefaultValue()
+		{
+			return 1.0;
+		}
+	};
+
+	class InvMassScale1 : public Element
+	{
+	public:
+		InvMassScale1(PhysXExporter & exporter, double invMassScale1)
+			: Element(exporter, CSWC::CSW_ELEMENT_INV_MASS_SCALE_1)
+		{
+			getStreamWriter().appendValues(invMassScale1);
+		}
+
+		static double DefaultValue()
+		{
+			return 1.0;
+		}
+	};
+
+	class InvInertiaScale1 : public Element
+	{
+	public:
+		InvInertiaScale1(PhysXExporter & exporter, double invInertiaScale1)
+			: Element(exporter, CSWC::CSW_ELEMENT_INV_INERTIA_SCALE_1)
+		{
+			getStreamWriter().appendValues(invInertiaScale1);
+		}
+
+		static double DefaultValue()
+		{
+			return 1.0;
+		}
+	};
+
+	class ProjectionLinearTolerance : public Element
+	{
+	public:
+		ProjectionLinearTolerance(PhysXExporter & exporter, double projectionLinearTolerance)
+			: Element(exporter, CSWC::CSW_ELEMENT_PROJECTION_LINEAR_TOLERANCE)
+		{
+			getStreamWriter().appendValues(projectionLinearTolerance);
+		}
+
+		static double DefaultValue()
+		{
+			return 1e10;
+		}
+	};
+
+	class ProjectionAngularTolerance : public Element
+	{
+	public:
+		ProjectionAngularTolerance(PhysXExporter & exporter, double projectionAngularTolerance)
+			: Element(exporter, CSWC::CSW_ELEMENT_PROJECTION_ANGULAR_TOLERANCE)
+		{
+			getStreamWriter().appendValues(projectionAngularTolerance);
+		}
+
+		static double DefaultValue()
+		{
+			return M_PI;
+		}
+	};
+
+	class BounceThreshold : public Element
+	{
+	public:
+		BounceThreshold(PhysXExporter & exporter, double bounceThreshold)
+			: Element(exporter, CSWC::CSW_ELEMENT_BOUNCE_THRESHOLD)
+		{
+			getStreamWriter().appendValues(bounceThreshold);
+		}
+
+		static double DefaultValue()
+		{
+			return 0.0;
+		}
+	};
+
+	class ContactDistance : public Element
+	{
+	public:
+		ContactDistance(PhysXExporter & exporter, double contactDistance)
+			: Element(exporter, CSWC::CSW_ELEMENT_CONTACT_DISTANCE)
+		{
+			getStreamWriter().appendValues(contactDistance);
+		}
+
+		static double DefaultValue()
+		{
+			return 0.0;
+		}
+	};
+
+	class LimitsLinearExtra : public Element
+	{
+	public:
+		LimitsLinearExtra(PhysXExporter & exporter, const PhysXXML::PxD6Joint & joint)
+			: Element(exporter, CSWC::CSW_ELEMENT_LINEAR_EXTRA)
+		{
+			exportRestitution(joint);
+			exportBounceThreshold(joint);
+			exportContactDistance(joint);
+		}
+
+		static bool HasDefaultValues(const PhysXXML::PxD6Joint & joint)
+		{
+			return joint.linearLimit.restitution.restitution == Restitution::DefaultValue() &&
+				joint.linearLimit.bounceThreshold.bounceThreshold == BounceThreshold::DefaultValue() &&
+				joint.linearLimit.contactDistance.contactDistance == ContactDistance::DefaultValue();
+		}
+
+	private:
+		void exportRestitution(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.linearLimit.restitution.restitution != Restitution::DefaultValue())
+			{
+				Restitution e(getPhysXExporter(), joint.linearLimit.restitution.restitution);
+			}
+		}
+
+		void exportBounceThreshold(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.linearLimit.bounceThreshold.bounceThreshold != BounceThreshold::DefaultValue())
+			{
+				BounceThreshold e(getPhysXExporter(), joint.linearLimit.bounceThreshold.bounceThreshold);
+			}
+		}
+
+		void exportContactDistance(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.linearLimit.contactDistance.contactDistance != ContactDistance::DefaultValue())
+			{
+				ContactDistance e(getPhysXExporter(), joint.linearLimit.contactDistance.contactDistance);
+			}
+		}
+	};
+
+	class Restitution2 : public Element
+	{
+	public:
+		Restitution2(PhysXExporter & exporter, double swingRestitution, double twistRestitution)
+			: Element(exporter, CSWC::CSW_ELEMENT_RESTITUTION)
+		{
+			getStreamWriter().appendValues(swingRestitution, twistRestitution);
+		}
+
+		static bool AreDefaultValues(double swingRestitution, double twistRestitution)
+		{
+			return swingRestitution == 0.0 && twistRestitution == 0.0;
+		}
+	};
+
+	class BounceThreshold2 : public Element
+	{
+	public:
+		BounceThreshold2(PhysXExporter & exporter, double swingBounceThreshold, double twistBounceThreshold)
+			: Element(exporter, CSWC::CSW_ELEMENT_BOUNCE_THRESHOLD)
+		{
+			getStreamWriter().appendValues(swingBounceThreshold, twistBounceThreshold);
+		}
+
+		static bool AreDefaultValues(double swingBounceThreshold, double twistBounceThreshold)
+		{
+			return swingBounceThreshold == 0.0 && twistBounceThreshold == 0.0;
+		}
+	};
+
+	class ContactDistance2 : public Element
+	{
+	public:
+		ContactDistance2(PhysXExporter & exporter, double swingContactDistance, double twistContactDistance)
+			: Element(exporter, CSWC::CSW_ELEMENT_CONTACT_DISTANCE)
+		{
+			getStreamWriter().appendValues(swingContactDistance, twistContactDistance);
+		}
+
+		static bool AreDefaultValues(double swingContactDistance, double twistContactDistance)
+		{
+			return swingContactDistance == 0.0 && twistContactDistance == 0.0;
+		}
+	};
+
+	class SwingConeAndTwistExtra : public Element
+	{
+	public:
+		SwingConeAndTwistExtra(PhysXExporter & exporter, const PhysXXML::PxD6Joint & joint)
+			: Element(exporter, CSWC::CSW_ELEMENT_SWING_CONE_AND_TWIST_EXTRA)
+		{
+			exportRestitution(joint);
+			exportBounceThreshold(joint);
+			exportContactDistance(joint);
+		}
+
+		static bool HasDefaultValues(const PhysXXML::PxD6Joint & joint)
+		{
+			return Restitution2::AreDefaultValues(joint.swingLimit.restitution.restitution, joint.twistLimit.restitution.restitution) &&
+				BounceThreshold2::AreDefaultValues(joint.swingLimit.bounceThreshold.bounceThreshold, joint.twistLimit.bounceThreshold.bounceThreshold) &&
+				ContactDistance2::AreDefaultValues(joint.swingLimit.contactDistance.contactDistance, joint.twistLimit.contactDistance.contactDistance);
+		}
+
+	private:
+		void exportRestitution(const PhysXXML::PxD6Joint & joint)
+		{
+			if (!Restitution2::AreDefaultValues(joint.swingLimit.restitution.restitution, joint.twistLimit.restitution.restitution))
+			{
+				Restitution2 e(getPhysXExporter(), joint.swingLimit.restitution.restitution, joint.twistLimit.restitution.restitution);
+			}
+		}
+
+		void exportBounceThreshold(const PhysXXML::PxD6Joint & joint)
+		{
+			if (!BounceThreshold2::AreDefaultValues(joint.swingLimit.bounceThreshold.bounceThreshold, joint.twistLimit.bounceThreshold.bounceThreshold))
+			{
+				BounceThreshold2 e(getPhysXExporter(), joint.swingLimit.bounceThreshold.bounceThreshold, joint.twistLimit.bounceThreshold.bounceThreshold);
+			}
+		}
+
+		void exportContactDistance(const PhysXXML::PxD6Joint & joint)
+		{
+			if (!ContactDistance2::AreDefaultValues(joint.swingLimit.contactDistance.contactDistance, joint.twistLimit.contactDistance.contactDistance))
+			{
+				ContactDistance2 e(getPhysXExporter(), joint.swingLimit.contactDistance.contactDistance, joint.twistLimit.contactDistance.contactDistance);
+			}
+		}
+	};
+
+	class LimitsExtra : public Element
+	{
+	public:
+		LimitsExtra(PhysXExporter & exporter, const PhysXXML::PxD6Joint & joint)
+			: Element(exporter, CSWC::CSW_ELEMENT_PROJECTION_ANGULAR_TOLERANCE)
+		{
+			exportLinearExtra(joint);
+			exportSwingConeAndTwistExtra(joint);
+		}
+
+		static bool HasDefaultValues(const PhysXXML::PxD6Joint & joint)
+		{
+			return LimitsLinearExtra::HasDefaultValues(joint) &&
+				SwingConeAndTwistExtra::HasDefaultValues(joint);
+		}
+
+	private:
+		void exportLinearExtra(const PhysXXML::PxD6Joint & joint)
+		{
+			if (!LimitsLinearExtra::HasDefaultValues(joint))
+			{
+				LimitsLinearExtra e(getPhysXExporter(), joint);
+			}
+		}
+
+		void exportSwingConeAndTwistExtra(const PhysXXML::PxD6Joint & joint)
+		{
+			if (!SwingConeAndTwistExtra::HasDefaultValues(joint))
+			{
+				SwingConeAndTwistExtra e(getPhysXExporter(), joint);
+			}
+		}
+	};
+
+	class TargetValueExtra : public Element
+	{
+	public:
+		TargetValueExtra(PhysXExporter & exporter, double a, double b)
+			: Element(exporter, CSWC::CSW_ELEMENT_TARGET_VALUE_EXTRA)
+		{
+			getStreamWriter().appendValues(a, b);
+		}
+
+		static bool AreDefaultValues(double a, double b)
+		{
+			return a == 0.0 && b == 0.0;
+		}
+
+		/*enum ETranslation { Translation };
+		static bool HasDefaultValue(const PhysXXML::PxD6Joint & joint, ETranslation)
+		{
+		return joint.drivePosition.translation.y == 0.0 &&
+		joint.drivePosition.translation.z == 0.0;
+		}
+
+		enum ERotation { Rotation };
+		static bool HasDefaultValue(const PhysXXML::PxD6Joint & joint, ERotation)
+		{
+		MEulerRotation euler = joint.drivePosition.rotation.asEulerRotation();
+		return euler.y == 0.0 &&
+		euler.z == 0.0;
+		}*/
+	};
+
+	class SpringLinearExtra : public Element
+	{
+	public:
+		SpringLinearExtra(PhysXExporter & exporter, const PhysXXML::PxD6Joint & joint)
+			: Element(exporter, CSWC::CSW_ELEMENT_LINEAR_EXTRA)
+		{
+			exportTargetValueExtra(joint);
+		}
+
+		static bool HasDefaultValues(const PhysXXML::PxD6Joint & joint)
+		{
+			return TargetValueExtra::AreDefaultValues(joint.drivePosition.translation.y, joint.drivePosition.translation.z);
+		}
+
+	private:
+		void exportTargetValueExtra(const PhysXXML::PxD6Joint & joint)
+		{
+			if (!TargetValueExtra::AreDefaultValues(joint.drivePosition.translation.y, joint.drivePosition.translation.z))
+			{
+				TargetValueExtra e(getPhysXExporter(), joint.drivePosition.translation.y, joint.drivePosition.translation.z);
+			}
+		}
+	};
+
+	class SpringAngularExtra : public Element
+	{
+	public:
+		SpringAngularExtra(PhysXExporter & exporter, const PhysXXML::PxD6Joint & joint)
+			: Element(exporter, CSWC::CSW_ELEMENT_ANGULAR_EXTRA)
+		{
+			exportStiffness(joint);
+			exportDamping(joint);
+			exportTargetValueExtra(joint);
+		}
+
+		static bool HasDefaultValues(const PhysXXML::PxD6Joint & joint)
+		{
+			MEulerRotation euler = joint.drivePosition.rotation.asEulerRotation();
+			return joint.twistLimit.stiffness.stiffness == Stiffness::DefaultValue() &&
+				joint.twistLimit.damping.damping == Damping::DefaultValue() &&
+				TargetValueExtra::AreDefaultValues(euler.y, euler.z);
+		}
+
+	private:
+		void exportStiffness(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.twistLimit.stiffness.stiffness != Stiffness::DefaultValue())
+			{
+				Stiffness e(getPhysXExporter(), joint.twistLimit.stiffness.stiffness);
+			}
+		}
+
+		void exportDamping(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.twistLimit.damping.damping != Damping::DefaultValue())
+			{
+				Damping e(getPhysXExporter(), joint.twistLimit.damping.damping);
+			}
+		}
+
+		void exportTargetValueExtra(const PhysXXML::PxD6Joint & joint)
+		{
+			MEulerRotation euler = joint.drivePosition.rotation.asEulerRotation();
+			if (!TargetValueExtra::AreDefaultValues(euler.y, euler.z))
+			{
+				TargetValueExtra e(getPhysXExporter(), euler.y, euler.z);
+			}
+		}
+	};
+
+	class SpringExtra : public Element
+	{
+	public:
+		SpringExtra(PhysXExporter & exporter, const PhysXXML::PxD6Joint & joint)
+			: Element(exporter, CSWC::CSW_ELEMENT_SPRING_EXTRA)
+		{
+			exportLinearExtra(joint);
+			exportAngularExtra(joint);
+		}
+
+		static bool HasDefaultValues(const PhysXXML::PxD6Joint & joint)
+		{
+			return SpringLinearExtra::HasDefaultValues(joint) &&
+				SpringAngularExtra::HasDefaultValues(joint);
+		}
+
+	private:
+		void exportLinearExtra(const PhysXXML::PxD6Joint & joint)
+		{
+			if (!SpringLinearExtra::HasDefaultValues(joint))
+			{
+				SpringLinearExtra e(getPhysXExporter(), joint);
+			}
+		}
+
+		void exportAngularExtra(const PhysXXML::PxD6Joint & joint)
+		{
+			if (!SpringAngularExtra::HasDefaultValues(joint))
+			{
+				SpringAngularExtra e(getPhysXExporter(), joint);
+			}
+		}
+	};
+
+	class ForceLimit : public Element
+	{
+	public:
+		ForceLimit(PhysXExporter & exporter, double forceLimit)
+			: Element(exporter, CSWC::CSW_ELEMENT_FORCE_LIMIT)
+		{
+			getStreamWriter().appendValues(forceLimit);
+		}
+
+		static double DefaultValue()
+		{
+			return infinite();
+		}
+	};
+
+	class DriveFlags : public Element
+	{
+	public:
+		DriveFlags(PhysXExporter & exporter, const Flags<PhysXXML::DriveFlags::FlagEnum> & flags)
+			: Element(exporter, CSWC::CSW_ELEMENT_DRIVE_FLAGS)
+		{
+			getStreamWriter().appendValues(PhysXExporter::DriveFlagsToCOLLADA(flags));
+		}
+
+		static Flags<PhysXXML::DriveFlags::FlagEnum> DefaultValue()
+		{
+			return Flags<PhysXXML::DriveFlags::FlagEnum>();
+		}
+	};
+
+	class LinearX : public Element
+	{
+	public:
+		LinearX(PhysXExporter & exporter, const PhysXXML::PxD6Joint & joint)
+			: Element(exporter, CSWC::CSW_ELEMENT_LINEAR_X)
+		{
+			exportStiffness(joint);
+			exportDamping(joint);
+			exportForceLimit(joint);
+			exportDriveFlags(joint);
+		}
+
+		static bool HasDefaultValues(const PhysXXML::PxD6Joint & joint)
+		{
+			return joint.drive.driveX.stiffness.stiffness == Stiffness::DefaultValue() &&
+				joint.drive.driveX.damping.damping == Damping::DefaultValue() &&
+				joint.drive.driveX.forceLimit.forceLimit == ForceLimit::DefaultValue() &&
+				joint.drive.driveX.flags.flags == DriveFlags::DefaultValue();
+		}
+
+	private:
+		void exportStiffness(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.drive.driveX.stiffness.stiffness != Stiffness::DefaultValue())
+			{
+				Stiffness e(getPhysXExporter(), joint.drive.driveX.stiffness.stiffness);
+			}
+		}
+
+		void exportDamping(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.drive.driveX.damping.damping != Damping::DefaultValue())
+			{
+				Damping e(getPhysXExporter(), joint.drive.driveX.damping.damping);
+			}
+		}
+
+		void exportForceLimit(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.drive.driveX.forceLimit.forceLimit != ForceLimit::DefaultValue())
+			{
+				ForceLimit e(getPhysXExporter(), joint.drive.driveX.forceLimit.forceLimit);
+			}
+		}
+
+		void exportDriveFlags(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.drive.driveX.flags.flags != DriveFlags::DefaultValue())
+			{
+				DriveFlags e(getPhysXExporter(), joint.drive.driveX.flags.flags);
+			}
+		}
+	};
+	
+	class LinearY : public Element
+	{
+	public:
+		LinearY(PhysXExporter & exporter, const PhysXXML::PxD6Joint & joint)
+			: Element(exporter, CSWC::CSW_ELEMENT_LINEAR_Y)
+		{
+			exportStiffness(joint);
+			exportDamping(joint);
+			exportForceLimit(joint);
+			exportDriveFlags(joint);
+		}
+
+		static bool HasDefaultValues(const PhysXXML::PxD6Joint & joint)
+		{
+			return joint.drive.driveY.stiffness.stiffness == Stiffness::DefaultValue() &&
+				joint.drive.driveY.damping.damping == Damping::DefaultValue() &&
+				joint.drive.driveY.forceLimit.forceLimit == ForceLimit::DefaultValue() &&
+				joint.drive.driveY.flags.flags == DriveFlags::DefaultValue();
+		}
+
+	private:
+		void exportStiffness(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.drive.driveY.stiffness.stiffness != Stiffness::DefaultValue())
+			{
+				Stiffness e(getPhysXExporter(), joint.drive.driveY.stiffness.stiffness);
+			}
+		}
+
+		void exportDamping(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.drive.driveY.damping.damping != Damping::DefaultValue())
+			{
+				Damping e(getPhysXExporter(), joint.drive.driveY.damping.damping);
+			}
+		}
+
+		void exportForceLimit(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.drive.driveY.forceLimit.forceLimit != ForceLimit::DefaultValue())
+			{
+				ForceLimit e(getPhysXExporter(), joint.drive.driveY.forceLimit.forceLimit);
+			}
+		}
+
+		void exportDriveFlags(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.drive.driveY.flags.flags != DriveFlags::DefaultValue())
+			{
+				DriveFlags e(getPhysXExporter(), joint.drive.driveY.flags.flags);
+			}
+		}
+	};
+
+	class LinearZ : public Element
+	{
+	public:
+		LinearZ(PhysXExporter & exporter, const PhysXXML::PxD6Joint & joint)
+			: Element(exporter, CSWC::CSW_ELEMENT_LINEAR_Z)
+		{
+			exportStiffness(joint);
+			exportDamping(joint);
+			exportForceLimit(joint);
+			exportDriveFlags(joint);
+		}
+
+		static bool HasDefaultValues(const PhysXXML::PxD6Joint & joint)
+		{
+			return joint.drive.driveZ.stiffness.stiffness == Stiffness::DefaultValue() &&
+				joint.drive.driveZ.damping.damping == Damping::DefaultValue() &&
+				joint.drive.driveZ.forceLimit.forceLimit == ForceLimit::DefaultValue() &&
+				joint.drive.driveZ.flags.flags == DriveFlags::DefaultValue();
+		}
+
+	private:
+		void exportStiffness(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.drive.driveZ.stiffness.stiffness != Stiffness::DefaultValue())
+			{
+				Stiffness e(getPhysXExporter(), joint.drive.driveZ.stiffness.stiffness);
+			}
+		}
+
+		void exportDamping(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.drive.driveZ.damping.damping != Damping::DefaultValue())
+			{
+				Damping e(getPhysXExporter(), joint.drive.driveZ.damping.damping);
+			}
+		}
+
+		void exportForceLimit(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.drive.driveZ.forceLimit.forceLimit != ForceLimit::DefaultValue())
+			{
+				ForceLimit e(getPhysXExporter(), joint.drive.driveZ.forceLimit.forceLimit);
+			}
+		}
+
+		void exportDriveFlags(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.drive.driveZ.flags.flags != DriveFlags::DefaultValue())
+			{
+				DriveFlags e(getPhysXExporter(), joint.drive.driveZ.flags.flags);
+			}
+		}
+	};
+
+	class Swing : public Element
+	{
+	public:
+		Swing(PhysXExporter & exporter, const PhysXXML::PxD6Joint & joint)
+			: Element(exporter, CSWC::CSW_ELEMENT_SWING)
+		{
+			exportStiffness(joint);
+			exportDamping(joint);
+			exportForceLimit(joint);
+			exportDriveFlags(joint);
+		}
+
+		static bool HasDefaultValues(const PhysXXML::PxD6Joint & joint)
+		{
+			return joint.drive.driveSwing.stiffness.stiffness == Stiffness::DefaultValue() &&
+				joint.drive.driveSwing.damping.damping == Damping::DefaultValue() &&
+				joint.drive.driveSwing.forceLimit.forceLimit == ForceLimit::DefaultValue() &&
+				joint.drive.driveSwing.flags.flags == DriveFlags::DefaultValue();
+		}
+
+	private:
+		void exportStiffness(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.drive.driveSwing.stiffness.stiffness != Stiffness::DefaultValue())
+			{
+				Stiffness e(getPhysXExporter(), joint.drive.driveSwing.stiffness.stiffness);
+			}
+		}
+
+		void exportDamping(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.drive.driveSwing.damping.damping != Damping::DefaultValue())
+			{
+				Damping e(getPhysXExporter(), joint.drive.driveSwing.damping.damping);
+			}
+		}
+
+		void exportForceLimit(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.drive.driveSwing.forceLimit.forceLimit != ForceLimit::DefaultValue())
+			{
+				ForceLimit e(getPhysXExporter(), joint.drive.driveSwing.forceLimit.forceLimit);
+			}
+		}
+
+		void exportDriveFlags(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.drive.driveSwing.flags.flags != DriveFlags::DefaultValue())
+			{
+				DriveFlags e(getPhysXExporter(), joint.drive.driveSwing.flags.flags);
+			}
+		}
+	};
+
+	class Twist : public Element
+	{
+	public:
+		Twist(PhysXExporter & exporter, const PhysXXML::PxD6Joint & joint)
+			: Element(exporter, CSWC::CSW_ELEMENT_TWIST)
+		{
+			exportStiffness(joint);
+			exportDamping(joint);
+			exportForceLimit(joint);
+			exportDriveFlags(joint);
+		}
+
+		static bool HasDefaultValues(const PhysXXML::PxD6Joint & joint)
+		{
+			return joint.drive.driveTwist.stiffness.stiffness == Stiffness::DefaultValue() &&
+				joint.drive.driveTwist.damping.damping == Damping::DefaultValue() &&
+				joint.drive.driveTwist.forceLimit.forceLimit == ForceLimit::DefaultValue() &&
+				joint.drive.driveTwist.flags.flags == DriveFlags::DefaultValue();
+		}
+
+	private:
+		void exportStiffness(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.drive.driveTwist.stiffness.stiffness != Stiffness::DefaultValue())
+			{
+				Stiffness e(getPhysXExporter(), joint.drive.driveTwist.stiffness.stiffness);
+			}
+		}
+
+		void exportDamping(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.drive.driveTwist.damping.damping != Damping::DefaultValue())
+			{
+				Damping e(getPhysXExporter(), joint.drive.driveTwist.damping.damping);
+			}
+		}
+
+		void exportForceLimit(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.drive.driveTwist.forceLimit.forceLimit != ForceLimit::DefaultValue())
+			{
+				ForceLimit e(getPhysXExporter(), joint.drive.driveTwist.forceLimit.forceLimit);
+			}
+		}
+
+		void exportDriveFlags(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.drive.driveTwist.flags.flags != DriveFlags::DefaultValue())
+			{
+				DriveFlags e(getPhysXExporter(), joint.drive.driveTwist.flags.flags);
+			}
+		}
+	};
+
+	class Slerp : public Element
+	{
+	public:
+		Slerp(PhysXExporter & exporter, const PhysXXML::PxD6Joint & joint)
+			: Element(exporter, CSWC::CSW_ELEMENT_SLERP)
+		{
+			exportStiffness(joint);
+			exportDamping(joint);
+			exportForceLimit(joint);
+		}
+
+		static bool HasDefaultValues(const PhysXXML::PxD6Joint & joint)
+		{
+			return joint.drive.driveSlerp.stiffness.stiffness == Stiffness::DefaultValue() &&
+				joint.drive.driveSlerp.damping.damping == Damping::DefaultValue() &&
+				joint.drive.driveSlerp.forceLimit.forceLimit == ForceLimit::DefaultValue();
+		}
+
+	private:
+		void exportStiffness(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.drive.driveSlerp.stiffness.stiffness != Stiffness::DefaultValue())
+			{
+				Stiffness e(getPhysXExporter(), joint.drive.driveSlerp.stiffness.stiffness);
+			}
+		}
+
+		void exportDamping(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.drive.driveSlerp.damping.damping != Damping::DefaultValue())
+			{
+				Damping e(getPhysXExporter(), joint.drive.driveSlerp.damping.damping);
+			}
+		}
+
+		void exportForceLimit(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.drive.driveSlerp.forceLimit.forceLimit != ForceLimit::DefaultValue())
+			{
+				ForceLimit e(getPhysXExporter(), joint.drive.driveSlerp.forceLimit.forceLimit);
+			}
+		}
+	};
+
+	class LinearVelocity : public Element
+	{
+	public:
+		LinearVelocity(PhysXExporter & exporter, const MVector & linearVelocity)
+			: Element(exporter, CSWC::CSW_ELEMENT_LINEAR_VELOCITY)
+		{
+			getStreamWriter().appendValues(linearVelocity.x, linearVelocity.y, linearVelocity.z);
+		}
+
+		static const MVector & DefaultValue()
+		{
+			return MVector::zero;
+		}
+	};
+
+	class AngularVelocity : public Element
+	{
+	public:
+		AngularVelocity(PhysXExporter & exporter, const MVector & velocity)
+			: Element(exporter, CSWC::CSW_ELEMENT_ANGULAR_VELOCITY)
+		{
+			getStreamWriter().appendValues(velocity.x, velocity.y, velocity.z);
+		}
+
+		static const MVector & DefaultValue()
+		{
+			return MVector::zero;
+		}
+	};
+
+	class Drive : public Element
+	{
+	public:
+		Drive(PhysXExporter & exporter, const PhysXXML::PxD6Joint & joint)
+			: Element(exporter, CSWC::CSW_ELEMENT_DRIVE)
+		{
+			exportLinearX(joint);
+			exportLinearY(joint);
+			exportLinearZ(joint);
+			exportSwing(joint);
+			exportTwist(joint);
+			exportSlerp(joint);
+			exportLinearVelocity(joint);
+			exportAngularVelocity(joint);
+		}
+
+		static bool HasDefaultValues(const PhysXXML::PxD6Joint & joint)
+		{
+			return LinearX::HasDefaultValues(joint) &&
+				LinearY::HasDefaultValues(joint) &&
+				LinearZ::HasDefaultValues(joint) &&
+				Swing::HasDefaultValues(joint) &&
+				Twist::HasDefaultValues(joint) &&
+				Slerp::HasDefaultValues(joint) &&
+				joint.driveVelocity.linear.linear == LinearVelocity::DefaultValue() &&
+				joint.driveVelocity.angular.angular == AngularVelocity::DefaultValue();
+		}
+
+	private:
+		void exportLinearX(const PhysXXML::PxD6Joint & joint)
+		{
+			if (!LinearX::HasDefaultValues(joint))
+			{
+				LinearX e(getPhysXExporter(), joint);
+			}
+		}
+
+		void exportLinearY(const PhysXXML::PxD6Joint & joint)
+		{
+			if (!LinearY::HasDefaultValues(joint))
+			{
+				LinearY e(getPhysXExporter(), joint);
+			}
+		}
+
+		void exportLinearZ(const PhysXXML::PxD6Joint & joint)
+		{
+			if (!LinearZ::HasDefaultValues(joint))
+			{
+				LinearZ e(getPhysXExporter(), joint);
+			}
+		}
+
+		void exportSwing(const PhysXXML::PxD6Joint & joint)
+		{
+			if (!Swing::HasDefaultValues(joint))
+			{
+				Swing e(getPhysXExporter(), joint);
+			}
+		}
+
+		void exportTwist(const PhysXXML::PxD6Joint & joint)
+		{
+			if (!Twist::HasDefaultValues(joint))
+			{
+				Twist e(getPhysXExporter(), joint);
+			}
+		}
+
+		void exportSlerp(const PhysXXML::PxD6Joint & joint)
+		{
+			if (!Slerp::HasDefaultValues(joint))
+			{
+				Slerp e(getPhysXExporter(), joint);
+			}
+		}
+
+		void exportLinearVelocity(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.driveVelocity.linear.linear != LinearVelocity::DefaultValue())
+			{
+				LinearVelocity e(getPhysXExporter(), joint.driveVelocity.linear.linear);
+			}
+		}
+
+		void exportAngularVelocity(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.driveVelocity.angular.angular != AngularVelocity::DefaultValue())
+			{
+				AngularVelocity e(getPhysXExporter(), joint.driveVelocity.angular.angular);
+			}
+		}
+	};
+
     class RigidConstraintTechnique : public Element
     {
     public:
@@ -2751,6 +3715,24 @@ namespace COLLADAMaya
             }
 			else if (profile == PROFILE_MAYA) {
 				exporter.exportExtraAttributes(rigidConstraint);
+			}
+			else if (profile == PhysXExporter::GetPhysXProfile()) {
+				PhysXXML::PxD6Joint* pxJoint = exporter.findPxD6Joint(rigidConstraint);
+				if (pxJoint)
+				{
+					exportBreakForce(*pxJoint);
+					exportBreakTorque(*pxJoint);
+					exportConstraintFlags(*pxJoint);
+					exportInvMassScale0(*pxJoint);
+					exportInvInertiaScale0(*pxJoint);
+					exportInvMassScale1(*pxJoint);
+					exportInvInertiaScale1(*pxJoint);
+					exportProjectionLinearTolerance(*pxJoint);
+					exportProjectionAngularTolerance(*pxJoint);
+					exportLimitsExtra(*pxJoint);
+					exportSpringExtra(*pxJoint);
+					exportDrive(*pxJoint);
+				}
 			}
         }
 
@@ -2821,6 +3803,102 @@ namespace COLLADAMaya
             return mAttributes;
         }
 
+		void exportBreakForce(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.breakForce.force.force != BreakForce::DefaultValue())
+			{
+				BreakForce e(getPhysXExporter(), joint.breakForce.force.force);
+			}
+		}
+
+		void exportBreakTorque(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.breakForce.torque.torque != BreakTorque::DefaultValue())
+			{
+				BreakTorque e(getPhysXExporter(), joint.breakForce.torque.torque);
+			}
+		}
+
+		void exportConstraintFlags(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.constraintFlags.flags != ConstraintFlags::DefaultValue())
+			{
+				ConstraintFlags e(getPhysXExporter(), joint.constraintFlags.flags);
+			}
+		}
+
+		void exportInvMassScale0(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.invMassScale0.invMassScale0 != InvMassScale0::DefaultValue())
+			{
+				InvMassScale0 e(getPhysXExporter(), joint.invMassScale0.invMassScale0);
+			}
+		}
+
+		void exportInvInertiaScale0(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.invInertiaScale0.invInertiaScale0 != InvInertiaScale0::DefaultValue())
+			{
+				InvInertiaScale0 e(getPhysXExporter(), joint.invInertiaScale0.invInertiaScale0);
+			}
+		}
+
+		void exportInvMassScale1(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.invMassScale1.invMassScale1 != InvMassScale1::DefaultValue())
+			{
+				InvMassScale1 e(getPhysXExporter(), joint.invMassScale1.invMassScale1);
+			}
+		}
+
+		void exportInvInertiaScale1(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.invInertiaScale1.invInertiaScale1 != InvInertiaScale1::DefaultValue())
+			{
+				InvInertiaScale1 e(getPhysXExporter(), joint.invInertiaScale1.invInertiaScale1);
+			}
+		}
+
+		void exportProjectionLinearTolerance(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.projectionLinearTolerance.projectionLinearTolerance != ProjectionLinearTolerance::DefaultValue())
+			{
+				ProjectionLinearTolerance e(getPhysXExporter(), joint.projectionLinearTolerance.projectionLinearTolerance);
+			}
+		}
+
+		void exportProjectionAngularTolerance(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.projectionAngularTolerance.projectionAngularTolerance != ProjectionAngularTolerance::DefaultValue())
+			{
+				ProjectionAngularTolerance e(getPhysXExporter(), joint.projectionAngularTolerance.projectionAngularTolerance);
+			}
+		}
+
+		void exportLimitsExtra(const PhysXXML::PxD6Joint & joint)
+		{
+			if (!LimitsExtra::HasDefaultValues(joint))
+			{
+				LimitsExtra e(getPhysXExporter(), joint);
+			}
+		}
+
+		void exportSpringExtra(const PhysXXML::PxD6Joint & joint)
+		{
+			if (!SpringExtra::HasDefaultValues(joint))
+			{
+				SpringExtra e(getPhysXExporter(), joint);
+			}
+		}
+
+		void exportDrive(const PhysXXML::PxD6Joint & joint)
+		{
+			if (!Drive::HasDefaultValues(joint))
+			{
+				Drive e(getPhysXExporter(), joint);
+			}
+		}
+
     private:
         static std::set<MString, MStringComp> mAttributes;
     };
@@ -2837,6 +3915,7 @@ namespace COLLADAMaya
 			}
             exportTechnique(rigidConstraint, PhysXExporter::GetProfile());
             exportTechnique(rigidConstraint, PhysXExporter::GetProfileXML());
+			exportTechnique(rigidConstraint, PhysXExporter::GetPhysXProfile());
         }
 
     private:
@@ -2938,16 +4017,6 @@ namespace COLLADAMaya
         void exportExtra(const MObject & rigidConstraint)
         {
             RigidConstraintExtra e(getPhysXExporter(), rigidConstraint);
-        }
-    };
-
-    class AngularVelocity : public Element
-    {
-    public:
-        AngularVelocity(PhysXExporter & exporter, const MVector & velocity)
-            : Element(exporter, CSWC::CSW_ELEMENT_ANGULAR_VELOCITY)
-        {
-            getStreamWriter().appendValues(velocity.x, velocity.y, velocity.z);
         }
     };
 
@@ -3260,11 +4329,11 @@ namespace COLLADAMaya
 										sw.appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, PhysXExporter::GetPhysXProfile());
 										{
 											sw.openElement(CSWC::CSW_ELEMENT_FRICTION_COMBINE_MODE);
-											sw.appendValues(PhysXExporter::PhysXCombineModeToCOLLADA(mat->frictionCombineMode.frictionCombineMode));
+											sw.appendValues(PhysXExporter::CombineModeToCOLLADA(mat->frictionCombineMode.frictionCombineMode));
 											sw.closeElement();
 
 											sw.openElement(CSWC::CSW_ELEMENT_RESTITUTION_COMBINE_MODE);
-											sw.appendValues(PhysXExporter::PhysXCombineModeToCOLLADA(mat->restitutionCombineMode.restitutionCombineMode));
+											sw.appendValues(PhysXExporter::CombineModeToCOLLADA(mat->restitutionCombineMode.restitutionCombineMode));
 											sw.closeElement();
 										}
 										sw.closeElement();
@@ -3333,7 +4402,7 @@ namespace COLLADAMaya
 										sw.closeElement();
 
 										sw.openElement(CSWC::CSW_ELEMENT_SHAPE_FLAGS);
-										sw.appendValues(PhysXExporter::PhysXShapeFlagsToCOLLADA(shape.flags.flags));
+										sw.appendValues(PhysXExporter::ShapeFlagsToCOLLADA(shape.flags.flags));
 										sw.closeElement();
 
 										sw.openElement(CSWC::CSW_ELEMENT_NAME);
@@ -3539,49 +4608,73 @@ namespace COLLADAMaya
     String PhysXExporter::mProfile = "OpenCOLLADAMayaPhysX";
     String PhysXExporter::mProfileXML = "OpenCOLLADAMayaPhysXXML";
 	String PhysXExporter::mPhysXProfile = "PhysX_3.x";
-	std::map<String, String> PhysXExporter::mCombineModeMap = PhysXExporter::InitializeCombineModeMap();
-	std::map<String, String> PhysXExporter::mShapeFlagMap = PhysXExporter::InitializeShapeFlagMap();
-	std::map<String, String> PhysXExporter::mActorFlagMap = PhysXExporter::InitializeActorFlagMap();
-	std::map<String, String> PhysXExporter::mRigidBodyFlagMap = PhysXExporter::InitializeRigidBodyFlagMap();
+	std::map<PhysXXML::CombineMode::FlagEnum, String> PhysXExporter::mCombineModeMap = PhysXExporter::InitializeCombineModeMap();
+	std::map<PhysXXML::ShapeFlags::FlagEnum, String> PhysXExporter::mShapeFlagMap = PhysXExporter::InitializeShapeFlagMap();
+	std::map<PhysXXML::ActorFlags::FlagEnum, String> PhysXExporter::mActorFlagMap = PhysXExporter::InitializeActorFlagMap();
+	std::map<PhysXXML::RigidBodyFlags::FlagEnum, String> PhysXExporter::mRigidBodyFlagMap = PhysXExporter::InitializeRigidBodyFlagMap();
+	std::map<PhysXXML::ConstraintFlags::FlagEnum, String> PhysXExporter::mConstraintFlagMap = PhysXExporter::InitializeConstraintFlagMap();
+	std::map<PhysXXML::DriveFlags::FlagEnum, String> PhysXExporter::mDriveFlagMap = PhysXExporter::InitializeDriveFlagMap();
 
-	std::map<String, String> PhysXExporter::InitializeCombineModeMap()
+	std::map<PhysXXML::CombineMode::FlagEnum, String> PhysXExporter::InitializeCombineModeMap()
 	{
-		std::map<String, String> m;
-		m["eAVERAGE"] = "AVERAGE";
-		m["eMIN"] = "MIN";
-		m["eMULTIPLY"] = "MULTIPLY";
-		m["eMAX"] = "MAX";
+		std::map<PhysXXML::CombineMode::FlagEnum, String> m;
+		m[PhysXXML::CombineMode::FlagEnum::Average] = "AVERAGE";
+		m[PhysXXML::CombineMode::FlagEnum::Min] = "MIN";
+		m[PhysXXML::CombineMode::FlagEnum::Multiply] = "MULTIPLY";
+		m[PhysXXML::CombineMode::FlagEnum::Max] = "MAX";
 		return m;
 	}
 
-	std::map<String, String> PhysXExporter::InitializeShapeFlagMap()
+	std::map<PhysXXML::ShapeFlags::FlagEnum, String> PhysXExporter::InitializeShapeFlagMap()
 	{
-		std::map<String, String> m;
-		m["eSIMULATION_SHAPE"] = "SIMULATION_SHAPE";
-		m["eSCENE_QUERY_SHAPE"] = "SCENE_QUERY_SHAPE";
-		m["eTRIGGER_SHAPE"] = "TRIGGER_SHAPE";
-		m["eVISUALIZATION"] = "VISUALIZATION";
-		m["ePARTICLE_DRAIN"] = "PARTICLE_DRAIN";
+		std::map<PhysXXML::ShapeFlags::FlagEnum, String> m;
+		m[PhysXXML::ShapeFlags::FlagEnum::SimulationShape] = "SIMULATION_SHAPE";
+		m[PhysXXML::ShapeFlags::FlagEnum::SceneQueryShape] = "SCENE_QUERY_SHAPE";
+		m[PhysXXML::ShapeFlags::FlagEnum::TriggerShape] = "TRIGGER_SHAPE";
+		m[PhysXXML::ShapeFlags::FlagEnum::Visualization] = "VISUALIZATION";
+		m[PhysXXML::ShapeFlags::FlagEnum::ParticleDrain] = "PARTICLE_DRAIN";
 		return m;
 	}
 
-	std::map<String, String> PhysXExporter::InitializeActorFlagMap()
+	std::map<PhysXXML::ActorFlags::FlagEnum, String> PhysXExporter::InitializeActorFlagMap()
 	{
-		std::map<String, String> m;
-		m["eVISUALIZATION"] = "VISUALIZATION";
-		m["eDISABLE_GRAVITY"] = "DISABLE_GRAVITY";
-		m["eSEND_SLEEP_NOTIFIES"] = "SEND_SLEEP_NOTIFIES";
-		m["eDISABLE_SIMULATION"] = "DISABLE_SIMULATION";
+		std::map<PhysXXML::ActorFlags::FlagEnum, String> m;
+		m[PhysXXML::ActorFlags::FlagEnum::Visualization] = "VISUALIZATION";
+		m[PhysXXML::ActorFlags::FlagEnum::DisableGravity] = "DISABLE_GRAVITY";
+		m[PhysXXML::ActorFlags::FlagEnum::SendSleepNotifies] = "SEND_SLEEP_NOTIFIES";
+		m[PhysXXML::ActorFlags::FlagEnum::DisableSimulation] = "DISABLE_SIMULATION";
 		return m;
 	}
 
-	std::map<String, String> PhysXExporter::InitializeRigidBodyFlagMap()
+	std::map<PhysXXML::RigidBodyFlags::FlagEnum, String> PhysXExporter::InitializeRigidBodyFlagMap()
 	{
-		std::map<String, String> m;
-		m["eKINEMATIC"] = "KINEMATIC";
-		m["eUSE_KINEMATIC_TARGET_FOR_SCENE_QUERIES"] = "USE_KINEMATIC_TARGET_FOR_SCENE_QUERIES";
-		m["eENABLE_CCD"] = "ENABLE_CCD";
-		m["eENABLE_CCD_FRICTION"] = "ENABLE_CCD_FRICTION";
+		std::map<PhysXXML::RigidBodyFlags::FlagEnum, String> m;
+		m[PhysXXML::RigidBodyFlags::FlagEnum::Kinematic] = "KINEMATIC";
+		m[PhysXXML::RigidBodyFlags::FlagEnum::UseKinematicTargetForSceneQueries] = "USE_KINEMATIC_TARGET_FOR_SCENE_QUERIES";
+		m[PhysXXML::RigidBodyFlags::FlagEnum::EnabledCCD] = "ENABLE_CCD";
+		m[PhysXXML::RigidBodyFlags::FlagEnum::EnabledCCDFriction] = "ENABLE_CCD_FRICTION";
+		return m;
+	}
+
+	std::map<PhysXXML::ConstraintFlags::FlagEnum, String> PhysXExporter::InitializeConstraintFlagMap()
+	{
+		std::map<PhysXXML::ConstraintFlags::FlagEnum, String> m;
+		m[PhysXXML::ConstraintFlags::FlagEnum::Broken] = "BROKEN";
+		m[PhysXXML::ConstraintFlags::FlagEnum::ProjectToActor0] = "PROJECT_TO_ACTOR0";
+		m[PhysXXML::ConstraintFlags::FlagEnum::ProjectToActor1] = "PROJECT_TO_ACTOR1";
+		m[PhysXXML::ConstraintFlags::FlagEnum::Projection] = "PROJECTION";
+		m[PhysXXML::ConstraintFlags::FlagEnum::CollisionEnabled] = "COLLISION_ENABLED";
+		m[PhysXXML::ConstraintFlags::FlagEnum::Reporting] = "REPORTING";
+		m[PhysXXML::ConstraintFlags::FlagEnum::Visualization] = "VISUALIZATION";
+		m[PhysXXML::ConstraintFlags::FlagEnum::DriveLimitsAreForces] = "DRIVE_LIMITS_ARE_FORCES";
+		m[PhysXXML::ConstraintFlags::FlagEnum::ImprovedSlerp] = "IMPROVED_SLERP";
+		return m;
+	}
+
+	std::map<PhysXXML::DriveFlags::FlagEnum, String> PhysXExporter::InitializeDriveFlagMap()
+	{
+		std::map<PhysXXML::DriveFlags::FlagEnum, String> m;
+		m[PhysXXML::DriveFlags::FlagEnum::Acceleration] = "ACCELERATION";
 		return m;
 	}
 
@@ -4390,14 +5483,12 @@ namespace COLLADAMaya
 		{
 		public:
 			ExtraAttributeParser(const MObject & obj)
-				: mObject(obj)
-				, mHasExtraAttributes(false)
+				: mHasExtraAttributes(false)
 			{}
 
 			bool hasExtraAttributes() const { return mHasExtraAttributes; }
 
 		private:
-			MObject mObject;
 			bool mHasExtraAttributes;
 
 		protected:
@@ -4438,66 +5529,37 @@ namespace COLLADAMaya
 		return parser.hasExtraAttributes();
 	}
 
-	String PhysXExporter::PhysXCombineModeToCOLLADA(const String & PhysXString)
+	String PhysXExporter::CombineModeToCOLLADA(PhysXXML::CombineMode::FlagEnum flag)
 	{
-		std::map<String, String>::const_iterator it = mCombineModeMap.find(PhysXString);
+		std::map<PhysXXML::CombineMode::FlagEnum, String>::const_iterator it = mCombineModeMap.find(flag);
 		if (it != mCombineModeMap.end())
 			return it->second;
 		return "";
 	}
 
-	String PhysXExporter::PhysXShapeFlagsToCOLLADA(const String & PhysXFlags)
+	String PhysXExporter::ShapeFlagsToCOLLADA(const Flags<PhysXXML::ShapeFlags::FlagEnum> & flags)
 	{
-		std::vector<String> flags;
-		COLLADABU::Utils::split(PhysXFlags, "|", flags);
-		String res;
-		for (size_t i = 0; i < flags.size(); ++i)
-		{
-			std::map<String, String>::const_iterator it = mShapeFlagMap.find(flags[i]);
-			if (it != mShapeFlagMap.end())
-			{
-				if (res.size() > 0)
-					res += ' ';
-				res += it->second;
-			}
-		}
-		return res;
+		return FlagsToCOLLADA(flags, mShapeFlagMap);
 	}
 
-	String PhysXExporter::PhysXActorFlagsToCOLLADA(const String & PhysXFlags)
+	String PhysXExporter::ActorFlagsToCOLLADA(const Flags<PhysXXML::ActorFlags::FlagEnum> & flags)
 	{
-		std::vector<String> flags;
-		COLLADABU::Utils::split(PhysXFlags, "|", flags);
-		String res;
-		for (size_t i = 0; i < flags.size(); ++i)
-		{
-			std::map<String, String>::const_iterator it = mActorFlagMap.find(flags[i]);
-			if (it != mActorFlagMap.end())
-			{
-				if (res.size() > 0)
-					res += ' ';
-				res += it->second;
-			}
-		}
-		return res;
+		return FlagsToCOLLADA(flags, mActorFlagMap);
 	}
 
-	String PhysXExporter::PhysXRigidBodyFlagsToCOLLADA(const String & PhysXFlags)
+	String PhysXExporter::RigidBodyFlagsToCOLLADA(const Flags<PhysXXML::RigidBodyFlags::FlagEnum> & flags)
 	{
-		std::vector<String> flags;
-		COLLADABU::Utils::split(PhysXFlags, "|", flags);
-		String res;
-		for (size_t i = 0; i < flags.size(); ++i)
-		{
-			std::map<String, String>::const_iterator it = mRigidBodyFlagMap.find(flags[i]);
-			if (it != mRigidBodyFlagMap.end())
-			{
-				if (res.size() > 0)
-					res += ' ';
-				res += it->second;
-			}
-		}
-		return res;
+		return FlagsToCOLLADA(flags, mRigidBodyFlagMap);
+	}
+
+	String PhysXExporter::ConstraintFlagsToCOLLADA(const Flags<PhysXXML::ConstraintFlags::FlagEnum> & flags)
+	{
+		return FlagsToCOLLADA(flags, mConstraintFlagMap);
+	}
+
+	String PhysXExporter::DriveFlagsToCOLLADA(const Flags<PhysXXML::DriveFlags::FlagEnum> & flags)
+	{
+		return FlagsToCOLLADA(flags, mDriveFlagMap);
 	}
 
     const String & PhysXExporter::findColladaId(const String & mayaId)

@@ -136,6 +136,80 @@ namespace COLLADAMaya
             const String ZAngle = "ZAngle";
         }
 
+		std::map<String, CombineMode::FlagEnum> CombineMode::mStringToFlagMap = CombineMode::InitializeStringToFlagMap();
+		std::map<String, CombineMode::FlagEnum> CombineMode::InitializeStringToFlagMap()
+		{
+			std::map<String, FlagEnum> m;
+			m["eAVERAGE"] = FlagEnum::Average;
+			m["eMIN"] = FlagEnum::Min;
+			m["eMULTIPLY"] = FlagEnum::Multiply;
+			m["eMAX"] = FlagEnum::Max;
+			return m;
+		}
+
+		const std::map<String, CombineMode::FlagEnum> & CombineMode::GetStringToFlagMap()
+		{
+			return mStringToFlagMap;
+		}
+
+		std::map<String, ActorFlags::FlagEnum> ActorFlags::mStringToFlagMap = ActorFlags::InitializeStringToFlagMap();
+		std::map<String, ActorFlags::FlagEnum> ActorFlags::InitializeStringToFlagMap()
+		{
+			std::map<String, FlagEnum> m;
+			m["eVISUALIZATION"] = FlagEnum::Visualization;
+			m["eDISABLE_GRAVITY"] = FlagEnum::DisableGravity;
+			m["eSEND_SLEEP_NOTIFIES"] = FlagEnum::SendSleepNotifies;
+			m["eDISABLE_SIMULATION"] = FlagEnum::DisableSimulation;
+			return m;
+		}
+
+		std::map<String, RigidBodyFlags::FlagEnum> RigidBodyFlags::mStringToFlagMap = RigidBodyFlags::InitializeStringToFlagMap();
+		std::map<String, RigidBodyFlags::FlagEnum> RigidBodyFlags::InitializeStringToFlagMap()
+		{
+			std::map<String, FlagEnum> m;
+			m["eKINEMATIC"] = FlagEnum::Kinematic;
+			m["eUSE_KINEMATIC_TARGET_FOR_SCENE_QUERIES"] = FlagEnum::UseKinematicTargetForSceneQueries;
+			m["eENABLE_CCD"] = FlagEnum::EnabledCCD;
+			m["eENABLE_CCD_FRICTION"] = FlagEnum::EnabledCCDFriction;
+			return m;
+		}
+
+		std::map<String, ShapeFlags::FlagEnum> ShapeFlags::mStringToFlagMap = ShapeFlags::InitializeStringToFlagMap();
+		std::map<String, ShapeFlags::FlagEnum> ShapeFlags::InitializeStringToFlagMap()
+		{
+			std::map<String, FlagEnum> m;
+			m["eSIMULATION_SHAPE"] = FlagEnum::SimulationShape;
+			m["eSCENE_QUERY_SHAPE"] = FlagEnum::SceneQueryShape;
+			m["eTRIGGER_SHAPE"] = FlagEnum::TriggerShape;
+			m["eVISUALIZATION"] = FlagEnum::Visualization;
+			m["ePARTICLE_DRAIN"] = FlagEnum::ParticleDrain;
+			return m;
+		}
+
+		std::map<String, ConstraintFlags::FlagEnum> ConstraintFlags::mStringToFlagMap = ConstraintFlags::InitializeStringToFlagMap();
+		std::map<String, ConstraintFlags::FlagEnum> ConstraintFlags::InitializeStringToFlagMap()
+		{
+			std::map<String, FlagEnum> m;
+			m["eBROKEN"] = FlagEnum::Broken;
+			m["ePROJECT_TO_ACTOR0"] = FlagEnum::ProjectToActor0;
+			m["ePROJECT_TO_ACTOR1"] = FlagEnum::ProjectToActor1;
+			m["ePROJECTION"] = FlagEnum::Projection;
+			m["eCOLLISION_ENABLED"] = FlagEnum::CollisionEnabled;
+			m["eREPORTING"] = FlagEnum::Reporting;
+			m["eVISUALIZATION"] = FlagEnum::Visualization;
+			m["eDRIVE_LIMITS_ARE_FORCES"] = FlagEnum::DriveLimitsAreForces;
+			m["eIMPROVED_SLERP"] = FlagEnum::ImprovedSlerp;
+			return m;
+		}
+
+		std::map<String, DriveFlags::FlagEnum> DriveFlags::mStringToFlagMap = DriveFlags::InitializeStringToFlagMap();
+		std::map<String, DriveFlags::FlagEnum> DriveFlags::InitializeStringToFlagMap()
+		{
+			std::map<String, FlagEnum> m;
+			m["eACCELERATION"] = FlagEnum::Acceleration;
+			return m;
+		}
+
         bool equal(xmlNode* node, const String& name)
         {
             if (!node) {
@@ -181,6 +255,72 @@ namespace COLLADAMaya
             }
             return children;
         }
+
+		template<typename E>
+		void GetContent(xmlNode* node, Flags<E> & flags, const std::map<String, E> & stringToFlagMap)
+		{
+			if (!node) {
+				return;
+			}
+
+			node = FindChild(node, Strings::text);
+			if (!node) {
+				return;
+			}
+
+			if (!node->content) {
+				return;
+			}
+
+			std::stringstream ss;
+			ss << node->content;
+
+			String str;
+			ss >> str;
+
+			std::vector<String> strFlags;
+			COLLADABU::Utils::split(str, "|", strFlags);
+			flags.clear();
+			for (size_t i = 0; i < strFlags.size(); ++i)
+			{
+				std::map<String, E>::const_iterator it = stringToFlagMap.find(strFlags[i]);
+				if (it != stringToFlagMap.end())
+				{
+					flags |= it->second;
+				}
+			}
+		}
+
+		template<typename E>
+		void GetContent(xmlNode* node, E & flag, const std::map<String, E> & stringToFlagMap)
+		{
+			if (!node) {
+				return;
+			}
+
+			node = FindChild(node, Strings::text);
+			if (!node) {
+				return;
+			}
+
+			if (!node->content) {
+				return;
+			}
+
+			std::stringstream ss;
+			ss << node->content;
+
+			String str;
+			ss >> str;
+
+			flag = static_cast<E>(0);
+
+			std::map<String, E>::const_iterator it = stringToFlagMap.find(str);
+			if (it != stringToFlagMap.end())
+			{
+				flag = it->second;
+			}
+		}
 
         void GetContent(xmlNode* node, double& content)
         {
@@ -617,7 +757,7 @@ namespace COLLADAMaya
 
         FrictionCombineMode::FrictionCombineMode(xmlNode* node)
         {
-            GetContent(node, frictionCombineMode);
+            GetContent(node, frictionCombineMode, CombineMode::GetStringToFlagMap());
         }
 
         void FrictionCombineMode::exportElement(StreamWriter& sw)
@@ -629,7 +769,7 @@ namespace COLLADAMaya
 
         RestitutionCombineMode::RestitutionCombineMode(xmlNode* node)
         {
-            GetContent(node, restitutionCombineMode);
+            GetContent(node, restitutionCombineMode, CombineMode::GetStringToFlagMap());
         }
 
         void RestitutionCombineMode::exportElement(StreamWriter& sw)
@@ -674,25 +814,25 @@ namespace COLLADAMaya
 
         ActorFlags::ActorFlags(xmlNode* node)
         {
-            GetContent(node, actorFlags);
+            GetContent(node, actorFlags, mStringToFlagMap);
         }
 
         void ActorFlags::exportElement(StreamWriter& sw)
         {
             sw.openElement(Strings::ActorFlags);
-            sw.appendValues(actorFlags);
+            sw.appendValues(static_cast<int>(actorFlags));
             sw.closeElement();
         }
 
         RigidBodyFlags::RigidBodyFlags(xmlNode* node)
         {
-            GetContent(node, rigidBodyFlags);
+            GetContent(node, rigidBodyFlags, mStringToFlagMap);
         }
 
         void RigidBodyFlags::exportElement(StreamWriter& sw)
         {
             sw.openElement(Strings::RigidBodyFlags);
-            sw.appendValues(rigidBodyFlags);
+			sw.appendValues(static_cast<int>(rigidBodyFlags));
             sw.closeElement();
         }
 
@@ -1055,15 +1195,15 @@ namespace COLLADAMaya
             sw.closeElement();
         }
 
-        Flags::Flags(xmlNode* node)
+		ShapeFlags::ShapeFlags(xmlNode* node)
         {
-            GetContent(node, flags);
+            GetContent(node, flags, mStringToFlagMap);
         }
 
-        void Flags::exportElement(StreamWriter& sw)
+		void ShapeFlags::exportElement(StreamWriter& sw)
         {
             sw.openElement(Strings::Flags);
-            sw.appendValues(flags);
+			sw.appendValues(static_cast<int>(flags));
             sw.closeElement();
         }
 
@@ -1519,13 +1659,13 @@ namespace COLLADAMaya
 
         ConstraintFlags::ConstraintFlags(xmlNode* node)
         {
-            GetContent(node, flags);
+            GetContent(node, flags, mStringToFlagMap);
         }
         
         void ConstraintFlags::exportElement(COLLADASW::StreamWriter& sw)
         {
             sw.openElement(Strings::ConstraintFlags);
-            sw.appendValues(flags);
+			sw.appendValues(static_cast<int>(flags));
             sw.closeElement();
         }
 
@@ -1870,6 +2010,18 @@ namespace COLLADAMaya
             sw.appendValues(forceLimit);
             sw.closeElement();
         }
+
+		DriveFlags::DriveFlags(xmlNode* node)
+		{
+			GetContent(node, flags, mStringToFlagMap);
+		}
+
+		void DriveFlags::exportElement(COLLADASW::StreamWriter& sw)
+		{
+			sw.openElement(Strings::Flags);
+			sw.appendValues(static_cast<int>(flags));
+			sw.closeElement();
+		}
 
         DriveX::DriveX(xmlNode* node)
             : stiffness(FindChild(node, Strings::Stiffness))

@@ -136,11 +136,13 @@ namespace COLLADAMaya
 
 		static bool HasExtraAttributes(const MObject & object);
 
-		// Convert PhysX enum string to COLLADA string
-		static String PhysXCombineModeToCOLLADA(const String & PhysXFlag);
-		static String PhysXShapeFlagsToCOLLADA(const String & PhysXFlags);
-		static String PhysXActorFlagsToCOLLADA(const String & PhysXFlags);
-		static String PhysXRigidBodyFlagsToCOLLADA(const String & PhysXFlags);
+		// Convert PhysX enum to COLLADA string
+		static String CombineModeToCOLLADA(PhysXXML::CombineMode::FlagEnum flag);
+		static String ShapeFlagsToCOLLADA(const Flags<PhysXXML::ShapeFlags::FlagEnum> & flags);
+		static String ActorFlagsToCOLLADA(const Flags<PhysXXML::ActorFlags::FlagEnum> & flags);
+		static String RigidBodyFlagsToCOLLADA(const Flags<PhysXXML::RigidBodyFlags::FlagEnum> & flags);
+		static String ConstraintFlagsToCOLLADA(const Flags<PhysXXML::ConstraintFlags::FlagEnum> & flags);
+		static String DriveFlagsToCOLLADA(const Flags<PhysXXML::DriveFlags::FlagEnum> & flags);
 
         enum Filter
         {
@@ -186,7 +188,25 @@ namespace COLLADAMaya
             }
 
             return true;
-        }
+		}
+
+		template<typename E>
+		static String FlagsToCOLLADA(const Flags<E> & flags, const std::map<E, String> & flagToStringMap)
+		{
+			String colladaFlags;
+			for (int i = 0; i < 32; ++i)
+			{
+				E flag = static_cast<E>(1 << i);
+				if (flags & flag)
+				{
+					std::map<E, String>::const_iterator it = flagToStringMap.find(flag);
+					if (!colladaFlags.empty())
+						colladaFlags += ' ';
+					colladaFlags += it->second;
+				}
+			}
+			return colladaFlags;
+		}
 
     private:
         COLLADASW::StreamWriter& mStreamWriter;
@@ -202,17 +222,23 @@ namespace COLLADAMaya
         static String mProfileXML;
 		static String mPhysXProfile;
 
-		static std::map<String, String> mCombineModeMap;
-		static std::map<String, String> InitializeCombineModeMap();
+		static std::map<PhysXXML::CombineMode::FlagEnum, String> mCombineModeMap;
+		static std::map<PhysXXML::CombineMode::FlagEnum, String> InitializeCombineModeMap();
 
-		static std::map<String, String> mShapeFlagMap;
-		static std::map<String, String> InitializeShapeFlagMap();
+		static std::map<PhysXXML::ShapeFlags::FlagEnum, String> mShapeFlagMap;
+		static std::map<PhysXXML::ShapeFlags::FlagEnum, String> InitializeShapeFlagMap();
 
-		static std::map<String, String> mActorFlagMap;
-		static std::map<String, String> InitializeActorFlagMap();
+		static std::map<PhysXXML::ActorFlags::FlagEnum, String> mActorFlagMap;
+		static std::map<PhysXXML::ActorFlags::FlagEnum, String> InitializeActorFlagMap();
 
-		static std::map<String, String> mRigidBodyFlagMap;
-		static std::map<String, String> InitializeRigidBodyFlagMap();
+		static std::map<PhysXXML::RigidBodyFlags::FlagEnum, String> mRigidBodyFlagMap;
+		static std::map<PhysXXML::RigidBodyFlags::FlagEnum, String> InitializeRigidBodyFlagMap();
+
+		static std::map<PhysXXML::ConstraintFlags::FlagEnum, String> mConstraintFlagMap;
+		static std::map<PhysXXML::ConstraintFlags::FlagEnum, String> InitializeConstraintFlagMap();
+
+		static std::map<PhysXXML::DriveFlags::FlagEnum, String> mDriveFlagMap;
+		static std::map<PhysXXML::DriveFlags::FlagEnum, String> InitializeDriveFlagMap();
     };
 }
 

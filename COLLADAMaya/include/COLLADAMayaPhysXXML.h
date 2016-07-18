@@ -30,6 +30,57 @@ typedef unsigned __int64 uint64_t;
 
 namespace COLLADAMaya
 {
+	template<typename E>
+	class Flags
+	{
+	public:
+		Flags()
+			: mBitfield(0)
+		{}
+
+		Flags(int bitfield)
+			: mBitfield(bitfield)
+		{}
+
+		void clear()
+		{
+			mBitfield = 0;
+		}
+
+		Flags operator & (E flag) const
+		{
+			return mBitfield & static_cast<int>(flag);
+		}
+
+		void operator |= (E flag)
+		{
+			mBitfield |= static_cast<int>(flag);
+		}
+
+		operator bool() const
+		{
+			return mBitfield != 0;
+		}
+
+		operator int() const
+		{
+			return mBitfield;
+		}
+
+		bool operator == (const Flags & other) const
+		{
+			return mBitfield == other.mBitfield;
+		}
+
+		bool operator != (const Flags & other) const
+		{
+			return mBitfield != other.mBitfield;
+		}
+
+	private:
+		int mBitfield;
+	};
+
     namespace PhysXXML
     {
         struct UpVector
@@ -146,18 +197,35 @@ namespace COLLADAMaya
             double restitution;
         };
 
+		struct CombineMode
+		{
+			enum FlagEnum
+			{
+				Average = 1,
+				Min = 2,
+				Multiply = 4,
+				Max = 8
+			};
+
+			static const std::map<String, FlagEnum> & GetStringToFlagMap();
+
+		private:
+			static std::map<String, FlagEnum> mStringToFlagMap;
+			static std::map<String, FlagEnum> InitializeStringToFlagMap();
+		};
+
         struct FrictionCombineMode
         {
             FrictionCombineMode(xmlNode* node);
             void exportElement(COLLADASW::StreamWriter& sw);
-            String frictionCombineMode;
+            CombineMode::FlagEnum frictionCombineMode;
         };
 
         struct RestitutionCombineMode
         {
             RestitutionCombineMode(xmlNode* node);
             void exportElement(COLLADASW::StreamWriter& sw);
-            String restitutionCombineMode;
+			CombineMode::FlagEnum restitutionCombineMode;
         };
 
         struct PxMaterial
@@ -181,16 +249,40 @@ namespace COLLADAMaya
 
         struct ActorFlags
         {
+			enum FlagEnum
+			{
+				Visualization = 1,
+				DisableGravity = 2,
+				SendSleepNotifies = 4,
+				DisableSimulation = 8
+			};
+
             ActorFlags(xmlNode* node);
             void exportElement(COLLADASW::StreamWriter& sw);
-            String actorFlags;
+            Flags<FlagEnum> actorFlags;
+
+		private:
+			static std::map<String, FlagEnum> mStringToFlagMap;
+			static std::map<String, FlagEnum> InitializeStringToFlagMap();
         };
 
         struct RigidBodyFlags
         {
+			enum FlagEnum
+			{
+				Kinematic = 1,
+				UseKinematicTargetForSceneQueries,
+				EnabledCCD,
+				EnabledCCDFriction
+			};
+
             RigidBodyFlags(xmlNode* node);
             void exportElement(COLLADASW::StreamWriter& sw);
-            String rigidBodyFlags;
+            Flags<FlagEnum> rigidBodyFlags;
+
+		private:
+			static std::map<String, FlagEnum> mStringToFlagMap;
+			static std::map<String, FlagEnum> InitializeStringToFlagMap();
         };
 
         struct DominanceGroup
@@ -395,11 +487,24 @@ namespace COLLADAMaya
             double restOffset;
         };
 
-        struct Flags
+        struct ShapeFlags
         {
-            Flags(xmlNode* node);
+			enum FlagEnum
+			{
+				SimulationShape = 1,
+				SceneQueryShape = 2,
+				TriggerShape = 4,
+				Visualization = 8,
+				ParticleDrain = 16
+			};
+
+            ShapeFlags(xmlNode* node);
             void exportElement(COLLADASW::StreamWriter& sw);
-            String flags;
+            Flags<FlagEnum> flags;
+
+		private:
+			static std::map<String, FlagEnum> mStringToFlagMap;
+			static std::map<String, FlagEnum> InitializeStringToFlagMap();
         };
 
         struct PxShape
@@ -414,7 +519,7 @@ namespace COLLADAMaya
             Materials materials;
             ContactOffset contactOffset;
             RestOffset restOffset;
-            Flags flags;
+            ShapeFlags flags;
             Name name;
         };
 
@@ -650,9 +755,26 @@ namespace COLLADAMaya
 
         struct ConstraintFlags
         {
+			enum FlagEnum
+			{
+				Broken = 1,
+				ProjectToActor0 = 2,
+				ProjectToActor1 = 4,
+				Projection = 8,
+				CollisionEnabled = 16,
+				Reporting = 32,
+				Visualization = 64,
+				DriveLimitsAreForces = 128,
+				ImprovedSlerp = 256
+			};
+
             ConstraintFlags(xmlNode* node);
             void exportElement(COLLADASW::StreamWriter& sw);
-            String flags;
+            Flags<FlagEnum> flags;
+
+		private:
+			static std::map<String, FlagEnum> mStringToFlagMap;
+			static std::map<String, FlagEnum> InitializeStringToFlagMap();
         };
 
         struct InvMassScale0
@@ -845,6 +967,22 @@ namespace COLLADAMaya
             double forceLimit;
         };
 
+		struct DriveFlags
+		{
+			enum FlagEnum
+			{
+				Acceleration = 1
+			};
+
+			DriveFlags(xmlNode* node);
+			void exportElement(COLLADASW::StreamWriter& sw);
+			Flags<FlagEnum> flags;
+
+		private:
+			static std::map<String, FlagEnum> mStringToFlagMap;
+			static std::map<String, FlagEnum> InitializeStringToFlagMap();
+		};
+
         struct DriveX
         {
             DriveX(xmlNode* node);
@@ -852,7 +990,7 @@ namespace COLLADAMaya
             Stiffness stiffness;
             Damping damping;
             ForceLimit forceLimit;
-            Flags flags;
+            DriveFlags flags;
         };
 
         struct DriveY
@@ -862,7 +1000,7 @@ namespace COLLADAMaya
             Stiffness stiffness;
             Damping damping;
             ForceLimit forceLimit;
-            Flags flags;
+			DriveFlags flags;
         };
 
         struct DriveZ
@@ -872,7 +1010,7 @@ namespace COLLADAMaya
             Stiffness stiffness;
             Damping damping;
             ForceLimit forceLimit;
-            Flags flags;
+			DriveFlags flags;
         };
 
         struct DriveSwing
@@ -882,7 +1020,7 @@ namespace COLLADAMaya
             Stiffness stiffness;
             Damping damping;
             ForceLimit forceLimit;
-            Flags flags;
+			DriveFlags flags;
         };
 
         struct DriveTwist
@@ -892,7 +1030,7 @@ namespace COLLADAMaya
             Stiffness stiffness;
             Damping damping;
             ForceLimit forceLimit;
-            Flags flags;
+			DriveFlags flags;
         };
 
         struct DriveSlerp
