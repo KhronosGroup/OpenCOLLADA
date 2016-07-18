@@ -4593,75 +4593,6 @@ namespace COLLADAMaya
     String PhysXExporter::mProfile = "OpenCOLLADAMayaPhysX";
     String PhysXExporter::mProfileXML = "OpenCOLLADAMayaPhysXXML";
 	String PhysXExporter::mPhysXProfile = "PhysX_3.x";
-	std::map<PhysXXML::CombineMode::FlagEnum, String> PhysXExporter::mCombineModeMap = PhysXExporter::InitializeCombineModeMap();
-	std::map<PhysXXML::ShapeFlags::FlagEnum, String> PhysXExporter::mShapeFlagMap = PhysXExporter::InitializeShapeFlagMap();
-	std::map<PhysXXML::ActorFlags::FlagEnum, String> PhysXExporter::mActorFlagMap = PhysXExporter::InitializeActorFlagMap();
-	std::map<PhysXXML::RigidBodyFlags::FlagEnum, String> PhysXExporter::mRigidBodyFlagMap = PhysXExporter::InitializeRigidBodyFlagMap();
-	std::map<PhysXXML::ConstraintFlags::FlagEnum, String> PhysXExporter::mConstraintFlagMap = PhysXExporter::InitializeConstraintFlagMap();
-	std::map<PhysXXML::DriveFlags::FlagEnum, String> PhysXExporter::mDriveFlagMap = PhysXExporter::InitializeDriveFlagMap();
-
-	std::map<PhysXXML::CombineMode::FlagEnum, String> PhysXExporter::InitializeCombineModeMap()
-	{
-		std::map<PhysXXML::CombineMode::FlagEnum, String> m;
-		m[PhysXXML::CombineMode::FlagEnum::Average] = "AVERAGE";
-		m[PhysXXML::CombineMode::FlagEnum::Min] = "MIN";
-		m[PhysXXML::CombineMode::FlagEnum::Multiply] = "MULTIPLY";
-		m[PhysXXML::CombineMode::FlagEnum::Max] = "MAX";
-		return m;
-	}
-
-	std::map<PhysXXML::ShapeFlags::FlagEnum, String> PhysXExporter::InitializeShapeFlagMap()
-	{
-		std::map<PhysXXML::ShapeFlags::FlagEnum, String> m;
-		m[PhysXXML::ShapeFlags::FlagEnum::SimulationShape] = "SIMULATION_SHAPE";
-		m[PhysXXML::ShapeFlags::FlagEnum::SceneQueryShape] = "SCENE_QUERY_SHAPE";
-		m[PhysXXML::ShapeFlags::FlagEnum::TriggerShape] = "TRIGGER_SHAPE";
-		m[PhysXXML::ShapeFlags::FlagEnum::Visualization] = "VISUALIZATION";
-		m[PhysXXML::ShapeFlags::FlagEnum::ParticleDrain] = "PARTICLE_DRAIN";
-		return m;
-	}
-
-	std::map<PhysXXML::ActorFlags::FlagEnum, String> PhysXExporter::InitializeActorFlagMap()
-	{
-		std::map<PhysXXML::ActorFlags::FlagEnum, String> m;
-		m[PhysXXML::ActorFlags::FlagEnum::Visualization] = "VISUALIZATION";
-		m[PhysXXML::ActorFlags::FlagEnum::DisableGravity] = "DISABLE_GRAVITY";
-		m[PhysXXML::ActorFlags::FlagEnum::SendSleepNotifies] = "SEND_SLEEP_NOTIFIES";
-		m[PhysXXML::ActorFlags::FlagEnum::DisableSimulation] = "DISABLE_SIMULATION";
-		return m;
-	}
-
-	std::map<PhysXXML::RigidBodyFlags::FlagEnum, String> PhysXExporter::InitializeRigidBodyFlagMap()
-	{
-		std::map<PhysXXML::RigidBodyFlags::FlagEnum, String> m;
-		m[PhysXXML::RigidBodyFlags::FlagEnum::Kinematic] = "KINEMATIC";
-		m[PhysXXML::RigidBodyFlags::FlagEnum::UseKinematicTargetForSceneQueries] = "USE_KINEMATIC_TARGET_FOR_SCENE_QUERIES";
-		m[PhysXXML::RigidBodyFlags::FlagEnum::EnabledCCD] = "ENABLE_CCD";
-		m[PhysXXML::RigidBodyFlags::FlagEnum::EnabledCCDFriction] = "ENABLE_CCD_FRICTION";
-		return m;
-	}
-
-	std::map<PhysXXML::ConstraintFlags::FlagEnum, String> PhysXExporter::InitializeConstraintFlagMap()
-	{
-		std::map<PhysXXML::ConstraintFlags::FlagEnum, String> m;
-		m[PhysXXML::ConstraintFlags::FlagEnum::Broken] = "BROKEN";
-		m[PhysXXML::ConstraintFlags::FlagEnum::ProjectToActor0] = "PROJECT_TO_ACTOR0";
-		m[PhysXXML::ConstraintFlags::FlagEnum::ProjectToActor1] = "PROJECT_TO_ACTOR1";
-		m[PhysXXML::ConstraintFlags::FlagEnum::Projection] = "PROJECTION";
-		m[PhysXXML::ConstraintFlags::FlagEnum::CollisionEnabled] = "COLLISION_ENABLED";
-		m[PhysXXML::ConstraintFlags::FlagEnum::Reporting] = "REPORTING";
-		m[PhysXXML::ConstraintFlags::FlagEnum::Visualization] = "VISUALIZATION";
-		m[PhysXXML::ConstraintFlags::FlagEnum::DriveLimitsAreForces] = "DRIVE_LIMITS_ARE_FORCES";
-		m[PhysXXML::ConstraintFlags::FlagEnum::ImprovedSlerp] = "IMPROVED_SLERP";
-		return m;
-	}
-
-	std::map<PhysXXML::DriveFlags::FlagEnum, String> PhysXExporter::InitializeDriveFlagMap()
-	{
-		std::map<PhysXXML::DriveFlags::FlagEnum, String> m;
-		m[PhysXXML::DriveFlags::FlagEnum::Acceleration] = "ACCELERATION";
-		return m;
-	}
 
     PhysXExporter::PhysXExporter(StreamWriter& streamWriter, DocumentExporter& documentExporter)
         : mStreamWriter(streamWriter)
@@ -5516,35 +5447,32 @@ namespace COLLADAMaya
 
 	String PhysXExporter::CombineModeToCOLLADA(PhysXXML::CombineMode::FlagEnum flag)
 	{
-		std::map<PhysXXML::CombineMode::FlagEnum, String>::const_iterator it = mCombineModeMap.find(flag);
-		if (it != mCombineModeMap.end())
-			return it->second;
-		return "";
+		return FlagsToCOLLADA(Flags<PhysXXML::CombineMode::FlagEnum>(flag), PhysXXML::CombineMode::GetFlagToStringMap());
 	}
 
 	String PhysXExporter::ShapeFlagsToCOLLADA(const Flags<PhysXXML::ShapeFlags::FlagEnum> & flags)
 	{
-		return FlagsToCOLLADA(flags, mShapeFlagMap);
+		return FlagsToCOLLADA(flags, PhysXXML::ShapeFlags::GetFlagToStringMap());
 	}
 
 	String PhysXExporter::ActorFlagsToCOLLADA(const Flags<PhysXXML::ActorFlags::FlagEnum> & flags)
 	{
-		return FlagsToCOLLADA(flags, mActorFlagMap);
+		return FlagsToCOLLADA(flags, PhysXXML::ActorFlags::GetFlagToStringMap());
 	}
 
 	String PhysXExporter::RigidBodyFlagsToCOLLADA(const Flags<PhysXXML::RigidBodyFlags::FlagEnum> & flags)
 	{
-		return FlagsToCOLLADA(flags, mRigidBodyFlagMap);
+		return FlagsToCOLLADA(flags, PhysXXML::RigidBodyFlags::GetFlagToStringMap());
 	}
 
 	String PhysXExporter::ConstraintFlagsToCOLLADA(const Flags<PhysXXML::ConstraintFlags::FlagEnum> & flags)
 	{
-		return FlagsToCOLLADA(flags, mConstraintFlagMap);
+		return FlagsToCOLLADA(flags, PhysXXML::ConstraintFlags::GetFlagToStringMap());
 	}
 
 	String PhysXExporter::DriveFlagsToCOLLADA(const Flags<PhysXXML::DriveFlags::FlagEnum> & flags)
 	{
-		return FlagsToCOLLADA(flags, mDriveFlagMap);
+		return FlagsToCOLLADA(flags, PhysXXML::DriveFlags::GetFlagToStringMap());
 	}
 
     const String & PhysXExporter::findColladaId(const String & mayaId)

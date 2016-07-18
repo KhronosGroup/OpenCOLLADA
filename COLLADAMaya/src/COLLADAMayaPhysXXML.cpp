@@ -134,26 +134,55 @@ namespace COLLADAMaya
             const String WakeCounter = "WakeCounter";
             const String YAngle = "YAngle";
             const String ZAngle = "ZAngle";
+
+			const String eAVERAGE = "eAVERAGE";
+			const String eMIN = "eMIN";
+			const String eMULTIPLY = "eMULTIPLY";
+			const String eMAX = "eMAX";
+			const String eVISUALIZATION = "eVISUALIZATION";
+			const String eDISABLE_GRAVITY = "eDISABLE_GRAVITY";
+			const String eSEND_SLEEP_NOTIFIES = "eSEND_SLEEP_NOTIFIES";
+			const String eDISABLE_SIMULATION = "eDISABLE_SIMULATION";
+			const String eKINEMATIC = "eKINEMATIC";
+			const String eUSE_KINEMATIC_TARGET_FOR_SCENE_QUERIES = "eUSE_KINEMATIC_TARGET_FOR_SCENE_QUERIES";
+			const String eENABLE_CCD = "eENABLE_CCD";
+			const String eENABLE_CCD_FRICTION = "eENABLE_CCD_FRICTION";
+			const String eSIMULATION_SHAPE = "eSIMULATION_SHAPE";
+			const String eSCENE_QUERY_SHAPE = "eSCENE_QUERY_SHAPE";
+			const String eTRIGGER_SHAPE = "eTRIGGER_SHAPE";
+			const String ePARTICLE_DRAIN = "ePARTICLE_DRAIN";
+			const String eBROKEN = "eBROKEN";
+			const String ePROJECT_TO_ACTOR0 = "ePROJECT_TO_ACTOR0";
+			const String ePROJECT_TO_ACTOR1 = "ePROJECT_TO_ACTOR1";
+			const String ePROJECTION = "ePROJECTION";
+			const String eCOLLISION_ENABLED = "eCOLLISION_ENABLED";
+			const String eREPORTING = "eREPORTING";
+			const String eDRIVE_LIMITS_ARE_FORCES = "eDRIVE_LIMITS_ARE_FORCES";
+			const String eIMPROVED_SLERP = "eIMPROVED_SLERP";
+			const String eACCELERATION = "eACCELERATION";
+			const String eLOCKED = "eLOCKED";
+			const String eLIMITED = "eLIMITED";
+			const String eFREE = "eFREE";
         }
 
 		std::map<String, CombineMode::FlagEnum> CombineMode::mStringToFlagMap = CombineMode::InitializeStringToFlagMap();
 		std::map<String, CombineMode::FlagEnum> CombineMode::InitializeStringToFlagMap()
 		{
 			std::map<String, FlagEnum> m;
-			m["eAVERAGE"] = FlagEnum::Average;
-			m["eMIN"] = FlagEnum::Min;
-			m["eMULTIPLY"] = FlagEnum::Multiply;
-			m["eMAX"] = FlagEnum::Max;
+			m[Strings::eAVERAGE] = FlagEnum::Average;
+			m[Strings::eMIN] = FlagEnum::Min;
+			m[Strings::eMULTIPLY] = FlagEnum::Multiply;
+			m[Strings::eMAX] = FlagEnum::Max;
 			return m;
 		}
 		std::map<CombineMode::FlagEnum, String> CombineMode::mFlagToStringMap = CombineMode::InitializeFlagToStringMap();
 		std::map<CombineMode::FlagEnum, String> CombineMode::InitializeFlagToStringMap()
 		{
 			std::map<FlagEnum, String> m;
-			m[FlagEnum::Average] = "eAVERAGE";
-			m[FlagEnum::Min] = "eMIN";
-			m[FlagEnum::Multiply] = "eMULTIPLY";
-			m[FlagEnum::Max] = "eMAX";
+			m[FlagEnum::Average] = Strings::eAVERAGE;
+			m[FlagEnum::Min] = Strings::eMIN;
+			m[FlagEnum::Multiply] = Strings::eMULTIPLY;
+			m[FlagEnum::Max] = Strings::eMAX;
 			return m;
 		}
 		const std::map<String, CombineMode::FlagEnum> & CombineMode::GetStringToFlagMap()
@@ -169,129 +198,149 @@ namespace COLLADAMaya
 		std::map<String, ActorFlags::FlagEnum> ActorFlags::InitializeStringToFlagMap()
 		{
 			std::map<String, FlagEnum> m;
-			m["eVISUALIZATION"] = FlagEnum::Visualization;
-			m["eDISABLE_GRAVITY"] = FlagEnum::DisableGravity;
-			m["eSEND_SLEEP_NOTIFIES"] = FlagEnum::SendSleepNotifies;
-			m["eDISABLE_SIMULATION"] = FlagEnum::DisableSimulation;
+			m[Strings::eVISUALIZATION] = FlagEnum::Visualization;
+			m[Strings::eDISABLE_GRAVITY] = FlagEnum::DisableGravity;
+			m[Strings::eSEND_SLEEP_NOTIFIES] = FlagEnum::SendSleepNotifies;
+			m[Strings::eDISABLE_SIMULATION] = FlagEnum::DisableSimulation;
 			return m;
 		}
 		std::map<ActorFlags::FlagEnum, String> ActorFlags::mFlagToStringMap = ActorFlags::InitializeFlagToStringMap();
 		std::map<ActorFlags::FlagEnum, String> ActorFlags::InitializeFlagToStringMap()
 		{
 			std::map<FlagEnum, String> m;
-			m[FlagEnum::Visualization] = "eVISUALIZATION";
-			m[FlagEnum::DisableGravity] = "eDISABLE_GRAVITY";
-			m[FlagEnum::SendSleepNotifies] = "eSEND_SLEEP_NOTIFIES";
-			m[FlagEnum::DisableSimulation] = "eDISABLE_SIMULATION";
+			m[FlagEnum::Visualization] = Strings::eVISUALIZATION;
+			m[FlagEnum::DisableGravity] = Strings::eDISABLE_GRAVITY;
+			m[FlagEnum::SendSleepNotifies] = Strings::eSEND_SLEEP_NOTIFIES;
+			m[FlagEnum::DisableSimulation] = Strings::eDISABLE_SIMULATION;
 			return m;
+		}
+		const std::map<ActorFlags::FlagEnum, String> & ActorFlags::GetFlagToStringMap()
+		{
+			return mFlagToStringMap;
 		}
 
 		std::map<String, RigidBodyFlags::FlagEnum> RigidBodyFlags::mStringToFlagMap = RigidBodyFlags::InitializeStringToFlagMap();
 		std::map<String, RigidBodyFlags::FlagEnum> RigidBodyFlags::InitializeStringToFlagMap()
 		{
 			std::map<String, FlagEnum> m;
-			m["eKINEMATIC"] = FlagEnum::Kinematic;
-			m["eUSE_KINEMATIC_TARGET_FOR_SCENE_QUERIES"] = FlagEnum::UseKinematicTargetForSceneQueries;
-			m["eENABLE_CCD"] = FlagEnum::EnabledCCD;
-			m["eENABLE_CCD_FRICTION"] = FlagEnum::EnabledCCDFriction;
+			m[Strings::eKINEMATIC] = FlagEnum::Kinematic;
+			m[Strings::eUSE_KINEMATIC_TARGET_FOR_SCENE_QUERIES] = FlagEnum::UseKinematicTargetForSceneQueries;
+			m[Strings::eENABLE_CCD] = FlagEnum::EnabledCCD;
+			m[Strings::eENABLE_CCD_FRICTION] = FlagEnum::EnabledCCDFriction;
 			return m;
 		}
 		std::map<RigidBodyFlags::FlagEnum, String> RigidBodyFlags::mFlagToStringMap = RigidBodyFlags::InitializeFlagToStringMap();
 		std::map<RigidBodyFlags::FlagEnum, String> RigidBodyFlags::InitializeFlagToStringMap()
 		{
 			std::map<FlagEnum, String> m;
-			m[FlagEnum::Kinematic] = "eKINEMATIC";
-			m[FlagEnum::UseKinematicTargetForSceneQueries] = "eUSE_KINEMATIC_TARGET_FOR_SCENE_QUERIES";
-			m[FlagEnum::EnabledCCD] = "eENABLE_CCD";
-			m[FlagEnum::EnabledCCDFriction] = "eENABLE_CCD_FRICTION";
+			m[FlagEnum::Kinematic] = Strings::eKINEMATIC;
+			m[FlagEnum::UseKinematicTargetForSceneQueries] = Strings::eUSE_KINEMATIC_TARGET_FOR_SCENE_QUERIES;
+			m[FlagEnum::EnabledCCD] = Strings::eENABLE_CCD;
+			m[FlagEnum::EnabledCCDFriction] = Strings::eENABLE_CCD_FRICTION;
 			return m;
+		}
+		const std::map<RigidBodyFlags::FlagEnum, String> & RigidBodyFlags::GetFlagToStringMap()
+		{
+			return mFlagToStringMap;
 		}
 
 		std::map<String, ShapeFlags::FlagEnum> ShapeFlags::mStringToFlagMap = ShapeFlags::InitializeStringToFlagMap();
 		std::map<String, ShapeFlags::FlagEnum> ShapeFlags::InitializeStringToFlagMap()
 		{
 			std::map<String, FlagEnum> m;
-			m["eSIMULATION_SHAPE"] = FlagEnum::SimulationShape;
-			m["eSCENE_QUERY_SHAPE"] = FlagEnum::SceneQueryShape;
-			m["eTRIGGER_SHAPE"] = FlagEnum::TriggerShape;
-			m["eVISUALIZATION"] = FlagEnum::Visualization;
-			m["ePARTICLE_DRAIN"] = FlagEnum::ParticleDrain;
+			m[Strings::eSIMULATION_SHAPE] = FlagEnum::SimulationShape;
+			m[Strings::eSCENE_QUERY_SHAPE] = FlagEnum::SceneQueryShape;
+			m[Strings::eTRIGGER_SHAPE] = FlagEnum::TriggerShape;
+			m[Strings::eVISUALIZATION] = FlagEnum::Visualization;
+			m[Strings::ePARTICLE_DRAIN] = FlagEnum::ParticleDrain;
 			return m;
 		}
 		std::map<ShapeFlags::FlagEnum, String> ShapeFlags::mFlagToStringMap = ShapeFlags::InitializeFlagToStringMap();
 		std::map<ShapeFlags::FlagEnum, String> ShapeFlags::InitializeFlagToStringMap()
 		{
 			std::map<FlagEnum, String> m;
-			m[FlagEnum::SimulationShape] = "eSIMULATION_SHAPE";
-			m[FlagEnum::SceneQueryShape] = "eSCENE_QUERY_SHAPE";
-			m[FlagEnum::TriggerShape] = "eTRIGGER_SHAPE";
-			m[FlagEnum::Visualization] = "eVISUALIZATION";
-			m[FlagEnum::ParticleDrain] = "ePARTICLE_DRAIN";
+			m[FlagEnum::SimulationShape] = Strings::eSIMULATION_SHAPE;
+			m[FlagEnum::SceneQueryShape] = Strings::eSCENE_QUERY_SHAPE;
+			m[FlagEnum::TriggerShape] = Strings::eTRIGGER_SHAPE;
+			m[FlagEnum::Visualization] = Strings::eVISUALIZATION;
+			m[FlagEnum::ParticleDrain] = Strings::ePARTICLE_DRAIN;
 			return m;
+		}
+		const std::map<ShapeFlags::FlagEnum, String> & ShapeFlags::GetFlagToStringMap()
+		{
+			return mFlagToStringMap;
 		}
 
 		std::map<String, ConstraintFlags::FlagEnum> ConstraintFlags::mStringToFlagMap = ConstraintFlags::InitializeStringToFlagMap();
 		std::map<String, ConstraintFlags::FlagEnum> ConstraintFlags::InitializeStringToFlagMap()
 		{
 			std::map<String, FlagEnum> m;
-			m["eBROKEN"] = FlagEnum::Broken;
-			m["ePROJECT_TO_ACTOR0"] = FlagEnum::ProjectToActor0;
-			m["ePROJECT_TO_ACTOR1"] = FlagEnum::ProjectToActor1;
-			m["ePROJECTION"] = FlagEnum::Projection;
-			m["eCOLLISION_ENABLED"] = FlagEnum::CollisionEnabled;
-			m["eREPORTING"] = FlagEnum::Reporting;
-			m["eVISUALIZATION"] = FlagEnum::Visualization;
-			m["eDRIVE_LIMITS_ARE_FORCES"] = FlagEnum::DriveLimitsAreForces;
-			m["eIMPROVED_SLERP"] = FlagEnum::ImprovedSlerp;
+			m[Strings::eBROKEN] = FlagEnum::Broken;
+			m[Strings::ePROJECT_TO_ACTOR0] = FlagEnum::ProjectToActor0;
+			m[Strings::ePROJECT_TO_ACTOR1] = FlagEnum::ProjectToActor1;
+			m[Strings::ePROJECTION] = FlagEnum::Projection;
+			m[Strings::eCOLLISION_ENABLED] = FlagEnum::CollisionEnabled;
+			m[Strings::eREPORTING] = FlagEnum::Reporting;
+			m[Strings::eVISUALIZATION] = FlagEnum::Visualization;
+			m[Strings::eDRIVE_LIMITS_ARE_FORCES] = FlagEnum::DriveLimitsAreForces;
+			m[Strings::eIMPROVED_SLERP] = FlagEnum::ImprovedSlerp;
 			return m;
 		}
 		std::map<ConstraintFlags::FlagEnum, String> ConstraintFlags::mFlagToStringMap = ConstraintFlags::InitializeFlagToStringMap();
 		std::map<ConstraintFlags::FlagEnum, String> ConstraintFlags::InitializeFlagToStringMap()
 		{
 			std::map<FlagEnum, String> m;
-			m[FlagEnum::Broken] = "eBROKEN";
-			m[FlagEnum::ProjectToActor0] = "ePROJECT_TO_ACTOR0";
-			m[FlagEnum::ProjectToActor1] = "ePROJECT_TO_ACTOR1";
-			m[FlagEnum::Projection] = "ePROJECTION";
-			m[FlagEnum::CollisionEnabled] = "eCOLLISION_ENABLED";
-			m[FlagEnum::Reporting] = "eREPORTING";
-			m[FlagEnum::Visualization] = "eVISUALIZATION";
-			m[FlagEnum::DriveLimitsAreForces] = "eDRIVE_LIMITS_ARE_FORCES";
-			m[FlagEnum::ImprovedSlerp] = "eIMPROVED_SLERP";
+			m[FlagEnum::Broken] = Strings::eBROKEN;
+			m[FlagEnum::ProjectToActor0] = Strings::ePROJECT_TO_ACTOR0;
+			m[FlagEnum::ProjectToActor1] = Strings::ePROJECT_TO_ACTOR1;
+			m[FlagEnum::Projection] = Strings::ePROJECTION;
+			m[FlagEnum::CollisionEnabled] = Strings::eCOLLISION_ENABLED;
+			m[FlagEnum::Reporting] = Strings::eREPORTING;
+			m[FlagEnum::Visualization] = Strings::eVISUALIZATION;
+			m[FlagEnum::DriveLimitsAreForces] = Strings::eDRIVE_LIMITS_ARE_FORCES;
+			m[FlagEnum::ImprovedSlerp] = Strings::eIMPROVED_SLERP;
 			return m;
+		}
+		const std::map<ConstraintFlags::FlagEnum, String> & ConstraintFlags::GetFlagToStringMap()
+		{
+			return mFlagToStringMap;
 		}
 
 		std::map<String, DriveFlags::FlagEnum> DriveFlags::mStringToFlagMap = DriveFlags::InitializeStringToFlagMap();
 		std::map<String, DriveFlags::FlagEnum> DriveFlags::InitializeStringToFlagMap()
 		{
 			std::map<String, FlagEnum> m;
-			m["eACCELERATION"] = FlagEnum::Acceleration;
+			m[Strings::eACCELERATION] = FlagEnum::Acceleration;
 			return m;
 		}
 		std::map<DriveFlags::FlagEnum, String> DriveFlags::mFlagToStringMap = DriveFlags::InitializeFlagToStringMap();
 		std::map<DriveFlags::FlagEnum, String> DriveFlags::InitializeFlagToStringMap()
 		{
 			std::map<FlagEnum, String> m;
-			m[FlagEnum::Acceleration] = "eACCELERATION";
+			m[FlagEnum::Acceleration] = Strings::eACCELERATION;
 			return m;
+		}
+		const std::map<DriveFlags::FlagEnum, String> & DriveFlags::GetFlagToStringMap()
+		{
+			return mFlagToStringMap;
 		}
 
 		std::map<String, MotionFlags::FlagEnum> MotionFlags::mStringToFlagMap = MotionFlags::InitializeStringToFlagMap();
 		std::map<String, MotionFlags::FlagEnum> MotionFlags::InitializeStringToFlagMap()
 		{
 			std::map<String, FlagEnum> m;
-			m["eLOCKED"] = FlagEnum::Locked;
-			m["eLIMITED"] = FlagEnum::Limited;
-			m["eFREE"] = FlagEnum::Free;
+			m[Strings::eLOCKED] = FlagEnum::Locked;
+			m[Strings::eLIMITED] = FlagEnum::Limited;
+			m[Strings::eFREE] = FlagEnum::Free;
 			return m;
 		}
 		std::map<MotionFlags::FlagEnum, String> MotionFlags::mFlagToStringMap = MotionFlags::InitializeFlagToStringMap();
 		std::map<MotionFlags::FlagEnum, String> MotionFlags::InitializeFlagToStringMap()
 		{
 			std::map<FlagEnum, String> m;
-			m[FlagEnum::Locked] = "eLOCKED";
-			m[FlagEnum::Limited] = "eLIMITED";
-			m[FlagEnum::Free] = "eFREE";
+			m[FlagEnum::Locked] = Strings::eLOCKED;
+			m[FlagEnum::Limited] = Strings::eLIMITED;
+			m[FlagEnum::Free] = Strings::eFREE;
 			return m;
 		}
 		const std::map<String, MotionFlags::FlagEnum> & MotionFlags::GetStringToFlagMap()

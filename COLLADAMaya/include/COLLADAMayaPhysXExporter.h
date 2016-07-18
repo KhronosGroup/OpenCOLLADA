@@ -202,7 +202,7 @@ namespace COLLADAMaya
 					std::map<E, String>::const_iterator it = flagToStringMap.find(flag);
 					if (!colladaFlags.empty())
 						colladaFlags += ' ';
-					colladaFlags += it->second;
+					colladaFlags += it->second.substr(1);
 				}
 			}
 			return colladaFlags;
@@ -221,24 +221,6 @@ namespace COLLADAMaya
         static String mProfile;
         static String mProfileXML;
 		static String mPhysXProfile;
-
-		static std::map<PhysXXML::CombineMode::FlagEnum, String> mCombineModeMap;
-		static std::map<PhysXXML::CombineMode::FlagEnum, String> InitializeCombineModeMap();
-
-		static std::map<PhysXXML::ShapeFlags::FlagEnum, String> mShapeFlagMap;
-		static std::map<PhysXXML::ShapeFlags::FlagEnum, String> InitializeShapeFlagMap();
-
-		static std::map<PhysXXML::ActorFlags::FlagEnum, String> mActorFlagMap;
-		static std::map<PhysXXML::ActorFlags::FlagEnum, String> InitializeActorFlagMap();
-
-		static std::map<PhysXXML::RigidBodyFlags::FlagEnum, String> mRigidBodyFlagMap;
-		static std::map<PhysXXML::RigidBodyFlags::FlagEnum, String> InitializeRigidBodyFlagMap();
-
-		static std::map<PhysXXML::ConstraintFlags::FlagEnum, String> mConstraintFlagMap;
-		static std::map<PhysXXML::ConstraintFlags::FlagEnum, String> InitializeConstraintFlagMap();
-
-		static std::map<PhysXXML::DriveFlags::FlagEnum, String> mDriveFlagMap;
-		static std::map<PhysXXML::DriveFlags::FlagEnum, String> InitializeDriveFlagMap();
     };
 }
 

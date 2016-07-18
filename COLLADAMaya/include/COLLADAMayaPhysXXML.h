@@ -264,6 +264,8 @@ namespace COLLADAMaya
             void exportElement(COLLADASW::StreamWriter& sw);
             Flags<FlagEnum> actorFlags;
 
+			static const std::map<FlagEnum, String> & GetFlagToStringMap();
+
 		private:
 			static std::map<String, FlagEnum> mStringToFlagMap;
 			static std::map<FlagEnum, String> mFlagToStringMap;
@@ -284,6 +286,8 @@ namespace COLLADAMaya
             RigidBodyFlags(xmlNode* node);
             void exportElement(COLLADASW::StreamWriter& sw);
             Flags<FlagEnum> rigidBodyFlags;
+
+			static const std::map<FlagEnum, String> & GetFlagToStringMap();
 
 		private:
 			static std::map<String, FlagEnum> mStringToFlagMap;
@@ -508,6 +512,8 @@ namespace COLLADAMaya
             ShapeFlags(xmlNode* node);
             void exportElement(COLLADASW::StreamWriter& sw);
             Flags<FlagEnum> flags;
+
+			static const std::map<FlagEnum, String> & GetFlagToStringMap();
 
 		private:
 			static std::map<String, FlagEnum> mStringToFlagMap;
@@ -781,6 +787,8 @@ namespace COLLADAMaya
             void exportElement(COLLADASW::StreamWriter& sw);
             Flags<FlagEnum> flags;
 
+			static const std::map<FlagEnum, String> & GetFlagToStringMap();
+
 		private:
 			static std::map<String, FlagEnum> mStringToFlagMap;
 			static std::map<FlagEnum, String> mFlagToStringMap;
@@ -1007,6 +1015,8 @@ namespace COLLADAMaya
 			DriveFlags(xmlNode* node);
 			void exportElement(COLLADASW::StreamWriter& sw);
 			Flags<FlagEnum> flags;
+
+			static const std::map<FlagEnum, String> & GetFlagToStringMap();
 
 		private:
 			static std::map<String, FlagEnum> mStringToFlagMap;
