@@ -3526,6 +3526,7 @@ namespace COLLADAMaya
 			exportStiffness(joint);
 			exportDamping(joint);
 			exportForceLimit(joint);
+			exportDriveFlags(joint);
 		}
 
 		static bool HasDefaultValues(const PhysXXML::PxD6Joint & joint)
@@ -3557,6 +3558,14 @@ namespace COLLADAMaya
 			if (joint.drive.driveSlerp.forceLimit.forceLimit != ForceLimit::DefaultValue())
 			{
 				ForceLimit e(getPhysXExporter(), joint.drive.driveSlerp.forceLimit.forceLimit);
+			}
+		}
+
+		void exportDriveFlags(const PhysXXML::PxD6Joint & joint)
+		{
+			if (joint.drive.driveSlerp.flags.flags != DriveFlags::DefaultValue())
+			{
+				DriveFlags e(getPhysXExporter(), joint.drive.driveSlerp.flags.flags);
 			}
 		}
 	};

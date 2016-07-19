@@ -2272,6 +2272,7 @@ namespace COLLADAMaya
             : stiffness(FindChild(node, Strings::Stiffness))
             , damping(FindChild(node, Strings::Damping))
             , forceLimit(FindChild(node, Strings::ForceLimit))
+			, flags(FindChild(node, Strings::Flags))
         {}
 
         void DriveSlerp::exportElement(StreamWriter& sw)
@@ -2280,6 +2281,7 @@ namespace COLLADAMaya
             stiffness.exportElement(sw);
             damping.exportElement(sw);
             forceLimit.exportElement(sw);
+			flags.exportElement(sw);
             sw.closeElement();
         }
 

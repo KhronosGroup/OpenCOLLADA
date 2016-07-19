@@ -1082,6 +1082,7 @@ namespace COLLADAMaya
             Stiffness stiffness;
             Damping damping;
             ForceLimit forceLimit;
+			DriveFlags flags;
         };
 
         struct Drive
