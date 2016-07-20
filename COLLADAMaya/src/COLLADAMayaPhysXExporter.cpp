@@ -109,9 +109,13 @@ namespace COLLADAMaya
         {}
 
     protected:
-        virtual bool onBeforeAttribute(MFnDependencyNode & node, MObject & attr) override
-        {
-            MStatus status;
+		virtual bool onBeforePlug(MPlug & plug) override
+		{
+			MStatus status;
+
+			MObject attr = plug.attribute(&status);
+			if (!status) return false;
+
             MFnAttribute fnAttr(attr, &status);
             if (!status) return false;
 
@@ -3484,9 +3488,13 @@ namespace COLLADAMaya
 			MObject mObject;
 
 		protected:
-			virtual bool onBeforeAttribute(MFnDependencyNode & node, MObject & attr) override
+			virtual bool onBeforePlug(MPlug & plug) override
 			{
 				MStatus status;
+
+				MObject attr = plug.attribute(&status);
+				if (!status) return false;
+
 				MFnAttribute fnAttr(attr, &status);
 				if (!status) return false;
 
@@ -3781,9 +3789,13 @@ namespace COLLADAMaya
 			bool mHasExtraAttributes;
 
 		protected:
-			virtual bool onBeforeAttribute(MFnDependencyNode & node, MObject & attr) override
+			virtual bool onBeforePlug(MPlug & plug) override
 			{
 				MStatus status;
+
+				MObject attr = plug.attribute(&status);
+				if (!status) return false;
+
 				MFnAttribute fnAttr(attr, &status);
 				if (!status) return false;
 

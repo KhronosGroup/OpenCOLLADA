@@ -38,142 +38,168 @@ namespace COLLADAMaya
 	void AttributeParser::parseAttributes(MFnDependencyNode & fnNode, AttributeParser & parser)
 	{
 		MStatus status;
+		
 		unsigned int attrCount = fnNode.attributeCount(&status);
         if (!status) return;
-        std::set<String> parsedAttributes;
+
 		for (unsigned int attrIndex = 0; attrIndex < attrCount; ++attrIndex)
 		{
-			MObject attrObject = fnNode.attribute(attrIndex, &status);
+			MObject attr = fnNode.attribute(attrIndex, &status);
             if (!status) continue;
 
-			MFnAttribute fnAttr(attrObject, &status);
+			MFnAttribute fnAttr(attr, &status);
 			if (!status) continue;
 
 			MString attrName = fnAttr.name(&status);
             if (!status) continue;
 
-            // Don't parse the same attribute twice.
-            // This can happen with compound attributes.
-            String attrNameStr = attrName.asChar();
-            if (parsedAttributes.find(attrNameStr) != parsedAttributes.end()) {
-                continue;
-            }
-            parsedAttributes.insert(attrNameStr);
+			MPlug plug = fnNode.findPlug(attr, &status);
+			if (!status) continue;
 
-			parser.parseAttribute(fnNode, attrObject, parsedAttributes);
+			bool isArray = plug.isArray(&status);
+			if (!status) continue;
+
+			if (isArray)
+			{
+				unsigned int numElements = 0;
+				// evaluateNumElements() may throw an exception is some cases...
+				try
+				{
+					numElements = plug.evaluateNumElements(&status);
+				}
+				catch (...)
+				{
+					continue;
+				}
+				if (!status) continue;
+
+				for (unsigned int plugIndex = 0; plugIndex < numElements; ++plugIndex)
+				{
+					MPlug element = plug.elementByPhysicalIndex(plugIndex, &status);
+					if (!status) continue;
+
+					parser.parsePlug(element);
+				}
+			}
+			else
+			{
+				parser.parsePlug(plug);
+			}
 		}
 	}
 
-    class AutoOnAfterAttribute
-    {
-    public:
-        AutoOnAfterAttribute(AttributeParser& parser, MFnDependencyNode& node, MObject& attribute)
-            : mParser(parser)
-            , mNode(node)
-            , mAttribute(attribute)
-        {}
-
-        ~AutoOnAfterAttribute()
-        {
-            mParser.onAfterAttribute(mNode, mAttribute);
-        }
-
-    private:
-        AttributeParser& mParser;
-        MFnDependencyNode& mNode;
-        MObject& mAttribute;
-    };
-
-	void AttributeParser::parseAttribute(MFnDependencyNode & node, MObject & attr, std::set<String>& parsedAttributes)
+	class AutoOnAfterPlug
 	{
-        AutoOnAfterAttribute onAfterAttribute(*this, node, attr);
+	public:
+		AutoOnAfterPlug(AttributeParser & parser, MPlug & plug)
+			: mParser(parser)
+			, mPlug(plug)
+		{}
 
-        if (!onBeforeAttribute(node, attr)) {
-            // Skip attribute
-            return;
-        }
+		~AutoOnAfterPlug()
+		{
+			mParser.onAfterPlug(mPlug);
+		}
 
-        MStatus status;
+	private:
+		AttributeParser & mParser;
+		MPlug & mPlug;
+	};
+
+	void AttributeParser::parsePlug(MPlug & plug)
+	{
+		AutoOnAfterPlug(*this, plug);
+
+		if (!onBeforePlug(plug)) {
+			// Skip plug
+			return;
+		}
+
+		MStatus status;
+
+		MObject attr = plug.attribute(&status);
+		if (!status) return;
 
 		MFnAttribute fnAttr(attr, &status);
 		if (!status) return;
 
-		MString attrName = fnAttr.name(&status);
+		MString attrName = fnAttr.name(&status);;
 		if (!status) return;
 
 		// First handle numeric compound types
 		MFnNumericData::Type type;
 		if (IsNumericCompoundAttribute(attr, type))
 		{
-			MPlug plug = node.findPlug(attr, &status);
-			if (!status) return;
-
 			parseNumeric(plug, type);
 
 			// Mark children as parsed
-			MFnCompoundAttribute fnCompoundAttribute(attr, &status);
-			if (!status) return;
+			//MFnCompoundAttribute fnCompoundAttribute(attr, &status);
+			//if (!status) return;
 
-			unsigned int numChildren = fnCompoundAttribute.numChildren(&status);
-			if (!status) return;
+			//unsigned int numChildren = fnCompoundAttribute.numChildren(&status);
+			//if (!status) return;
 
-			for (unsigned int i = 0; i < fnCompoundAttribute.numChildren(); ++i)
-			{
-				MObject child = fnCompoundAttribute.child(i, &status);
-				if (!status) return;
+			//for (unsigned int i = 0; i < fnCompoundAttribute.numChildren(); ++i)
+			//{
+			//	MObject child = fnCompoundAttribute.child(i, &status);
+			//	if (!status) return;
 
-				MFnAttribute childFnAttr(child);
-				parsedAttributes.insert(childFnAttr.name().asChar());
-			}
+			//	MFnAttribute childFnAttr(child);
+			//	//parsedAttributes.insert(childFnAttr.name().asChar());
+			//}
 		}
 		// Other cases
 		else if (attr.hasFn(MFn::kCompoundAttribute)) {
-            parseCompoundAttribute(node, attr, parsedAttributes);
+			parseCompoundPlug(plug);
 		}
 		else if (attr.hasFn(MFn::kEnumAttribute)) {
-            parseEnumAttribute(node, attr);
+			parseEnumPlug(plug);
 		}
 		else if (attr.hasFn(MFn::kGenericAttribute)) {
-			parseGenericAttribute(node, attr);
+			parseGenericPlug(plug);
 		}
 		else if (attr.hasFn(MFn::kLightDataAttribute)) {
-			parseLightDataAttribute(node, attr);
+			parseLightDataPlug(plug);
 		}
 		else if (attr.hasFn(MFn::kMatrixAttribute)) {
-            parseMatrixAttribute(node, attr);
+			parseMatrixPlug(plug);
 		}
 		else if (attr.hasFn(MFn::kMessageAttribute)) {
-            parseMessageAttribute(node, attr);
+			parseMessagePlug(plug);
 		}
 		else if (attr.hasFn(MFn::kNumericAttribute)) {
-			parseNumericAttribute(node, attr);
+			parseNumericPlug(plug);
 		}
 		else if (attr.hasFn(MFn::kTypedAttribute)) {
-			parseTypedAttribute(node, attr);
+			parseTypedPlug(plug);
 		}
 		else if (attr.hasFn(MFn::kUnitAttribute)) {
-            parseUnitAttribute(node, attr);
+			parseUnitPlug(plug);
 		}
 	}
 
-	void AttributeParser::parseNumericAttribute(MFnDependencyNode & node, MObject & attr)
+	void AttributeParser::parseNumericPlug(MPlug & plug)
 	{
 		MStatus status;
+
+		MObject attr = plug.attribute(&status);
+		if (!status) return;
+
 		MFnNumericAttribute fnNumAttr(attr, &status);
 		if (!status) return;
 
 		MFnNumericData::Type type = fnNumAttr.unitType(&status);
 		if (!status) return;
 
-		MPlug plug = node.findPlug(attr, &status);
-		if (!status) return;
-
 		parseNumeric(plug, type);
 	}
 
-	void AttributeParser::parseTypedAttribute(MFnDependencyNode & node, MObject & attr)
+	void AttributeParser::parseTypedPlug(MPlug & plug)
 	{
 		MStatus status;
+
+		MObject attr = plug.attribute(&status);
+		if (!status) return;
 
 		MFnTypedAttribute fnTypedAttr(attr, &status);
 		if (!status) return;
@@ -189,7 +215,7 @@ namespace COLLADAMaya
 
 			//! Numeric, use MFnNumericData extract the node data.
 		case MFnData::kNumeric:
-			parseNumericData(node, attr);
+			parseNumericData(plug);
 			break;
 
 			//! Plugin Blind Data, use MFnPluginData to extract the node data.
@@ -204,12 +230,12 @@ namespace COLLADAMaya
 
 			//! String, use MFnStringData to extract the node data.
 		case MFnData::kString:
-			parseStringData(node, attr);
+			parseStringData(plug);
 			break;
 
 			//! Matrix, use MFnMatrixData to extract the node data.
 		case MFnData::kMatrix:
-			parseMatrixAttribute(node, attr);
+			parseMatrixPlug(plug);
 			break;
 
 			//! String Array, use MFnStringArrayData to extract the node data.
@@ -246,12 +272,12 @@ namespace COLLADAMaya
 
 			//! Component List, use MFnComponentListData to extract the node data.
 		case MFnData::kComponentList:
-			parseComponentListData(node, attr);
+			parseComponentListData(plug);
 			break;
 
 			//! Mesh, use MFnMeshData to extract the node data.
 		case MFnData::kMesh:
-            parseMeshData(node, attr);
+			parseMeshData(plug);
 			break;
 
 			//! Lattice, use MFnLatticeData to extract the node data.
@@ -279,10 +305,10 @@ namespace COLLADAMaya
 			// TODO
 			break;
 
-			/*! SweptGeometry, use MFnDynSweptGeometryData to extract the
-			node data. This data node is in OpenMayaFX which must be
-			linked to.
-			*/
+			//! SweptGeometry, use MFnDynSweptGeometryData to extract the
+			//node data. This data node is in OpenMayaFX which must be
+			//linked to.
+
 		case MFnData::kDynSweptGeometry:
 			// TODO
 			break;
@@ -314,213 +340,218 @@ namespace COLLADAMaya
 		}
 	}
 
-    void AttributeParser::parseEnumAttribute(MFnDependencyNode & node, MObject & attr)
-    {
-        MStatus status;
-
-        MFnEnumAttribute fnEnumAttribute(attr, &status);
-        if (!status) return;
-
-        MPlug plug = node.findPlug(attr, &status);
-        if (!status) return;
-
-        int enumValue = 0;
-        status = plug.getValue(enumValue);
-        if (!status) return;
-
-        MString enumName = fnEnumAttribute.fieldName(enumValue, &status);
-        if (!status) return;
-
-        MString name = fnEnumAttribute.name(&status);
-        if (!status) return;
-
-        onEnum(plug, name, enumValue, enumName);
-    }
-
-    void AttributeParser::parseMessageAttribute(MFnDependencyNode & node, MObject & attr)
-    {
-        MStatus status;
-
-        MFnMessageAttribute fnMessageAttribute(attr, &status);
-        if (!status) return;
-
-        MPlug plug = node.findPlug(attr, &status);
-        if (!status) return;
-
-        MFnAttribute fnAttribute(attr, &status);
-        if (!status) return;
-
-        MString name = fnAttribute.name(&status);
-        if (!status) return;
-
-        onMessage(plug, name);
-    }
-
-    void AttributeParser::parseMatrixAttribute(MFnDependencyNode & node, MObject & attribute)
-    {
-        MStatus status;
-
-        MPlug plug = node.findPlug(attribute, &status);
-        if (!status) return;
-
-        MFnAttribute fnAttribute(attribute, &status);
-        if (!status) return;
-
-        MString name = fnAttribute.name(&status);
-        if (!status) return;
-
-        MFnMatrixData mxData;
-        MObject object = mxData.create(&status);
-        if (!status) return;
-
-        status = plug.getValue(object);
-        if (!status) return;
-
-        status = mxData.setObject(object);
-        if (!status) return;
-        
-        const MMatrix& matrix = mxData.matrix();
-
-        onMatrix(plug, name, matrix);
-    }
-
-    void AttributeParser::parseCompoundAttribute(MFnDependencyNode & node, MObject & attr, std::set<String>& parsedAttributes)
-    {
-        MStatus status;
-
-        MFnCompoundAttribute fnCompoundAttribute(attr, &status);
-        if (!status) return;
-
-        unsigned int numChildren = fnCompoundAttribute.numChildren(&status);
-        if (!status) return;
-
-        MPlug plug = node.findPlug(attr, &status);
-        if (!status) return;
-
-        MFnAttribute fnAttr(attr, &status);
-        if (!status) return;
-
-        MString name = fnAttr.name(&status);
-        if (!status) return;
-
-        onCompoundAttribute(plug, name);
-
-        // Recurse children
-        for (unsigned int i = 0; i < fnCompoundAttribute.numChildren(); ++i)
-        {
-            MObject child = fnCompoundAttribute.child(i, &status);
-            if (!status) continue;
-
-            MFnAttribute childFnAttr(child, &status);
-            if (!status) continue;
-
-            parsedAttributes.insert(childFnAttr.name().asChar());
-
-            parseAttribute(node, child, parsedAttributes);
-        }
-    }
-
-    void AttributeParser::parseUnitAttribute(MFnDependencyNode & node, MObject & attr)
-    {
-        MStatus status;
-
-        MFnUnitAttribute fnAttr(attr, &status);
-        if (!status) return;
-
-        MFnUnitAttribute::Type unitType = fnAttr.unitType(&status);
-        if (!status) return;
-
-        MPlug plug = node.findPlug(attr, &status);
-        if (!status) return;
-
-        MString name = fnAttr.name(&status);
-        if (!status) return;
-
-        switch (unitType)
-        {
-        case MFnUnitAttribute::kAngle:
-        {
-            MAngle angle;
-            status = plug.getValue(angle);
-            if (!status) return;
-            onAngle(plug, name, angle);
-        }
-        break;
-
-        case MFnUnitAttribute::kDistance:
-        {
-            MDistance distance;
-            status = plug.getValue(distance);
-            if (!status) return;
-            onDistance(plug, name, distance);
-        }
-        break;
-
-        case MFnUnitAttribute::kTime:
-        {
-            MTime time;
-            status = plug.getValue(time);
-            if (!status) return;
-            onTime(plug, name, time);
-        }
-        break;
-        }
-    }
-
-    void AttributeParser::parseGenericAttribute(MFnDependencyNode & node, MObject & attr)
-    {
-        MStatus status;
-
-        MFnGenericAttribute genericAttribute(attr, &status);
-        if (!status) return;
-
-        MPlug plug = node.findPlug(attr, &status);
-		if (!status) return;
-
-        MFn::Type type = genericAttribute.type();
-    }
-	
-    void AttributeParser::parseLightDataAttribute(MFnDependencyNode & node, MObject & attr)
-    {
-        MStatus status;
-
-        MFnLightDataAttribute lightDataAttribute(attr, &status);
-        if (!status) return;
-
-        // TODO
-
-  //      MObject directionX = fnLightDataAttribute.child(0, &status);
-  //      if (!status) return;
-		//MObject directionY = fnLightDataAttribute.child(1, &status);
-  //      if (!status) return;
-		//MObject directionZ = fnLightDataAttribute.child(2, &status);
-  //      if (!status) return;
-		//MObject intensityR = fnLightDataAttribute.child(3, &status);
-  //      if (!status) return;
-		//MObject intensityG = fnLightDataAttribute.child(4, &status);
-  //      if (!status) return;
-		//MObject intensityB = fnLightDataAttribute.child(5, &status);
-  //      if (!status) return;
-		//MObject ambient = fnLightDataAttribute.child(6, &status);
-  //      if (!status) return;
-		//MObject diffuse = fnLightDataAttribute.child(7, &status);
-  //      if (!status) return;
-		//MObject specular = fnLightDataAttribute.child(8, &status);
-  //      if (!status) return;
-		//MObject shadowFraction = fnLightDataAttribute.child(9, &status);
-  //      if (!status) return;
-		//MObject preShadowIntensity = fnLightDataAttribute.child(10, &status);
-  //      if (!status) return;
-    }
-
-	void AttributeParser::parseNumericData(MFnDependencyNode & node, MObject & attr)
+	void AttributeParser::parseEnumPlug(MPlug & plug)
 	{
 		MStatus status;
 
-		MFnNumericData fnNumericData(attr, &status);
+		MObject attr = plug.attribute(&status);
 		if (!status) return;
 
-		MPlug plug = node.findPlug(attr, &status);
+		MFnEnumAttribute fnEnumAttribute(attr, &status);
+		if (!status) return;
+
+		int enumValue = 0;
+		status = plug.getValue(enumValue);
+		if (!status) return;
+
+		MString enumName = fnEnumAttribute.fieldName(enumValue, &status);
+		if (!status) return;
+
+		MString name = fnEnumAttribute.name(&status);
+		if (!status) return;
+
+		onEnum(plug, name, enumValue, enumName);
+	}
+
+	void AttributeParser::parseMessagePlug(MPlug & plug)
+	{
+		MStatus status;
+
+		MObject attr = plug.attribute(&status);
+		if (!status) return;
+
+		MFnMessageAttribute fnMessageAttribute(attr, &status);
+		if (!status) return;
+
+		MFnAttribute fnAttribute(attr, &status);
+		if (!status) return;
+
+		MString name = fnAttribute.name(&status);
+		if (!status) return;
+
+		onMessage(plug, name);
+	}
+
+	void AttributeParser::parseMatrixPlug(MPlug & plug)
+	{
+		MStatus status;
+
+		MObject attr = plug.attribute(&status);
+		if (!status) return;
+
+		MFnAttribute fnAttribute(attr, &status);
+		if (!status) return;
+
+		MString name = fnAttribute.name(&status);
+		if (!status) return;
+
+		MFnMatrixData mxData;
+		MObject object = mxData.create(&status);
+		if (!status) return;
+
+		status = plug.getValue(object);
+		if (!status) return;
+
+		status = mxData.setObject(object);
+		if (!status) return;
+
+		const MMatrix& matrix = mxData.matrix();
+
+		onMatrix(plug, name, matrix);
+	}
+
+	void AttributeParser::parseCompoundPlug(MPlug & plug)
+	{
+		MStatus status;
+
+		unsigned int plugNumChildren = plug.numChildren(&status);
+		if (!status) return;
+
+		MObject attr = plug.attribute(&status);
+		if (!status) return;
+
+		MFnCompoundAttribute fnCompoundAttribute(attr, &status);
+		if (!status) return;
+
+		unsigned int attrNumChildren = fnCompoundAttribute.numChildren(&status);
+		if (!status) return;
+
+		if (plugNumChildren != attrNumChildren) return;
+
+		MFnAttribute fnAttr(attr, &status);
+		if (!status) return;
+
+		MString name = fnAttr.name(&status);
+		if (!status) return;
+
+		onCompoundAttribute(plug, name);
+
+		// Recurse children
+		for (unsigned int i = 0; i < plugNumChildren; ++i)
+		{
+			MPlug child = plug.child(i, &status);
+			if (!status) continue;
+
+			parsePlug(child);
+		}
+	}
+
+	void AttributeParser::parseUnitPlug(MPlug & plug)
+	{
+		MStatus status;
+
+		MObject attr = plug.attribute(&status);
+		if (!status) return;
+
+		MFnUnitAttribute fnAttr(attr, &status);
+		if (!status) return;
+
+		MFnUnitAttribute::Type unitType = fnAttr.unitType(&status);
+		if (!status) return;
+
+		MString name = fnAttr.name(&status);
+		if (!status) return;
+
+		switch (unitType)
+		{
+		case MFnUnitAttribute::kAngle:
+		{
+			MAngle angle;
+			status = plug.getValue(angle);
+			if (!status) return;
+			onAngle(plug, name, angle);
+		}
+		break;
+
+		case MFnUnitAttribute::kDistance:
+		{
+			MDistance distance;
+			status = plug.getValue(distance);
+			if (!status) return;
+			onDistance(plug, name, distance);
+		}
+		break;
+
+		case MFnUnitAttribute::kTime:
+		{
+			MTime time;
+			status = plug.getValue(time);
+			if (!status) return;
+			onTime(plug, name, time);
+		}
+		break;
+		}
+	}
+
+	void AttributeParser::parseGenericPlug(MPlug & plug)
+	{
+		MStatus status;
+
+		MObject attr = plug.attribute(&status);
+		if (!status) return;
+
+		MFnGenericAttribute genericAttribute(attr, &status);
+		if (!status) return;
+
+		MFn::Type type = genericAttribute.type();
+
+		// TODO ?
+	}
+
+	void AttributeParser::parseLightDataPlug(MPlug & plug)
+	{
+		MStatus status;
+
+		MObject attr = plug.attribute(&status);
+		if (!status) return;
+
+		MFnLightDataAttribute lightDataAttribute(attr, &status);
+		if (!status) return;
+
+		// TODO
+
+		//      MObject directionX = fnLightDataAttribute.child(0, &status);
+		//      if (!status) return;
+		//MObject directionY = fnLightDataAttribute.child(1, &status);
+		//      if (!status) return;
+		//MObject directionZ = fnLightDataAttribute.child(2, &status);
+		//      if (!status) return;
+		//MObject intensityR = fnLightDataAttribute.child(3, &status);
+		//      if (!status) return;
+		//MObject intensityG = fnLightDataAttribute.child(4, &status);
+		//      if (!status) return;
+		//MObject intensityB = fnLightDataAttribute.child(5, &status);
+		//      if (!status) return;
+		//MObject ambient = fnLightDataAttribute.child(6, &status);
+		//      if (!status) return;
+		//MObject diffuse = fnLightDataAttribute.child(7, &status);
+		//      if (!status) return;
+		//MObject specular = fnLightDataAttribute.child(8, &status);
+		//      if (!status) return;
+		//MObject shadowFraction = fnLightDataAttribute.child(9, &status);
+		//      if (!status) return;
+		//MObject preShadowIntensity = fnLightDataAttribute.child(10, &status);
+		//      if (!status) return;
+	}
+
+	void AttributeParser::parseNumericData(MPlug & plug)
+	{
+		MStatus status;
+
+		MObject attr = plug.attribute(&status);
+		if (!status) return;
+
+		MFnNumericData fnNumericData(attr, &status);
 		if (!status) return;
 
 		MFnNumericData::Type type = fnNumericData.numericType(&status);
@@ -963,15 +994,13 @@ namespace COLLADAMaya
 		}
 	}
 
-	void AttributeParser::parseStringData(MFnDependencyNode & node, MObject & attr)
+	void AttributeParser::parseStringData(MPlug & plug)
 	{
-		MStatus status;
-
-		MPlug plug = node.findPlug(attr, &status);
+		MString value;
+		MStatus status = plug.getValue(value);
 		if (!status) return;
 
-		MString value;
-		status = plug.getValue(value);
+		MObject attr = plug.attribute(&status);
 		if (!status) return;
 
 		MFnAttribute fnAttr(attr, &status);
@@ -979,87 +1008,82 @@ namespace COLLADAMaya
 
 		MString name = fnAttr.name(&status);
 		if (!status) return;
-		
+
 		onString(plug, name, value);
 	}
 
-    void AttributeParser::parseMeshData(MFnDependencyNode & node, MObject & attr)
-    {
-        MStatus status;
+	void AttributeParser::parseMeshData(MPlug & plug)
+	{
+		MStatus status;
 
-        MPlug plug = node.findPlug(attr, &status);
-        if (!status) return;
+		MObject meshNode;
+		MPlugArray plugArray;
+		bool success = plug.connectedTo(plugArray, true, false, &status);
+		if (!status) return;
+		if (success)
+		{
+			MPlug extPlug = plugArray[0];
+			bool hasConnection = !extPlug.isNull(&status);
+			if (!status) return;
+			if (hasConnection)
+			{
+				meshNode = extPlug.node(&status);
+				if (!status) return;
+			}
+		}
 
-        MObject meshNode;
-        MPlugArray plugArray;
-        bool success = plug.connectedTo(plugArray, true, false, &status);
-        if (!status) return;
-        if (success)
-        {
-            MPlug extPlug = plugArray[0];
-            bool hasConnection = !extPlug.isNull(&status);
-            if (!status) return;
-            if (hasConnection)
-            {
-                meshNode = extPlug.node(&status);
-                if (!status) return;
-            }
-        }
+		//MDataHandle dataHandle;
+		//status = plug.getValue(dataHandle);
+		//if (!status) return;
 
-        /*
-        MDataHandle dataHandle;
-        status = plug.getValue(dataHandle);
-        if (!status) return;
+		//MObject meshData;
+		//status = plug.getValue(meshData);
+		//if (!status) return;
 
-        MObject meshData;
-        status = plug.getValue(meshData);
-        if (!status) return;
+		//MFnMesh fnMesh(meshData, &status);
+		//if (!status) return;
 
-        MFnMesh fnMesh(meshData, &status);
-        if (!status) return;
+		//MDagPath dagPath = fnMesh.dagPath(&status);
+		//if (!status) return;
 
-        MDagPath dagPath = fnMesh.dagPath(&status);
-        if (!status) return;
+		//MObject meshNode = dagPath.node(&status);
 
-        MObject meshNode = dagPath.node(&status);
-        */
+		MObject attr = plug.attribute(&status);
+		if (!status) return;
 
-        MFnAttribute fnAttr(attr, &status);
-        if (!status) return;
+		MFnAttribute fnAttr(attr, &status);
+		if (!status) return;
 
-        MString name = fnAttr.name(&status);
-        if (!status) return;
+		MString name = fnAttr.name(&status);
+		if (!status) return;
 
-        onMesh(plug, name, meshNode);
-    }
+		onMesh(plug, name, meshNode);
+	}
 
-    void AttributeParser::parseComponentListData (MFnDependencyNode & fnNode, MObject & attribute)
-    {
-        MStatus status;
+	void AttributeParser::parseComponentListData(MPlug & plug)
+	{
+		MStatus status;
 
-        MFnComponentListData componentListData;
+		MFnComponentListData componentListData;
 
-        MObject objectData = componentListData.create(&status);
-        if (!status) return;
+		MObject objectData = componentListData.create(&status);
+		if (!status) return;
 
-        MPlug plug = fnNode.findPlug(attribute, &status);
-        if (!status) return;
+		status = plug.getValue(objectData);
+		if (!status) return;
 
-        status = plug.getValue(objectData);
-        if (!status) return;
+		status = componentListData.setObject(objectData);
+		if (!status) return;
 
-        status = componentListData.setObject(objectData);
-        if (!status) return;
+		unsigned int length = componentListData.length(&status);
+		if (!status) return;
 
-        unsigned int length = componentListData.length(&status);
-        if (!status) return;
+		for (unsigned int i = 0; i < length; ++i) {
+			MObject object = componentListData[i];
+		}
 
-        for (unsigned int i = 0; i < length; ++i) {
-            MObject object = componentListData[i];
-        }
-
-        // TODO
-    }
+		// TODO
+	}
 
 	bool AttributeParser::IsNumericCompoundAttribute(const MObject& attr, MFnNumericData::Type& type)
 	{

@@ -141,11 +141,22 @@ namespace COLLADAMaya
 			++it;
 		}
 
-		/* Parse Extra Attribute for this Clip */
+		/* Parse Extra Attribute for this Clip and Add Markers to AnimationClip Extra*/
 		MStatus status;
 		MFnDependencyNode fnNode(ClipObject, &status);
 		ExtraAttributeExporter extraAttributeExporter(*clip->colladaClip);
 		AttributeParser::parseAttributes(fnNode, extraAttributeExporter);
+
+
+		MarkersList::const_iterator markerIter = extraAttributeExporter.GetMarkersList().begin();
+		for (; markerIter != extraAttributeExporter.GetMarkersList().end(); ++markerIter)
+		{
+			Markers markerElement;
+			markerElement.ID = markerIter->ID;
+			markerElement.time = markerIter->time;
+
+			clip->markers.push_back(markerElement);
+		}
 
 		if (clip->colladaClip->getInstancedAnimations().size() > 0)
 			mAnimationClips.push_back(clip);
@@ -2307,22 +2318,31 @@ namespace COLLADAMaya
 				clip->colladaClip = new COLLADASW::ColladaAnimationClip(clipName, clipNameSource, startTime, endTime);
                 clip->characterNode = characterNode;
 				
+				/*
+				bool isEventAnimation = false;
+				DagHelper::getPlugValue(clipNode, ATTR_EVENT_ANIMATION, isEventAnimation);
+				clip->colladaClip->setAnimationEvent(isEventAnimation);
+				clip->colladaClip->addExtraTechniqueParameter(PROFILE_MAYA, ATTR_EVENT_ANIMATION, isEventAnimation);
+				*/
+
+				/* Parse Extra Attribute for this Clip and Add Markers to AnimationClip Extra*/
 
 				MStatus status;
 				MFnDependencyNode fnNode(clipNode, &status);
 				ExtraAttributeExporter extraAttributeExporter(*clip->colladaClip);
 				AttributeParser::parseAttributes(fnNode, extraAttributeExporter);
 
+				MarkersList::const_iterator markerIter = extraAttributeExporter.GetMarkersList().begin();
+				for (; markerIter != extraAttributeExporter.GetMarkersList().end(); ++markerIter)
+				{
+					Markers markerElement;
+					markerElement.ID = markerIter->ID;
+					markerElement.time = markerIter->time;
 
-				/*
-					bool isEventAnimation = false;
-					DagHelper::getPlugValue(clipNode, ATTR_EVENT_ANIMATION, isEventAnimation);
-					clip->colladaClip->setAnimationEvent(isEventAnimation);
-					clip->colladaClip->addExtraTechniqueParameter(PROFILE_MAYA, ATTR_EVENT_ANIMATION, isEventAnimation);
-				*/
+					clip->markers.push_back(markerElement);
+				}
 				
 				clip->clipFn = clipFn.object();
-
 				clipFn.getMemberAnimCurves ( clip->animCurves, clip->plugs );
 
                 mAnimationClips.push_back ( clip );

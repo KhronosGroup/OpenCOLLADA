@@ -705,13 +705,24 @@ namespace COLLADAMaya
 					: colladaClip(clip)
 				{}
 
+				const MarkersList& GetMarkersList() { return markers; }
+
 			private:
+
+
+				float markerTime;
+				MarkersList markers;
+
 				COLLADASW::ColladaAnimationClip& colladaClip;
 
 			protected:
-				virtual bool onBeforeAttribute(MFnDependencyNode & node, MObject & attr) override
+				virtual bool onBeforePlug(MPlug & plug) override
 				{
 					MStatus status;
+
+					MObject attr = plug.attribute(&status);
+					if (!status) return false;
+
 					MFnAttribute fnAttr(attr, &status);
 					if (!status) return false;
 
@@ -733,15 +744,33 @@ namespace COLLADAMaya
 					return true;
 				}
 
-
+				
 				virtual void onString(MPlug & plug, const MString & name, const MString & value) override
 				{
-					std::size_t found = String(name.asChar()).find_last_of("_");
+					MStatus status;
+					MPlug parentplug = plug.parent(&status);
+					MString parentplugName = parentplug.name(&status);
 
-					if (String(name.asChar()).substr(0, found).compare("markup_event") == 0)
+					std::size_t found = String(parentplugName.asChar()).find("Markers");
+					if (found != std::string::npos)
 					{
-						colladaClip.addExtraTechniqueParentElement(PROFILE_MAYA, PARAMETER_EVENT);
-						colladaClip.addExtraTechniqueChildElement(PROFILE_MAYA, PARAMETER_EVENT, name.asChar(), value.asChar());
+						Markers markersElement;
+						markersElement.ID = String(value.asChar());
+						markersElement.time = markerTime;
+						markers.push_back(markersElement);
+					}
+				}
+
+				virtual void onFloat(MPlug & plug, const MString & name, float value) override
+				{
+					MStatus status;
+					MPlug parentplug = plug.parent(&status);
+					MString parentplugName = parentplug.name(&status);
+
+					std::size_t found = String(parentplugName.asChar()).find("Markers");
+					if (found != std::string::npos)
+					{
+						markerTime = value;
 					}
 				}
 

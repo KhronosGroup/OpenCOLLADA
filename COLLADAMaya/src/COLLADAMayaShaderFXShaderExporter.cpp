@@ -151,9 +151,13 @@ namespace COLLADAMaya
 		ShaderFXShaderExporter & mShaderFXExporter;
 
 	protected:
-		virtual bool onBeforeAttribute(MFnDependencyNode & node, MObject & attr) override
+		virtual bool onBeforePlug(MPlug & plug) override
 		{
 			MStatus status;
+
+			MObject attr = plug.attribute(&status);
+			if (!status) return false;
+
 			MFnAttribute fnAttr(attr, &status);
 			if (!status) return false;
 
@@ -201,9 +205,13 @@ namespace COLLADAMaya
         std::map<std::string, COLLADASW::TagCloser> mOpenTags;
 
 	protected:
-        virtual bool onBeforeAttribute(MFnDependencyNode & node, MObject & attr) override
+		virtual bool onBeforePlug(MPlug & plug) override
 		{
 			MStatus status;
+
+			MObject attr = plug.attribute(&status);
+			if (!status) return false;
+
 			MFnAttribute fnAttr(attr, &status);
 			if (!status) return false;
 
@@ -220,9 +228,14 @@ namespace COLLADAMaya
             return true;
 		}
 
-        virtual void onAfterAttribute(MFnDependencyNode & fnNode, MObject & attribute) override
+        virtual void onAfterPlug(MPlug & plug) override
 		{
-            MFnAttribute fnAttr(attribute);
+			MStatus status;
+
+			MObject attr = plug.attribute(&status);
+			if (!status) return;
+
+            MFnAttribute fnAttr(attr);
             std::map<std::string, COLLADASW::TagCloser>::iterator it = mOpenTags.find(std::string(fnAttr.name().asChar()));
             if (it != mOpenTags.end())
             {

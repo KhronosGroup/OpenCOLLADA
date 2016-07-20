@@ -272,6 +272,7 @@ namespace COLLADASW
         static const String CSW_ELEMENT_ZNEAR;
 		static const String CSW_ELEMENT_GRAVITY;
 		static const String CSW_ELEMENT_STEP;
+		static const String CSW_ELEMENT_EVENT;
 
 
 		static const String CSW_ATTRIBUTE_CLOSED;
