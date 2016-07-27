@@ -560,6 +560,7 @@ namespace COLLADAMaya
 
 			PxRigidBody(xmlNode* node);
 			PxShape* findShape(const String& shapeName);
+			virtual void exportElement(COLLADASW::StreamWriter& sw) const = 0;
 			virtual Type getType() const = 0;
 			Id id;
 			Name name;
@@ -573,7 +574,7 @@ namespace COLLADAMaya
 		struct PxRigidStatic : public PxRigidBody
         {
             PxRigidStatic(xmlNode* node);
-			void exportElement(COLLADASW::StreamWriter& sw) const;
+			virtual void exportElement(COLLADASW::StreamWriter& sw) const override;
 			virtual Type getType() const override;
         };
 
@@ -694,7 +695,7 @@ namespace COLLADAMaya
         struct PxRigidDynamic : public PxRigidBody
         {
             PxRigidDynamic(xmlNode* node);
-			void exportElement(COLLADASW::StreamWriter& sw) const;
+			virtual void exportElement(COLLADASW::StreamWriter& sw) const override;
 			virtual Type getType() const override;
             CMassLocalPose cMassLocalPose;
             Mass mass;

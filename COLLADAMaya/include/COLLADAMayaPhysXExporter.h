@@ -64,8 +64,6 @@ namespace COLLADAMaya
         void exportRotation(const MEulerRotation & rotation, const String & sid = "");
         void exportAttributes(const MObject & object, const std::set<MString, MStringComp> & attributes);
         void exportExtraAttributes(const MObject & object);
-        void exportRigidBodyPhysXXML(const MObject& shape);
-        void exportRigidConstraintPhysXXML(const PhysXXML::PxD6Joint & joint);
 
 		MObject getNodeRigidBody(const MObject& node);
         MObject getShapeRigidBody(const MObject& shape);
@@ -73,7 +71,6 @@ namespace COLLADAMaya
         bool getShapeVertices(const MObject& shape, std::vector<PhysXXML::Point> & vertices, MString & meshId);
         bool getShapeTriangles(const MObject& shape, std::vector<PhysXXML::Triangle> & triangles);
         void getRigidBodyGlobalPose(const MObject& rigidBody, MMatrix& globalPose);
-        void getRigidBodyTarget(const MObject& rigidBody, MObject& target);
         bool getRigidSolver(MObject & rigidSolver);
 
         MStatus getMeshURI(const MObject & mesh, URI & meshURI);
@@ -107,6 +104,8 @@ namespace COLLADAMaya
         static double GetRigidBodyVolume(const MObject & rigidBody);
         static double GetShapeVolume(const MObject & shape);
 
+		static MMatrix GetRigidBodyTargetTM(const MObject& rigidBody);
+		static MObject GetRigidBodyTarget(const MObject& rigidBody);
         static void GetRigidBodyShapes(const MObject & rigidBody, std::vector<MObject> & shapes);
         static MStatus GetPluggedObject(const MObject & object, const MString & attribute, MObject & pluggedObject);
 
