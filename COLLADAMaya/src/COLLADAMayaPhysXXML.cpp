@@ -738,7 +738,7 @@ namespace COLLADAMaya
             GetContent(node, upVector);
         }
 
-        void UpVector::exportElement(StreamWriter& sw)
+        void UpVector::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::UpVector);
             sw.appendValues(upVector.x, upVector.y, upVector.z);
@@ -751,7 +751,7 @@ namespace COLLADAMaya
             GetContent(node, length);
         }
 
-        void Length::exportElement(StreamWriter& sw)
+        void Length::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Length);
             sw.appendValues(length);
@@ -764,7 +764,7 @@ namespace COLLADAMaya
             GetContent(node, mass);
         }
 
-        void Mass::exportElement(StreamWriter& sw)
+        void Mass::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Mass);
             sw.appendValues(mass);
@@ -777,7 +777,7 @@ namespace COLLADAMaya
             GetContent(node, speed);
         }
 
-        void Speed::exportElement(StreamWriter& sw)
+        void Speed::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Speed);
             sw.appendValues(speed);
@@ -790,7 +790,7 @@ namespace COLLADAMaya
             , speed(FindChild(node, Strings::Speed))
         {}
 
-        void LengthMassSpeedScale::exportElement(StreamWriter& sw)
+        void LengthMassSpeedScale::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Scale);
             length.exportElement(sw);
@@ -805,7 +805,7 @@ namespace COLLADAMaya
             GetContent(node, id);
         }
 
-        void Id::exportElement(StreamWriter& sw)
+        void Id::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Id);
             sw.appendValues(id);
@@ -823,7 +823,7 @@ namespace COLLADAMaya
             GetContent(node, points);
         }
 
-        void Points::exportElement(StreamWriter& sw)
+        void Points::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::points);
             sw.appendValues(&points[0].x, points.size() * 3);
@@ -835,7 +835,7 @@ namespace COLLADAMaya
             , points(FindChild(node, Strings::points))
         {}
 
-        void PxConvexMesh::exportElement(StreamWriter& sw)
+        void PxConvexMesh::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::PxConvexMesh);
             id.exportElement(sw);
@@ -854,7 +854,7 @@ namespace COLLADAMaya
             GetContent(node, triangles);
         }
 
-        void Triangles::exportElement(StreamWriter& sw)
+        void Triangles::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Triangles);
             sw.appendValues(&triangles[0].point0, triangles.size() * 3);
@@ -867,7 +867,7 @@ namespace COLLADAMaya
             , triangles(FindChild(node, Strings::Triangles))
         {}
 
-        void PxTriangleMesh::exportElement(StreamWriter& sw)
+        void PxTriangleMesh::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::PxTriangleMesh);
             id.exportElement(sw);
@@ -882,7 +882,7 @@ namespace COLLADAMaya
             GetContent(node, dynamicFriction);
         }
 
-        void DynamicFriction::exportElement(StreamWriter& sw)
+        void DynamicFriction::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::DynamicFriction);
             sw.appendValues(dynamicFriction);
@@ -895,7 +895,7 @@ namespace COLLADAMaya
             GetContent(node, staticFriction);
         }
 
-        void StaticFriction::exportElement(StreamWriter& sw)
+        void StaticFriction::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::StaticFriction);
             sw.appendValues(staticFriction);
@@ -908,7 +908,7 @@ namespace COLLADAMaya
             GetContent(node, restitution);
         }
 
-        void Restitution::exportElement(StreamWriter& sw)
+        void Restitution::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Restitution);
             sw.appendValues(restitution);
@@ -920,7 +920,7 @@ namespace COLLADAMaya
             GetContent(node, frictionCombineMode, CombineMode::GetStringToFlagMap());
         }
 
-        void FrictionCombineMode::exportElement(StreamWriter& sw)
+        void FrictionCombineMode::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::FrictionCombineMode);
 			sw.appendValues(FlagsToString(Flags<CombineMode::FlagEnum>(frictionCombineMode), CombineMode::GetFlagToStringMap()));
@@ -932,7 +932,7 @@ namespace COLLADAMaya
             GetContent(node, restitutionCombineMode, CombineMode::GetStringToFlagMap());
         }
 
-        void RestitutionCombineMode::exportElement(StreamWriter& sw)
+        void RestitutionCombineMode::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::RestitutionCombineMode);
             sw.appendValues(FlagsToString(Flags<CombineMode::FlagEnum>(restitutionCombineMode), CombineMode::GetFlagToStringMap()));
@@ -948,7 +948,7 @@ namespace COLLADAMaya
             , restitutionCombineMode(FindChild(node, Strings::RestitutionCombineMode))
         {}
 
-        void PxMaterial::exportElement(StreamWriter& sw)
+        void PxMaterial::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::PxMaterial);
             id.exportElement(sw);
@@ -965,7 +965,7 @@ namespace COLLADAMaya
             GetContent(node, name);
         }
 
-        void Name::exportElement(StreamWriter& sw)
+        void Name::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Name);
             sw.appendValues(name);
@@ -977,7 +977,7 @@ namespace COLLADAMaya
             GetContent(node, actorFlags, mStringToFlagMap);
         }
 
-        void ActorFlags::exportElement(StreamWriter& sw)
+        void ActorFlags::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::ActorFlags);
             sw.appendValues(FlagsToString(actorFlags, mFlagToStringMap));
@@ -989,7 +989,7 @@ namespace COLLADAMaya
             GetContent(node, rigidBodyFlags, mStringToFlagMap);
         }
 
-        void RigidBodyFlags::exportElement(StreamWriter& sw)
+        void RigidBodyFlags::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::RigidBodyFlags);
 			sw.appendValues(FlagsToString(rigidBodyFlags, mFlagToStringMap));
@@ -1002,7 +1002,7 @@ namespace COLLADAMaya
             GetContent(node, dominanceGroup);
         }
 
-        void DominanceGroup::exportElement(StreamWriter& sw)
+        void DominanceGroup::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::DominanceGroup);
             sw.appendValues(dominanceGroup);
@@ -1015,7 +1015,7 @@ namespace COLLADAMaya
             GetContent(node, ownerClient);
         }
 
-        void OwnerClient::exportElement(StreamWriter& sw)
+        void OwnerClient::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::OwnerClient);
             sw.appendValues(ownerClient);
@@ -1027,7 +1027,7 @@ namespace COLLADAMaya
             GetContent(node, rotation, translation);
         }
 
-        void GlobalPose::exportElement(StreamWriter& sw)
+        void GlobalPose::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::GlobalPose);
             sw.appendValues(&rotation.x, 7);
@@ -1039,7 +1039,7 @@ namespace COLLADAMaya
             GetContent(node, halfExtents);
         }
 
-        void HalfExtents::exportElement(StreamWriter& sw)
+        void HalfExtents::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::HalfExtents);
             sw.appendValues(&halfExtents.x, 3);
@@ -1050,7 +1050,7 @@ namespace COLLADAMaya
             : halfExtents(FindChild(node, Strings::HalfExtents))
         {}
 
-        void PxBoxGeometry::exportElement(StreamWriter& sw)
+        void PxBoxGeometry::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::PxBoxGeometry);
             halfExtents.exportElement(sw);
@@ -1063,7 +1063,7 @@ namespace COLLADAMaya
             GetContent(node, radius);
         }
 
-        void Radius::exportElement(StreamWriter& sw)
+        void Radius::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Radius);
             sw.appendValues(radius);
@@ -1076,7 +1076,7 @@ namespace COLLADAMaya
             GetContent(node, halfHeight);
         }
 
-        void HalfHeight::exportElement(StreamWriter& sw)
+        void HalfHeight::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::HalfHeight);
             sw.appendValues(halfHeight);
@@ -1088,7 +1088,7 @@ namespace COLLADAMaya
             , halfHeight(FindChild(node, Strings::HalfHeight))
         {}
 
-        void PxCapsuleGeometry::exportElement(StreamWriter& sw)
+        void PxCapsuleGeometry::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::PxCapsuleGeometry);
             radius.exportElement(sw);
@@ -1101,7 +1101,7 @@ namespace COLLADAMaya
             GetContent(node, scale);
         }
 
-        void Scale::exportElement(StreamWriter& sw)
+        void Scale::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Scale);
             sw.appendValues(&scale.x, 3);
@@ -1113,7 +1113,7 @@ namespace COLLADAMaya
             GetContent(node, rotation);
         }
 
-        void Rotation::exportElement(StreamWriter& sw)
+        void Rotation::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Rotation);
             sw.appendValues(rotation.x, rotation.y, rotation.z, rotation.w);
@@ -1125,7 +1125,7 @@ namespace COLLADAMaya
             , rotation(FindChild(node, Strings::Rotation))
         {}
 
-        void MeshScale::exportElement(StreamWriter& sw)
+        void MeshScale::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Scale);
             scale.exportElement(sw);
@@ -1139,7 +1139,7 @@ namespace COLLADAMaya
             GetContent(node, convexMesh);
         }
 
-        void ConvexMesh::exportElement(StreamWriter& sw)
+        void ConvexMesh::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::ConvexMesh);
             sw.appendValues(convexMesh);
@@ -1151,7 +1151,7 @@ namespace COLLADAMaya
             , convexMesh(FindChild(node, Strings::ConvexMesh))
         {}
 
-        void PxConvexMeshGeometry::exportElement(StreamWriter& sw)
+        void PxConvexMeshGeometry::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::PxConvexMeshGeometry);
             scale.exportElement(sw);
@@ -1162,7 +1162,7 @@ namespace COLLADAMaya
         PxPlaneGeometry::PxPlaneGeometry(xmlNode* node)
         {}
 
-        void PxPlaneGeometry::exportElement(StreamWriter& sw)
+        void PxPlaneGeometry::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::PxPlaneGeometry);
             sw.closeElement();
@@ -1172,7 +1172,7 @@ namespace COLLADAMaya
             : radius(FindChild(node, Strings::Radius))
         {}
 
-        void PxSphereGeometry::exportElement(StreamWriter& sw)
+        void PxSphereGeometry::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::PxSphereGeometry);
             radius.exportElement(sw);
@@ -1185,7 +1185,7 @@ namespace COLLADAMaya
             GetContent(node, triangleMesh);
         }
 
-        void TriangleMesh::exportElement(StreamWriter& sw)
+        void TriangleMesh::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::TriangleMesh);
             sw.appendValues(triangleMesh);
@@ -1197,7 +1197,7 @@ namespace COLLADAMaya
             , triangleMesh(FindChild(node, Strings::TriangleMesh))
         {}
 
-        void PxTriangleMeshGeometry::exportElement(StreamWriter& sw)
+        void PxTriangleMeshGeometry::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::PxTriangleMeshGeometry);
             scale.exportElement(sw);
@@ -1234,7 +1234,7 @@ namespace COLLADAMaya
             }
         }
 
-        void Geometry::exportElement(StreamWriter& sw)
+        void Geometry::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Geometry);
             switch (type)
@@ -1266,7 +1266,7 @@ namespace COLLADAMaya
             GetContent(node, rotation, translation);
         }
 
-        void LocalPose::exportElement(StreamWriter& sw)
+        void LocalPose::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::LocalPose);
             sw.appendValues(&rotation.x, 7);
@@ -1282,7 +1282,7 @@ namespace COLLADAMaya
             GetContent(node, filter0, filter1, filter2, filter3);
         }
 
-        void SimulationFilterData::exportElement(StreamWriter& sw)
+        void SimulationFilterData::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::SimulationFilterData);
             sw.appendValues(&filter0, 4);
@@ -1298,7 +1298,7 @@ namespace COLLADAMaya
             GetContent(node, filter0, filter1, filter2, filter3);
         }
 
-        void QueryFilterData::exportElement(StreamWriter& sw)
+        void QueryFilterData::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::QueryFilterData);
             sw.appendValues(&filter0, 4);
@@ -1311,7 +1311,7 @@ namespace COLLADAMaya
             GetContent(node, materialRef);
         }
 
-        void PxMaterialRef::exportElement(StreamWriter& sw)
+        void PxMaterialRef::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::PxMaterialRef);
             sw.appendValues(materialRef);
@@ -1322,7 +1322,7 @@ namespace COLLADAMaya
             : materialRef(FindChild(node, Strings::PxMaterialRef))
         {}
 
-        void Materials::exportElement(StreamWriter& sw)
+        void Materials::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Materials);
             materialRef.exportElement(sw);
@@ -1335,7 +1335,7 @@ namespace COLLADAMaya
             GetContent(node, contactOffset);
         }
 
-        void ContactOffset::exportElement(StreamWriter& sw)
+        void ContactOffset::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::ContactOffset);
             sw.appendValues(contactOffset);
@@ -1348,7 +1348,7 @@ namespace COLLADAMaya
             GetContent(node, restOffset);
         }
 
-        void RestOffset::exportElement(StreamWriter& sw)
+        void RestOffset::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::RestOffset);
             sw.appendValues(restOffset);
@@ -1360,7 +1360,7 @@ namespace COLLADAMaya
             GetContent(node, flags, mStringToFlagMap);
         }
 
-		void ShapeFlags::exportElement(StreamWriter& sw)
+		void ShapeFlags::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Flags);
 			sw.appendValues(FlagsToString(flags, mFlagToStringMap));
@@ -1379,7 +1379,7 @@ namespace COLLADAMaya
             , name(FindChild(node, Strings::Name))
         {}
 
-        void PxShape::exportElement(StreamWriter& sw)
+        void PxShape::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::PxShape);
             geometry.exportElement(sw);
@@ -1402,7 +1402,7 @@ namespace COLLADAMaya
             }
         }
 
-        void Shapes::exportElement(StreamWriter& sw)
+        void Shapes::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Shapes);
             for (size_t i = 0; i < shapes.size(); ++i) {
@@ -1436,7 +1436,7 @@ namespace COLLADAMaya
 			: PxRigidBody(node)
 		{}
 
-        void PxRigidStatic::exportElement(StreamWriter& sw)
+        void PxRigidStatic::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::PxRigidStatic);
             id.exportElement(sw);
@@ -1449,12 +1449,17 @@ namespace COLLADAMaya
             sw.closeElement();
         }
 
+		PxRigidBody::Type PxRigidStatic::getType() const
+		{
+			return Type::Static;
+		}
+
         CMassLocalPose::CMassLocalPose(xmlNode* node)
         {
             GetContent(node, rotation, translation);
         }
 
-        void CMassLocalPose::exportElement(StreamWriter& sw)
+        void CMassLocalPose::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::CMassLocalPose);
             sw.appendValues(&rotation.x, 7);
@@ -1466,7 +1471,7 @@ namespace COLLADAMaya
             GetContent(node, massSpaceInertiaTensor);
         }
 
-        void MassSpaceInertiaTensor::exportElement(StreamWriter& sw)
+        void MassSpaceInertiaTensor::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::MassSpaceInertiaTensor);
             sw.appendValues(&massSpaceInertiaTensor.x, 3);
@@ -1478,7 +1483,7 @@ namespace COLLADAMaya
             GetContent(node, linearVelocity);
         }
 
-        void LinearVelocity::exportElement(StreamWriter& sw)
+        void LinearVelocity::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::LinearVelocity);
             sw.appendValues(&linearVelocity.x, 3);
@@ -1490,7 +1495,7 @@ namespace COLLADAMaya
             GetContent(node, angularVelocity);
         }
 
-        void AngularVelocity::exportElement(StreamWriter& sw)
+        void AngularVelocity::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::AngularVelocity);
             sw.appendValues(&angularVelocity.x, 3);
@@ -1503,7 +1508,7 @@ namespace COLLADAMaya
             GetContent(node, minCCDAdvanceCoefficient);
         }
 
-        void MinCCDAdvanceCoefficient::exportElement(StreamWriter& sw)
+        void MinCCDAdvanceCoefficient::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::MinCCDAdvanceCoefficient);
             sw.appendValues(minCCDAdvanceCoefficient);
@@ -1516,7 +1521,7 @@ namespace COLLADAMaya
             GetContent(node, maxDepenetrationVelocity);
         }
 
-        void MaxDepenetrationVelocity::exportElement(StreamWriter& sw)
+        void MaxDepenetrationVelocity::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::MaxDepenetrationVelocity);
             sw.appendValues(maxDepenetrationVelocity);
@@ -1529,7 +1534,7 @@ namespace COLLADAMaya
             GetContent(node, linearDamping);
         }
 
-        void LinearDamping::exportElement(StreamWriter& sw)
+        void LinearDamping::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::LinearDamping);
             sw.appendValues(linearDamping);
@@ -1542,7 +1547,7 @@ namespace COLLADAMaya
             GetContent(node, angularDamping);
         }
 
-        void AngularDamping::exportElement(StreamWriter& sw)
+        void AngularDamping::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::AngularDamping);
             sw.appendValues(angularDamping);
@@ -1555,7 +1560,7 @@ namespace COLLADAMaya
             GetContent(node, maxAngularVelocity);
         }
 
-        void MaxAngularVelocity::exportElement(StreamWriter& sw)
+        void MaxAngularVelocity::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::MaxAngularVelocity);
             sw.appendValues(maxAngularVelocity);
@@ -1568,7 +1573,7 @@ namespace COLLADAMaya
             GetContent(node, sleepThreshold);
         }
 
-        void SleepThreshold::exportElement(StreamWriter& sw)
+        void SleepThreshold::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::SleepThreshold);
             sw.appendValues(sleepThreshold);
@@ -1581,7 +1586,7 @@ namespace COLLADAMaya
             GetContent(node, stabilizationThreshold);
         }
 
-        void StabilizationThreshold::exportElement(StreamWriter& sw)
+        void StabilizationThreshold::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::StabilizationThreshold);
             sw.appendValues(stabilizationThreshold);
@@ -1594,7 +1599,7 @@ namespace COLLADAMaya
             GetContent(node, wakeCounter);
         }
 
-        void WakeCounter::exportElement(StreamWriter& sw)
+        void WakeCounter::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::WakeCounter);
             sw.appendValues(wakeCounter);
@@ -1607,7 +1612,7 @@ namespace COLLADAMaya
             GetContent(node, minPositionIters);
         }
 
-        void MinPositionIters::exportElement(StreamWriter& sw)
+        void MinPositionIters::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::minPositionIters);
             sw.appendValues(minPositionIters);
@@ -1620,7 +1625,7 @@ namespace COLLADAMaya
             GetContent(node, minVelocityIters);
         }
 
-        void MinVelocityIters::exportElement(StreamWriter& sw)
+        void MinVelocityIters::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::minVelocityIters);
             sw.appendValues(minVelocityIters);
@@ -1632,7 +1637,7 @@ namespace COLLADAMaya
             , minVelocityIters(FindChild(node, Strings::minVelocityIters))
         {}
 
-        void SolverIterationCounts::exportElement(StreamWriter& sw)
+        void SolverIterationCounts::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::SolverIterationCounts);
             minPositionIters.exportElement(sw);
@@ -1646,7 +1651,7 @@ namespace COLLADAMaya
             GetContent(node, contactReportThreshold);
         }
 
-        void ContactReportThreshold::exportElement(StreamWriter& sw)
+        void ContactReportThreshold::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::ContactReportThreshold);
             sw.appendValues(contactReportThreshold);
@@ -1673,7 +1678,7 @@ namespace COLLADAMaya
             , contactReportThreshold(FindChild(node, Strings::ContactReportThreshold))
         {}
 
-        void PxRigidDynamic::exportElement(StreamWriter& sw)
+        void PxRigidDynamic::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::PxRigidDynamic);
             id.exportElement(sw);
@@ -1702,13 +1707,18 @@ namespace COLLADAMaya
             sw.closeElement();
         }
 
+		PxRigidBody::Type PxRigidDynamic::getType() const
+		{
+			return Type::Dynamic;
+		}
+
         Actor0::Actor0(xmlNode* node)
             : actor0(0)
         {
             GetContent(node, actor0);
         }
 
-        void Actor0::exportElement(StreamWriter& sw)
+        void Actor0::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::actor0);
             sw.appendValues(actor0);
@@ -1721,7 +1731,7 @@ namespace COLLADAMaya
             GetContent(node, actor1);
         }
 
-        void Actor1::exportElement(StreamWriter& sw)
+        void Actor1::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::actor1);
             sw.appendValues(actor1);
@@ -1733,7 +1743,7 @@ namespace COLLADAMaya
             , actor1(FindChild(node, Strings::actor1))
         {}
 
-        void Actors::exportElement(StreamWriter& sw)
+        void Actors::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Actors);
             actor0.exportElement(sw);
@@ -1746,7 +1756,7 @@ namespace COLLADAMaya
             GetContent(node, rotation, translation);
         }
 
-        void EActor0::exportElement(StreamWriter& sw)
+        void EActor0::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::eACTOR0);
             sw.appendValues(&rotation.x, 7);
@@ -1758,7 +1768,7 @@ namespace COLLADAMaya
             GetContent(node, rotation, translation);
         }
 
-        void EActor1::exportElement(StreamWriter& sw)
+        void EActor1::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::eACTOR1);
             sw.appendValues(&rotation.x, 7);
@@ -1770,7 +1780,7 @@ namespace COLLADAMaya
             , eActor1(FindChild(node, Strings::eACTOR1))
         {}
 
-        void ActorLocalPose::exportElement(StreamWriter& sw)
+        void ActorLocalPose::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::LocalPose);
             eActor0.exportElement(sw);
@@ -1784,7 +1794,7 @@ namespace COLLADAMaya
             GetContent(node, force);
         }
 
-        void Force::exportElement(StreamWriter& sw)
+        void Force::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::force);
             sw.appendValues(force);
@@ -1797,7 +1807,7 @@ namespace COLLADAMaya
             GetContent(node, torque);
         }
 
-        void Torque::exportElement(StreamWriter& sw)
+        void Torque::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::torque);
             sw.appendValues(torque);
@@ -1809,7 +1819,7 @@ namespace COLLADAMaya
             , torque(FindChild(node, Strings::torque))
         {}
 
-        void BreakForce::exportElement(StreamWriter& sw)
+        void BreakForce::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::BreakForce);
             force.exportElement(sw);
@@ -1822,7 +1832,7 @@ namespace COLLADAMaya
             GetContent(node, flags, mStringToFlagMap);
         }
         
-        void ConstraintFlags::exportElement(COLLADASW::StreamWriter& sw)
+        void ConstraintFlags::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::ConstraintFlags);
 			sw.appendValues(FlagsToString(flags, mFlagToStringMap));
@@ -1835,7 +1845,7 @@ namespace COLLADAMaya
             GetContent(node, invMassScale0);
         }
 
-        void InvMassScale0::exportElement(StreamWriter& sw)
+        void InvMassScale0::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::InvMassScale0);
             sw.appendValues(invMassScale0);
@@ -1848,7 +1858,7 @@ namespace COLLADAMaya
             GetContent(node, invMassScale1);
         }
 
-        void InvMassScale1::exportElement(StreamWriter& sw)
+        void InvMassScale1::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::InvMassScale1);
             sw.appendValues(invMassScale1);
@@ -1861,7 +1871,7 @@ namespace COLLADAMaya
             GetContent(node, invInertiaScale0);
         }
 
-        void InvInertiaScale0::exportElement(StreamWriter& sw)
+        void InvInertiaScale0::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::InvInertiaScale0);
             sw.appendValues(invInertiaScale0);
@@ -1874,7 +1884,7 @@ namespace COLLADAMaya
             GetContent(node, invInertiaScale1);
         }
 
-        void InvInertiaScale1::exportElement(StreamWriter& sw)
+        void InvInertiaScale1::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::InvInertiaScale1);
             sw.appendValues(invInertiaScale1);
@@ -1886,7 +1896,7 @@ namespace COLLADAMaya
 			GetContent(node, eX, MotionFlags::GetStringToFlagMap());
         }
 
-        void MotionX::exportElement(StreamWriter& sw)
+        void MotionX::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::eX);
 			sw.appendValues(FlagsToString(Flags<MotionFlags::FlagEnum>(eX), MotionFlags::GetFlagToStringMap()));
@@ -1898,7 +1908,7 @@ namespace COLLADAMaya
 			GetContent(node, eY, MotionFlags::GetStringToFlagMap());
         }
 
-        void MotionY::exportElement(StreamWriter& sw)
+        void MotionY::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::eY);
 			sw.appendValues(FlagsToString(Flags<MotionFlags::FlagEnum>(eY), MotionFlags::GetFlagToStringMap()));
@@ -1910,7 +1920,7 @@ namespace COLLADAMaya
 			GetContent(node, eZ, MotionFlags::GetStringToFlagMap());
         }
 
-        void MotionZ::exportElement(StreamWriter& sw)
+        void MotionZ::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::eZ);
 			sw.appendValues(FlagsToString(Flags<MotionFlags::FlagEnum>(eZ), MotionFlags::GetFlagToStringMap()));
@@ -1922,7 +1932,7 @@ namespace COLLADAMaya
 			GetContent(node, eTwist, MotionFlags::GetStringToFlagMap());
         }
 
-        void MotionTwist::exportElement(StreamWriter& sw)
+        void MotionTwist::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::eTWIST);
 			sw.appendValues(FlagsToString(Flags<MotionFlags::FlagEnum>(eTwist), MotionFlags::GetFlagToStringMap()));
@@ -1934,7 +1944,7 @@ namespace COLLADAMaya
 			GetContent(node, eSwing1, MotionFlags::GetStringToFlagMap());
         }
 
-        void MotionSwing1::exportElement(StreamWriter& sw)
+        void MotionSwing1::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::eSWING1);
 			sw.appendValues(FlagsToString(Flags<MotionFlags::FlagEnum>(eSwing1), MotionFlags::GetFlagToStringMap()));
@@ -1946,7 +1956,7 @@ namespace COLLADAMaya
 			GetContent(node, eSwing2, MotionFlags::GetStringToFlagMap());
         }
 
-        void MotionSwing2::exportElement(StreamWriter& sw)
+        void MotionSwing2::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::eSWING2);
 			sw.appendValues(FlagsToString(Flags<MotionFlags::FlagEnum>(eSwing2), MotionFlags::GetFlagToStringMap()));
@@ -1962,7 +1972,7 @@ namespace COLLADAMaya
             , eSwing2(FindChild(node, Strings::eSWING2))
         {}
 
-        void Motion::exportElement(StreamWriter& sw)
+        void Motion::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Motion);
             eX.exportElement(sw);
@@ -1980,7 +1990,7 @@ namespace COLLADAMaya
             GetContent(node, bounceThreshold);
         }
 
-        void BounceThreshold::exportElement(StreamWriter& sw)
+        void BounceThreshold::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::BounceThreshold);
             sw.appendValues(bounceThreshold);
@@ -1993,7 +2003,7 @@ namespace COLLADAMaya
             GetContent(node, stiffness);
         }
 
-        void Stiffness::exportElement(StreamWriter& sw)
+        void Stiffness::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Stiffness);
             sw.appendValues(stiffness);
@@ -2006,7 +2016,7 @@ namespace COLLADAMaya
             GetContent(node, damping);
         }
 
-        void Damping::exportElement(StreamWriter& sw)
+        void Damping::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Damping);
             sw.appendValues(damping);
@@ -2019,7 +2029,7 @@ namespace COLLADAMaya
             GetContent(node, contactDistance);
         }
 
-        void ContactDistance::exportElement(StreamWriter& sw)
+        void ContactDistance::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::ContactDistance);
             sw.appendValues(contactDistance);
@@ -2032,7 +2042,7 @@ namespace COLLADAMaya
             GetContent(node, value);
         }
 
-        void Value::exportElement(StreamWriter& sw)
+        void Value::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Value);
             sw.appendValues(value);
@@ -2048,7 +2058,7 @@ namespace COLLADAMaya
             , value(FindChild(node, Strings::Value))
         {}
 
-        void LinearLimit::exportElement(StreamWriter& sw)
+        void LinearLimit::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::LinearLimit);
             restitution.exportElement(sw);
@@ -2066,7 +2076,7 @@ namespace COLLADAMaya
             GetContent(node, upper);
         }
 
-        void Upper::exportElement(StreamWriter& sw)
+        void Upper::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Upper);
             sw.appendValues(upper);
@@ -2079,7 +2089,7 @@ namespace COLLADAMaya
             GetContent(node, lower);
         }
 
-        void Lower::exportElement(StreamWriter& sw)
+        void Lower::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Lower);
             sw.appendValues(lower);
@@ -2096,7 +2106,7 @@ namespace COLLADAMaya
             , lower(FindChild(node, Strings::Lower))
         {}
 
-        void TwistLimit::exportElement(StreamWriter& sw)
+        void TwistLimit::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::TwistLimit);
             restitution.exportElement(sw);
@@ -2115,7 +2125,7 @@ namespace COLLADAMaya
             GetContent(node, yAngle);
         }
 
-        void YAngle::exportElement(StreamWriter& sw)
+        void YAngle::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::YAngle);
             sw.appendValues(yAngle);
@@ -2128,7 +2138,7 @@ namespace COLLADAMaya
             GetContent(node, zAngle);
         }
 
-        void ZAngle::exportElement(StreamWriter& sw)
+        void ZAngle::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::ZAngle);
             sw.appendValues(zAngle);
@@ -2145,7 +2155,7 @@ namespace COLLADAMaya
             , zAngle(FindChild(node, Strings::ZAngle))
         {}
 
-        void SwingLimit::exportElement(StreamWriter& sw)
+        void SwingLimit::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::SwingLimit);
             restitution.exportElement(sw);
@@ -2164,7 +2174,7 @@ namespace COLLADAMaya
             GetContent(node, forceLimit);
         }
 
-        void ForceLimit::exportElement(StreamWriter& sw)
+        void ForceLimit::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::ForceLimit);
             sw.appendValues(forceLimit);
@@ -2176,7 +2186,7 @@ namespace COLLADAMaya
 			GetContent(node, flags, mStringToFlagMap);
 		}
 
-		void DriveFlags::exportElement(COLLADASW::StreamWriter& sw)
+		void DriveFlags::exportElement(StreamWriter& sw) const
 		{
 			sw.openElement(Strings::Flags);
 			sw.appendValues(FlagsToString(flags, mFlagToStringMap));
@@ -2190,7 +2200,7 @@ namespace COLLADAMaya
             , flags(FindChild(node, Strings::Flags))
         {}
 
-        void DriveX::exportElement(StreamWriter& sw)
+        void DriveX::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::eX);
             stiffness.exportElement(sw);
@@ -2207,7 +2217,7 @@ namespace COLLADAMaya
             , flags(FindChild(node, Strings::Flags))
         {}
 
-        void DriveY::exportElement(StreamWriter& sw)
+        void DriveY::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::eY);
             stiffness.exportElement(sw);
@@ -2224,7 +2234,7 @@ namespace COLLADAMaya
             , flags(FindChild(node, Strings::Flags))
         {}
 
-        void DriveZ::exportElement(StreamWriter& sw)
+        void DriveZ::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::eZ);
             stiffness.exportElement(sw);
@@ -2241,7 +2251,7 @@ namespace COLLADAMaya
             , flags(FindChild(node, Strings::Flags))
         {}
 
-        void DriveSwing::exportElement(StreamWriter& sw)
+        void DriveSwing::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::eSWING);
             stiffness.exportElement(sw);
@@ -2258,7 +2268,7 @@ namespace COLLADAMaya
             , flags(FindChild(node, Strings::Flags))
         {}
 
-        void DriveTwist::exportElement(StreamWriter& sw)
+        void DriveTwist::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::eTWIST);
             stiffness.exportElement(sw);
@@ -2275,7 +2285,7 @@ namespace COLLADAMaya
 			, flags(FindChild(node, Strings::Flags))
         {}
 
-        void DriveSlerp::exportElement(StreamWriter& sw)
+        void DriveSlerp::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::eSLERP);
             stiffness.exportElement(sw);
@@ -2294,7 +2304,7 @@ namespace COLLADAMaya
             , driveSlerp(FindChild(node, Strings::eSLERP))
         {}
 
-        void Drive::exportElement(StreamWriter& sw)
+        void Drive::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Drive);
             driveX.exportElement(sw);
@@ -2311,7 +2321,7 @@ namespace COLLADAMaya
             GetContent(node, rotation, translation);
         }
 
-        void DrivePosition::exportElement(StreamWriter& sw)
+        void DrivePosition::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::DrivePosition);
             sw.appendValues(&rotation.x, 7);
@@ -2323,7 +2333,7 @@ namespace COLLADAMaya
             GetContent(node, linear);
         }
 
-        void Linear::exportElement(StreamWriter& sw)
+        void Linear::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::linear);
             sw.appendValues(&linear.x, 3);
@@ -2335,7 +2345,7 @@ namespace COLLADAMaya
             GetContent(node, angular);
         }
 
-        void Angular::exportElement(StreamWriter& sw)
+        void Angular::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::angular);
             sw.appendValues(&angular.x, 3);
@@ -2347,7 +2357,7 @@ namespace COLLADAMaya
             , angular(FindChild(node, Strings::angular))
         {}
 
-        void DriveVelocity::exportElement(StreamWriter& sw)
+        void DriveVelocity::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::DriveVelocity);
             linear.exportElement(sw);
@@ -2361,7 +2371,7 @@ namespace COLLADAMaya
             GetContent(node, projectionLinearTolerance);
         }
 
-        void ProjectionLinearTolerance::exportElement(StreamWriter& sw)
+        void ProjectionLinearTolerance::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::ProjectionLinearTolerance);
             sw.appendValues(projectionLinearTolerance);
@@ -2374,7 +2384,7 @@ namespace COLLADAMaya
             GetContent(node, projectionAngularTolerance);
         }
 
-        void ProjectionAngularTolerance::exportElement(StreamWriter& sw)
+        void ProjectionAngularTolerance::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::ProjectionAngularTolerance);
             sw.appendValues(projectionAngularTolerance);
@@ -2403,7 +2413,7 @@ namespace COLLADAMaya
             , projectionAngularTolerance(FindChild(node, Strings::ProjectionAngularTolerance))
         {}
 
-        void PxD6Joint::exportElement(StreamWriter& sw)
+        void PxD6Joint::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::PxD6Joint);
             id.exportElement(sw);
@@ -2463,7 +2473,7 @@ namespace COLLADAMaya
             }
         }
 
-        void PhysX30Collection::exportElement(StreamWriter& sw)
+        void PhysX30Collection::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::PhysX30Collection);
             upVector.exportElement(sw);
@@ -2608,6 +2618,28 @@ namespace COLLADAMaya
             }
             return NULL;
         }
+
+		PxRigidBody* PhysXDoc::findRigidBody(const String & bodyName)
+		{
+			if (PxRigidStatic* s = findRigidStatic(bodyName)) {
+				return s;
+			}
+			if (PxRigidDynamic* d = findRigidDynamic(bodyName)) {
+				return d;
+			}
+			return NULL;
+		}
+
+		PxRigidBody* PhysXDoc::findRigidBody(uint64_t id)
+		{
+			if (PxRigidStatic* s = findRigidStatic(id)) {
+				return s;
+			}
+			if (PxRigidDynamic* d = findRigidDynamic(id)) {
+				return d;
+			}
+			return NULL;
+		}
 
 		PxRigidStatic* PhysXDoc::findRigidStatic(uint64_t id)
 		{

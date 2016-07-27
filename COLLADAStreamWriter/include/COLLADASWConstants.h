@@ -161,7 +161,6 @@ namespace COLLADASW
 		static const String CSW_ELEMENT_ACTOR_FLAGS;
 		static const String CSW_ELEMENT_DOMINANCE_GROUP;
 		static const String CSW_ELEMENT_OWNER_CLIENT;
-		static const String CSW_ELEMENT_CMASS_LOCAL_POSE;
 		static const String CSW_ELEMENT_RIGID_BODY_FLAGS;
 		static const String CSW_ELEMENT_MIN_CCD_ADVANCE_COEFFICIENT;
 		static const String CSW_ELEMENT_MAX_DEPENETRATION_VELOCITY;

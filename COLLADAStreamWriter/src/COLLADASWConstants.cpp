@@ -150,7 +150,6 @@ namespace COLLADASW
 	const String CSWC::CSW_ELEMENT_ACTOR_FLAGS = "actor_flags";
 	const String CSWC::CSW_ELEMENT_DOMINANCE_GROUP = "dominance_group";
 	const String CSWC::CSW_ELEMENT_OWNER_CLIENT = "owner_client";
-	const String CSWC::CSW_ELEMENT_CMASS_LOCAL_POSE = "cmass_local_pose";
 	const String CSWC::CSW_ELEMENT_RIGID_BODY_FLAGS = "rigid_body_flags";
 	const String CSWC::CSW_ELEMENT_MIN_CCD_ADVANCE_COEFFICIENT = "min_ccd_advance_coefficient";
 	const String CSWC::CSW_ELEMENT_MAX_DEPENETRATION_VELOCITY = "max_depenetration_velocity";

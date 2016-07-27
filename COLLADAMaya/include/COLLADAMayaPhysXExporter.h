@@ -35,21 +35,6 @@ namespace COLLADAMaya
         }
     };
 
-    class PhysXRigidConstraint
-    {
-    public:
-        static void GetSwingConeAndTwistMinLimit(const MObject & rigidConstraint, MVector & min);
-        static void GetSwingConeAndTwistMaxLimit(const MObject & rigidConstraint, MVector & max);
-        static void GetLinearMinLimit           (const MObject & rigidConstraint, MVector & min);
-        static void GetLinearMaxLimit           (const MObject & rigidConstraint, MVector & max);
-        static void GetSpringAngularStiffness   (const MObject & rigidConstraint, double & stiffness);
-        static void GetSpringAngularDamping     (const MObject & rigidConstraint, double & damping);
-        static void GetSpringAngularTargetValue (const MObject & rigidConstraint, double & targetValue);
-        static void GetSpringLinearStiffness    (const MObject & rigidConstraint, double & stiffness);
-        static void GetSpringLinearDamping      (const MObject & rigidConstraint, double & damping);
-        static void GetSpringLinearTargetValue  (const MObject & rigidConstraint, double & targetValue);
-    };
-
     class PhysXShape
     {
     public:
@@ -79,10 +64,8 @@ namespace COLLADAMaya
         void exportRotation(const MEulerRotation & rotation, const String & sid = "");
         void exportAttributes(const MObject & object, const std::set<MString, MStringComp> & attributes);
         void exportExtraAttributes(const MObject & object);
-        void exportMaterialPhysXXML(const MObject& material);
-        void exportShapePhysXXML(const MObject& rigidBody, const MObject& shape);
         void exportRigidBodyPhysXXML(const MObject& shape);
-        void exportRigidConstraintPhysXXML(const MObject& constraint);
+        void exportRigidConstraintPhysXXML(const PhysXXML::PxD6Joint & joint);
 
 		MObject getNodeRigidBody(const MObject& node);
         MObject getShapeRigidBody(const MObject& shape);
@@ -152,6 +135,9 @@ namespace COLLADAMaya
         };
         bool sceneHas(SceneElement::Type type, Filter filter = All);
 
+		PhysXXML::PxRigidBody* findPxRigidBody(const MObject & rigidBody);
+		PhysXXML::PxRigidBody* findPxRigidBody(const String & name);
+		PhysXXML::PxRigidBody* findPxRigidBody(uint64_t id);
         PhysXXML::PxRigidStatic* findPxRigidStatic(const String& name);
         PhysXXML::PxMaterial* findPxMaterial(uint64_t ref);
 		PhysXXML::PxMaterial* findPxMaterial(const MObject& rigidBody);
