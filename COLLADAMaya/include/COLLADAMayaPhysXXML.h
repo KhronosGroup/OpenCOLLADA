@@ -1204,8 +1204,8 @@ namespace COLLADAMaya
             PxConvexMesh* findConvexMesh(uint64_t id);
             PxTriangleMesh* findTriangleMesh(uint64_t id);
             PxMaterial* findMaterial(uint64_t ref);
-            PxMaterial* findMaterial(const String& bodyName, const String& shapeName);
-            PxShape* findShape(const String& bodyName, const String& shapeName);
+            PxMaterial* findMaterial(const String& shapeName);
+			PxShape* findShape(const String & shapeName);
 			PxRigidBody* findRigidBody(const String & bodyName);
 			PxRigidBody* findRigidBody(uint64_t id);
 			PxRigidStatic* findRigidStatic(uint64_t id);

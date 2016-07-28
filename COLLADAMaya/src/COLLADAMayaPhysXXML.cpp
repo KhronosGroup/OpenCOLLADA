@@ -2597,27 +2597,35 @@ namespace COLLADAMaya
             return NULL;
         }
 
-        PxMaterial* PhysXDoc::findMaterial(const String& bodyName, const String& shapeName)
+        PxMaterial* PhysXDoc::findMaterial(const String& shapeName)
         {
-            PxShape* shape = findShape(bodyName, shapeName);
+            PxShape* shape = findShape(shapeName);
             if (shape) {
                 return findMaterial(shape->materials.materialRef.materialRef);
             }
             return NULL;
         }
 
-        PxShape* PhysXDoc::findShape(const String& bodyName, const String& shapeName)
-        {
-            PxRigidStatic* rigidStatic = findRigidStatic(bodyName);
-            if (rigidStatic) {
-                return rigidStatic->findShape(shapeName);
-            }
-            PxRigidDynamic* rigidDynamic = findRigidDynamic(bodyName);
-            if (rigidDynamic) {
-                return rigidDynamic->findShape(shapeName);
-            }
-            return NULL;
-        }
+		PxShape* PhysXDoc::findShape(const String& shapeName)
+		{
+			for (size_t rb = 0; rb < physX30Collection.rigidStatics.size(); ++rb) {
+				PxRigidStatic& rigid = physX30Collection.rigidStatics[rb];
+				for (size_t sh = 0; sh < rigid.shapes.shapes.size(); ++sh) {
+					if (rigid.shapes.shapes[sh].name.name == shapeName) {
+						return &rigid.shapes.shapes[sh];
+					}
+				}
+			}
+			for (size_t rb = 0; rb < physX30Collection.rigidDynamics.size(); ++rb) {
+				PxRigidDynamic& rigid = physX30Collection.rigidDynamics[rb];
+				for (size_t sh = 0; sh < rigid.shapes.shapes.size(); ++sh) {
+					if (rigid.shapes.shapes[sh].name.name == shapeName) {
+						return &rigid.shapes.shapes[sh];
+					}
+				}
+			}
+			return NULL;
+		}
 
 		PxRigidBody* PhysXDoc::findRigidBody(const String & bodyName)
 		{

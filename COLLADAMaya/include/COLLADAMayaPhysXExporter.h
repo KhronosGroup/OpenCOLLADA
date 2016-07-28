@@ -21,6 +21,18 @@
 #include "COLLADAMayaSceneGraph.h"
 #include "COLLADASWLibraryPhysicsModels.h"
 
+template<>
+class std::less <MObject>
+{
+public:
+	bool operator()(const MObject & l, const MObject & r) const
+	{
+		const int* pl = *reinterpret_cast<const int* const*>(&l);
+		const int* pr = *reinterpret_cast<const int* const*>(&r);
+		return pl < pr;
+	}
+};
+
 namespace COLLADAMaya
 {
     // Unit for mass: kg
@@ -65,13 +77,12 @@ namespace COLLADAMaya
         void exportAttributes(const MObject & object, const std::set<MString, MStringComp> & attributes);
         void exportExtraAttributes(const MObject & object);
 
-		MObject getNodeRigidBody(const MObject& node);
-        MObject getShapeRigidBody(const MObject& shape);
-        void getShapeLocalPose(const MObject& rigidBody, const MObject& shape, MMatrix& localPose);
+		const MObject & getNodeRigidBody(const MObject& node) const;
+        void getShapeLocalPose(const MObject& shape, MMatrix& localPose) const;
         bool getShapeVertices(const MObject& shape, std::vector<PhysXXML::Point> & vertices, MString & meshId);
         bool getShapeTriangles(const MObject& shape, std::vector<PhysXXML::Triangle> & triangles);
         void getRigidBodyGlobalPose(const MObject& rigidBody, MMatrix& globalPose);
-        bool getRigidSolver(MObject & rigidSolver);
+        const MObject & getRigidSolver() const;
 
         MStatus getMeshURI(const MObject & mesh, URI & meshURI);
 
@@ -134,18 +145,18 @@ namespace COLLADAMaya
         };
         bool sceneHas(SceneElement::Type type, Filter filter = All);
 
-		PhysXXML::PxRigidBody* findPxRigidBody(const MObject & rigidBody);
-		PhysXXML::PxRigidBody* findPxRigidBody(const String & name);
-		PhysXXML::PxRigidBody* findPxRigidBody(uint64_t id);
-        PhysXXML::PxRigidStatic* findPxRigidStatic(const String& name);
-        PhysXXML::PxMaterial* findPxMaterial(uint64_t ref);
-		PhysXXML::PxMaterial* findPxMaterial(const MObject& rigidBody);
-		PhysXXML::PxShape* findPxShape(const MObject& rigidBody, const MObject& shape);
-		PhysXXML::PxRigidStatic* findPxRigidStatic(uint64_t id);
-		PhysXXML::PxRigidStatic* findPxRigidStatic(const MObject& rigidBody);
-		PhysXXML::PxRigidDynamic* findPxRigidDynamic(uint64_t id);
-		PhysXXML::PxRigidDynamic* findPxRigidDynamic(const MObject& rigidBody);
-		PhysXXML::PxD6Joint* findPxD6Joint(const MObject& rigidConstraint);
+		const PhysXXML::PxRigidBody* findPxRigidBody(const MObject & rigidBody) const;
+		const PhysXXML::PxRigidBody* findPxRigidBody(const String & name) const;
+		const PhysXXML::PxRigidBody* findPxRigidBody(uint64_t id) const;
+		const PhysXXML::PxMaterial* findPxMaterial(uint64_t ref) const;
+		const PhysXXML::PxMaterial* findPxMaterial(const PhysXXML::PxRigidBody & rigidBody) const;
+		const PhysXXML::PxMaterial* findPxMaterial(const MObject & rigidBody) const;
+		const PhysXXML::PxShape* findPxShape(const MObject & shape) const;
+		const PhysXXML::PxD6Joint* findPxD6Joint(const MObject & rigidConstraint) const;
+
+		const MObject & findMObject(const PhysXXML::PxRigidBody & rigidBody) const;
+		const MObject & findMObject(const PhysXXML::PxShape & shape) const;
+		const MObject & findMObject(const PhysXXML::PxD6Joint & joint) const;
 
     private:
         void exportRotate(const MVector & axis, double angle, const String & sid = "");
@@ -200,12 +211,24 @@ namespace COLLADAMaya
         StringToStringMap mMayaIdToColladaId;
         PhysXXML::PhysXDocPtr mPhysXDoc;
 
+		std::map<MObject, const PhysXXML::PxMaterial*> mRigidBodyToPxMaterialMap;
+		std::map<const PhysXXML::PxRigidBody*, MObject> mPxRigidBodyToRigidBodyMap;
+		std::map<MObject, const PhysXXML::PxRigidBody*> mRigidBodyToPxRigidBodyMap;
+		std::map<const PhysXXML::PxShape*, MObject> mPxShapeToShapeMap;
+		std::map<MObject, const PhysXXML::PxShape*> mShapeToPxShapeMap;
+		std::map<const PhysXXML::PxD6Joint*, MObject> mPxD6JointToConstraintMap;
+		std::map<MObject, const PhysXXML::PxD6Joint*> mConstraintToPxD6JointMap;
+		std::map<MObject, MObject> mTargetToRigidBodyMap;
+		MObject mRigidSolver;
+
         static String mDefaultPhysicsModelId;
         static String mDefaultPhysicsSceneId;
         static String mDefaultInstancePhysicsModelSid;
         static String mProfile;
         static String mProfileXML;
 		static String mPhysXProfile;
+
+		friend class PhysicsExportPrePass;
     };
 }
 
