@@ -195,7 +195,7 @@ namespace COLLADAMaya
 				E flag = static_cast<E>(1 << i);
 				if (flags & flag)
 				{
-					std::map<E, String>::const_iterator it = flagToStringMap.find(flag);
+					typename std::map<E, String>::const_iterator it = flagToStringMap.find(flag);
 					if (!colladaFlags.empty())
 						colladaFlags += ' ';
 					colladaFlags += it->second.substr(1);
