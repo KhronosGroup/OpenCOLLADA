@@ -693,9 +693,6 @@ namespace COLLADAMaya
 				exportFrictionCombineMode(material);
 				exportRestitutionCombineMode(material);
 			}
-            if (profile == PhysXExporter::GetProfileXML()) {
-				material.exportElement(getStreamWriter());
-            }
         }
 
 		static bool HasDefaultValues(const PhysXXML::PxMaterial & mat, const String & profile)
@@ -734,14 +731,11 @@ namespace COLLADAMaya
             : Element(exporter, CSWC::CSW_ELEMENT_EXTRA)
         {
 			exportTechnique(material, PhysXExporter::GetPhysXProfile());
-            deprecated_exportTechnique(material, PhysXExporter::GetProfileXML());
         }
 
 		static bool HasDefaultValues(const PhysXXML::PxMaterial & mat)
 		{
-			return
-				PhysicsMaterialTechnique::HasDefaultValues(mat, PhysXExporter::GetPhysXProfile()) &&
-				PhysicsMaterialTechnique::HasDefaultValues(mat, PhysXExporter::GetProfileXML());
+			return PhysicsMaterialTechnique::HasDefaultValues(mat, PhysXExporter::GetPhysXProfile());
 		}
 
     private:
@@ -1087,13 +1081,7 @@ namespace COLLADAMaya
             : Element(exporter, CSWC::CSW_ELEMENT_TECHNIQUE)
         {
             getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, profile);
-            if (profile == PhysXExporter::GetProfile()) {
-                exporter.exportAttributes(shape, GetAttributes());
-            }
-            else if (profile == PhysXExporter::GetProfileXML()) {
-				pxShape.exportElement(getStreamWriter());
-            }
-            else if (profile == PROFILE_MAYA) {
+            if (profile == PROFILE_MAYA) {
                 exporter.exportExtraAttributes(shape);
             }
 			else if (profile == PhysXExporter::GetPhysXProfile()) {
@@ -1210,8 +1198,6 @@ namespace COLLADAMaya
 				exportProfile(shape, pxShape, PROFILE_MAYA);
 			}
 
-			exportProfile(shape, pxShape, PhysXExporter::GetProfile());
-			exportProfile(shape, pxShape, PhysXExporter::GetProfileXML());
 			exportProfile(shape, pxShape, PhysXExporter::GetPhysXProfile());
         }
 
@@ -2346,13 +2332,7 @@ namespace COLLADAMaya
         {
             getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, profile);
             
-            if (profile == PhysXExporter::GetProfile()) {
-                exporter.exportAttributes(rigidBody, GetAttributes());
-            }
-            else if (profile == PhysXExporter::GetProfileXML()) {
-                pxRigidBody.exportElement(getStreamWriter());
-            }
-			else if (profile == PROFILE_MAYA) {
+            if (profile == PROFILE_MAYA) {
 				exporter.exportExtraAttributes(rigidBody);
 			}
 			else if (profile == PhysXExporter::GetPhysXProfile()) {
@@ -2583,8 +2563,6 @@ namespace COLLADAMaya
 			if (PhysXExporter::HasExtraAttributes(rigidBody)) {
 				exportProfile(rigidBody, pxRigidBody, PROFILE_MAYA);
 			}
-            exportProfile(rigidBody, pxRigidBody, PhysXExporter::GetProfile());
-            exportProfile(rigidBody, pxRigidBody, PhysXExporter::GetProfileXML());
 			exportProfile(rigidBody, pxRigidBody, PhysXExporter::GetPhysXProfile());
         }
 
@@ -3598,13 +3576,7 @@ namespace COLLADAMaya
             : Element(exporter, CSWC::CSW_ELEMENT_TECHNIQUE)
         {
             getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, profile);
-            if (profile == PhysXExporter::GetProfile()) {
-                exporter.exportAttributes(rigidConstraint, GetAttributes());
-            }
-            else if (profile == PhysXExporter::GetProfileXML()) {
-                joint.exportElement(getStreamWriter());
-            }
-			else if (profile == PROFILE_MAYA) {
+			if (profile == PROFILE_MAYA) {
 				exporter.exportExtraAttributes(rigidConstraint);
 			}
 			else if (profile == PhysXExporter::GetPhysXProfile()) {
@@ -3821,8 +3793,6 @@ namespace COLLADAMaya
 			if (PhysXExporter::HasExtraAttributes(rigidConstraint)) {
 				exportTechnique(rigidConstraint, joint, PROFILE_MAYA);
 			}
-            exportTechnique(rigidConstraint, joint, PhysXExporter::GetProfile());
-            exportTechnique(rigidConstraint, joint, PhysXExporter::GetProfileXML());
 			exportTechnique(rigidConstraint, joint, PhysXExporter::GetPhysXProfile());
         }
 
@@ -4359,8 +4329,6 @@ namespace COLLADAMaya
     String PhysXExporter::mDefaultPhysicsModelId = "collada_physics_model";
     String PhysXExporter::mDefaultPhysicsSceneId = "collada_physics_scene";
     String PhysXExporter::mDefaultInstancePhysicsModelSid = "instancePhysicsModel";
-    String PhysXExporter::mProfile = "OpenCOLLADAMayaPhysX";
-    String PhysXExporter::mProfileXML = "OpenCOLLADAMayaPhysXXML";
 	String PhysXExporter::mPhysXProfile = "PhysX_3.x";
 
     PhysXExporter::PhysXExporter(StreamWriter& streamWriter, DocumentExporter& documentExporter)
@@ -5176,16 +5144,6 @@ namespace COLLADAMaya
     const String& PhysXExporter::GetDefaultInstancePhysicsModelSid()
     {
         return mDefaultInstancePhysicsModelSid;
-    }
-
-    const String& PhysXExporter::GetProfile()
-    {
-        return mProfile;
-    }
-
-    const String& PhysXExporter::GetProfileXML()
-    {
-        return mProfileXML;
     }
 
 	const String & PhysXExporter::GetPhysXProfile()
