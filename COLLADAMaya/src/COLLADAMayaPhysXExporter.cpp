@@ -1265,7 +1265,8 @@ namespace COLLADAMaya
         {
             double density = 0.0;
             DagHelper::getPlugValue(shape, ATTR_DENSITY, density);
-            Density e(getPhysXExporter(), density);
+			// g/cm3 to kg/m3
+            Density e(getPhysXExporter(), density * 1000.0);
         }
 
 		void exportBox(const PhysXXML::PxShape & shape)
@@ -1791,7 +1792,8 @@ namespace COLLADAMaya
 			if (pxRigidBody.getType() == PhysXXML::PxRigidBody::Dynamic)
 			{
 				const PhysXXML::PxRigidDynamic & rigidDynamic = static_cast<const PhysXXML::PxRigidDynamic&>(pxRigidBody);
-				Mass e(getPhysXExporter(), rigidDynamic.mass.mass);
+				// PhysX mass is in grams. COLLADA uses kilograms.
+				Mass e(getPhysXExporter(), rigidDynamic.mass.mass / 1000.0);
 			}
 			else
 			{
@@ -1874,7 +1876,8 @@ namespace COLLADAMaya
 			if (pxRigidBody.getType() == PhysXXML::PxRigidBody::Dynamic)
 			{
 				const PhysXXML::PxRigidDynamic & dyn = static_cast<const PhysXXML::PxRigidDynamic&>(pxRigidBody);
-				inertiaMatrixDiagonal = dyn.massSpaceInertiaTensor.massSpaceInertiaTensor;
+				// g to kg
+				inertiaMatrixDiagonal = dyn.massSpaceInertiaTensor.massSpaceInertiaTensor / 1000.0;
 			}
 			else
 			{
@@ -4626,6 +4629,77 @@ namespace COLLADAMaya
         bool mError;
     };
 
+	class PhysicsExportPrePass
+	{
+	public:
+		PhysicsExportPrePass(PhysXExporter & exporter)
+			: mExporter(exporter)
+		{}
+
+		bool operator()(SceneElement& e)
+		{
+			const MObject & object = e.getNode();
+
+			switch (e.getType())
+			{
+			case SceneElement::PHYSX_RIGID_BODY:
+			{
+				MObject target = PhysXExporter::GetRigidBodyTarget(e.getNode());
+				MFnDagNode targetNode(target);
+				MString targetName = targetNode.fullPathName();
+
+				mExporter.mTargetToRigidBodyMap[target] = object;
+
+				if (const PhysXXML::PxRigidBody* pxRigidBody = mExporter.mPhysXDoc->findRigidBody(targetName.asChar()))
+				{
+					mExporter.mRigidBodyToPxRigidBodyMap[object] = pxRigidBody;
+					mExporter.mPxRigidBodyToRigidBodyMap[pxRigidBody] = object;
+
+					if (pxRigidBody->shapes.shapes.size() > 0)
+					{
+						if (const PhysXXML::PxMaterial* pxMaterial = mExporter.mPhysXDoc->findMaterial(pxRigidBody->shapes.shapes[0].materials.materialRef.materialRef))
+						{
+							mExporter.mRigidBodyToPxMaterialMap[object] = pxMaterial;
+						}
+					}
+				}
+			}
+			break;
+			case SceneElement::PHYSX_SHAPE:
+			{
+				MFnDagNode shapeNode(e.getNode());
+				MString shapeName = shapeNode.fullPathName();
+				if (const PhysXXML::PxShape* pxShape = mExporter.mPhysXDoc->findShape(shapeName.asChar())) {
+					mExporter.mShapeToPxShapeMap[object] = pxShape;
+					mExporter.mPxShapeToShapeMap[pxShape] = object;
+				}
+			}
+			break;
+			case SceneElement::PHYSX_RIGID_CONSTRAINT:
+			{
+				MFnDagNode constraintNode(e.getNode());
+				MString constraintName = constraintNode.fullPathName();
+				if (const PhysXXML::PxD6Joint* joint = mExporter.mPhysXDoc->findD6Joint(constraintName.asChar())) {
+					mExporter.mConstraintToPxD6JointMap[object] = joint;
+					mExporter.mPxD6JointToConstraintMap[joint] = object;
+				}
+			}
+			break;
+			case SceneElement::PHYSX_RIGID_SOLVER:
+			{
+				mExporter.mRigidSolver = e.getNode();
+			}
+			break;
+			default:
+				break;
+			}
+			return true;
+		}
+
+	private:
+		PhysXExporter & mExporter;
+	};
+
     bool PhysXExporter::generatePhysXXML()
     {
         MStatus status;
@@ -4733,79 +4807,12 @@ namespace COLLADAMaya
 
         xmlCleanupParser();
 
+		// Initialize physics exporter internal data
+		PhysicsExportPrePass prepass(*this);
+		parseSceneElements(prepass);
+
         return true;
     }
-    
-    class PhysicsExportPrePass
-    {
-    public:
-        PhysicsExportPrePass(PhysXExporter & exporter)
-        : mExporter(exporter)
-        {}
-        
-        bool operator()(SceneElement& e)
-        {
-            const MObject & object = e.getNode();
-            
-            switch (e.getType())
-            {
-                case SceneElement::PHYSX_RIGID_BODY:
-                {
-                    MObject target = PhysXExporter::GetRigidBodyTarget(e.getNode());
-                    MFnDagNode targetNode(target);
-                    MString targetName = targetNode.fullPathName();
-                    
-                    mExporter.mTargetToRigidBodyMap[target] = object;
-                    
-                    if (const PhysXXML::PxRigidBody* pxRigidBody = mExporter.mPhysXDoc->findRigidBody(targetName.asChar()))
-                    {
-                        mExporter.mRigidBodyToPxRigidBodyMap[object] = pxRigidBody;
-                        mExporter.mPxRigidBodyToRigidBodyMap[pxRigidBody] = object;
-                        
-                        if (pxRigidBody->shapes.shapes.size() > 0)
-                        {
-                            if (const PhysXXML::PxMaterial* pxMaterial = mExporter.mPhysXDoc->findMaterial(pxRigidBody->shapes.shapes[0].materials.materialRef.materialRef))
-                            {
-                                mExporter.mRigidBodyToPxMaterialMap[object] = pxMaterial;
-                            }
-                        }
-                    }
-                }
-                    break;
-                case SceneElement::PHYSX_SHAPE:
-                {
-                    MFnDagNode shapeNode(e.getNode());
-                    MString shapeName = shapeNode.fullPathName();
-                    if (const PhysXXML::PxShape* pxShape = mExporter.mPhysXDoc->findShape(shapeName.asChar())) {
-                        mExporter.mShapeToPxShapeMap[object] = pxShape;
-                        mExporter.mPxShapeToShapeMap[pxShape] = object;
-                    }
-                }
-                    break;
-                case SceneElement::PHYSX_RIGID_CONSTRAINT:
-                {
-                    MFnDagNode constraintNode(e.getNode());
-                    MString constraintName = constraintNode.fullPathName();
-                    if (const PhysXXML::PxD6Joint* joint = mExporter.mPhysXDoc->findD6Joint(constraintName.asChar())) {
-                        mExporter.mConstraintToPxD6JointMap[object] = joint;
-                        mExporter.mPxD6JointToConstraintMap[joint] = object;
-                    }
-                }
-                    break;
-                case SceneElement::PHYSX_RIGID_SOLVER:
-                {
-                    mExporter.mRigidSolver = e.getNode();
-                }
-                    break;
-                default:
-                    break;
-            }
-            return true;
-        }
-        
-    private:
-        PhysXExporter & mExporter;
-    };
 
     bool PhysXExporter::exportPhysicsLibraries()
     {
@@ -4821,10 +4828,6 @@ namespace COLLADAMaya
         if (!ExportOptions::exportPhysics()) {
             return hasPhysicsScene;
         }
-
-		// Initialize physics exporter
-		PhysicsExportPrePass prepass(*this);
-		parseSceneElements(prepass);
 
         if (sceneHas(SceneElement::PHYSX_RIGID_BODY, Local) ||
             sceneHas(SceneElement::PHYSX_RIGID_CONSTRAINT, Local)) {
