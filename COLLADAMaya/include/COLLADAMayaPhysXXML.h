@@ -283,9 +283,9 @@ namespace COLLADAMaya
 			enum FlagEnum
 			{
 				Kinematic = 1,
-				UseKinematicTargetForSceneQueries,
-				EnabledCCD,
-				EnabledCCDFriction
+				UseKinematicTargetForSceneQueries = 2,
+				EnabledCCD = 4,
+				EnabledCCDFriction = 8
 			};
 
             RigidBodyFlags(xmlNode* node);
