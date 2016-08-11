@@ -73,11 +73,11 @@ namespace COLLADASW
 //		if (animationClip.isAnimationEvent())
 //			animationClip.addExtraTechniques(mSW);
 
-
 		std::vector<float> valuesTime;
 		std::vector<String> valuesID;
 
 		MarkersList markers = const_cast<ColladaAnimationClip&>(animationClip).getMarkersList();
+
 		MarkersList::const_iterator markerIter = markers.begin();
 		for (; markerIter != markers.end(); ++markerIter)
 		{
@@ -97,29 +97,17 @@ namespace COLLADASW
 
 					const String sourceId = "-marker";
 
-					COLLADASW::FloatSourceF source(mSW);
-					source.setId(animationClip.getAnimationClipId() + sourceId + LibraryAnimations::INPUT_SOURCE_ID_SUFFIX);
-					source.setNodeName(animationClip.getAnimationClipId() + sourceId + LibraryAnimations::INPUT_SOURCE_ID_SUFFIX);
-					source.setArrayId(animationClip.getAnimationClipId() + sourceId + LibraryAnimations::INPUT_SOURCE_ID_SUFFIX + LibraryAnimations::ARRAY_ID_SUFFIX);
-					source.setAccessorStride(1);
-					source.getParameterNameList().push_back("TIME");
-					source.setAccessorCount((unsigned long)valuesTime.size());
-					source.prepareToAppendValues();
-					source.appendValues(valuesTime);
-					source.finish(false);
-					source.closeSourceElement();
-
-					COLLADASW::NameSource sourceName(mSW);
-					sourceName.setId(animationClip.getAnimationClipId() + sourceId + LibraryAnimations::NAME_SOURCE_ID_SUFFIX);
-					sourceName.setNodeName(animationClip.getAnimationClipId() + sourceId + LibraryAnimations::NAME_SOURCE_ID_SUFFIX);
-					sourceName.setArrayId(animationClip.getAnimationClipId() + sourceId + LibraryAnimations::NAME_SOURCE_ID_SUFFIX + LibraryAnimations::ARRAY_ID_SUFFIX);
-					sourceName.setAccessorStride(1);
-					sourceName.getParameterNameList().push_back("VALUE");
-					sourceName.setAccessorCount((unsigned long)valuesID.size());
-					sourceName.prepareToAppendValues();
-					sourceName.appendValues(valuesID);
-					sourceName.finish(false);
-					sourceName.closeSourceElement();
+					mSW->openElement(CSWC::CSW_ELEMENT_TIMESTAMPS);
+					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_ID, animationClip.getAnimationClipId() + sourceId + LibraryAnimations::INPUT_SOURCE_ID_SUFFIX + LibraryAnimations::ARRAY_ID_SUFFIX);
+					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_COUNT, (unsigned long)valuesTime.size());
+					mSW->appendValues(valuesTime);
+					mSW->closeElement();
+									
+					mSW->openElement(CSWC::CSW_ELEMENT_MARKERS);
+					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_ID, animationClip.getAnimationClipId() + sourceId + LibraryAnimations::NAME_SOURCE_ID_SUFFIX + LibraryAnimations::ARRAY_ID_SUFFIX);
+					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_COUNT, (unsigned long)valuesID.size());
+					mSW->appendValues(valuesID);
+					mSW->closeElement();
 
 					mSW->closeElement();
 				}

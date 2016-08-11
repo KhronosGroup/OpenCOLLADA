@@ -264,6 +264,8 @@ namespace COLLADASW
 	const String CSWC::CSW_ELEMENT_GRAVITY = "gravity";
 	const String CSWC::CSW_ELEMENT_STEP = "step";
 	const String CSWC::CSW_ELEMENT_EVENT = "event";
+	const String CSWC::CSW_ELEMENT_TIMESTAMPS = "timestamps";
+	const String CSWC::CSW_ELEMENT_MARKERS = "markers";
 
 	const String CSWC::CSW_ATTRIBUTE_CLOSED = "closed";
     const String CSWC::CSW_ATTRIBUTE_COUNT = "count";
