@@ -98,6 +98,7 @@ namespace COLLADASW
 		{
 			appendAttribute ( CSWC::CSW_ATTRIBUTE_XMLNS, CSWC::CSW_NAMESPACE_1_4_1 );
 			appendAttribute ( CSWC::CSW_ATTRIBUTE_VERSION, CSWC::CSW_VERSION_1_4_1 );
+			appendAttribute ( CSWC::CSW_ATTRIBUTE_XMLNS_XSI, CSWC::CSW_XMLNS_XSI_1_5_0 );
 		}
 		else if ( getCOLLADAVersion() == COLLADA_1_5_0 )
 		{

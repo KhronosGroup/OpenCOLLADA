@@ -124,6 +124,8 @@ namespace COLLADAMaya
         static const String& GetDefaultPhysicsSceneId();
         static const String& GetDefaultInstancePhysicsModelSid();
 		static const String& GetPhysXProfile();
+		static const String& GetXMLNS();
+		static String GetXSISchemaLocation();
 
 		static bool HasExtraAttributes(const MObject & object);
 
@@ -223,6 +225,8 @@ namespace COLLADAMaya
         static String mDefaultPhysicsSceneId;
         static String mDefaultInstancePhysicsModelSid;
 		static String mPhysXProfile;
+		static String mXMLNS;
+		static String mSchemaLocation;
 
 		friend class PhysicsExportPrePass;
     };

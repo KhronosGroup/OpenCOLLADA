@@ -681,29 +681,24 @@ namespace COLLADAMaya
 		}
 	};
 
-    class PhysicsMaterialTechnique : public Element
-    {
-    public:
-		PhysicsMaterialTechnique(PhysXExporter& exporter, const PhysXXML::PxMaterial & material, const String& profile)
-            : Element(exporter, CSWC::CSW_ELEMENT_TECHNIQUE)
-        {
-            getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, profile);
-			if (profile == PhysXExporter::GetPhysXProfile())
-			{
-				exportFrictionCombineMode(material);
-				exportRestitutionCombineMode(material);
-			}
-        }
-
-		static bool HasDefaultValues(const PhysXXML::PxMaterial & mat, const String & profile)
+	class PxMaterial : public Element
+	{
+	public:
+		PxMaterial(PhysXExporter & exporter, const PhysXXML::PxMaterial & mat)
+			: Element(exporter, CSWC::CSW_ELEMENT_PX_MATERIAL)
 		{
-			if (profile == PhysXExporter::GetPhysXProfile())
-			{
-				return
-					mat.frictionCombineMode.frictionCombineMode == FrictionCombineMode::DefaultValue() &&
-					mat.restitutionCombineMode.restitutionCombineMode == RestitutionCombineMode::DefaultValue();
-			}
-			return false;
+			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XMLNS, PhysXExporter::GetXMLNS());
+			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XSI_SCHEMALOCATION, PhysXExporter::GetXSISchemaLocation());
+
+			exportFrictionCombineMode(mat);
+			exportRestitutionCombineMode(mat);
+		}
+
+		static bool HasDefaultValues(const PhysXXML::PxMaterial & mat)
+		{
+			return
+				mat.frictionCombineMode.frictionCombineMode == FrictionCombineMode::DefaultValue() &&
+				mat.restitutionCombineMode.restitutionCombineMode == RestitutionCombineMode::DefaultValue();
 		}
 
 	private:
@@ -720,6 +715,38 @@ namespace COLLADAMaya
 			if (mat.restitutionCombineMode.restitutionCombineMode != RestitutionCombineMode::DefaultValue())
 			{
 				RestitutionCombineMode e(getPhysXExporter(), mat.restitutionCombineMode.restitutionCombineMode);
+			}
+		}
+	};
+
+    class PhysicsMaterialTechnique : public Element
+    {
+    public:
+		PhysicsMaterialTechnique(PhysXExporter& exporter, const PhysXXML::PxMaterial & material, const String& profile)
+            : Element(exporter, CSWC::CSW_ELEMENT_TECHNIQUE)
+        {
+            getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, profile);
+			if (profile == PhysXExporter::GetPhysXProfile())
+			{
+				exportPxMaterial(material);
+			}
+        }
+
+		static bool HasDefaultValues(const PhysXXML::PxMaterial & mat, const String & profile)
+		{
+			if (profile == PhysXExporter::GetPhysXProfile())
+			{
+				return PxMaterial::HasDefaultValues(mat);
+			}
+			return false;
+		}
+
+	private:
+		void exportPxMaterial(const PhysXXML::PxMaterial & mat)
+		{
+			if (!PxMaterial::HasDefaultValues(mat))
+			{
+				PxMaterial e(getPhysXExporter(), mat);
 			}
 		}
     };
@@ -1074,47 +1101,35 @@ namespace COLLADAMaya
 		}
 	};
 
-    class ShapeTechnique : public Element
-    {
-    public:
-		ShapeTechnique(PhysXExporter& exporter, const MObject& shape, const PhysXXML::PxShape & pxShape, const String & profile)
-            : Element(exporter, CSWC::CSW_ELEMENT_TECHNIQUE)
-        {
-            getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, profile);
-            if (profile == PROFILE_MAYA) {
-                exporter.exportExtraAttributes(shape);
-            }
-			else if (profile == PhysXExporter::GetPhysXProfile()) {
-				exportSimulationFilterData(pxShape);
-				exportQueryFilterData(pxShape);
-				exportContactOffset(pxShape);
-				exportRestOffset(pxShape);
-				exportShapeFlags(pxShape);
-				exportName(pxShape);
-			}
-        }
+	class PxShape : public Element
+	{
+	public:
+		PxShape(PhysXExporter& exporter, const PhysXXML::PxShape & shape)
+			: Element(exporter, CSWC::CSW_ELEMENT_PX_SHAPE)
+		{
+			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XMLNS, PhysXExporter::GetXMLNS());
+			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XSI_SCHEMALOCATION, PhysXExporter::GetXSISchemaLocation());
 
-    private:
-        static const std::set<MString, MStringComp>& GetAttributes()
-        {
-            if (mAttributes.size() == 0)
-            {
-                // Attributes we want to export in <extra> section
-                mAttributes.insert(ATTR_SHAPE_TYPE);
-                mAttributes.insert(ATTR_SIZE);
-                mAttributes.insert(ATTR_RADIUS);
-                mAttributes.insert(ATTR_HEIGHT);
-                mAttributes.insert(ATTR_BEST_FIT);
-                mAttributes.insert(ATTR_OUT_PHYSICS_SHAPE);
-                mAttributes.insert(ATTR_CONNECT_TO_CLOTH_SPHERE);
-                mAttributes.insert(ATTR_INFLATE);
-                mAttributes.insert(ATTR_USE_MASS_OR_DENSITY);
-                mAttributes.insert(ATTR_MASS);
-                mAttributes.insert(ATTR_DENSITY);
-            }
-            return mAttributes;
-        }
+			exportSimulationFilterData(shape);
+			exportQueryFilterData(shape);
+			exportContactOffset(shape);
+			exportRestOffset(shape);
+			exportShapeFlags(shape);
+			exportName(shape);
+		}
 
+		static bool HasDefaultValues(const PhysXXML::PxShape & shape)
+		{
+			return
+				SimulationFilterData::AreDefaultValues(shape.simulationFilterData.filter0, shape.simulationFilterData.filter1, shape.simulationFilterData.filter2, shape.simulationFilterData.filter3) &&
+				QueryFilterData::AreDefaultValues(shape.queryFilterData.filter0, shape.queryFilterData.filter1, shape.queryFilterData.filter2, shape.queryFilterData.filter3) &&
+				shape.contactOffset.contactOffset == ContactOffset::DefaultValue() &&
+				shape.restOffset.restOffset == RestOffset::DefaultValue() &&
+				shape.flags.flags == ShapeFlags::DefaultValue() &&
+				shape.name.name == DebugName::DefaultValue();
+		}
+
+	private:
 		void exportSimulationFilterData(const PhysXXML::PxShape & shape)
 		{
 			if (!SimulationFilterData::AreDefaultValues(
@@ -1180,6 +1195,51 @@ namespace COLLADAMaya
 			if (shape.name.name != DebugName::DefaultValue())
 			{
 				DebugName e(getPhysXExporter(), shape.name.name);
+			}
+		}
+	};
+
+    class ShapeTechnique : public Element
+    {
+    public:
+		ShapeTechnique(PhysXExporter& exporter, const MObject& shape, const PhysXXML::PxShape & pxShape, const String & profile)
+            : Element(exporter, CSWC::CSW_ELEMENT_TECHNIQUE)
+        {
+            getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, profile);
+            if (profile == PROFILE_MAYA) {
+                exporter.exportExtraAttributes(shape);
+            }
+			else if (profile == PhysXExporter::GetPhysXProfile()) {
+				exportPxShape(pxShape);
+			}
+        }
+
+    private:
+        static const std::set<MString, MStringComp>& GetAttributes()
+        {
+            if (mAttributes.size() == 0)
+            {
+                // Attributes we want to export in <extra> section
+                mAttributes.insert(ATTR_SHAPE_TYPE);
+                mAttributes.insert(ATTR_SIZE);
+                mAttributes.insert(ATTR_RADIUS);
+                mAttributes.insert(ATTR_HEIGHT);
+                mAttributes.insert(ATTR_BEST_FIT);
+                mAttributes.insert(ATTR_OUT_PHYSICS_SHAPE);
+                mAttributes.insert(ATTR_CONNECT_TO_CLOTH_SPHERE);
+                mAttributes.insert(ATTR_INFLATE);
+                mAttributes.insert(ATTR_USE_MASS_OR_DENSITY);
+                mAttributes.insert(ATTR_MASS);
+                mAttributes.insert(ATTR_DENSITY);
+            }
+            return mAttributes;
+        }
+
+		void exportPxShape(const PhysXXML::PxShape & shape)
+		{
+			if (!PxShape::HasDefaultValues(shape))
+			{
+				PxShape e(getPhysXExporter(), shape);
 			}
 		}
 
@@ -2327,111 +2387,65 @@ namespace COLLADAMaya
 		}
 	};
 
-    class RigidBodyTechnique : public Element
-    {
-    public:
-		RigidBodyTechnique(PhysXExporter& exporter, const MObject & rigidBody, const PhysXXML::PxRigidBody & pxRigidBody, const String & profile)
-            : Element(exporter, CSWC::CSW_ELEMENT_TECHNIQUE)
-        {
-            getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, profile);
-            
-            if (profile == PROFILE_MAYA) {
-				exporter.exportExtraAttributes(rigidBody);
-			}
-			else if (profile == PhysXExporter::GetPhysXProfile()) {
-				exportActorFlags(pxRigidBody);
-				exportDominanceGroup(pxRigidBody);
-				exportOwnerClient(pxRigidBody);
-				if (pxRigidBody.getType() == PhysXXML::PxRigidBody::Dynamic)
-				{
-					const PhysXXML::PxRigidDynamic & pxRigidDynamic = static_cast<const PhysXXML::PxRigidDynamic&>(pxRigidBody);
-					exportRigidBodyFlags(pxRigidDynamic);
-					exportMinCCDAdvanceCoefficient(pxRigidDynamic);
-					exportMaxDepenetrationVelocity(pxRigidDynamic);
-					exportLinearDamping(pxRigidDynamic);
-					exportAngularDamping(pxRigidDynamic);
-					exportMaxAngularVelocity(pxRigidDynamic);
-					exportSleepThreshold(pxRigidDynamic);
-					exportStabilizationThreshold(pxRigidDynamic);
-					exportWakeCounter(pxRigidDynamic);
-					exportMinPositionIters(pxRigidDynamic);
-					exportMinVelocityIters(pxRigidDynamic);
-					exportContactReportThreshold(pxRigidDynamic);
-				}
-			}
-        }
-
-		static bool HasDefaultValues(const PhysXXML::PxRigidBody & rb, const String & profile)
+	class PxRigidBody : public Element
+	{
+	public:
+		PxRigidBody(PhysXExporter& exporter, const PhysXXML::PxRigidBody & rb)
+			: Element(exporter, CSWC::CSW_ELEMENT_PX_RIGID_BODY)
 		{
-			if (profile == PhysXExporter::GetPhysXProfile())
-			{
-				bool hasCommonDefaultValues =
-					rb.actorFlags.actorFlags == ActorFlags::DefaultValue() &&
-					rb.dominanceGroup.dominanceGroup == DominanceGroup::DefaultValue() &&
-					rb.ownerClient.ownerClient == OwnerClient::DefaultValue();
-				
-				if (rb.getType() == PhysXXML::PxRigidBody::Dynamic)
-				{
-					const PhysXXML::PxRigidDynamic & dyn = static_cast<const PhysXXML::PxRigidDynamic&>(rb);
-					return hasCommonDefaultValues &&
-						dyn.rigidBodyFlags.rigidBodyFlags == RigidBodyFlags::DefaultValue() &&
-						dyn.minCCDAdvanceCoefficient.minCCDAdvanceCoefficient == MinCCDAdvanceCoefficient::DefaultValue() &&
-						dyn.maxDepenetrationVelocity.maxDepenetrationVelocity == MaxDepenetrationVelocity::DefaultValue() &&
-						dyn.linearDamping.linearDamping == LinearDamping::DefaultValue() &&
-						dyn.angularDamping.angularDamping == AngularDamping::DefaultValue() &&
-						dyn.maxAngularVelocity.maxAngularVelocity == MaxAngularVelocity::DefaultValue() &&
-						dyn.sleepThreshold.sleepThreshold == SleepThreshold::DefaultValue() &&
-						dyn.stabilizationThreshold.stabilizationThreshold == StabilizationThreshold::DefaultValue() &&
-						dyn.wakeCounter.wakeCounter == WakeCounter::DefaultValue() &&
-						dyn.solverIterationCounts.minPositionIters.minPositionIters == MinPositionIters::DefaultValue() &&
-						dyn.solverIterationCounts.minVelocityIters.minVelocityIters == MinVelocityIters::DefaultValue() &&
-						dyn.contactReportThreshold.contactReportThreshold == ContactReportThreshold::DefaultValue();
-				}
+			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XMLNS, PhysXExporter::GetXMLNS());
+			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XSI_SCHEMALOCATION, PhysXExporter::GetXSISchemaLocation());
 
-				return hasCommonDefaultValues;
+			exportActorFlags(rb);
+			exportDominanceGroup(rb);
+			exportOwnerClient(rb);
+			if (rb.getType() == PhysXXML::PxRigidBody::Dynamic)
+			{
+				const PhysXXML::PxRigidDynamic & rd = static_cast<const PhysXXML::PxRigidDynamic&>(rb);
+				exportRigidBodyFlags(rd);
+				exportMinCCDAdvanceCoefficient(rd);
+				exportMaxDepenetrationVelocity(rd);
+				exportLinearDamping(rd);
+				exportAngularDamping(rd);
+				exportMaxAngularVelocity(rd);
+				exportSleepThreshold(rd);
+				exportStabilizationThreshold(rd);
+				exportWakeCounter(rd);
+				exportMinPositionIters(rd);
+				exportMinVelocityIters(rd);
+				exportContactReportThreshold(rd);
 			}
-			return false;
 		}
 
-    private:
-        static const std::set<MString, MStringComp>& GetAttributes()
-        {
-            if (mAttributes.size() == 0)
-            {
-                // Attributes we want to export in <extra> section
-                mAttributes.insert(ATTR_SIMULATION_TYPE);
-                mAttributes.insert(ATTR_SWITCH_TO_DYNAMIC);
-                mAttributes.insert(ATTR_SWITCH_AT_FRAME);
-                mAttributes.insert(ATTR_ENABLE_GRAVITY);
-                mAttributes.insert(ATTR_FORCE_TO_SLEEP);
-                mAttributes.insert(ATTR_OVERRIDE_MASS_OR_DENSITY);
-                mAttributes.insert(ATTR_MASS);
-                mAttributes.insert(ATTR_DENSITY);
-                mAttributes.insert(ATTR_BOUNCINESS);
-                mAttributes.insert(ATTR_STATIC_FRICTION);
-                mAttributes.insert(ATTR_DYNAMIC_FRICTION);
-                mAttributes.insert(ATTR_OVERRIDE_GLOBAL_ITERATION_COUNT);
-                mAttributes.insert(ATTR_POSITION_ITERATION_COUNT);
-                mAttributes.insert(ATTR_VELOCITY_ITERATION_COUNT);
-                mAttributes.insert(ATTR_CONTACT_SHELL_OVERRIDE);
-                mAttributes.insert(ATTR_CONTACT_SHELL_DEPTH);
-                mAttributes.insert(ATTR_CONTACT_SHELL_OFFSET);
-                mAttributes.insert(ATTR_SLEEP_THRESHOLDS_OVERRIDE);
-                mAttributes.insert(ATTR_SLEEP_ENERGY_THRESHOLD);
-                mAttributes.insert(ATTR_LINEAR_DAMPING);
-                mAttributes.insert(ATTR_ANGULAR_DAMPING);
-                mAttributes.insert(ATTR_CENTER_OF_MASS_MODE);
-                mAttributes.insert(ATTR_CENTER_OF_MASS_OVERRIDE);
-                mAttributes.insert(ATTR_INITIAL_VELOCITY);
-                mAttributes.insert(ATTR_INITIAL_SPIN);
-                mAttributes.insert(ATTR_INITIAL_POSITION);
-                mAttributes.insert(ATTR_INITIAL_ORIENTATION);
-                mAttributes.insert(ATTR_ENABLE_CCD);
-                mAttributes.insert(ATTR_CCD_MOTION_THRESHOLD);
-            }
-            return mAttributes;
-        }
+		static bool HasDefaultValues(const PhysXXML::PxRigidBody & rb)
+		{
+			bool hasCommonDefaultValues =
+				rb.actorFlags.actorFlags == ActorFlags::DefaultValue() &&
+				rb.dominanceGroup.dominanceGroup == DominanceGroup::DefaultValue() &&
+				rb.ownerClient.ownerClient == OwnerClient::DefaultValue();
 
+			if (rb.getType() == PhysXXML::PxRigidBody::Dynamic)
+			{
+				const PhysXXML::PxRigidDynamic & rd = static_cast<const PhysXXML::PxRigidDynamic&>(rb);
+				return hasCommonDefaultValues &&
+					rd.rigidBodyFlags.rigidBodyFlags == RigidBodyFlags::DefaultValue() &&
+					rd.minCCDAdvanceCoefficient.minCCDAdvanceCoefficient == MinCCDAdvanceCoefficient::DefaultValue() &&
+					rd.maxDepenetrationVelocity.maxDepenetrationVelocity == MaxDepenetrationVelocity::DefaultValue() &&
+					rd.linearDamping.linearDamping == LinearDamping::DefaultValue() &&
+					rd.angularDamping.angularDamping == AngularDamping::DefaultValue() &&
+					rd.maxAngularVelocity.maxAngularVelocity == MaxAngularVelocity::DefaultValue() &&
+					rd.sleepThreshold.sleepThreshold == SleepThreshold::DefaultValue() &&
+					rd.stabilizationThreshold.stabilizationThreshold == StabilizationThreshold::DefaultValue() &&
+					rd.wakeCounter.wakeCounter == WakeCounter::DefaultValue() &&
+					rd.solverIterationCounts.minPositionIters.minPositionIters == MinPositionIters::DefaultValue() &&
+					rd.solverIterationCounts.minVelocityIters.minVelocityIters == MinVelocityIters::DefaultValue() &&
+					rd.contactReportThreshold.contactReportThreshold == ContactReportThreshold::DefaultValue();
+			}
+
+			return hasCommonDefaultValues;
+		}
+
+	private:
 		void exportActorFlags(const PhysXXML::PxRigidBody & pxRigidBody)
 		{
 			if (pxRigidBody.actorFlags.actorFlags != ActorFlags::DefaultValue())
@@ -2549,6 +2563,79 @@ namespace COLLADAMaya
 			if (pxRigidDynamic.contactReportThreshold.contactReportThreshold != ContactReportThreshold::DefaultValue())
 			{
 				ContactReportThreshold e(getPhysXExporter(), pxRigidDynamic.contactReportThreshold.contactReportThreshold);
+			}
+		}
+	};
+
+    class RigidBodyTechnique : public Element
+    {
+    public:
+		RigidBodyTechnique(PhysXExporter& exporter, const MObject & rigidBody, const PhysXXML::PxRigidBody & pxRigidBody, const String & profile)
+            : Element(exporter, CSWC::CSW_ELEMENT_TECHNIQUE)
+        {
+            getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, profile);
+            
+            if (profile == PROFILE_MAYA) {
+				exporter.exportExtraAttributes(rigidBody);
+			}
+			else if (profile == PhysXExporter::GetPhysXProfile()) {
+				exportPxRigidBody(pxRigidBody);
+			}
+        }
+
+		static bool HasDefaultValues(const PhysXXML::PxRigidBody & rb, const String & profile)
+		{
+			if (profile == PhysXExporter::GetPhysXProfile())
+			{
+				return PxRigidBody::HasDefaultValues(rb);
+			}
+			return false;
+		}
+
+    private:
+        static const std::set<MString, MStringComp>& GetAttributes()
+        {
+            if (mAttributes.size() == 0)
+            {
+                // Attributes we want to export in <extra> section
+                mAttributes.insert(ATTR_SIMULATION_TYPE);
+                mAttributes.insert(ATTR_SWITCH_TO_DYNAMIC);
+                mAttributes.insert(ATTR_SWITCH_AT_FRAME);
+                mAttributes.insert(ATTR_ENABLE_GRAVITY);
+                mAttributes.insert(ATTR_FORCE_TO_SLEEP);
+                mAttributes.insert(ATTR_OVERRIDE_MASS_OR_DENSITY);
+                mAttributes.insert(ATTR_MASS);
+                mAttributes.insert(ATTR_DENSITY);
+                mAttributes.insert(ATTR_BOUNCINESS);
+                mAttributes.insert(ATTR_STATIC_FRICTION);
+                mAttributes.insert(ATTR_DYNAMIC_FRICTION);
+                mAttributes.insert(ATTR_OVERRIDE_GLOBAL_ITERATION_COUNT);
+                mAttributes.insert(ATTR_POSITION_ITERATION_COUNT);
+                mAttributes.insert(ATTR_VELOCITY_ITERATION_COUNT);
+                mAttributes.insert(ATTR_CONTACT_SHELL_OVERRIDE);
+                mAttributes.insert(ATTR_CONTACT_SHELL_DEPTH);
+                mAttributes.insert(ATTR_CONTACT_SHELL_OFFSET);
+                mAttributes.insert(ATTR_SLEEP_THRESHOLDS_OVERRIDE);
+                mAttributes.insert(ATTR_SLEEP_ENERGY_THRESHOLD);
+                mAttributes.insert(ATTR_LINEAR_DAMPING);
+                mAttributes.insert(ATTR_ANGULAR_DAMPING);
+                mAttributes.insert(ATTR_CENTER_OF_MASS_MODE);
+                mAttributes.insert(ATTR_CENTER_OF_MASS_OVERRIDE);
+                mAttributes.insert(ATTR_INITIAL_VELOCITY);
+                mAttributes.insert(ATTR_INITIAL_SPIN);
+                mAttributes.insert(ATTR_INITIAL_POSITION);
+                mAttributes.insert(ATTR_INITIAL_ORIENTATION);
+                mAttributes.insert(ATTR_ENABLE_CCD);
+                mAttributes.insert(ATTR_CCD_MOTION_THRESHOLD);
+            }
+            return mAttributes;
+        }
+
+		void exportPxRigidBody(const PhysXXML::PxRigidBody & rb)
+		{
+			if (!PxRigidBody::HasDefaultValues(rb))
+			{
+				PxRigidBody e(getPhysXExporter(), rb);
 			}
 		}
 
@@ -3572,120 +3659,47 @@ namespace COLLADAMaya
 		}
 	};
 
-    class RigidConstraintTechnique : public Element
-    {
-    public:
-		RigidConstraintTechnique(PhysXExporter& exporter, const MObject & rigidConstraint, const PhysXXML::PxD6Joint & joint, const String & profile)
-            : Element(exporter, CSWC::CSW_ELEMENT_TECHNIQUE)
-        {
-            getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, profile);
-			if (profile == PROFILE_MAYA) {
-				exporter.exportExtraAttributes(rigidConstraint);
-			}
-			else if (profile == PhysXExporter::GetPhysXProfile()) {
-				exportBreakForce(joint);
-				exportBreakTorque(joint);
-				exportConstraintFlags(joint);
-				exportInvMassScale0(joint);
-				exportInvInertiaScale0(joint);
-				exportInvMassScale1(joint);
-				exportInvInertiaScale1(joint);
-				exportProjectionLinearTolerance(joint);
-				exportProjectionAngularTolerance(joint);
-				exportLimitsExtra(joint);
-				exportSpringExtra(joint);
-				exportDrive(joint);
-			}
-        }
-
-		static bool HasDefaultValues(const PhysXXML::PxD6Joint & joint, const String & profile)
+	class PxD6Joint : public Element
+	{
+	public:
+		PxD6Joint(PhysXExporter& exporter, const PhysXXML::PxD6Joint & joint)
+			: Element(exporter, CSWC::CSW_ELEMENT_PX_D6JOINT)
 		{
-			if (profile == PhysXExporter::GetPhysXProfile())
-			{
-				return
-					joint.breakForce.force.force == BreakForce::DefaultValue() &&
-					joint.breakForce.torque.torque == BreakTorque::DefaultValue() &&
-					joint.constraintFlags.flags == ConstraintFlags::DefaultValue() &&
-					joint.invMassScale0.invMassScale0 == InvMassScale0::DefaultValue() &&
-					joint.invInertiaScale0.invInertiaScale0 == InvInertiaScale0::DefaultValue() &&
-					joint.invMassScale1.invMassScale1 == InvMassScale1::DefaultValue() &&
-					joint.invInertiaScale1.invInertiaScale1 == InvInertiaScale1::DefaultValue() &&
-					joint.projectionLinearTolerance.projectionLinearTolerance == ProjectionLinearTolerance::DefaultValue() &&
-					joint.projectionAngularTolerance.projectionAngularTolerance == ProjectionAngularTolerance::DefaultValue() &&
-					LimitsExtra::HasDefaultValues(joint) &&
-					SpringExtra::HasDefaultValues(joint) &&
-					Drive::HasDefaultValues(joint);
-			}
-			return false;
+			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XMLNS, PhysXExporter::GetXMLNS());
+			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XSI_SCHEMALOCATION, PhysXExporter::GetXSISchemaLocation());
+
+			exportBreakForce(joint);
+			exportBreakTorque(joint);
+			exportConstraintFlags(joint);
+			exportInvMassScale0(joint);
+			exportInvInertiaScale0(joint);
+			exportInvMassScale1(joint);
+			exportInvInertiaScale1(joint);
+			exportProjectionLinearTolerance(joint);
+			exportProjectionAngularTolerance(joint);
+			exportLimitsExtra(joint);
+			exportSpringExtra(joint);
+			exportDrive(joint);
 		}
 
-    private:
-        static const std::set<MString, MStringComp>& GetAttributes()
-        {
-            if (mAttributes.size() == 0)
-            {
-                // Attributes we want to export in <extra> section
-                mAttributes.insert(ATTR_CONSTRAIN);
-                mAttributes.insert(ATTR_USE_ACCELERATION);
-                mAttributes.insert(ATTR_INTERPENETRATE);
-                mAttributes.insert(ATTR_TRANSLATE);
-                mAttributes.insert(ATTR_ROTATE);
-                mAttributes.insert(ATTR_RADIUS_SCALE);
-                mAttributes.insert(ATTR_ORIENTATION_MODE);
-                mAttributes.insert(ATTR_MOTION_SWING_Y);
-                mAttributes.insert(ATTR_MOTION_SWING_Z);
-                mAttributes.insert(ATTR_SWING_1_LIMIT_VALUE);
-                mAttributes.insert(ATTR_SWING_1_LIMIT_RESTITUTION);
-                mAttributes.insert(ATTR_SWING_1_LIMIT_SPRING);
-                mAttributes.insert(ATTR_SWING_1_LIMIT_DAMPING);
-                mAttributes.insert(ATTR_SWING_2_LIMIT_VALUE);
-                mAttributes.insert(ATTR_SWING_2_LIMIT_RESTITUTION);
-                mAttributes.insert(ATTR_SWING_2_LIMIT_SPRING);
-                mAttributes.insert(ATTR_SWING_2_LIMIT_DAMPING);
-                mAttributes.insert(ATTR_MOTION_TWIST);
-                mAttributes.insert(ATTR_TWIST_LOW_LIMIT_VALUE);
-                mAttributes.insert(ATTR_TWIST_LOW_LIMIT_RESTITUTION);
-                mAttributes.insert(ATTR_TWIST_LOW_LIMIT_SPRING);
-                mAttributes.insert(ATTR_TWIST_LOW_LIMIT_DAMPING);
-                mAttributes.insert(ATTR_TWIST_HIGH_LIMIT_VALUE);
-                mAttributes.insert(ATTR_TWIST_HIGH_LIMIT_RESTITUTION);
-                mAttributes.insert(ATTR_TWIST_HIGH_LIMIT_SPRING);
-                mAttributes.insert(ATTR_TWIST_HIGH_LIMIT_DAMPING);
-                mAttributes.insert(ATTR_MOTION_X);
-                mAttributes.insert(ATTR_MOTION_Y);
-                mAttributes.insert(ATTR_MOTION_Z);
-                mAttributes.insert(ATTR_LINEAR_LIMIT_VALUE);
-                mAttributes.insert(ATTR_LINEAR_LIMIT_RESTITUTION);
-                mAttributes.insert(ATTR_LINEAR_LIMIT_SPRING);
-                mAttributes.insert(ATTR_LINEAR_LIMIT_DAMPING);
-                mAttributes.insert(ATTR_DRIVE_DAMPING_X);
-                mAttributes.insert(ATTR_DRIVE_DAMPING_Y);
-                mAttributes.insert(ATTR_DRIVE_DAMPING_Z);
-                mAttributes.insert(ATTR_DRIVE_DAMPING_SWING);
-                mAttributes.insert(ATTR_DRIVE_DAMPING_TWIST);
-                mAttributes.insert(ATTR_DRIVE_DAMPING_SLERP);
-                mAttributes.insert(ATTR_GOAL_SPACE);
-                mAttributes.insert(ATTR_GOAL_POSITION);
-                mAttributes.insert(ATTR_GOAL_ORIENTATION);
-                mAttributes.insert(ATTR_DRIVE_SPRING_X);
-                mAttributes.insert(ATTR_DRIVE_SPRING_Y);
-                mAttributes.insert(ATTR_DRIVE_SPRING_Z);
-                mAttributes.insert(ATTR_DRIVE_SPRING_SWING);
-                mAttributes.insert(ATTR_DRIVE_SPRING_TWIST);
-                mAttributes.insert(ATTR_DRIVE_SPRING_SLERP);
-                mAttributes.insert(ATTR_BREAKABLE_FORCE);
-                mAttributes.insert(ATTR_MAX_FORCE);
-                mAttributes.insert(ATTR_BREAKABLE_TORQUE);
-                mAttributes.insert(ATTR_MAX_TORQUE);
-                mAttributes.insert(ATTR_REVERSE);
-                mAttributes.insert(ATTR_PROJECTION_MODE);
-                mAttributes.insert(ATTR_PROJECTION_DISTANCE);
-                mAttributes.insert(ATTR_PROJECTION_ANGLE);
-                mAttributes.insert(ATTR_ANGULAR_DRIVE_MODE);
-            }
-            return mAttributes;
-        }
+		static bool HasDefaultValues(const PhysXXML::PxD6Joint & joint)
+		{
+			return
+				joint.breakForce.force.force == BreakForce::DefaultValue() &&
+				joint.breakForce.torque.torque == BreakTorque::DefaultValue() &&
+				joint.constraintFlags.flags == ConstraintFlags::DefaultValue() &&
+				joint.invMassScale0.invMassScale0 == InvMassScale0::DefaultValue() &&
+				joint.invInertiaScale0.invInertiaScale0 == InvInertiaScale0::DefaultValue() &&
+				joint.invMassScale1.invMassScale1 == InvMassScale1::DefaultValue() &&
+				joint.invInertiaScale1.invInertiaScale1 == InvInertiaScale1::DefaultValue() &&
+				joint.projectionLinearTolerance.projectionLinearTolerance == ProjectionLinearTolerance::DefaultValue() &&
+				joint.projectionAngularTolerance.projectionAngularTolerance == ProjectionAngularTolerance::DefaultValue() &&
+				LimitsExtra::HasDefaultValues(joint) &&
+				SpringExtra::HasDefaultValues(joint) &&
+				Drive::HasDefaultValues(joint);
+		}
 
+	private:
 		void exportBreakForce(const PhysXXML::PxD6Joint & joint)
 		{
 			if (joint.breakForce.force.force != BreakForce::DefaultValue())
@@ -3779,6 +3793,106 @@ namespace COLLADAMaya
 			if (!Drive::HasDefaultValues(joint))
 			{
 				Drive e(getPhysXExporter(), joint);
+			}
+		}
+	};
+
+    class RigidConstraintTechnique : public Element
+    {
+    public:
+		RigidConstraintTechnique(PhysXExporter& exporter, const MObject & rigidConstraint, const PhysXXML::PxD6Joint & joint, const String & profile)
+            : Element(exporter, CSWC::CSW_ELEMENT_TECHNIQUE)
+        {
+            getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, profile);
+			if (profile == PROFILE_MAYA) {
+				exporter.exportExtraAttributes(rigidConstraint);
+			}
+			else if (profile == PhysXExporter::GetPhysXProfile()) {
+				exportPxD6Joint(joint);
+			}
+        }
+
+		static bool HasDefaultValues(const PhysXXML::PxD6Joint & joint, const String & profile)
+		{
+			if (profile == PhysXExporter::GetPhysXProfile())
+			{
+				return PxD6Joint::HasDefaultValues(joint);
+			}
+			return false;
+		}
+
+    private:
+        static const std::set<MString, MStringComp>& GetAttributes()
+        {
+            if (mAttributes.size() == 0)
+            {
+                // Attributes we want to export in <extra> section
+                mAttributes.insert(ATTR_CONSTRAIN);
+                mAttributes.insert(ATTR_USE_ACCELERATION);
+                mAttributes.insert(ATTR_INTERPENETRATE);
+                mAttributes.insert(ATTR_TRANSLATE);
+                mAttributes.insert(ATTR_ROTATE);
+                mAttributes.insert(ATTR_RADIUS_SCALE);
+                mAttributes.insert(ATTR_ORIENTATION_MODE);
+                mAttributes.insert(ATTR_MOTION_SWING_Y);
+                mAttributes.insert(ATTR_MOTION_SWING_Z);
+                mAttributes.insert(ATTR_SWING_1_LIMIT_VALUE);
+                mAttributes.insert(ATTR_SWING_1_LIMIT_RESTITUTION);
+                mAttributes.insert(ATTR_SWING_1_LIMIT_SPRING);
+                mAttributes.insert(ATTR_SWING_1_LIMIT_DAMPING);
+                mAttributes.insert(ATTR_SWING_2_LIMIT_VALUE);
+                mAttributes.insert(ATTR_SWING_2_LIMIT_RESTITUTION);
+                mAttributes.insert(ATTR_SWING_2_LIMIT_SPRING);
+                mAttributes.insert(ATTR_SWING_2_LIMIT_DAMPING);
+                mAttributes.insert(ATTR_MOTION_TWIST);
+                mAttributes.insert(ATTR_TWIST_LOW_LIMIT_VALUE);
+                mAttributes.insert(ATTR_TWIST_LOW_LIMIT_RESTITUTION);
+                mAttributes.insert(ATTR_TWIST_LOW_LIMIT_SPRING);
+                mAttributes.insert(ATTR_TWIST_LOW_LIMIT_DAMPING);
+                mAttributes.insert(ATTR_TWIST_HIGH_LIMIT_VALUE);
+                mAttributes.insert(ATTR_TWIST_HIGH_LIMIT_RESTITUTION);
+                mAttributes.insert(ATTR_TWIST_HIGH_LIMIT_SPRING);
+                mAttributes.insert(ATTR_TWIST_HIGH_LIMIT_DAMPING);
+                mAttributes.insert(ATTR_MOTION_X);
+                mAttributes.insert(ATTR_MOTION_Y);
+                mAttributes.insert(ATTR_MOTION_Z);
+                mAttributes.insert(ATTR_LINEAR_LIMIT_VALUE);
+                mAttributes.insert(ATTR_LINEAR_LIMIT_RESTITUTION);
+                mAttributes.insert(ATTR_LINEAR_LIMIT_SPRING);
+                mAttributes.insert(ATTR_LINEAR_LIMIT_DAMPING);
+                mAttributes.insert(ATTR_DRIVE_DAMPING_X);
+                mAttributes.insert(ATTR_DRIVE_DAMPING_Y);
+                mAttributes.insert(ATTR_DRIVE_DAMPING_Z);
+                mAttributes.insert(ATTR_DRIVE_DAMPING_SWING);
+                mAttributes.insert(ATTR_DRIVE_DAMPING_TWIST);
+                mAttributes.insert(ATTR_DRIVE_DAMPING_SLERP);
+                mAttributes.insert(ATTR_GOAL_SPACE);
+                mAttributes.insert(ATTR_GOAL_POSITION);
+                mAttributes.insert(ATTR_GOAL_ORIENTATION);
+                mAttributes.insert(ATTR_DRIVE_SPRING_X);
+                mAttributes.insert(ATTR_DRIVE_SPRING_Y);
+                mAttributes.insert(ATTR_DRIVE_SPRING_Z);
+                mAttributes.insert(ATTR_DRIVE_SPRING_SWING);
+                mAttributes.insert(ATTR_DRIVE_SPRING_TWIST);
+                mAttributes.insert(ATTR_DRIVE_SPRING_SLERP);
+                mAttributes.insert(ATTR_BREAKABLE_FORCE);
+                mAttributes.insert(ATTR_MAX_FORCE);
+                mAttributes.insert(ATTR_BREAKABLE_TORQUE);
+                mAttributes.insert(ATTR_MAX_TORQUE);
+                mAttributes.insert(ATTR_REVERSE);
+                mAttributes.insert(ATTR_PROJECTION_MODE);
+                mAttributes.insert(ATTR_PROJECTION_DISTANCE);
+                mAttributes.insert(ATTR_PROJECTION_ANGLE);
+                mAttributes.insert(ATTR_ANGULAR_DRIVE_MODE);
+            }
+            return mAttributes;
+        }
+
+		void exportPxD6Joint(const PhysXXML::PxD6Joint & joint)
+		{
+			if (!PxD6Joint::HasDefaultValues(joint))
+			{
+				PxD6Joint e(getPhysXExporter(), joint);
 			}
 		}
 
@@ -4333,6 +4447,8 @@ namespace COLLADAMaya
     String PhysXExporter::mDefaultPhysicsSceneId = "collada_physics_scene";
     String PhysXExporter::mDefaultInstancePhysicsModelSid = "instancePhysicsModel";
 	String PhysXExporter::mPhysXProfile = "PhysX_3.x";
+	String PhysXExporter::mXMLNS = "http://www.collada.org/2005/11/COLLADASchema_PhysX_3.x";
+	String PhysXExporter::mSchemaLocation = "collada_schema_1_4_1_PhysX_3.x.xsd";
 
     PhysXExporter::PhysXExporter(StreamWriter& streamWriter, DocumentExporter& documentExporter)
         : mStreamWriter(streamWriter)
@@ -5152,6 +5268,16 @@ namespace COLLADAMaya
 	const String & PhysXExporter::GetPhysXProfile()
 	{
 		return mPhysXProfile;
+	}
+
+	const String& PhysXExporter::GetXMLNS()
+	{
+		return mXMLNS;
+	}
+
+	String PhysXExporter::GetXSISchemaLocation()
+	{
+		return mXMLNS + " " + mSchemaLocation;
 	}
 
 	namespace local
