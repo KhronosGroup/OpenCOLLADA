@@ -291,7 +291,8 @@ namespace COLLADAMax
 
 		if (isSpot || isPoint)
 		{
-			int decayFunction = parameters->GetInt(isPoint ? MaxLight::PB_OMNIDECAY : MaxLight::PB_DECAY, mDocumentExporter->getOptions().getAnimationStart());
+			GenLight* light = (GenLight*)(lightObject);
+			int decayFunction = (int)light->GetDecayType();
 			switch (decayFunction)
 			{
 			case 1:
