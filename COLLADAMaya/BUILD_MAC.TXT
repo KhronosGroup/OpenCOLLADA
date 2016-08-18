@@ -1,4 +1,4 @@
-Note: Work In Progress. This info is outdated. Currently supporting Maya 2011-2015
+Note: Work In Progress. This info is outdated. Currently supporting Maya 2011-2017
 
 Requirements:
 -------------
