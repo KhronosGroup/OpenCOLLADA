@@ -21,6 +21,18 @@
 #include "COLLADAMayaSceneGraph.h"
 #include "COLLADASWLibraryPhysicsModels.h"
 
+template<>
+class std::less <MObject>
+{
+public:
+	bool operator()(const MObject & l, const MObject & r) const
+	{
+		const int* pl = *reinterpret_cast<const int* const*>(&l);
+		const int* pr = *reinterpret_cast<const int* const*>(&r);
+		return pl < pr;
+	}
+};
+
 namespace COLLADAMaya
 {
     // Unit for mass: kg
@@ -33,21 +45,6 @@ namespace COLLADAMaya
         {
             return strcmp(a.asChar(), b.asChar()) < 0;
         }
-    };
-
-    class PhysXRigidConstraint
-    {
-    public:
-        static void GetSwingConeAndTwistMinLimit(const MObject & rigidConstraint, MVector & min);
-        static void GetSwingConeAndTwistMaxLimit(const MObject & rigidConstraint, MVector & max);
-        static void GetLinearMinLimit           (const MObject & rigidConstraint, MVector & min);
-        static void GetLinearMaxLimit           (const MObject & rigidConstraint, MVector & max);
-        static void GetSpringAngularStiffness   (const MObject & rigidConstraint, double & stiffness);
-        static void GetSpringAngularDamping     (const MObject & rigidConstraint, double & damping);
-        static void GetSpringAngularTargetValue (const MObject & rigidConstraint, double & targetValue);
-        static void GetSpringLinearStiffness    (const MObject & rigidConstraint, double & stiffness);
-        static void GetSpringLinearDamping      (const MObject & rigidConstraint, double & damping);
-        static void GetSpringLinearTargetValue  (const MObject & rigidConstraint, double & targetValue);
     };
 
     class PhysXShape
@@ -79,19 +76,13 @@ namespace COLLADAMaya
         void exportRotation(const MEulerRotation & rotation, const String & sid = "");
         void exportAttributes(const MObject & object, const std::set<MString, MStringComp> & attributes);
         void exportExtraAttributes(const MObject & object);
-        void exportMaterialPhysXXML(const MObject& material);
-        void exportShapePhysXXML(const MObject& rigidBody, const MObject& shape);
-        void exportRigidBodyPhysXXML(const MObject& shape);
-        void exportRigidConstraintPhysXXML(const MObject& constraint);
 
-		MObject getNodeRigidBody(const MObject& node);
-        MObject getShapeRigidBody(const MObject& shape);
-        void getShapeLocalPose(const MObject& rigidBody, const MObject& shape, MMatrix& localPose);
+		const MObject & getNodeRigidBody(const MObject& node) const;
+        void getShapeLocalPose(const MObject& shape, MMatrix& localPose) const;
         bool getShapeVertices(const MObject& shape, std::vector<PhysXXML::Point> & vertices, MString & meshId);
         bool getShapeTriangles(const MObject& shape, std::vector<PhysXXML::Triangle> & triangles);
         void getRigidBodyGlobalPose(const MObject& rigidBody, MMatrix& globalPose);
-        void getRigidBodyTarget(const MObject& rigidBody, MObject& target);
-        bool getRigidSolver(MObject & rigidSolver);
+        const MObject & getRigidSolver() const;
 
         MStatus getMeshURI(const MObject & mesh, URI & meshURI);
 
@@ -124,16 +115,27 @@ namespace COLLADAMaya
         static double GetRigidBodyVolume(const MObject & rigidBody);
         static double GetShapeVolume(const MObject & shape);
 
+		static MMatrix GetRigidBodyTargetTM(const MObject& rigidBody);
+		static MObject GetRigidBodyTarget(const MObject& rigidBody);
         static void GetRigidBodyShapes(const MObject & rigidBody, std::vector<MObject> & shapes);
         static MStatus GetPluggedObject(const MObject & object, const MString & attribute, MObject & pluggedObject);
 
         static const String& GetDefaultPhysicsModelId();
         static const String& GetDefaultPhysicsSceneId();
         static const String& GetDefaultInstancePhysicsModelSid();
-        static const String& GetProfile();
-        static const String& GetProfileXML();
+		static const String& GetPhysXProfile();
+		static const String& GetXMLNS();
+		static String GetXSISchemaLocation();
 
 		static bool HasExtraAttributes(const MObject & object);
+
+		// Convert PhysX enum to COLLADA string
+		static String CombineModeToCOLLADA(PhysXXML::CombineMode::FlagEnum flag);
+		static String ShapeFlagsToCOLLADA(const Flags<PhysXXML::ShapeFlags::FlagEnum> & flags);
+		static String ActorFlagsToCOLLADA(const Flags<PhysXXML::ActorFlags::FlagEnum> & flags);
+		static String RigidBodyFlagsToCOLLADA(const Flags<PhysXXML::RigidBodyFlags::FlagEnum> & flags);
+		static String ConstraintFlagsToCOLLADA(const Flags<PhysXXML::ConstraintFlags::FlagEnum> & flags);
+		static String DriveFlagsToCOLLADA(const Flags<PhysXXML::DriveFlags::FlagEnum> & flags);
 
         enum Filter
         {
@@ -143,15 +145,18 @@ namespace COLLADAMaya
         };
         bool sceneHas(SceneElement::Type type, Filter filter = All);
 
-        PhysXXML::PxRigidStatic* findPxRigidStatic(const String& name);
-        PhysXXML::PxMaterial* findPxMaterial(uint64_t ref);
-		PhysXXML::PxMaterial* findPxMaterial(const MObject& rigidBody);
-		PhysXXML::PxShape* findPxShape(const MObject& rigidBody, const MObject& shape);
-		PhysXXML::PxRigidStatic* findPxRigidStatic(uint64_t id);
-		PhysXXML::PxRigidStatic* findPxRigidStatic(const MObject& rigidBody);
-		PhysXXML::PxRigidDynamic* findPxRigidDynamic(uint64_t id);
-		PhysXXML::PxRigidDynamic* findPxRigidDynamic(const MObject& rigidBody);
-		PhysXXML::PxD6Joint* findPxD6Joint(const MObject& rigidConstraint);
+		const PhysXXML::PxRigidBody* findPxRigidBody(const MObject & rigidBody) const;
+		const PhysXXML::PxRigidBody* findPxRigidBody(const String & name) const;
+		const PhysXXML::PxRigidBody* findPxRigidBody(uint64_t id) const;
+		const PhysXXML::PxMaterial* findPxMaterial(uint64_t ref) const;
+		const PhysXXML::PxMaterial* findPxMaterial(const PhysXXML::PxRigidBody & rigidBody) const;
+		const PhysXXML::PxMaterial* findPxMaterial(const MObject & rigidBody) const;
+		const PhysXXML::PxShape* findPxShape(const MObject & shape) const;
+		const PhysXXML::PxD6Joint* findPxD6Joint(const MObject & rigidConstraint) const;
+
+		const MObject & findMObject(const PhysXXML::PxRigidBody & rigidBody) const;
+		const MObject & findMObject(const PhysXXML::PxShape & shape) const;
+		const MObject & findMObject(const PhysXXML::PxD6Joint & joint) const;
 
     private:
         void exportRotate(const MVector & axis, double angle, const String & sid = "");
@@ -179,7 +184,25 @@ namespace COLLADAMaya
             }
 
             return true;
-        }
+		}
+
+		template<typename E>
+		static String FlagsToCOLLADA(const Flags<E> & flags, const std::map<E, String> & flagToStringMap)
+		{
+			String colladaFlags;
+			for (int i = 0; i < 32; ++i)
+			{
+				E flag = static_cast<E>(1 << i);
+				if (flags & flag)
+				{
+					typename std::map<E, String>::const_iterator it = flagToStringMap.find(flag);
+					if (!colladaFlags.empty())
+						colladaFlags += ' ';
+					colladaFlags += it->second.substr(1);
+				}
+			}
+			return colladaFlags;
+		}
 
     private:
         COLLADASW::StreamWriter& mStreamWriter;
@@ -188,11 +211,24 @@ namespace COLLADAMaya
         StringToStringMap mMayaIdToColladaId;
         PhysXXML::PhysXDocPtr mPhysXDoc;
 
+		std::map<MObject, const PhysXXML::PxMaterial*> mRigidBodyToPxMaterialMap;
+		std::map<const PhysXXML::PxRigidBody*, MObject> mPxRigidBodyToRigidBodyMap;
+		std::map<MObject, const PhysXXML::PxRigidBody*> mRigidBodyToPxRigidBodyMap;
+		std::map<const PhysXXML::PxShape*, MObject> mPxShapeToShapeMap;
+		std::map<MObject, const PhysXXML::PxShape*> mShapeToPxShapeMap;
+		std::map<const PhysXXML::PxD6Joint*, MObject> mPxD6JointToConstraintMap;
+		std::map<MObject, const PhysXXML::PxD6Joint*> mConstraintToPxD6JointMap;
+		std::map<MObject, MObject> mTargetToRigidBodyMap;
+		MObject mRigidSolver;
+
         static String mDefaultPhysicsModelId;
         static String mDefaultPhysicsSceneId;
         static String mDefaultInstancePhysicsModelSid;
-        static String mProfile;
-        static String mProfileXML;
+		static String mPhysXProfile;
+		static String mXMLNS;
+		static String mSchemaLocation;
+
+		friend class PhysicsExportPrePass;
     };
 }
 

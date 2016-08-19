@@ -98,6 +98,7 @@ namespace COLLADASW
 		{
 			appendAttribute ( CSWC::CSW_ATTRIBUTE_XMLNS, CSWC::CSW_NAMESPACE_1_4_1 );
 			appendAttribute ( CSWC::CSW_ATTRIBUTE_VERSION, CSWC::CSW_VERSION_1_4_1 );
+			appendAttribute ( CSWC::CSW_ATTRIBUTE_XMLNS_XSI, CSWC::CSW_XMLNS_XSI_1_5_0 );
 		}
 		else if ( getCOLLADAVersion() == COLLADA_1_5_0 )
 		{
@@ -591,6 +592,21 @@ namespace COLLADASW
         appendNumber(number3);
         mOpenTags.back().mHasText = true;
     }
+
+	//---------------------------------------------------------------
+	void StreamWriter::appendValues(int number, int number2, int number3, int number4)
+	{
+		prepareToAddContents();
+		if (mOpenTags.back().mHasText) appendChar(' ');
+		appendNumber(number);
+		appendChar(' ');
+		appendNumber(number2);
+		appendChar(' ');
+		appendNumber(number3);
+		appendChar(' ');
+		appendNumber(number4);
+		mOpenTags.back().mHasText = true;
+	}
 
     //---------------------------------------------------------------
     void StreamWriter::appendValues ( unsigned int number )

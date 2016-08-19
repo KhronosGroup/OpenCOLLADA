@@ -134,7 +134,241 @@ namespace COLLADAMaya
             const String WakeCounter = "WakeCounter";
             const String YAngle = "YAngle";
             const String ZAngle = "ZAngle";
+
+			const String eAVERAGE = "eAVERAGE";
+			const String eMIN = "eMIN";
+			const String eMULTIPLY = "eMULTIPLY";
+			const String eMAX = "eMAX";
+			const String eVISUALIZATION = "eVISUALIZATION";
+			const String eDISABLE_GRAVITY = "eDISABLE_GRAVITY";
+			const String eSEND_SLEEP_NOTIFIES = "eSEND_SLEEP_NOTIFIES";
+			const String eDISABLE_SIMULATION = "eDISABLE_SIMULATION";
+			const String eKINEMATIC = "eKINEMATIC";
+			const String eUSE_KINEMATIC_TARGET_FOR_SCENE_QUERIES = "eUSE_KINEMATIC_TARGET_FOR_SCENE_QUERIES";
+			const String eENABLE_CCD = "eENABLE_CCD";
+			const String eENABLE_CCD_FRICTION = "eENABLE_CCD_FRICTION";
+			const String eSIMULATION_SHAPE = "eSIMULATION_SHAPE";
+			const String eSCENE_QUERY_SHAPE = "eSCENE_QUERY_SHAPE";
+			const String eTRIGGER_SHAPE = "eTRIGGER_SHAPE";
+			const String ePARTICLE_DRAIN = "ePARTICLE_DRAIN";
+			const String eBROKEN = "eBROKEN";
+			const String ePROJECT_TO_ACTOR0 = "ePROJECT_TO_ACTOR0";
+			const String ePROJECT_TO_ACTOR1 = "ePROJECT_TO_ACTOR1";
+			const String ePROJECTION = "ePROJECTION";
+			const String eCOLLISION_ENABLED = "eCOLLISION_ENABLED";
+			const String eREPORTING = "eREPORTING";
+			const String eDRIVE_LIMITS_ARE_FORCES = "eDRIVE_LIMITS_ARE_FORCES";
+			const String eIMPROVED_SLERP = "eIMPROVED_SLERP";
+			const String eACCELERATION = "eACCELERATION";
+			const String eLOCKED = "eLOCKED";
+			const String eLIMITED = "eLIMITED";
+			const String eFREE = "eFREE";
         }
+
+		std::map<String, CombineMode::FlagEnum> CombineMode::mStringToFlagMap = CombineMode::InitializeStringToFlagMap();
+		std::map<String, CombineMode::FlagEnum> CombineMode::InitializeStringToFlagMap()
+		{
+			std::map<String, FlagEnum> m;
+			m[Strings::eAVERAGE] = Average;
+			m[Strings::eMIN] = Min;
+			m[Strings::eMULTIPLY] = Multiply;
+			m[Strings::eMAX] = Max;
+			return m;
+		}
+		std::map<CombineMode::FlagEnum, String> CombineMode::mFlagToStringMap = CombineMode::InitializeFlagToStringMap();
+		std::map<CombineMode::FlagEnum, String> CombineMode::InitializeFlagToStringMap()
+		{
+			std::map<FlagEnum, String> m;
+			m[Average] = Strings::eAVERAGE;
+			m[Min] = Strings::eMIN;
+			m[Multiply] = Strings::eMULTIPLY;
+			m[Max] = Strings::eMAX;
+			return m;
+		}
+		const std::map<String, CombineMode::FlagEnum> & CombineMode::GetStringToFlagMap()
+		{
+			return mStringToFlagMap;
+		}
+		const std::map<CombineMode::FlagEnum, String> & CombineMode::GetFlagToStringMap()
+		{
+			return mFlagToStringMap;
+		}
+
+		std::map<String, ActorFlags::FlagEnum> ActorFlags::mStringToFlagMap = ActorFlags::InitializeStringToFlagMap();
+		std::map<String, ActorFlags::FlagEnum> ActorFlags::InitializeStringToFlagMap()
+		{
+			std::map<String, FlagEnum> m;
+			m[Strings::eVISUALIZATION] = Visualization;
+			m[Strings::eDISABLE_GRAVITY] = DisableGravity;
+			m[Strings::eSEND_SLEEP_NOTIFIES] = SendSleepNotifies;
+			m[Strings::eDISABLE_SIMULATION] = DisableSimulation;
+			return m;
+		}
+		std::map<ActorFlags::FlagEnum, String> ActorFlags::mFlagToStringMap = ActorFlags::InitializeFlagToStringMap();
+		std::map<ActorFlags::FlagEnum, String> ActorFlags::InitializeFlagToStringMap()
+		{
+			std::map<FlagEnum, String> m;
+			m[Visualization] = Strings::eVISUALIZATION;
+			m[DisableGravity] = Strings::eDISABLE_GRAVITY;
+			m[SendSleepNotifies] = Strings::eSEND_SLEEP_NOTIFIES;
+			m[DisableSimulation] = Strings::eDISABLE_SIMULATION;
+			return m;
+		}
+		const std::map<ActorFlags::FlagEnum, String> & ActorFlags::GetFlagToStringMap()
+		{
+			return mFlagToStringMap;
+		}
+
+		std::map<String, RigidBodyFlags::FlagEnum> RigidBodyFlags::mStringToFlagMap = RigidBodyFlags::InitializeStringToFlagMap();
+		std::map<String, RigidBodyFlags::FlagEnum> RigidBodyFlags::InitializeStringToFlagMap()
+		{
+			std::map<String, FlagEnum> m;
+			m[Strings::eKINEMATIC] = Kinematic;
+			m[Strings::eUSE_KINEMATIC_TARGET_FOR_SCENE_QUERIES] = UseKinematicTargetForSceneQueries;
+			m[Strings::eENABLE_CCD] = EnabledCCD;
+			m[Strings::eENABLE_CCD_FRICTION] = EnabledCCDFriction;
+			return m;
+		}
+		std::map<RigidBodyFlags::FlagEnum, String> RigidBodyFlags::mFlagToStringMap = RigidBodyFlags::InitializeFlagToStringMap();
+		std::map<RigidBodyFlags::FlagEnum, String> RigidBodyFlags::InitializeFlagToStringMap()
+		{
+			std::map<FlagEnum, String> m;
+			m[Kinematic] = Strings::eKINEMATIC;
+			m[UseKinematicTargetForSceneQueries] = Strings::eUSE_KINEMATIC_TARGET_FOR_SCENE_QUERIES;
+			m[EnabledCCD] = Strings::eENABLE_CCD;
+			m[EnabledCCDFriction] = Strings::eENABLE_CCD_FRICTION;
+			return m;
+		}
+		const std::map<RigidBodyFlags::FlagEnum, String> & RigidBodyFlags::GetFlagToStringMap()
+		{
+			return mFlagToStringMap;
+		}
+
+		std::map<String, ShapeFlags::FlagEnum> ShapeFlags::mStringToFlagMap = ShapeFlags::InitializeStringToFlagMap();
+		std::map<String, ShapeFlags::FlagEnum> ShapeFlags::InitializeStringToFlagMap()
+		{
+			std::map<String, FlagEnum> m;
+			m[Strings::eSIMULATION_SHAPE] = SimulationShape;
+			m[Strings::eSCENE_QUERY_SHAPE] = SceneQueryShape;
+			m[Strings::eTRIGGER_SHAPE] = TriggerShape;
+			m[Strings::eVISUALIZATION] = Visualization;
+			m[Strings::ePARTICLE_DRAIN] = ParticleDrain;
+			return m;
+		}
+		std::map<ShapeFlags::FlagEnum, String> ShapeFlags::mFlagToStringMap = ShapeFlags::InitializeFlagToStringMap();
+		std::map<ShapeFlags::FlagEnum, String> ShapeFlags::InitializeFlagToStringMap()
+		{
+			std::map<FlagEnum, String> m;
+			m[SimulationShape] = Strings::eSIMULATION_SHAPE;
+			m[SceneQueryShape] = Strings::eSCENE_QUERY_SHAPE;
+			m[TriggerShape] = Strings::eTRIGGER_SHAPE;
+			m[Visualization] = Strings::eVISUALIZATION;
+			m[ParticleDrain] = Strings::ePARTICLE_DRAIN;
+			return m;
+		}
+		const std::map<ShapeFlags::FlagEnum, String> & ShapeFlags::GetFlagToStringMap()
+		{
+			return mFlagToStringMap;
+		}
+
+		std::map<String, ConstraintFlags::FlagEnum> ConstraintFlags::mStringToFlagMap = ConstraintFlags::InitializeStringToFlagMap();
+		std::map<String, ConstraintFlags::FlagEnum> ConstraintFlags::InitializeStringToFlagMap()
+		{
+			std::map<String, FlagEnum> m;
+			m[Strings::eBROKEN] = Broken;
+			m[Strings::ePROJECT_TO_ACTOR0] = ProjectToActor0;
+			m[Strings::ePROJECT_TO_ACTOR1] = ProjectToActor1;
+			m[Strings::ePROJECTION] = Projection;
+			m[Strings::eCOLLISION_ENABLED] = CollisionEnabled;
+			m[Strings::eREPORTING] = Reporting;
+			m[Strings::eVISUALIZATION] = Visualization;
+			m[Strings::eDRIVE_LIMITS_ARE_FORCES] = DriveLimitsAreForces;
+			m[Strings::eIMPROVED_SLERP] = ImprovedSlerp;
+			return m;
+		}
+		std::map<ConstraintFlags::FlagEnum, String> ConstraintFlags::mFlagToStringMap = ConstraintFlags::InitializeFlagToStringMap();
+		std::map<ConstraintFlags::FlagEnum, String> ConstraintFlags::InitializeFlagToStringMap()
+		{
+			std::map<FlagEnum, String> m;
+			m[Broken] = Strings::eBROKEN;
+			m[ProjectToActor0] = Strings::ePROJECT_TO_ACTOR0;
+			m[ProjectToActor1] = Strings::ePROJECT_TO_ACTOR1;
+			m[Projection] = Strings::ePROJECTION;
+			m[CollisionEnabled] = Strings::eCOLLISION_ENABLED;
+			m[Reporting] = Strings::eREPORTING;
+			m[Visualization] = Strings::eVISUALIZATION;
+			m[DriveLimitsAreForces] = Strings::eDRIVE_LIMITS_ARE_FORCES;
+			m[ImprovedSlerp] = Strings::eIMPROVED_SLERP;
+			return m;
+		}
+		const std::map<ConstraintFlags::FlagEnum, String> & ConstraintFlags::GetFlagToStringMap()
+		{
+			return mFlagToStringMap;
+		}
+
+		std::map<String, DriveFlags::FlagEnum> DriveFlags::mStringToFlagMap = DriveFlags::InitializeStringToFlagMap();
+		std::map<String, DriveFlags::FlagEnum> DriveFlags::InitializeStringToFlagMap()
+		{
+			std::map<String, FlagEnum> m;
+			m[Strings::eACCELERATION] = Acceleration;
+			return m;
+		}
+		std::map<DriveFlags::FlagEnum, String> DriveFlags::mFlagToStringMap = DriveFlags::InitializeFlagToStringMap();
+		std::map<DriveFlags::FlagEnum, String> DriveFlags::InitializeFlagToStringMap()
+		{
+			std::map<FlagEnum, String> m;
+			m[Acceleration] = Strings::eACCELERATION;
+			return m;
+		}
+		const std::map<DriveFlags::FlagEnum, String> & DriveFlags::GetFlagToStringMap()
+		{
+			return mFlagToStringMap;
+		}
+
+		std::map<String, MotionFlags::FlagEnum> MotionFlags::mStringToFlagMap = MotionFlags::InitializeStringToFlagMap();
+		std::map<String, MotionFlags::FlagEnum> MotionFlags::InitializeStringToFlagMap()
+		{
+			std::map<String, FlagEnum> m;
+			m[Strings::eLOCKED] = Locked;
+			m[Strings::eLIMITED] = Limited;
+			m[Strings::eFREE] = Free;
+			return m;
+		}
+		std::map<MotionFlags::FlagEnum, String> MotionFlags::mFlagToStringMap = MotionFlags::InitializeFlagToStringMap();
+		std::map<MotionFlags::FlagEnum, String> MotionFlags::InitializeFlagToStringMap()
+		{
+			std::map<FlagEnum, String> m;
+			m[Locked] = Strings::eLOCKED;
+			m[Limited] = Strings::eLIMITED;
+			m[Free] = Strings::eFREE;
+			return m;
+		}
+		const std::map<String, MotionFlags::FlagEnum> & MotionFlags::GetStringToFlagMap()
+		{
+			return mStringToFlagMap;
+		}
+		const std::map<MotionFlags::FlagEnum, String> & MotionFlags::GetFlagToStringMap()
+		{
+			return mFlagToStringMap;
+		}
+
+		template<typename E>
+		String FlagsToString(const Flags<E> & flags, const std::map<E, String> & flagToStringMap)
+		{
+			String s;
+			for (int i = 0; i < 32; ++i)
+			{
+				E flag = static_cast<E>(1 << i);
+				if (flags & flag)
+				{
+					typename std::map<E, String>::const_iterator it = flagToStringMap.find(flag);
+					if (!s.empty())
+						s += '|';
+					s += it->second;
+				}
+			}
+			return s;
+		}
 
         bool equal(xmlNode* node, const String& name)
         {
@@ -181,6 +415,72 @@ namespace COLLADAMaya
             }
             return children;
         }
+
+		template<typename E>
+		void GetContent(xmlNode* node, Flags<E> & flags, const std::map<String, E> & stringToFlagMap)
+		{
+			if (!node) {
+				return;
+			}
+
+			node = FindChild(node, Strings::text);
+			if (!node) {
+				return;
+			}
+
+			if (!node->content) {
+				return;
+			}
+
+			std::stringstream ss;
+			ss << node->content;
+
+			String str;
+			ss >> str;
+
+			std::vector<String> strFlags;
+			COLLADABU::Utils::split(str, "|", strFlags);
+			flags.clear();
+			for (size_t i = 0; i < strFlags.size(); ++i)
+			{
+				typename std::map<String, E>::const_iterator it = stringToFlagMap.find(strFlags[i]);
+				if (it != stringToFlagMap.end())
+				{
+					flags |= it->second;
+				}
+			}
+		}
+
+		template<typename E>
+		void GetContent(xmlNode* node, E & flag, const std::map<String, E> & stringToFlagMap)
+		{
+			if (!node) {
+				return;
+			}
+
+			node = FindChild(node, Strings::text);
+			if (!node) {
+				return;
+			}
+
+			if (!node->content) {
+				return;
+			}
+
+			std::stringstream ss;
+			ss << node->content;
+
+			String str;
+			ss >> str;
+
+			flag = static_cast<E>(0);
+
+			typename std::map<String, E>::const_iterator it = stringToFlagMap.find(str);
+			if (it != stringToFlagMap.end())
+			{
+				flag = it->second;
+			}
+		}
 
         void GetContent(xmlNode* node, double& content)
         {
@@ -438,7 +738,7 @@ namespace COLLADAMaya
             GetContent(node, upVector);
         }
 
-        void UpVector::exportElement(StreamWriter& sw)
+        void UpVector::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::UpVector);
             sw.appendValues(upVector.x, upVector.y, upVector.z);
@@ -451,7 +751,7 @@ namespace COLLADAMaya
             GetContent(node, length);
         }
 
-        void Length::exportElement(StreamWriter& sw)
+        void Length::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Length);
             sw.appendValues(length);
@@ -464,7 +764,7 @@ namespace COLLADAMaya
             GetContent(node, mass);
         }
 
-        void Mass::exportElement(StreamWriter& sw)
+        void Mass::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Mass);
             sw.appendValues(mass);
@@ -477,7 +777,7 @@ namespace COLLADAMaya
             GetContent(node, speed);
         }
 
-        void Speed::exportElement(StreamWriter& sw)
+        void Speed::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Speed);
             sw.appendValues(speed);
@@ -490,7 +790,7 @@ namespace COLLADAMaya
             , speed(FindChild(node, Strings::Speed))
         {}
 
-        void LengthMassSpeedScale::exportElement(StreamWriter& sw)
+        void LengthMassSpeedScale::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Scale);
             length.exportElement(sw);
@@ -505,7 +805,7 @@ namespace COLLADAMaya
             GetContent(node, id);
         }
 
-        void Id::exportElement(StreamWriter& sw)
+        void Id::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Id);
             sw.appendValues(id);
@@ -523,7 +823,7 @@ namespace COLLADAMaya
             GetContent(node, points);
         }
 
-        void Points::exportElement(StreamWriter& sw)
+        void Points::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::points);
             sw.appendValues(&points[0].x, points.size() * 3);
@@ -535,7 +835,7 @@ namespace COLLADAMaya
             , points(FindChild(node, Strings::points))
         {}
 
-        void PxConvexMesh::exportElement(StreamWriter& sw)
+        void PxConvexMesh::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::PxConvexMesh);
             id.exportElement(sw);
@@ -554,7 +854,7 @@ namespace COLLADAMaya
             GetContent(node, triangles);
         }
 
-        void Triangles::exportElement(StreamWriter& sw)
+        void Triangles::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Triangles);
             sw.appendValues(&triangles[0].point0, triangles.size() * 3);
@@ -567,7 +867,7 @@ namespace COLLADAMaya
             , triangles(FindChild(node, Strings::Triangles))
         {}
 
-        void PxTriangleMesh::exportElement(StreamWriter& sw)
+        void PxTriangleMesh::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::PxTriangleMesh);
             id.exportElement(sw);
@@ -582,7 +882,7 @@ namespace COLLADAMaya
             GetContent(node, dynamicFriction);
         }
 
-        void DynamicFriction::exportElement(StreamWriter& sw)
+        void DynamicFriction::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::DynamicFriction);
             sw.appendValues(dynamicFriction);
@@ -595,7 +895,7 @@ namespace COLLADAMaya
             GetContent(node, staticFriction);
         }
 
-        void StaticFriction::exportElement(StreamWriter& sw)
+        void StaticFriction::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::StaticFriction);
             sw.appendValues(staticFriction);
@@ -608,7 +908,7 @@ namespace COLLADAMaya
             GetContent(node, restitution);
         }
 
-        void Restitution::exportElement(StreamWriter& sw)
+        void Restitution::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Restitution);
             sw.appendValues(restitution);
@@ -617,25 +917,25 @@ namespace COLLADAMaya
 
         FrictionCombineMode::FrictionCombineMode(xmlNode* node)
         {
-            GetContent(node, frictionCombineMode);
+            GetContent(node, frictionCombineMode, CombineMode::GetStringToFlagMap());
         }
 
-        void FrictionCombineMode::exportElement(StreamWriter& sw)
+        void FrictionCombineMode::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::FrictionCombineMode);
-            sw.appendValues(frictionCombineMode);
+			sw.appendValues(FlagsToString(Flags<CombineMode::FlagEnum>(frictionCombineMode), CombineMode::GetFlagToStringMap()));
             sw.closeElement();
         }
 
         RestitutionCombineMode::RestitutionCombineMode(xmlNode* node)
         {
-            GetContent(node, restitutionCombineMode);
+            GetContent(node, restitutionCombineMode, CombineMode::GetStringToFlagMap());
         }
 
-        void RestitutionCombineMode::exportElement(StreamWriter& sw)
+        void RestitutionCombineMode::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::RestitutionCombineMode);
-            sw.appendValues(restitutionCombineMode);
+            sw.appendValues(FlagsToString(Flags<CombineMode::FlagEnum>(restitutionCombineMode), CombineMode::GetFlagToStringMap()));
             sw.closeElement();
         }
 
@@ -648,7 +948,7 @@ namespace COLLADAMaya
             , restitutionCombineMode(FindChild(node, Strings::RestitutionCombineMode))
         {}
 
-        void PxMaterial::exportElement(StreamWriter& sw)
+        void PxMaterial::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::PxMaterial);
             id.exportElement(sw);
@@ -665,7 +965,7 @@ namespace COLLADAMaya
             GetContent(node, name);
         }
 
-        void Name::exportElement(StreamWriter& sw)
+        void Name::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Name);
             sw.appendValues(name);
@@ -674,25 +974,25 @@ namespace COLLADAMaya
 
         ActorFlags::ActorFlags(xmlNode* node)
         {
-            GetContent(node, actorFlags);
+            GetContent(node, actorFlags, mStringToFlagMap);
         }
 
-        void ActorFlags::exportElement(StreamWriter& sw)
+        void ActorFlags::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::ActorFlags);
-            sw.appendValues(actorFlags);
+            sw.appendValues(FlagsToString(actorFlags, mFlagToStringMap));
             sw.closeElement();
         }
 
         RigidBodyFlags::RigidBodyFlags(xmlNode* node)
         {
-            GetContent(node, rigidBodyFlags);
+            GetContent(node, rigidBodyFlags, mStringToFlagMap);
         }
 
-        void RigidBodyFlags::exportElement(StreamWriter& sw)
+        void RigidBodyFlags::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::RigidBodyFlags);
-            sw.appendValues(rigidBodyFlags);
+			sw.appendValues(FlagsToString(rigidBodyFlags, mFlagToStringMap));
             sw.closeElement();
         }
 
@@ -702,7 +1002,7 @@ namespace COLLADAMaya
             GetContent(node, dominanceGroup);
         }
 
-        void DominanceGroup::exportElement(StreamWriter& sw)
+        void DominanceGroup::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::DominanceGroup);
             sw.appendValues(dominanceGroup);
@@ -715,7 +1015,7 @@ namespace COLLADAMaya
             GetContent(node, ownerClient);
         }
 
-        void OwnerClient::exportElement(StreamWriter& sw)
+        void OwnerClient::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::OwnerClient);
             sw.appendValues(ownerClient);
@@ -727,7 +1027,7 @@ namespace COLLADAMaya
             GetContent(node, rotation, translation);
         }
 
-        void GlobalPose::exportElement(StreamWriter& sw)
+        void GlobalPose::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::GlobalPose);
             sw.appendValues(&rotation.x, 7);
@@ -739,7 +1039,7 @@ namespace COLLADAMaya
             GetContent(node, halfExtents);
         }
 
-        void HalfExtents::exportElement(StreamWriter& sw)
+        void HalfExtents::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::HalfExtents);
             sw.appendValues(&halfExtents.x, 3);
@@ -750,7 +1050,7 @@ namespace COLLADAMaya
             : halfExtents(FindChild(node, Strings::HalfExtents))
         {}
 
-        void PxBoxGeometry::exportElement(StreamWriter& sw)
+        void PxBoxGeometry::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::PxBoxGeometry);
             halfExtents.exportElement(sw);
@@ -763,7 +1063,7 @@ namespace COLLADAMaya
             GetContent(node, radius);
         }
 
-        void Radius::exportElement(StreamWriter& sw)
+        void Radius::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Radius);
             sw.appendValues(radius);
@@ -776,7 +1076,7 @@ namespace COLLADAMaya
             GetContent(node, halfHeight);
         }
 
-        void HalfHeight::exportElement(StreamWriter& sw)
+        void HalfHeight::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::HalfHeight);
             sw.appendValues(halfHeight);
@@ -788,7 +1088,7 @@ namespace COLLADAMaya
             , halfHeight(FindChild(node, Strings::HalfHeight))
         {}
 
-        void PxCapsuleGeometry::exportElement(StreamWriter& sw)
+        void PxCapsuleGeometry::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::PxCapsuleGeometry);
             radius.exportElement(sw);
@@ -801,7 +1101,7 @@ namespace COLLADAMaya
             GetContent(node, scale);
         }
 
-        void Scale::exportElement(StreamWriter& sw)
+        void Scale::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Scale);
             sw.appendValues(&scale.x, 3);
@@ -813,7 +1113,7 @@ namespace COLLADAMaya
             GetContent(node, rotation);
         }
 
-        void Rotation::exportElement(StreamWriter& sw)
+        void Rotation::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Rotation);
             sw.appendValues(rotation.x, rotation.y, rotation.z, rotation.w);
@@ -825,7 +1125,7 @@ namespace COLLADAMaya
             , rotation(FindChild(node, Strings::Rotation))
         {}
 
-        void MeshScale::exportElement(StreamWriter& sw)
+        void MeshScale::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Scale);
             scale.exportElement(sw);
@@ -839,7 +1139,7 @@ namespace COLLADAMaya
             GetContent(node, convexMesh);
         }
 
-        void ConvexMesh::exportElement(StreamWriter& sw)
+        void ConvexMesh::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::ConvexMesh);
             sw.appendValues(convexMesh);
@@ -851,7 +1151,7 @@ namespace COLLADAMaya
             , convexMesh(FindChild(node, Strings::ConvexMesh))
         {}
 
-        void PxConvexMeshGeometry::exportElement(StreamWriter& sw)
+        void PxConvexMeshGeometry::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::PxConvexMeshGeometry);
             scale.exportElement(sw);
@@ -862,7 +1162,7 @@ namespace COLLADAMaya
         PxPlaneGeometry::PxPlaneGeometry(xmlNode* node)
         {}
 
-        void PxPlaneGeometry::exportElement(StreamWriter& sw)
+        void PxPlaneGeometry::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::PxPlaneGeometry);
             sw.closeElement();
@@ -872,7 +1172,7 @@ namespace COLLADAMaya
             : radius(FindChild(node, Strings::Radius))
         {}
 
-        void PxSphereGeometry::exportElement(StreamWriter& sw)
+        void PxSphereGeometry::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::PxSphereGeometry);
             radius.exportElement(sw);
@@ -885,7 +1185,7 @@ namespace COLLADAMaya
             GetContent(node, triangleMesh);
         }
 
-        void TriangleMesh::exportElement(StreamWriter& sw)
+        void TriangleMesh::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::TriangleMesh);
             sw.appendValues(triangleMesh);
@@ -897,7 +1197,7 @@ namespace COLLADAMaya
             , triangleMesh(FindChild(node, Strings::TriangleMesh))
         {}
 
-        void PxTriangleMeshGeometry::exportElement(StreamWriter& sw)
+        void PxTriangleMeshGeometry::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::PxTriangleMeshGeometry);
             scale.exportElement(sw);
@@ -934,7 +1234,7 @@ namespace COLLADAMaya
             }
         }
 
-        void Geometry::exportElement(StreamWriter& sw)
+        void Geometry::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Geometry);
             switch (type)
@@ -966,7 +1266,7 @@ namespace COLLADAMaya
             GetContent(node, rotation, translation);
         }
 
-        void LocalPose::exportElement(StreamWriter& sw)
+        void LocalPose::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::LocalPose);
             sw.appendValues(&rotation.x, 7);
@@ -982,7 +1282,7 @@ namespace COLLADAMaya
             GetContent(node, filter0, filter1, filter2, filter3);
         }
 
-        void SimulationFilterData::exportElement(StreamWriter& sw)
+        void SimulationFilterData::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::SimulationFilterData);
             sw.appendValues(&filter0, 4);
@@ -998,7 +1298,7 @@ namespace COLLADAMaya
             GetContent(node, filter0, filter1, filter2, filter3);
         }
 
-        void QueryFilterData::exportElement(StreamWriter& sw)
+        void QueryFilterData::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::QueryFilterData);
             sw.appendValues(&filter0, 4);
@@ -1011,7 +1311,7 @@ namespace COLLADAMaya
             GetContent(node, materialRef);
         }
 
-        void PxMaterialRef::exportElement(StreamWriter& sw)
+        void PxMaterialRef::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::PxMaterialRef);
             sw.appendValues(materialRef);
@@ -1022,7 +1322,7 @@ namespace COLLADAMaya
             : materialRef(FindChild(node, Strings::PxMaterialRef))
         {}
 
-        void Materials::exportElement(StreamWriter& sw)
+        void Materials::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Materials);
             materialRef.exportElement(sw);
@@ -1035,7 +1335,7 @@ namespace COLLADAMaya
             GetContent(node, contactOffset);
         }
 
-        void ContactOffset::exportElement(StreamWriter& sw)
+        void ContactOffset::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::ContactOffset);
             sw.appendValues(contactOffset);
@@ -1048,22 +1348,22 @@ namespace COLLADAMaya
             GetContent(node, restOffset);
         }
 
-        void RestOffset::exportElement(StreamWriter& sw)
+        void RestOffset::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::RestOffset);
             sw.appendValues(restOffset);
             sw.closeElement();
         }
 
-        Flags::Flags(xmlNode* node)
+		ShapeFlags::ShapeFlags(xmlNode* node)
         {
-            GetContent(node, flags);
+            GetContent(node, flags, mStringToFlagMap);
         }
 
-        void Flags::exportElement(StreamWriter& sw)
+		void ShapeFlags::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Flags);
-            sw.appendValues(flags);
+			sw.appendValues(FlagsToString(flags, mFlagToStringMap));
             sw.closeElement();
         }
 
@@ -1079,7 +1379,7 @@ namespace COLLADAMaya
             , name(FindChild(node, Strings::Name))
         {}
 
-        void PxShape::exportElement(StreamWriter& sw)
+        void PxShape::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::PxShape);
             geometry.exportElement(sw);
@@ -1102,7 +1402,7 @@ namespace COLLADAMaya
             }
         }
 
-        void Shapes::exportElement(StreamWriter& sw)
+        void Shapes::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Shapes);
             for (size_t i = 0; i < shapes.size(); ++i) {
@@ -1111,7 +1411,7 @@ namespace COLLADAMaya
             sw.closeElement();
         }
 
-        PxRigidStatic::PxRigidStatic(xmlNode* node)
+		PxRigidBody::PxRigidBody(xmlNode* node)
             : id(FindChild(node, Strings::Id))
             , name(FindChild(node, Strings::Name))
             , actorFlags(FindChild(node, Strings::ActorFlags))
@@ -1121,7 +1421,22 @@ namespace COLLADAMaya
             , shapes(FindChild(node, Strings::Shapes))
         {}
 
-        void PxRigidStatic::exportElement(StreamWriter& sw)
+		PxShape* PxRigidBody::findShape(const String& shapeName)
+		{
+			for (size_t i = 0; i < shapes.shapes.size(); ++i) {
+				PxShape& shape = shapes.shapes[i];
+				if (shape.name.name == shapeName) {
+					return &shape;
+				}
+			}
+			return NULL;
+		}
+
+		PxRigidStatic::PxRigidStatic(xmlNode* node)
+			: PxRigidBody(node)
+		{}
+
+        void PxRigidStatic::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::PxRigidStatic);
             id.exportElement(sw);
@@ -1134,23 +1449,17 @@ namespace COLLADAMaya
             sw.closeElement();
         }
 
-        PxShape* PxRigidStatic::findShape(const String& shapeName)
-        {
-            for (size_t i = 0; i < shapes.shapes.size(); ++i) {
-                PxShape& shape = shapes.shapes[i];
-                if (shape.name.name == shapeName) {
-                    return &shape;
-                }
-            }
-            return NULL;
-        }
+		PxRigidBody::Type PxRigidStatic::getType() const
+		{
+			return Static;
+		}
 
         CMassLocalPose::CMassLocalPose(xmlNode* node)
         {
             GetContent(node, rotation, translation);
         }
 
-        void CMassLocalPose::exportElement(StreamWriter& sw)
+        void CMassLocalPose::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::CMassLocalPose);
             sw.appendValues(&rotation.x, 7);
@@ -1162,7 +1471,7 @@ namespace COLLADAMaya
             GetContent(node, massSpaceInertiaTensor);
         }
 
-        void MassSpaceInertiaTensor::exportElement(StreamWriter& sw)
+        void MassSpaceInertiaTensor::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::MassSpaceInertiaTensor);
             sw.appendValues(&massSpaceInertiaTensor.x, 3);
@@ -1174,7 +1483,7 @@ namespace COLLADAMaya
             GetContent(node, linearVelocity);
         }
 
-        void LinearVelocity::exportElement(StreamWriter& sw)
+        void LinearVelocity::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::LinearVelocity);
             sw.appendValues(&linearVelocity.x, 3);
@@ -1186,7 +1495,7 @@ namespace COLLADAMaya
             GetContent(node, angularVelocity);
         }
 
-        void AngularVelocity::exportElement(StreamWriter& sw)
+        void AngularVelocity::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::AngularVelocity);
             sw.appendValues(&angularVelocity.x, 3);
@@ -1199,7 +1508,7 @@ namespace COLLADAMaya
             GetContent(node, minCCDAdvanceCoefficient);
         }
 
-        void MinCCDAdvanceCoefficient::exportElement(StreamWriter& sw)
+        void MinCCDAdvanceCoefficient::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::MinCCDAdvanceCoefficient);
             sw.appendValues(minCCDAdvanceCoefficient);
@@ -1212,7 +1521,7 @@ namespace COLLADAMaya
             GetContent(node, maxDepenetrationVelocity);
         }
 
-        void MaxDepenetrationVelocity::exportElement(StreamWriter& sw)
+        void MaxDepenetrationVelocity::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::MaxDepenetrationVelocity);
             sw.appendValues(maxDepenetrationVelocity);
@@ -1225,7 +1534,7 @@ namespace COLLADAMaya
             GetContent(node, linearDamping);
         }
 
-        void LinearDamping::exportElement(StreamWriter& sw)
+        void LinearDamping::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::LinearDamping);
             sw.appendValues(linearDamping);
@@ -1238,7 +1547,7 @@ namespace COLLADAMaya
             GetContent(node, angularDamping);
         }
 
-        void AngularDamping::exportElement(StreamWriter& sw)
+        void AngularDamping::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::AngularDamping);
             sw.appendValues(angularDamping);
@@ -1251,7 +1560,7 @@ namespace COLLADAMaya
             GetContent(node, maxAngularVelocity);
         }
 
-        void MaxAngularVelocity::exportElement(StreamWriter& sw)
+        void MaxAngularVelocity::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::MaxAngularVelocity);
             sw.appendValues(maxAngularVelocity);
@@ -1264,7 +1573,7 @@ namespace COLLADAMaya
             GetContent(node, sleepThreshold);
         }
 
-        void SleepThreshold::exportElement(StreamWriter& sw)
+        void SleepThreshold::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::SleepThreshold);
             sw.appendValues(sleepThreshold);
@@ -1277,7 +1586,7 @@ namespace COLLADAMaya
             GetContent(node, stabilizationThreshold);
         }
 
-        void StabilizationThreshold::exportElement(StreamWriter& sw)
+        void StabilizationThreshold::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::StabilizationThreshold);
             sw.appendValues(stabilizationThreshold);
@@ -1290,7 +1599,7 @@ namespace COLLADAMaya
             GetContent(node, wakeCounter);
         }
 
-        void WakeCounter::exportElement(StreamWriter& sw)
+        void WakeCounter::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::WakeCounter);
             sw.appendValues(wakeCounter);
@@ -1303,7 +1612,7 @@ namespace COLLADAMaya
             GetContent(node, minPositionIters);
         }
 
-        void MinPositionIters::exportElement(StreamWriter& sw)
+        void MinPositionIters::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::minPositionIters);
             sw.appendValues(minPositionIters);
@@ -1316,7 +1625,7 @@ namespace COLLADAMaya
             GetContent(node, minVelocityIters);
         }
 
-        void MinVelocityIters::exportElement(StreamWriter& sw)
+        void MinVelocityIters::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::minVelocityIters);
             sw.appendValues(minVelocityIters);
@@ -1328,7 +1637,7 @@ namespace COLLADAMaya
             , minVelocityIters(FindChild(node, Strings::minVelocityIters))
         {}
 
-        void SolverIterationCounts::exportElement(StreamWriter& sw)
+        void SolverIterationCounts::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::SolverIterationCounts);
             minPositionIters.exportElement(sw);
@@ -1342,7 +1651,7 @@ namespace COLLADAMaya
             GetContent(node, contactReportThreshold);
         }
 
-        void ContactReportThreshold::exportElement(StreamWriter& sw)
+        void ContactReportThreshold::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::ContactReportThreshold);
             sw.appendValues(contactReportThreshold);
@@ -1350,13 +1659,7 @@ namespace COLLADAMaya
         }
 
         PxRigidDynamic::PxRigidDynamic(xmlNode* node)
-            : id(FindChild(node, Strings::Id))
-            , name(FindChild(node, Strings::Name))
-            , actorFlags(FindChild(node, Strings::ActorFlags))
-            , dominanceGroup(FindChild(node, Strings::DominanceGroup))
-            , ownerClient(FindChild(node, Strings::OwnerClient))
-            , globalPose(FindChild(node, Strings::GlobalPose))
-            , shapes(FindChild(node, Strings::Shapes))
+			: PxRigidBody(node)
             , cMassLocalPose(FindChild(node, Strings::CMassLocalPose))
             , mass(FindChild(node, Strings::Mass))
             , massSpaceInertiaTensor(FindChild(node, Strings::MassSpaceInertiaTensor))
@@ -1375,7 +1678,7 @@ namespace COLLADAMaya
             , contactReportThreshold(FindChild(node, Strings::ContactReportThreshold))
         {}
 
-        void PxRigidDynamic::exportElement(StreamWriter& sw)
+        void PxRigidDynamic::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::PxRigidDynamic);
             id.exportElement(sw);
@@ -1404,16 +1707,10 @@ namespace COLLADAMaya
             sw.closeElement();
         }
 
-        PxShape* PxRigidDynamic::findShape(const String& shapeName)
-        {
-            for (size_t i = 0; i < shapes.shapes.size(); ++i) {
-                PxShape& shape = shapes.shapes[i];
-                if (shape.name.name == shapeName) {
-                    return &shape;
-                }
-            }
-            return NULL;
-        }
+		PxRigidBody::Type PxRigidDynamic::getType() const
+		{
+			return Dynamic;
+		}
 
         Actor0::Actor0(xmlNode* node)
             : actor0(0)
@@ -1421,7 +1718,7 @@ namespace COLLADAMaya
             GetContent(node, actor0);
         }
 
-        void Actor0::exportElement(StreamWriter& sw)
+        void Actor0::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::actor0);
             sw.appendValues(actor0);
@@ -1434,7 +1731,7 @@ namespace COLLADAMaya
             GetContent(node, actor1);
         }
 
-        void Actor1::exportElement(StreamWriter& sw)
+        void Actor1::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::actor1);
             sw.appendValues(actor1);
@@ -1446,7 +1743,7 @@ namespace COLLADAMaya
             , actor1(FindChild(node, Strings::actor1))
         {}
 
-        void Actors::exportElement(StreamWriter& sw)
+        void Actors::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Actors);
             actor0.exportElement(sw);
@@ -1459,7 +1756,7 @@ namespace COLLADAMaya
             GetContent(node, rotation, translation);
         }
 
-        void EActor0::exportElement(StreamWriter& sw)
+        void EActor0::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::eACTOR0);
             sw.appendValues(&rotation.x, 7);
@@ -1471,7 +1768,7 @@ namespace COLLADAMaya
             GetContent(node, rotation, translation);
         }
 
-        void EActor1::exportElement(StreamWriter& sw)
+        void EActor1::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::eACTOR1);
             sw.appendValues(&rotation.x, 7);
@@ -1483,7 +1780,7 @@ namespace COLLADAMaya
             , eActor1(FindChild(node, Strings::eACTOR1))
         {}
 
-        void ActorLocalPose::exportElement(StreamWriter& sw)
+        void ActorLocalPose::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::LocalPose);
             eActor0.exportElement(sw);
@@ -1497,7 +1794,7 @@ namespace COLLADAMaya
             GetContent(node, force);
         }
 
-        void Force::exportElement(StreamWriter& sw)
+        void Force::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::force);
             sw.appendValues(force);
@@ -1510,7 +1807,7 @@ namespace COLLADAMaya
             GetContent(node, torque);
         }
 
-        void Torque::exportElement(StreamWriter& sw)
+        void Torque::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::torque);
             sw.appendValues(torque);
@@ -1522,7 +1819,7 @@ namespace COLLADAMaya
             , torque(FindChild(node, Strings::torque))
         {}
 
-        void BreakForce::exportElement(StreamWriter& sw)
+        void BreakForce::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::BreakForce);
             force.exportElement(sw);
@@ -1532,13 +1829,13 @@ namespace COLLADAMaya
 
         ConstraintFlags::ConstraintFlags(xmlNode* node)
         {
-            GetContent(node, flags);
+            GetContent(node, flags, mStringToFlagMap);
         }
         
-        void ConstraintFlags::exportElement(COLLADASW::StreamWriter& sw)
+        void ConstraintFlags::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::ConstraintFlags);
-            sw.appendValues(flags);
+			sw.appendValues(FlagsToString(flags, mFlagToStringMap));
             sw.closeElement();
         }
 
@@ -1548,7 +1845,7 @@ namespace COLLADAMaya
             GetContent(node, invMassScale0);
         }
 
-        void InvMassScale0::exportElement(StreamWriter& sw)
+        void InvMassScale0::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::InvMassScale0);
             sw.appendValues(invMassScale0);
@@ -1561,7 +1858,7 @@ namespace COLLADAMaya
             GetContent(node, invMassScale1);
         }
 
-        void InvMassScale1::exportElement(StreamWriter& sw)
+        void InvMassScale1::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::InvMassScale1);
             sw.appendValues(invMassScale1);
@@ -1574,7 +1871,7 @@ namespace COLLADAMaya
             GetContent(node, invInertiaScale0);
         }
 
-        void InvInertiaScale0::exportElement(StreamWriter& sw)
+        void InvInertiaScale0::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::InvInertiaScale0);
             sw.appendValues(invInertiaScale0);
@@ -1587,7 +1884,7 @@ namespace COLLADAMaya
             GetContent(node, invInertiaScale1);
         }
 
-        void InvInertiaScale1::exportElement(StreamWriter& sw)
+        void InvInertiaScale1::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::InvInertiaScale1);
             sw.appendValues(invInertiaScale1);
@@ -1596,73 +1893,73 @@ namespace COLLADAMaya
 
         MotionX::MotionX(xmlNode* node)
         {
-            GetContent(node, eX);
+			GetContent(node, eX, MotionFlags::GetStringToFlagMap());
         }
 
-        void MotionX::exportElement(StreamWriter& sw)
+        void MotionX::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::eX);
-            sw.appendValues(eX);
+			sw.appendValues(FlagsToString(Flags<MotionFlags::FlagEnum>(eX), MotionFlags::GetFlagToStringMap()));
             sw.closeElement();
         }
 
         MotionY::MotionY(xmlNode* node)
         {
-            GetContent(node, eY);
+			GetContent(node, eY, MotionFlags::GetStringToFlagMap());
         }
 
-        void MotionY::exportElement(StreamWriter& sw)
+        void MotionY::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::eY);
-            sw.appendValues(eY);
+			sw.appendValues(FlagsToString(Flags<MotionFlags::FlagEnum>(eY), MotionFlags::GetFlagToStringMap()));
             sw.closeElement();
         }
 
         MotionZ::MotionZ(xmlNode* node)
         {
-            GetContent(node, eZ);
+			GetContent(node, eZ, MotionFlags::GetStringToFlagMap());
         }
 
-        void MotionZ::exportElement(StreamWriter& sw)
+        void MotionZ::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::eZ);
-            sw.appendValues(eZ);
+			sw.appendValues(FlagsToString(Flags<MotionFlags::FlagEnum>(eZ), MotionFlags::GetFlagToStringMap()));
             sw.closeElement();
         }
 
         MotionTwist::MotionTwist(xmlNode* node)
         {
-            GetContent(node, eTwist);
+			GetContent(node, eTwist, MotionFlags::GetStringToFlagMap());
         }
 
-        void MotionTwist::exportElement(StreamWriter& sw)
+        void MotionTwist::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::eTWIST);
-            sw.appendValues(eTwist);
+			sw.appendValues(FlagsToString(Flags<MotionFlags::FlagEnum>(eTwist), MotionFlags::GetFlagToStringMap()));
             sw.closeElement();
         }
 
         MotionSwing1::MotionSwing1(xmlNode* node)
         {
-            GetContent(node, eSwing1);
+			GetContent(node, eSwing1, MotionFlags::GetStringToFlagMap());
         }
 
-        void MotionSwing1::exportElement(StreamWriter& sw)
+        void MotionSwing1::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::eSWING1);
-            sw.appendValues(eSwing1);
+			sw.appendValues(FlagsToString(Flags<MotionFlags::FlagEnum>(eSwing1), MotionFlags::GetFlagToStringMap()));
             sw.closeElement();
         }
 
         MotionSwing2::MotionSwing2(xmlNode* node)
         {
-            GetContent(node, eSwing2);
+			GetContent(node, eSwing2, MotionFlags::GetStringToFlagMap());
         }
 
-        void MotionSwing2::exportElement(StreamWriter& sw)
+        void MotionSwing2::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::eSWING2);
-            sw.appendValues(eSwing2);
+			sw.appendValues(FlagsToString(Flags<MotionFlags::FlagEnum>(eSwing2), MotionFlags::GetFlagToStringMap()));
             sw.closeElement();
         }
 
@@ -1675,7 +1972,7 @@ namespace COLLADAMaya
             , eSwing2(FindChild(node, Strings::eSWING2))
         {}
 
-        void Motion::exportElement(StreamWriter& sw)
+        void Motion::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Motion);
             eX.exportElement(sw);
@@ -1693,7 +1990,7 @@ namespace COLLADAMaya
             GetContent(node, bounceThreshold);
         }
 
-        void BounceThreshold::exportElement(StreamWriter& sw)
+        void BounceThreshold::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::BounceThreshold);
             sw.appendValues(bounceThreshold);
@@ -1706,7 +2003,7 @@ namespace COLLADAMaya
             GetContent(node, stiffness);
         }
 
-        void Stiffness::exportElement(StreamWriter& sw)
+        void Stiffness::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Stiffness);
             sw.appendValues(stiffness);
@@ -1719,7 +2016,7 @@ namespace COLLADAMaya
             GetContent(node, damping);
         }
 
-        void Damping::exportElement(StreamWriter& sw)
+        void Damping::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Damping);
             sw.appendValues(damping);
@@ -1732,7 +2029,7 @@ namespace COLLADAMaya
             GetContent(node, contactDistance);
         }
 
-        void ContactDistance::exportElement(StreamWriter& sw)
+        void ContactDistance::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::ContactDistance);
             sw.appendValues(contactDistance);
@@ -1745,7 +2042,7 @@ namespace COLLADAMaya
             GetContent(node, value);
         }
 
-        void Value::exportElement(StreamWriter& sw)
+        void Value::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Value);
             sw.appendValues(value);
@@ -1761,7 +2058,7 @@ namespace COLLADAMaya
             , value(FindChild(node, Strings::Value))
         {}
 
-        void LinearLimit::exportElement(StreamWriter& sw)
+        void LinearLimit::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::LinearLimit);
             restitution.exportElement(sw);
@@ -1779,7 +2076,7 @@ namespace COLLADAMaya
             GetContent(node, upper);
         }
 
-        void Upper::exportElement(StreamWriter& sw)
+        void Upper::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Upper);
             sw.appendValues(upper);
@@ -1792,7 +2089,7 @@ namespace COLLADAMaya
             GetContent(node, lower);
         }
 
-        void Lower::exportElement(StreamWriter& sw)
+        void Lower::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Lower);
             sw.appendValues(lower);
@@ -1809,7 +2106,7 @@ namespace COLLADAMaya
             , lower(FindChild(node, Strings::Lower))
         {}
 
-        void TwistLimit::exportElement(StreamWriter& sw)
+        void TwistLimit::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::TwistLimit);
             restitution.exportElement(sw);
@@ -1828,7 +2125,7 @@ namespace COLLADAMaya
             GetContent(node, yAngle);
         }
 
-        void YAngle::exportElement(StreamWriter& sw)
+        void YAngle::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::YAngle);
             sw.appendValues(yAngle);
@@ -1841,7 +2138,7 @@ namespace COLLADAMaya
             GetContent(node, zAngle);
         }
 
-        void ZAngle::exportElement(StreamWriter& sw)
+        void ZAngle::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::ZAngle);
             sw.appendValues(zAngle);
@@ -1858,7 +2155,7 @@ namespace COLLADAMaya
             , zAngle(FindChild(node, Strings::ZAngle))
         {}
 
-        void SwingLimit::exportElement(StreamWriter& sw)
+        void SwingLimit::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::SwingLimit);
             restitution.exportElement(sw);
@@ -1877,12 +2174,24 @@ namespace COLLADAMaya
             GetContent(node, forceLimit);
         }
 
-        void ForceLimit::exportElement(StreamWriter& sw)
+        void ForceLimit::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::ForceLimit);
             sw.appendValues(forceLimit);
             sw.closeElement();
         }
+
+		DriveFlags::DriveFlags(xmlNode* node)
+		{
+			GetContent(node, flags, mStringToFlagMap);
+		}
+
+		void DriveFlags::exportElement(StreamWriter& sw) const
+		{
+			sw.openElement(Strings::Flags);
+			sw.appendValues(FlagsToString(flags, mFlagToStringMap));
+			sw.closeElement();
+		}
 
         DriveX::DriveX(xmlNode* node)
             : stiffness(FindChild(node, Strings::Stiffness))
@@ -1891,7 +2200,7 @@ namespace COLLADAMaya
             , flags(FindChild(node, Strings::Flags))
         {}
 
-        void DriveX::exportElement(StreamWriter& sw)
+        void DriveX::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::eX);
             stiffness.exportElement(sw);
@@ -1908,7 +2217,7 @@ namespace COLLADAMaya
             , flags(FindChild(node, Strings::Flags))
         {}
 
-        void DriveY::exportElement(StreamWriter& sw)
+        void DriveY::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::eY);
             stiffness.exportElement(sw);
@@ -1925,7 +2234,7 @@ namespace COLLADAMaya
             , flags(FindChild(node, Strings::Flags))
         {}
 
-        void DriveZ::exportElement(StreamWriter& sw)
+        void DriveZ::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::eZ);
             stiffness.exportElement(sw);
@@ -1942,7 +2251,7 @@ namespace COLLADAMaya
             , flags(FindChild(node, Strings::Flags))
         {}
 
-        void DriveSwing::exportElement(StreamWriter& sw)
+        void DriveSwing::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::eSWING);
             stiffness.exportElement(sw);
@@ -1959,7 +2268,7 @@ namespace COLLADAMaya
             , flags(FindChild(node, Strings::Flags))
         {}
 
-        void DriveTwist::exportElement(StreamWriter& sw)
+        void DriveTwist::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::eTWIST);
             stiffness.exportElement(sw);
@@ -1973,14 +2282,16 @@ namespace COLLADAMaya
             : stiffness(FindChild(node, Strings::Stiffness))
             , damping(FindChild(node, Strings::Damping))
             , forceLimit(FindChild(node, Strings::ForceLimit))
+			, flags(FindChild(node, Strings::Flags))
         {}
 
-        void DriveSlerp::exportElement(StreamWriter& sw)
+        void DriveSlerp::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::eSLERP);
             stiffness.exportElement(sw);
             damping.exportElement(sw);
             forceLimit.exportElement(sw);
+			flags.exportElement(sw);
             sw.closeElement();
         }
 
@@ -1993,7 +2304,7 @@ namespace COLLADAMaya
             , driveSlerp(FindChild(node, Strings::eSLERP))
         {}
 
-        void Drive::exportElement(StreamWriter& sw)
+        void Drive::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::Drive);
             driveX.exportElement(sw);
@@ -2010,7 +2321,7 @@ namespace COLLADAMaya
             GetContent(node, rotation, translation);
         }
 
-        void DrivePosition::exportElement(StreamWriter& sw)
+        void DrivePosition::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::DrivePosition);
             sw.appendValues(&rotation.x, 7);
@@ -2022,7 +2333,7 @@ namespace COLLADAMaya
             GetContent(node, linear);
         }
 
-        void Linear::exportElement(StreamWriter& sw)
+        void Linear::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::linear);
             sw.appendValues(&linear.x, 3);
@@ -2034,7 +2345,7 @@ namespace COLLADAMaya
             GetContent(node, angular);
         }
 
-        void Angular::exportElement(StreamWriter& sw)
+        void Angular::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::angular);
             sw.appendValues(&angular.x, 3);
@@ -2046,7 +2357,7 @@ namespace COLLADAMaya
             , angular(FindChild(node, Strings::angular))
         {}
 
-        void DriveVelocity::exportElement(StreamWriter& sw)
+        void DriveVelocity::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::DriveVelocity);
             linear.exportElement(sw);
@@ -2060,7 +2371,7 @@ namespace COLLADAMaya
             GetContent(node, projectionLinearTolerance);
         }
 
-        void ProjectionLinearTolerance::exportElement(StreamWriter& sw)
+        void ProjectionLinearTolerance::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::ProjectionLinearTolerance);
             sw.appendValues(projectionLinearTolerance);
@@ -2073,7 +2384,7 @@ namespace COLLADAMaya
             GetContent(node, projectionAngularTolerance);
         }
 
-        void ProjectionAngularTolerance::exportElement(StreamWriter& sw)
+        void ProjectionAngularTolerance::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::ProjectionAngularTolerance);
             sw.appendValues(projectionAngularTolerance);
@@ -2102,7 +2413,7 @@ namespace COLLADAMaya
             , projectionAngularTolerance(FindChild(node, Strings::ProjectionAngularTolerance))
         {}
 
-        void PxD6Joint::exportElement(StreamWriter& sw)
+        void PxD6Joint::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::PxD6Joint);
             id.exportElement(sw);
@@ -2162,7 +2473,7 @@ namespace COLLADAMaya
             }
         }
 
-        void PhysX30Collection::exportElement(StreamWriter& sw)
+        void PhysX30Collection::exportElement(StreamWriter& sw) const
         {
             sw.openElement(Strings::PhysX30Collection);
             upVector.exportElement(sw);
@@ -2286,27 +2597,57 @@ namespace COLLADAMaya
             return NULL;
         }
 
-        PxMaterial* PhysXDoc::findMaterial(const String& bodyName, const String& shapeName)
+        PxMaterial* PhysXDoc::findMaterial(const String& shapeName)
         {
-            PxShape* shape = findShape(bodyName, shapeName);
+            PxShape* shape = findShape(shapeName);
             if (shape) {
                 return findMaterial(shape->materials.materialRef.materialRef);
             }
             return NULL;
         }
 
-        PxShape* PhysXDoc::findShape(const String& bodyName, const String& shapeName)
-        {
-            PxRigidStatic* rigidStatic = findRigidStatic(bodyName);
-            if (rigidStatic) {
-                return rigidStatic->findShape(shapeName);
-            }
-            PxRigidDynamic* rigidDynamic = findRigidDynamic(bodyName);
-            if (rigidDynamic) {
-                return rigidDynamic->findShape(shapeName);
-            }
-            return NULL;
-        }
+		PxShape* PhysXDoc::findShape(const String& shapeName)
+		{
+			for (size_t rb = 0; rb < physX30Collection.rigidStatics.size(); ++rb) {
+				PxRigidStatic& rigid = physX30Collection.rigidStatics[rb];
+				for (size_t sh = 0; sh < rigid.shapes.shapes.size(); ++sh) {
+					if (rigid.shapes.shapes[sh].name.name == shapeName) {
+						return &rigid.shapes.shapes[sh];
+					}
+				}
+			}
+			for (size_t rb = 0; rb < physX30Collection.rigidDynamics.size(); ++rb) {
+				PxRigidDynamic& rigid = physX30Collection.rigidDynamics[rb];
+				for (size_t sh = 0; sh < rigid.shapes.shapes.size(); ++sh) {
+					if (rigid.shapes.shapes[sh].name.name == shapeName) {
+						return &rigid.shapes.shapes[sh];
+					}
+				}
+			}
+			return NULL;
+		}
+
+		PxRigidBody* PhysXDoc::findRigidBody(const String & bodyName)
+		{
+			if (PxRigidStatic* s = findRigidStatic(bodyName)) {
+				return s;
+			}
+			if (PxRigidDynamic* d = findRigidDynamic(bodyName)) {
+				return d;
+			}
+			return NULL;
+		}
+
+		PxRigidBody* PhysXDoc::findRigidBody(uint64_t id)
+		{
+			if (PxRigidStatic* s = findRigidStatic(id)) {
+				return s;
+			}
+			if (PxRigidDynamic* d = findRigidDynamic(id)) {
+				return d;
+			}
+			return NULL;
+		}
 
 		PxRigidStatic* PhysXDoc::findRigidStatic(uint64_t id)
 		{
