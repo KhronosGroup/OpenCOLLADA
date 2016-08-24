@@ -34,6 +34,9 @@
 #include "COLLADABUIDList.h"
 #include <maya/MFnClip.h>
 
+#include "COLLADAMayaAttributeParser.h"
+#include <maya/MFnAttribute.h>
+
 
 namespace COLLADAMaya
 {
@@ -685,13 +688,95 @@ namespace COLLADAMaya
 
 		void saveParamInstancedClip(std::vector<bool>& OriginalValues);
 		void restoreParamInstancedClip(std::vector<bool>& OriginalValues);
-		void createAnimationClip(MFnClip& currentMfnclip);
+		void createAnimationClip(MObject& ClipObject);
 
 
 		void generateSamplingFunctionForClip(MFnClip& clipFn);
 
 		static const String getNameOfStepInterpolation(const Step & type);
 		static const String getNameOfOrder(const MEulerRotation::RotationOrder & order);
+
+
+		class ExtraAttributeExporter : public AttributeParser
+		{
+
+			public:
+				ExtraAttributeExporter(COLLADASW::ColladaAnimationClip & clip)
+					: colladaClip(clip)
+				{}
+
+				const MarkersList& GetMarkersList() { return markers; }
+
+			private:
+
+
+				float markerTime;
+				MarkersList markers;
+
+				COLLADASW::ColladaAnimationClip& colladaClip;
+
+			protected:
+				virtual bool onBeforePlug(MPlug & plug) override
+				{
+					MStatus status;
+
+					MObject attr = plug.attribute(&status);
+					if (!status) return false;
+
+					MFnAttribute fnAttr(attr, &status);
+					if (!status) return false;
+
+					MString attrName = fnAttr.name(&status);
+					if (!status) return false;
+
+					bool isDynamic = fnAttr.isDynamic(&status);
+					if (!status) return false;
+
+					if (!isDynamic)
+						return false;
+
+					bool isHidden = fnAttr.isHidden(&status);
+					if (!status) return false;
+
+					if (isHidden)
+						return false;
+
+					return true;
+				}
+
+				
+				virtual void onString(MPlug & plug, const MString & name, const MString & value) override
+				{
+					MStatus status;
+					MPlug parentplug = plug.parent(&status);
+					MString parentplugName = parentplug.name(&status);
+
+					std::size_t found = String(parentplugName.asChar()).find("Markers");
+					if (found != std::string::npos)
+					{
+						Markers markersElement;
+						markersElement.ID = String(value.asChar());
+						markersElement.time = markerTime;
+						markers.push_back(markersElement);
+					}
+				}
+
+				virtual void onFloat(MPlug & plug, const MString & name, float value) override
+				{
+					MStatus status;
+					MPlug parentplug = plug.parent(&status);
+					MString parentplugName = parentplug.name(&status);
+
+					std::size_t found = String(parentplugName.asChar()).find("Markers");
+					if (found != std::string::npos)
+					{
+						markerTime = value;
+					}
+				}
+
+		};
+
+
     };
 
 }

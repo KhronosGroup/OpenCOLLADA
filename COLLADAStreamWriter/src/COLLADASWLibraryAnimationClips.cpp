@@ -12,6 +12,10 @@
 #include "COLLADASWLibraryAnimationClips.h"
 #include "COLLADASWConstants.h"
 
+
+#include "COLLADASWSource.h"
+#include "COLLADASWLibraryAnimations.h"
+
 namespace COLLADASW
 {
 
@@ -37,7 +41,7 @@ namespace COLLADASW
 
 
     //---------------------------------------------------------------
-    void LibraryAnimationClips::addAnimationClip ( const ColladaAnimationClip& animationClip )
+	void LibraryAnimationClips::addAnimationClip(const ColladaAnimationClip& animationClip)
     {
         // Opens the library, if it is not already open.
         openLibrary();
@@ -66,8 +70,53 @@ namespace COLLADASW
             mSW->closeElement();
         }
 		
-		if (animationClip.isAnimationEvent())
-			animationClip.addExtraTechniques(mSW);
+//		if (animationClip.isAnimationEvent())
+//			animationClip.addExtraTechniques(mSW);
+
+		std::vector<float> valuesTime;
+		std::vector<String> valuesID;
+
+		MarkersList markers = const_cast<ColladaAnimationClip&>(animationClip).getMarkersList();
+
+		MarkersList::const_iterator markerIter = markers.begin();
+		for (; markerIter != markers.end(); ++markerIter)
+		{
+			valuesTime.push_back(markerIter->time);
+			valuesID.push_back(markerIter->ID);
+		}
+
+
+		if (!valuesTime.empty())
+		{
+			mSW->openElement(CSWC::CSW_ELEMENT_EXTRA);
+			{
+				mSW->openElement(CSWC::CSW_ELEMENT_TECHNIQUE);
+				mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, "OpenCOLLADAMaya");
+				{
+					mSW->openElement(CSWC::CSW_ELEMENT_EVENT);
+
+					const String sourceId = "-marker";
+
+					mSW->openElement(CSWC::CSW_ELEMENT_TIMESTAMPS);
+					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_ID, animationClip.getAnimationClipId() + sourceId + LibraryAnimations::INPUT_SOURCE_ID_SUFFIX + LibraryAnimations::ARRAY_ID_SUFFIX);
+					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_COUNT, (unsigned long)valuesTime.size());
+					mSW->appendValues(valuesTime);
+					mSW->closeElement();
+									
+					mSW->openElement(CSWC::CSW_ELEMENT_MARKERS);
+					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_ID, animationClip.getAnimationClipId() + sourceId + LibraryAnimations::NAME_SOURCE_ID_SUFFIX + LibraryAnimations::ARRAY_ID_SUFFIX);
+					mSW->appendAttribute(CSWC::CSW_ATTRIBUTE_COUNT, (unsigned long)valuesID.size());
+					mSW->appendValues(valuesID);
+					mSW->closeElement();
+
+					mSW->closeElement();
+				}
+				mSW->closeElement();
+			}
+			mSW->closeElement();
+		}
+
+
 
         mSW->closeElement();
     }

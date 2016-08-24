@@ -118,6 +118,7 @@ namespace COLLADASW
             DEFAULT = STEP
         };
 
+		static const String NAME_SOURCE_ID_SUFFIX;
         static const String INPUT_SOURCE_ID_SUFFIX;
         static const String OUTPUT_SOURCE_ID_SUFFIX;
         static const String INTANGENT_SOURCE_ID_SUFFIX;

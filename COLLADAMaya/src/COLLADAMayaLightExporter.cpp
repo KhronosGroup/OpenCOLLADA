@@ -283,9 +283,13 @@ namespace COLLADAMaya
             COLLADASW::Light& mLight;
 
         protected:
-            virtual bool onBeforeAttribute(MFnDependencyNode & node, MObject & attr) override
-            {
-                MStatus status;
+			virtual bool onBeforePlug(MPlug & plug) override
+			{
+				MStatus status;
+
+				MObject attr = plug.attribute(&status);
+				if (!status) return false;
+
                 MFnAttribute fnAttr(attr, &status);
                 if (!status) return false;
 

@@ -31,7 +31,18 @@ namespace COLLADAMaya
         for ( ; clipIter!= animationClips->end(); ++clipIter )
         {
             AnimationClip* animationClip = *clipIter;
-            addAnimationClip ( *animationClip->colladaClip );
+			
+			MarkersList::iterator markerIter = animationClip->markers.begin();
+			for (; markerIter != animationClip->markers.end(); ++markerIter)
+			{
+				COLLADASW::MarkersSW swMarkerElement;
+				swMarkerElement.ID = markerIter->ID;
+				swMarkerElement.time = markerIter->time;
+
+				animationClip->colladaClip->getMarkersList().push_back(swMarkerElement);
+			}
+
+			addAnimationClip ( *animationClip->colladaClip);
         }
 
         closeLibrary();

@@ -25,6 +25,7 @@ namespace COLLADASW
     const String LibraryAnimations::STEP_NAME = "STEP";
 
 
+	const String LibraryAnimations::NAME_SOURCE_ID_SUFFIX = "-name";
     const String LibraryAnimations::INPUT_SOURCE_ID_SUFFIX = "-input";
     const String LibraryAnimations::OUTPUT_SOURCE_ID_SUFFIX = "-output";
     const String LibraryAnimations::INTANGENT_SOURCE_ID_SUFFIX = "-intangent";

@@ -41,25 +41,23 @@ namespace COLLADAMaya
 
 	protected:
 		/**
-		 * Callback called before parsing an attribute.
-		 * @param fnNode Parsed node.
-		 * @param attribute Parsed attribute.
-		 * @return false to skip attribute. true to continue attribute parsing.
+		 * Callback called before parsing a plug.
+		 * @param plug Parsed plug.
+		 * @return false to skip plug. true to continue attribute parsing.
 		 */
-		virtual bool onBeforeAttribute	(MFnDependencyNode & fnNode, MObject & attribute)   { return true; }
+		virtual bool onBeforePlug(MPlug & plug) { return true; }
 
 		/**
-		 * Callback called after parsing an attribute.
-		 * @param fnNode Parsed node.
-		 * @param attribute Parsed attribute.
+		 * Callback called after parsing a plug.
+		 * @param plug Parsed plug.
 		 */
-		virtual void onAfterAttribute	(MFnDependencyNode & fnNode, MObject & attribute)   { }
+		virtual void onAfterPlug(MPlug & plug) { }
 
 		/**
-		 * Callbacks called when parsing an attribute of given type.
+		 * Callbacks called when parsing a plug of given type.
 		 * @param plug Node plug associated to current attribute.
 		 * @param name Current attribute name.
-		 * @param value Current attribute plug value.
+		 * @param value Current plug value.
 		 */
 		virtual void onBoolean			    (MPlug & plug, const MString & name, bool value)			                    { }
 		virtual void onByte				    (MPlug & plug, const MString & name, char value)			                    { }
@@ -95,25 +93,25 @@ namespace COLLADAMaya
         virtual void onMatrix               (MPlug & plug, const MString & name, const MMatrix& value)                      { }
 
 	private:
-        void parseAttribute         (MFnDependencyNode & fnNode, MObject & attribute, std::set<String>& parsedAttributes);
-		void parseNumericAttribute	(MFnDependencyNode & fnNode, MObject & attribute);
-		void parseTypedAttribute    (MFnDependencyNode & fnNode, MObject & attribute);
-        void parseEnumAttribute     (MFnDependencyNode & fnNode, MObject & attribute);
-        void parseMessageAttribute  (MFnDependencyNode & fnNode, MObject & attribute);
-        void parseMatrixAttribute   (MFnDependencyNode & fnNode, MObject & attribute);
-        void parseCompoundAttribute (MFnDependencyNode & fnNode, MObject & attribute, std::set<String>& parsedAttributes);
-        void parseUnitAttribute     (MFnDependencyNode & fnNode, MObject & attribute);
-        void parseGenericAttribute  (MFnDependencyNode & fnNode, MObject & attribute);
-	    void parseLightDataAttribute(MFnDependencyNode & fnNode, MObject & attribute);
-		void parseNumericData       (MFnDependencyNode & fnNode, MObject & attribute);
-		void parseNumeric           (MPlug plug, MFnNumericData::Type type);
-		void parseStringData        (MFnDependencyNode & fnNode, MObject & attribute);
-        void parseMeshData          (MFnDependencyNode & fnNode, MObject & attribute);
-        void parseComponentListData (MFnDependencyNode & fnNode, MObject & attribute);
+		void parsePlug				(MPlug & plug);
+		void parseNumericPlug		(MPlug & plug);
+		void parseTypedPlug			(MPlug & plug);
+		void parseEnumPlug			(MPlug & plug);
+		void parseMessagePlug		(MPlug & plug);
+		void parseMatrixPlug		(MPlug & plug);
+		void parseCompoundPlug		(MPlug & plug);
+		void parseUnitPlug			(MPlug & plug);
+		void parseGenericPlug		(MPlug & plug);
+		void parseLightDataPlug		(MPlug & plug);
+		void parseNumericData		(MPlug & plug);
+		void parseNumeric			(MPlug plug, MFnNumericData::Type type);
+		void parseStringData		(MPlug & plug);
+		void parseMeshData			(MPlug & plug);
+		void parseComponentListData	(MPlug & plug);
 
 		static bool IsNumericCompoundAttribute(const MObject& attribute, MFnNumericData::Type& type);
 
-        friend class AutoOnAfterAttribute;
+		friend class AutoOnAfterPlug;
     };
 }
 

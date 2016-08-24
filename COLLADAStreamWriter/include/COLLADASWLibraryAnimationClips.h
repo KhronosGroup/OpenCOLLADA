@@ -22,6 +22,17 @@ namespace COLLADASW
     typedef std::vector<String> AnimationInstances;
 
 
+	/** Animation Markers */
+	struct MarkersSW
+	{
+		float time;
+		String ID;
+	};
+
+	typedef std::vector<MarkersSW> MarkersList;
+	
+
+
 	class ColladaAnimationClip: public BaseExtraTechnique
     {
 
@@ -90,6 +101,12 @@ namespace COLLADASW
             return mInstancedAnimations;
         }
 
+		/** Returns the list with the markers animations. */
+		MarkersList& getMarkersList()
+		{
+			return markers;
+		}
+
 		bool isAnimationEvent() const
 		{
 			return mIsAnimationEvent;
@@ -99,6 +116,8 @@ namespace COLLADASW
 		{
 			mIsAnimationEvent = val;
 		}
+
+		
 
     private:
 
@@ -118,6 +137,9 @@ namespace COLLADASW
         /** The list of animations, which use this clip. */
         AnimationInstances mInstancedAnimations;
 		
+		/** list of Event attached to this clip */
+		MarkersList markers;
+
 		/** Is this animation clip is used as EventAnimation*/
 		bool mIsAnimationEvent;
     };

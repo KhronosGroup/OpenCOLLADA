@@ -39,8 +39,6 @@
 
 #include <maya/MItDependencyNodes.h>
 
-
-
 namespace COLLADAMaya
 {
 
@@ -122,9 +120,9 @@ namespace COLLADAMaya
 		}
 	}
 	
-	void AnimationExporter::createAnimationClip(MFnClip &currentMfnclip)
+	void AnimationExporter::createAnimationClip(MObject& ClipObject)
 	{
-		String clipName = DocumentExporter::mayaNameToColladaName(currentMfnclip.name());
+		String clipName = DocumentExporter::mayaNameToColladaName(MFnClip(ClipObject).name());
 		
 		float startTime = (float)clipSourceStart.as(MTime::kSeconds);
 		float endTime = (float)(startTime + (clipSourceEnd - clipSourceStart).as(MTime::kSeconds));
@@ -141,6 +139,23 @@ namespace COLLADAMaya
 				clip->colladaClip->setInstancedAnimation(clipName + "_" + animatedElement->getBaseId());
 			
 			++it;
+		}
+
+		/* Parse Extra Attribute for this Clip and Add Markers to AnimationClip Extra*/
+		MStatus status;
+		MFnDependencyNode fnNode(ClipObject, &status);
+		ExtraAttributeExporter extraAttributeExporter(*clip->colladaClip);
+		AttributeParser::parseAttributes(fnNode, extraAttributeExporter);
+
+
+		MarkersList::const_iterator markerIter = extraAttributeExporter.GetMarkersList().begin();
+		for (; markerIter != extraAttributeExporter.GetMarkersList().end(); ++markerIter)
+		{
+			Markers markerElement;
+			markerElement.ID = markerIter->ID;
+			markerElement.time = markerIter->time;
+
+			clip->markers.push_back(markerElement);
 		}
 
 		if (clip->colladaClip->getInstancedAnimations().size() > 0)
@@ -223,11 +238,11 @@ namespace COLLADAMaya
 
 					// Do not export referenced animation
 					MStatus status;
-					MObject obj = clipItr.thisNode(&status);
+					MObject clipObj = clipItr.thisNode(&status);
 
-					if (obj.hasFn(MFn::kDependencyNode))
+					if (clipObj.hasFn(MFn::kDependencyNode))
 					{
-						MFnDependencyNode ClipFnNode(obj);
+						MFnDependencyNode ClipFnNode(clipObj);
 						bool isLocal = !ClipFnNode.isFromReferencedFile();
 						if (ExportOptions::exportXRefs() && ExportOptions::dereferenceXRefs()) isLocal = true;
 						if (!isLocal) continue;
@@ -260,7 +275,7 @@ namespace COLLADAMaya
 
 					restoreParamInstancedClip(OriginalValues);
 
-					createAnimationClip(clipFn1);
+					createAnimationClip(clipObj);
 				}
 			}
 
@@ -2302,14 +2317,32 @@ namespace COLLADAMaya
                 AnimationClip* clip = new AnimationClip();
 				clip->colladaClip = new COLLADASW::ColladaAnimationClip(clipName, clipNameSource, startTime, endTime);
                 clip->characterNode = characterNode;
-
+				
+				/*
 				bool isEventAnimation = false;
 				DagHelper::getPlugValue(clipNode, ATTR_EVENT_ANIMATION, isEventAnimation);
 				clip->colladaClip->setAnimationEvent(isEventAnimation);
-				
 				clip->colladaClip->addExtraTechniqueParameter(PROFILE_MAYA, ATTR_EVENT_ANIMATION, isEventAnimation);
-				clip->clipFn = clipFn.object();
+				*/
 
+				/* Parse Extra Attribute for this Clip and Add Markers to AnimationClip Extra*/
+
+				MStatus status;
+				MFnDependencyNode fnNode(clipNode, &status);
+				ExtraAttributeExporter extraAttributeExporter(*clip->colladaClip);
+				AttributeParser::parseAttributes(fnNode, extraAttributeExporter);
+
+				MarkersList::const_iterator markerIter = extraAttributeExporter.GetMarkersList().begin();
+				for (; markerIter != extraAttributeExporter.GetMarkersList().end(); ++markerIter)
+				{
+					Markers markerElement;
+					markerElement.ID = markerIter->ID;
+					markerElement.time = markerIter->time;
+
+					clip->markers.push_back(markerElement);
+				}
+				
+				clip->clipFn = clipFn.object();
 				clipFn.getMemberAnimCurves ( clip->animCurves, clip->plugs );
 
                 mAnimationClips.push_back ( clip );
