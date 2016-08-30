@@ -1,0 +1,8 @@
+lib/
+obj/
+bin/
+*.ncb
+*.suo
+*.user
+OpenCOLLADAValidator.sln
+OpenCOLLADAValidator.vcxproj*

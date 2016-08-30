@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema
+	xmlns="http://www.collada.org/2005/11/COLLADASchema_PhysX_3.x"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:collada="http://www.collada.org/2005/11/COLLADASchema"
+	targetNamespace="http://www.collada.org/2005/11/COLLADASchema_PhysX_3.x"
+	elementFormDefault="qualified">
+	<xs:import namespace="http://www.collada.org/2005/11/COLLADASchema" schemaLocation="http://www.khronos.org/files/collada_schema_1_4_1.xsd"/>
+	<!-- px_material -->
+	<xs:simpleType name="combine_mode">
+		<xs:restriction base="xs:NMTOKEN">
+			<xs:enumeration value="AVERAGE"/>
+			<xs:enumeration value="MIN"/>
+			<xs:enumeration value="MAX"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="px_material">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="friction_combine_mode" type="combine_mode" default="AVERAGE" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="restitution_combine_mode" type="combine_mode" default="AVERAGE" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!-- px_shape -->
+	<xs:simpleType name="shape_flags">
+		<xs:list>
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="SIMULATION_SHAPE"/>
+					<xs:enumeration value="SCENE_QUERY_SHAPE"/>
+					<xs:enumeration value="TRIGGER_SHAPE"/>
+					<xs:enumeration value="VISUALIZATION"/>
+					<xs:enumeration value="PARTICLE_DRAIN"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:list>
+	</xs:simpleType>
+	<xs:element name="px_shape">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="simulation_filter_data" type="collada:int4" default="0 0 0 0" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="query_filter_data" type="collada:int4" default="0 0 0 0" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="contact_offset" type="collada:TargetableFloat" default="0.02" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="rest_offset" type="collada:TargetableFloat" default="0" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="shape_flags" type="shape_flags" default="SIMULATION_SHAPE SCENE_QUERY_SHAPE VISUALIZATION" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="name" type="collada:string" default="" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!-- px_rigid_body -->
+	<xs:simpleType name="actor_flags">
+		<xs:list>
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="VISUALIZATION"/>
+					<xs:enumeration value="DISABLE_GRAVITY"/>
+					<xs:enumeration value="SEND_SLEEP_NOTIFIES"/>
+					<xs:enumeration value="DISABLE_SIMULATION"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:list>
+	</xs:simpleType>
+	<xs:simpleType name="rigid_body_flags">
+		<xs:list>
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="KINEMATIC"/>
+					<xs:enumeration value="USE_KINEMATIC_TARGET_FOR_SCENE_QUERIES"/>
+					<xs:enumeration value="ENABLE_CCD"/>
+					<xs:enumeration value="ENABLE_CCD_FRICTION"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:list>
+	</xs:simpleType>
+	<xs:element name="px_rigid_body">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="actor_flags" type="actor_flags" default="VISUALIZATION" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="dominance_group" type="collada:int" default="0" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="owner_client" type="collada:int" default="0" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="rigid_body_flags" type="rigid_body_flags" default="" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="min_ccd_advance_coefficient" type="collada:TargetableFloat" default="0.15" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="max_depenetration_velocity" type="collada:TargetableFloat" default="INF" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="linear_damping" type="collada:TargetableFloat" default="0" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="angular_damping" type="collada:TargetableFloat" default="0" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="max_angular_velocity" type="collada:TargetableFloat" default="7" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="sleep_threshold" type="collada:TargetableFloat" default="5e-5" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="stabilization_threshold" type="collada:TargetableFloat" default="1e-5" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="wake_counter" type="collada:TargetableFloat" default="0.4" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="min_position_iters" type="collada:int" default="4" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="min_velocity_iters" type="collada:int" default="1" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="contact_report_threshold" type="collada:TargetableFloat" default="INF" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!-- px_d6joint -->
+	<xs:simpleType name="constraint_flags">
+		<xs:list>
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="BROKEN"/>
+					<xs:enumeration value="PROJECT_TO_ACTOR0"/>
+					<xs:enumeration value="PROJECT_TO_ACTOR1"/>
+					<xs:enumeration value="PROJECTION"/>
+					<xs:enumeration value="COLLISION_ENABLED"/>
+					<xs:enumeration value="REPORTING"/>
+					<xs:enumeration value="VISUALIZATION"/>
+					<xs:enumeration value="DRIVE_LIMITS_ARE_FORCES"/>
+					<xs:enumeration value="IMPROVED_SLERP"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:list>
+	</xs:simpleType>
+	<xs:simpleType name="drive_flags">
+		<xs:list>
+			<xs:simpleType>
+				<xs:restriction base="xs:NMTOKEN">
+					<xs:enumeration value="ACCELERATION"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:list>
+	</xs:simpleType>
+	<xs:complexType name="TargetableFloat2">
+		<xs:simpleContent>
+			<xs:extension base="collada:float2">
+				<xs:attribute name="sid" type="xs:NCName"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="drive_params">
+		<xs:sequence>
+			<xs:element name="stiffness" type="collada:TargetableFloat" default="1" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="damping" type="collada:TargetableFloat" default="0" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="force_limit" type="collada:TargetableFloat" default="INF" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="drive_flags" type="drive_flags" default="" minOccurs="0" maxOccurs="1"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:element name="px_d6joint">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="break_force" type="collada:TargetableFloat" default="INF" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="break_torque" type="collada:TargetableFloat" default="INF" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="constraint_flags" type="constraint_flags" default="" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="inv_mass_scale0" type="collada:TargetableFloat" default="1" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="inv_inertia_scale0" type="collada:TargetableFloat" default="1" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="inv_mass_scale1" type="collada:TargetableFloat" default="1" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="inv_inertia_scale1" type="collada:TargetableFloat" default="1" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="projection_linear_tolerance" type="collada:TargetableFloat" default="1e10" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="projection_angular_tolerance" type="collada:TargetableFloat" default="180" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="limits_extra" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="linear_extra" minOccurs="0" maxOccurs="1">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="restitution" type="collada:TargetableFloat" default="0" minOccurs="0" maxOccurs="1"/>
+										<xs:element name="bounce_threshold" type="collada:TargetableFloat" default="0" minOccurs="0" maxOccurs="1"/>
+										<xs:element name="contact_distance" type="collada:TargetableFloat" default="0" minOccurs="0" maxOccurs="1"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="swing_cone_and_twist_extra" minOccurs="0" maxOccurs="1">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="restitution" type="TargetableFloat2" default="0 0" minOccurs="0" maxOccurs="1"/>
+										<xs:element name="bounce_threshold" type="TargetableFloat2" default="0 0" minOccurs="0" maxOccurs="1"/>
+										<xs:element name="contact_distance" type="TargetableFloat2" default="0 0" minOccurs="0" maxOccurs="1"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="spring_extra" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="angular_extra" minOccurs="0" maxOccurs="1">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="stiffness" type="collada:TargetableFloat" default="1" minOccurs="0" maxOccurs="1"/>
+										<xs:element name="damping" type="collada:TargetableFloat" default="0" minOccurs="0" maxOccurs="1"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="drive" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="linear_x" type="drive_params" minOccurs="0" maxOccurs="1"/>
+							<xs:element name="linear_y" type="drive_params" minOccurs="0" maxOccurs="1"/>
+							<xs:element name="linear_z" type="drive_params" minOccurs="0" maxOccurs="1"/>
+							<xs:element name="swing" type="drive_params" minOccurs="0" maxOccurs="1"/>
+							<xs:element name="twist" type="drive_params" minOccurs="0" maxOccurs="1"/>
+							<xs:element name="slerp" type="drive_params" minOccurs="0" maxOccurs="1"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:element ref="collada:rotate"/>
+					<xs:element ref="collada:translate"/>
+				</xs:choice>
+				<xs:element name="linear_velocity" type="collada:TargetableFloat3" default="0 0 0" minOccurs="0" maxOccurs="1"/>
+				<xs:element name="angular_velocity" type="collada:TargetableFloat3" default="0 0 0" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
