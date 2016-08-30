@@ -572,7 +572,7 @@ namespace DAE23ds
 				if( COLLADAFW::FloatOrParam::PARAM==effectCommon->getShininess().getType()){
 					_3dsMtrl->shininess = effectCommon->getShininess().getFloatValue();
 				}
-				_3dsMtrl->shin_strength = 1.0f;//(deepExplorer:高光等级)
+				_3dsMtrl->shin_strength = 1.0f;//(deepExplorer:<B8DFB9E2B5C8BCB6>)
 				_Log("\t shininess " << _3dsMtrl->shininess <<"\n" );	
 				_Log("\t shin_strength "<< _3dsMtrl->shin_strength);	
 				//-------------------------other-----------------------------

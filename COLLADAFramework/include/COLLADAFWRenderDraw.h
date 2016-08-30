@@ -28,18 +28,18 @@ namespace COLLADAFW
     
     The <draw> element contains an xs:string. The following list includes common strings to use in
     <draw>, although you are not limited to only these strings:
-    • GEOMETRY: The geometry associated with this <instance_geometry> or <instance_material>.
-    • SCENE_GEOMETRY: Draw the entire scene’s geometry but with this effect, not the effects or
+    - GEOMETRY: The geometry associated with this <instance_geometry> or <instance_material>.
+    - SCENE_GEOMETRY: Draw the entire scene's geometry but with this effect, not the effects or
     materials already associated with the geometry. This is for techniques such as shadow-buffer
     generation, where you might be interested only in extracting the Z value from the light. This is
     without regard to ordering on the assumption that ZBuffer handles order.
-    • SCENE_IMAGE: Draw the entire scene into my targets. Use the appropriate effects or materials for
+    - SCENE_IMAGE: Draw the entire scene into my targets. Use the appropriate effects or materials for
     each object. This is for effects that need an accurate image of the scene to work on for effects such
     as postprocessing blurs. This is without regard to ordering on the assumption that ZBuffer handles
     order.
-    • FULL_SCREEN_QUAD: Positions are 0,0 to 1,1 and the UVs match.
-    • FULL_SCREEN_QUAD_PLUS_HALF_PIXEL: Positions are 0,0 to 1,1 and the UVs are off by plus ½
-    of a pixel’s UV size.
+    - FULL_SCREEN_QUAD: Positions are 0,0 to 1,1 and the UVs match.
+    - FULL_SCREEN_QUAD_PLUS_HALF_PIXEL: Positions are 0,0 to 1,1 and the UVs are off by plus half
+    of a pixel's UV size.
     */
 	class RenderDraw 	
     {

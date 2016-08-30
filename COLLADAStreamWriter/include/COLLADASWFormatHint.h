@@ -36,18 +36,18 @@ namespace COLLADASW
         represents the name of a channel. There are typically 1 to 4
         channels. This element has no attributes.
         Valid enumeration values are:
-        � RGB: Red/Green/Blue color map.
-        � RGBA: Red/Green/Blue/Alpha map, often used
+        - RGB: Red/Green/Blue color map.
+        - RGBA: Red/Green/Blue/Alpha map, often used
         for color and transparency or other things packed
         into channel A, such as specular power.
-        � L: Luminance map, often used for light mapping.
-        � LA: Luminance/Alpha map, often used for light
+        - L: Luminance map, often used for light mapping.
+        - LA: Luminance/Alpha map, often used for light
         mapping.
-        � D: Depth map, often used for displacement,
+        - D: Depth map, often used for displacement,
         parallax, relief, or shadow mapping.
-        � XYZ: Typically used for normal maps or threecomponent
+        - XYZ: Typically used for normal maps or threecomponent
         displacement maps.
-        � XYZW: Typically used for normal maps, where W
+        - XYZW: Typically used for normal maps, where W
         is the depth for relief or parallax mapping. */
         enum Channels
         {
@@ -68,18 +68,18 @@ namespace COLLADASW
         high dynamic range via floating point. This element has no
         attributes.
         Valid enumeration values are:
-        � SNORM: Format represents a decimal value that
+        - SNORM: Format represents a decimal value that
         remains within the -1 to 1 range. Implementation
         could be integer, fixed-point, or float.
-        � UNORM: Format represents a decimal value that
+        - UNORM: Format represents a decimal value that
         remains within the 0 to 1 range. Implementation
         could be integer, fixed-point, or float.
-        � SINT: Format represents signed integer numbers;
+        - SINT: Format represents signed integer numbers;
         for example, 8 bits can represent -128 to 127.
-        � UINT: Format represents unsigned integer
+        - UINT: Format represents unsigned integer
         numbers. For example, 8 bits can represent 0 to
         255.
-        � FLOAT: Format should support full floating-point
+        - FLOAT: Format should support full floating-point
         ranges typically used for high dynamic range. */
         enum Range
         {
@@ -99,11 +99,11 @@ namespace COLLADASW
         channels may still convey the same information. This
         element has no attributes.
         Valid enumeration values are:
-        � LOW: For integers, this typically represents 8 bits.
+        - LOW: For integers, this typically represents 8 bits.
         For floats, typically 16 bits.
-        � MID: For integers, this typically represents 8 to 24
+        - MID: For integers, this typically represents 8 to 24
         bits. For floats, typically 16 to 32 bits.
-        � HIGH: For integers, this typically represents 16 to
+        - HIGH: For integers, this typically represents 16 to
         32 bits. For floats, typically 24 to 32 bits. */
         enum Precision
         {
@@ -117,13 +117,13 @@ namespace COLLADASW
         things to help an application pick the best format. This
         element has no attributes.
         Valid enumeration values are:
-        � SRGB_GAMMA: Colors are stored with respect
+        - SRGB_GAMMA: Colors are stored with respect
         to the sRGB 2.2 gamma curve rather than linear.
-        � NORMALIZED3: The texel�s XYZ/RGB should be
+        - NORMALIZED3: The texel's XYZ/RGB should be
         normalized such as in a normal map.
-        � NORMALIZED4: The texel�s XYZW/RGBA should
+        - NORMALIZED4: The texel's XYZW/RGBA should
         be normalized such as in a normal map.
-        � COMPRESSABLE: The surface may use run-time
+        - COMPRESSABLE: The surface may use run-time
         compression. Consider the best compression
         based on desired <channels>, <range>,
         <precision>, and <option>s. */

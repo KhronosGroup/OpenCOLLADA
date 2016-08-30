@@ -34,9 +34,9 @@ namespace COLLADAFW
     <technique>s that describe one of several ways of generating an effect.
     Elements inside the <effect> declaration assume the use of an underlying library of code that handles
     the creation, use, and management of shaders, source code, parameters, etc. We shall refer to this
-    underlying library as the “FX Runtime”.
+    underlying library as the "FX Runtime".
     Parameters declared inside the <effect> element but outside of any <profile_*> element are said to
-    be in “<effect> scope”. Parameters inside <effect> scope can be drawn only from a constrained list
+    be in "<effect> scope". Parameters inside <effect> scope can be drawn only from a constrained list
     of basic data types and, after declaration, are available to <shader>s and declarations across all profiles.
     <effect> scope provides a handy way to parameterize many profiles and techniques with a single
     parameter.
@@ -58,10 +58,10 @@ namespace COLLADAFW
         /** 
         At least one profile must appear, but any number of any of
         the following profiles can be included:
-        • <profile_CG>
-        • <profile_GLES>
-        • <profile_GLSL>
-        • <profile_COMMON> 
+        - <profile_CG>
+        - <profile_GLES>
+        - <profile_GLSL>
+        - <profile_COMMON> 
         */
         // TODO Fix members!!!
 //        Profile* mProfile;

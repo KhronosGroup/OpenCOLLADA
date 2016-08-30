@@ -23,10 +23,10 @@ namespace COLLADAFW
     A type that describes the scalar attributes of fixed-function shader elements inside 
     <profile_COMMON> effects.
     This type describes the attributes and related elements of the following elements:
-    • <index_of_refraction>
-    • <reflectivity>
-    • <shininess>
-    • <transparency>
+    - <index_of_refraction>
+    - <reflectivity>
+    - <shininess>
+    - <transparency>
 
     Note: Exactly one of the child elements <float> or <param> must appear. 
     They are mutually exclusive.

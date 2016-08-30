@@ -30,12 +30,12 @@ namespace COLLADASW
     Each effect can contain many techniques, each of which describes a 
     different method for rendering that effect. There are three different
     scenarios for which techniques are commonly used:
-    � One technique might describe a high-LOD version while a second technique 
+    - One technique might describe a high-LOD version while a second technique 
     describes a low-LOD version of the same effect.
-    � Describe an effect in different ways and use validation tools in the FX 
+    - Describe an effect in different ways and use validation tools in the FX 
     Runtime to find the most efficient version of an effect for an unknown 
     device that uses a standard API.
-    � Describe an effect under different game states, for example, a daytime 
+    - Describe an effect under different game states, for example, a daytime 
     and a nighttime technique, a normal technique, and a "magic-is-enabled" 
     technique.
 

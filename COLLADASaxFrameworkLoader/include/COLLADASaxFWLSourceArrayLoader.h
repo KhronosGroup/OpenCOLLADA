@@ -35,7 +35,7 @@ namespace COLLADASaxFWL
 	protected:
 	
         /**
-        * Provides the bulk of the mesh’s vertex data. See main entry.
+        * Provides the bulk of the mesh's vertex data. See main entry.
         */
         SourceArray mSourceArray;
 
@@ -76,14 +76,14 @@ namespace COLLADASaxFWL
 		void clearSources();
 
         /**
-        * Provides the bulk of the mesh’s vertex data. See main entry.
+        * Provides the bulk of the mesh's vertex data. See main entry.
         * @param sourceArraySize Parameter to get the size of the source array.
         * @return const SourceArray The source array.
         */
         const SourceArray& getSourceArray () const;
 
         /**
-        * Provides the bulk of the mesh’s vertex data. See main entry.
+        * Provides the bulk of the mesh's vertex data. See main entry.
         * @param sourceArray The source array.
         * @param sourceArraySize The size of the source array.
         */

@@ -27,7 +27,7 @@ namespace COLLADAFW
      * The basic declaration of a parameter describes the name, data type, and value data of the 
      * parameter. That parameter name identifies it to the function or program. The parameter type 
      * indicates the encoding of its value. The <param> element contains information of type 
-     * xs:string, which is the parameter�s actual value.
+     * xs:string, which is the parameter's actual value.
      */
     class Param
     {
@@ -58,7 +58,7 @@ namespace COLLADAFW
 
         /**
          * Value data of the parameter. The <param> element contains information of 
-         * type xs:string, which is the parameter�s actual value. The parameter type 
+         * type xs:string, which is the parameter's actual value. The parameter type 
          * indicates the encoding of its value.
          */
         //Type mValue;
@@ -127,7 +127,7 @@ namespace COLLADAFW
 
 //         /**
 //         * Value data of the parameter. The <param> element contains information of 
-//         * type xs:string, which is the parameter�s actual value. The parameter type 
+//         * type xs:string, which is the parameter's actual value. The parameter type 
 //         * indicates the encoding of its value.
 //         */
 //         template < class Type >
@@ -135,7 +135,7 @@ namespace COLLADAFW
 // 
 //         /**
 //         * Value data of the parameter. The <param> element contains information of 
-//         * type xs:string, which is the parameter�s actual value. The parameter type 
+//         * type xs:string, which is the parameter's actual value. The parameter type 
 //         * indicates the encoding of its value.
 //         */
 //         template < class Type >

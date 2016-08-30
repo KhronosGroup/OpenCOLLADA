@@ -38,7 +38,7 @@ namespace COLLADASW
 
         /** A string that specifies for which API profile this hint is intended. It is the name of the
         profile within the effect that contains the technique. Profiles are constructed by
-        appending this attribute’s value to "profile_". For example, to select
+        appending this attribute's value to "profile_". For example, to select
         profile_CG, specify profile="CG". Optional. */
         String mProfileNC;
 

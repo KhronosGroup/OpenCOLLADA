@@ -26,8 +26,8 @@ namespace COLLADASaxFWL
      * In other words, if an element has <technique> child elements for one or more specific 
      * profiles, applications reading the COLLADA document should use the technique most 
      * appropriate for the application. If none of the specific <technique>s is appropriate, the 
-     * application must use the element�s <technique_common> instead, if one is specified.
-     * Each element�s <technique_common> attributes and children are unique. Refer to each parent 
+     * application must use the element's <technique_common> instead, if one is specified.
+     * Each element's <technique_common> attributes and children are unique. Refer to each parent 
      * element for details.
      */
     class TechniqueCommon

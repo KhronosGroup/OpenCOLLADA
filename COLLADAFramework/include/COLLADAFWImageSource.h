@@ -20,9 +20,9 @@ namespace COLLADAFW
     /** 
     This specifies either embedded image data or an external image file. One of the 
     following must appear:
-    • <data>: Contains a sequence of hexadecimal encoded binary octets composing the embedded
+    - <data>: Contains a sequence of hexadecimal encoded binary octets composing the embedded
     image data. This element has no attributes or child elements.
-    • <init_from>: Contains a string of type xs:anyURI that specifies an external image file.
+    - <init_from>: Contains a string of type xs:anyURI that specifies an external image file.
     This element has no attributes or child elements.
     */
 	class ImageSource 	

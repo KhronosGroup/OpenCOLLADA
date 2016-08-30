@@ -23,15 +23,15 @@ namespace COLLADAFW
 
     Used inside a <profile_COMMON> effect, declares a fixed-function pipeline that produces a diffuse
     shaded surface that is independent of lighting.
-    The result is based on Lambert’s Law, which states that when light hits a rough surface, the light is
+    The result is based on Lambert's Law, which states that when light hits a rough surface, the light is
     reflected in all directions equally. The reflected color is calculated simply as:
     color = <emission> + <ambient> * al + <diffuse> * max ( N * L, 0 )
     where:
-    • al — A constant amount of ambient light contribution coming from the scene. In the COMMON
+    - al - A constant amount of ambient light contribution coming from the scene. In the COMMON
     profile, this is the sum of all the <light><technique_common><ambient><color> values in
     the <visual_scene>.
-    • N — Normal vector
-    • L — Light vector
+    - N - Normal vector
+    - L - Light vector
     */
 	class ShaderLambert : public ShaderConstantFX 
 	{

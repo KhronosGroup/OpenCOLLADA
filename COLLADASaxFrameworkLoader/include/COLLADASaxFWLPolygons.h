@@ -35,8 +35,8 @@ namespace COLLADASaxFWL
      * contain holes.
      * Polygon primitives that contain four or more vertices may be non-planar as well.
      * Many operations need an exact orientation of a surface point. The normal vector partially 
-     * defines this orientation, but it is still leaves the “rotation” about the normal itself 
-     * ambiguous. One way to “lock down” this extra rotation is to also specify the surface tangent at 
+     * defines this orientation, but it is still leaves the "rotation" about the normal itself 
+     * ambiguous. One way to "lock down" this extra rotation is to also specify the surface tangent at 
      * the same point. Assuming that the type of the coordinate system is known (for example, 
      * right-handed), this fully specifies the orientation of the surface, meaning that we can define 
      * a 3x3 matrix to transforms between objectspace and surface space.
@@ -44,9 +44,9 @@ namespace COLLADASaxFWL
      * matrix) and the third one, called binormal may be computed as the cross-product of the tangent 
      * and the normal. COLLADA supports two different types of tangents, because they have different 
      * applications and different logical placements in a document:
-     * • texture-space tangents: specified with the TEXTANGENT and TEXBINORMAL semantics and the
+     * - texture-space tangents: specified with the TEXTANGENT and TEXBINORMAL semantics and the
      *   set attribute on the <input> (shared) elements
-     * • standard (geometric) tangents: specified with the TANGENT and BINORMAL semantics on the
+     * - standard (geometric) tangents: specified with the TANGENT and BINORMAL semantics on the
      *   <input> (shared) elements
      */
     class Polygons : public MeshPrimitiveInputList

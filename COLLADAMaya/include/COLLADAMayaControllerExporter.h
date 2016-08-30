@@ -162,7 +162,7 @@ namespace COLLADAMaya
          * Disables any effects on the node so that fewer calculations are
          * necessary at the time of redraw. The effect does not render until
          * you reset the Node State back to Normal. Maya evaluates the nodes in
-         * the node’s history, but not the node itself.
+         * the node's history, but not the node itself.
          * @param stack The stack with the controller nodes.
          */
         static void setControllerNodeStatesToNoEffect( ControllerStack &stack );
