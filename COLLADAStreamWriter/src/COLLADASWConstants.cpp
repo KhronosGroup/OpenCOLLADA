@@ -97,12 +97,14 @@ namespace COLLADASW
     const String CSWC::CSW_ELEMENT_INSTANCE_CAMERA = "instance_camera";
     const String CSWC::CSW_ELEMENT_INSTANCE_CONTROLLER = "instance_controller";
     const String CSWC::CSW_ELEMENT_INSTANCE_EFFECT = "instance_effect";
+	const String CSWC::CSW_ELEMENT_INSTANCE_FORCE_FIELD = "instance_force_field";
 	const String CSWC::CSW_ELEMENT_INSTANCE_GEOMETRY = "instance_geometry";
 	const String CSWC::CSW_ELEMENT_INSTANCE_IMAGE = "instance_image";
     const String CSWC::CSW_ELEMENT_INSTANCE_LIGHT = "instance_light";
     const String CSWC::CSW_ELEMENT_INSTANCE_MATERIAL = "instance_material";
 	const String CSWC::CSW_ELEMENT_INSTANCE_RIGID_BODY = "instance_rigid_body";
     const String CSWC::CSW_ELEMENT_INSTANCE_RIGID_CONSTRAINT = "instance_rigid_constraint";
+	const String CSWC::CSW_ELEMENT_INSTANCE_PHYSICS_MATERIAL = "instance_physics_material";
 	const String CSWC::CSW_ELEMENT_INSTANCE_PHYSICS_MODEL = "instance_physics_model";
     const String CSWC::CSW_ELEMENT_INSTANCE_NODE = "instance_node";
     const String CSWC::CSW_ELEMENT_INSTANCE_VISUAL_SCENE = "instance_visual_scene";
@@ -261,6 +263,7 @@ namespace COLLADASW
 	const String CSWC::CSW_ELEMENT_QUADRATIC_ATTENUATION = "quadratic_attenuation";
     const String CSWC::CSW_ELEMENT_REFLECTIVE = "reflective";
     const String CSWC::CSW_ELEMENT_REFLECTIVITY = "reflectivity";
+	const String CSWC::CSW_ELEMENT_RENDER = "render";
     const String CSWC::CSW_ELEMENT_REVISION = "revision";
     const String CSWC::CSW_ELEMENT_ROTATE = "rotate";
     const String CSWC::CSW_ELEMENT_SAMPLER = "sampler";
@@ -335,6 +338,7 @@ namespace COLLADASW
     const String CSWC::CSW_ATTRIBUTE_NAME = "name";
     const String CSWC::CSW_ATTRIBUTE_OFFSET = "offset";
     const String CSWC::CSW_ATTRIBUTE_OPAQUE = "opaque";
+	const String CSWC::CSW_ATTRIBUTE_PARENT = "parent";
     const String CSWC::CSW_ATTRIBUTE_PLATFORM = "platform";
     const String CSWC::CSW_ATTRIBUTE_PROFILE = "profile";
     const String CSWC::CSW_ATTRIBUTE_PROGRAM = "program";
