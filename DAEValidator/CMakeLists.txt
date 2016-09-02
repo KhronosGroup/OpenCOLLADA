@@ -7,34 +7,6 @@ set(libDAEValidator_include_dirs
 
 set(libDAEValidator_include_dirs ${libDAEValidator_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
 
-# Creates C resources file from files in given directory
-function(create_resources dir output)
-    # Create empty output file
-    file(WRITE ${output} "namespace opencollada {\n")
-    # Collect input files
-    file(GLOB bins ${dir}/*)
-    # Iterate through input files
-    foreach(bin ${bins})
-        # Get short filename
-        string(REGEX MATCH "([^/]+)$" filename ${bin})
-        # Replace filename spaces & extension separator for C compatibility
-        string(REGEX REPLACE "\\.| |-" "_" filename ${filename})
-        # Read hex data from file
-        file(READ ${bin} filedata HEX)
-        # Convert hex data for C compatibility
-        string(REGEX REPLACE "([0-9a-f][0-9a-f])" "0x\\1," filedata ${filedata})
-		# Split string into lines of 16 values to make text editors more responsive when opening generated file.
-		# Regex expression should be ([^,]+[,]){1,16} but cmake does not support brace quantifier.
-		string(REGEX REPLACE "([^,]+[,][^,]+[,][^,]+[,][^,]+[,][^,]+[,][^,]+[,][^,]+[,][^,]+[,][^,]+[,][^,]+[,][^,]+[,][^,]+[,][^,]+[,][^,]+[,][^,]+[,][^,]+[,])" "\\1\n" filedata ${filedata})
-        # Append data to output file
-        file(APPEND ${output} "unsigned char ${filename}[] = {${filedata}0x00};\nsize_t ${filename}_size = sizeof(${filename});\n")
-    endforeach()
-	file(APPEND ${output} "}\n")
-endfunction()
-
-# Embed official collada xsd files into executable
-create_resources("res" "src/Resources.cpp")
-
 set(SRC
 	src/ArgumentParser.cpp
 	src/Dae.cpp
@@ -47,7 +19,6 @@ set(SRC
 	src/XmlNodes.cpp
 	src/XmlNodeSet.cpp
 	src/XmlSchema.cpp
-	src/Resources.cpp
 	
 	include/ArgumentParser.h
 	include/Dae.h
@@ -113,6 +84,8 @@ if (NOT WIN32)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1y -stdlib=libc++")
 endif ()
 
-file(GLOB xsds *.xsd)
-message("Copying " ${xsds} " to " ${PROJECT_BINARY_DIR})
-file(INSTALL ${xsds} DESTINATION ${PROJECT_BINARY_DIR})
+add_custom_command(
+	TARGET ${name} POST_BUILD
+	COMMAND ${CMAKE_COMMAND} -E copy_directory
+	${CMAKE_CURRENT_SOURCE_DIR}/xsd $<TARGET_FILE_DIR:${name}>
+	)

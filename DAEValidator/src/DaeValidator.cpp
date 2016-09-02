@@ -9,12 +9,10 @@ using namespace std;
 namespace opencollada
 {
 	const char* colladaNamespace141 = "http://www.collada.org/2005/11/COLLADASchema";
-	extern unsigned char collada_schema_1_4_1_xsd[];
-	extern size_t collada_schema_1_4_1_xsd_size;
+	const char* colladaSchema141 = "collada_schema_1_4_1.xsd";
 
 	const char* colladaNamespace15 = "http://www.collada.org/2008/03/COLLADASchema";
-	extern unsigned char collada_schema_1_5_xsd[];
-	extern size_t collada_schema_1_5_xsd_size;
+	const char* colladaSchema15 = "collada_schema_1_5.xsd";
 
 	DaeValidator::DaeValidator(const Dae & dae)
 		: mDae(dae)
@@ -71,11 +69,11 @@ namespace opencollada
 		auto href = xmlns.href();
 		if (href == colladaNamespace141)
 		{
-			result |= validateAgainstMemory(reinterpret_cast<const char*>(collada_schema_1_4_1_xsd), collada_schema_1_4_1_xsd_size);
+			result |= validateAgainstFile(colladaSchema141);
 		}
 		else if (href == colladaNamespace15)
 		{
-			result |= validateAgainstMemory(reinterpret_cast<const char*>(collada_schema_1_5_xsd), collada_schema_1_5_xsd_size);
+			result |= validateAgainstFile(colladaSchema15);
 		}
 		else
 		{
@@ -115,6 +113,9 @@ namespace opencollada
 			}
 		}
 
+		if (result != 0)
+			cerr << "Schema validation failed" << endl;
+
 		return result;
 	}
 
@@ -139,28 +140,6 @@ namespace opencollada
 		return result;
 	}
 
-	int DaeValidator::validateAgainstMemory(const char* p, size_t size) const
-	{
-		// Open xsd
-		cout << "Validating against COLLADA schema" << endl;
-		XmlSchema xsd;
-		xsd.readMemory(p, size);
-		if (!xsd)
-		{
-			cerr << "Error loading COLLADA schema" << endl;
-			return 1;
-		}
-
-		// Validate dae against xsd
-		if (!xsd.validate(mDae))
-		{
-			cerr << "DAE is not valid" << endl;
-			return 1;
-		}
-
-		return 0;
-	}
-
 	int DaeValidator::validateAgainstFile(const string & xsdPath) const
 	{
 		// Open xsd
@@ -176,7 +155,6 @@ namespace opencollada
 		// Validate dae against xsd
 		if (!xsd.validate(mDae))
 		{
-			cerr << "DAE is not valid" << endl;
 			return 1;
 		}
 

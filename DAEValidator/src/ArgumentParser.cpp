@@ -227,6 +227,8 @@ namespace opencollada
 		auto it = mArguments.find(name);
 		if (it == mArguments.end())
 			return Argument::null;
+		if (!it->second.isSet())
+			return Argument::null;
 		return it->second;
 	}
 
