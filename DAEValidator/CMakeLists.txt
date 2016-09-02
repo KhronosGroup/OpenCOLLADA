@@ -1,11 +1,11 @@
 set(name DAEValidator)
 project(${name})
 
-set(libValidator_include_dirs
+set(libDAEValidator_include_dirs
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-set(libValidator_include_dirs ${libValidator_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
+set(libDAEValidator_include_dirs ${libDAEValidator_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
 
 # Creates C resources file from files in given directory
 function(create_resources dir output)
@@ -63,7 +63,7 @@ set(SRC
 	include/XmlSchema.h
 )
 
-set(libValidator_libs
+set(libDAEValidator_libs
 	OpenCOLLADABaseUtils
 	OpenCOLLADAStreamWriter
 	${LIBXML2_LIBRARIES}
@@ -72,7 +72,7 @@ set(libValidator_libs
 )
 
 if (WIN32)
-    set(libValidator_libs ${libValidator_libs}
+    set(libDAEValidator_libs ${libDAEValidator_libs}
         ws2_32.lib
     )
 endif ()
@@ -80,7 +80,7 @@ endif ()
 include_directories(
 	${libBaseUtils_include_dirs}
 	${libStreamWriter_include_dirs}
-	${libValidator_include_dirs}
+	${libDAEValidator_include_dirs}
 	${LIBXML2_INCLUDE_DIR}
 )
 
@@ -88,7 +88,7 @@ SET(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
 link_directories(${LIBRARY_OUTPUT_PATH})
 
 add_executable(${name} ${SRC})
-target_link_libraries(${name} ${libValidator_libs})
+target_link_libraries(${name} ${libDAEValidator_libs})
 
 if (NOT LIBXML2_FOUND)
 	add_definitions(

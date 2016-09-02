@@ -26,6 +26,12 @@ set(libValidator_libs
 	UTF
 )
 
+if (WIN32)
+    set(libValidator_libs ${libValidator_libs}
+        ws2_32.lib
+    )
+endif ()
+
 include_directories(
 	${libValidator_include_dirs}
 	${libBaseUtils_include_dirs}
@@ -40,3 +46,20 @@ link_directories(${LIBRARY_OUTPUT_PATH})
 add_executable(${name} ${SRC})
 target_link_libraries(${name} ${libValidator_libs})
 add_dependencies(${name} ${CMAKE_REQUIRED_LIBRARIES})
+
+if (NOT LIBXML2_FOUND)
+	add_definitions(
+		-DLIBXML_AUTOMATA_ENABLED
+        -DLIBXML_HTTP_ENABLED
+		-DLIBXML_PATTERN_ENABLED
+		-DLIBXML_REGEXP_ENABLED
+		-DLIBXML_SCHEMAS_ENABLED
+		-DLIBXML_XPATH_ENABLED
+		)
+	if (USE_STATIC)
+		add_dependencies(${name} xml_static)
+	endif ()
+	if (USE_SHARED)
+		add_dependencies(${name} xml_shared)
+	endif ()
+endif ()
