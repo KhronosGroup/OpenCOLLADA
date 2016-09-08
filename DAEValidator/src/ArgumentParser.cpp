@@ -13,10 +13,10 @@ namespace opencollada
             : mParam(param)
         {}
         
-        virtual ~MissingArgumentException() _NOEXCEPT
+        virtual ~MissingArgumentException() noexcept
         {}
         
-        virtual const char* what() const _NOEXCEPT override
+        virtual const char* what() const noexcept override
         {
             stringstream ss;
             ss << "Missing argument";
@@ -40,10 +40,10 @@ namespace opencollada
             : mParam(param)
         {}
         
-        virtual ~MissingArgumentParameterException() _NOEXCEPT
+        virtual ~MissingArgumentParameterException() noexcept
         {}
         
-        virtual const char* what() const _NOEXCEPT override
+        virtual const char* what() const noexcept override
         {
             stringstream ss;
             ss << "Missing parameter for argument " << mParam;
@@ -63,10 +63,10 @@ namespace opencollada
             : mParam(param)
         {}
         
-        virtual ~UnknowArgumentException() _NOEXCEPT
+        virtual ~UnknowArgumentException() noexcept
         {}
         
-        virtual const char* what() const _NOEXCEPT override
+        virtual const char* what() const noexcept override
         {
             stringstream ss;
             ss << "Unknown argument: " << mParam;

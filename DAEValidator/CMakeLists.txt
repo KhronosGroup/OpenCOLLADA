@@ -49,9 +49,9 @@ if (WIN32)
 endif ()
 
 include_directories(
+	${libDAEValidator_include_dirs}
 	${libBaseUtils_include_dirs}
 	${libStreamWriter_include_dirs}
-	${libDAEValidator_include_dirs}
 	${LIBXML2_INCLUDE_DIR}
 )
 
