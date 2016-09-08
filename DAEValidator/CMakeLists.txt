@@ -81,7 +81,7 @@ endif ()
 add_dependencies(${name} ${CMAKE_REQUIRED_LIBRARIES})
 
 if (NOT WIN32)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++1y -stdlib=libc++")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 endif ()
 
 add_custom_command(
