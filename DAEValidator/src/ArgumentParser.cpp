@@ -3,6 +3,12 @@
 
 using namespace std;
 
+#ifdef _MSC_VER
+#define NOEXCEPT _NOEXCEPT
+#else
+#define NOEXCEPT noexcept
+#endif
+
 namespace opencollada
 {
     class MissingArgumentException : public exception
@@ -13,10 +19,10 @@ namespace opencollada
             : mParam(param)
         {}
         
-        virtual ~MissingArgumentException() noexcept
+        virtual ~MissingArgumentException() NOEXCEPT
         {}
         
-        virtual const char* what() const noexcept override
+        virtual const char* what() const NOEXCEPT override
         {
             stringstream ss;
             ss << "Missing argument";
@@ -40,10 +46,10 @@ namespace opencollada
             : mParam(param)
         {}
         
-        virtual ~MissingArgumentParameterException() noexcept
+        virtual ~MissingArgumentParameterException() NOEXCEPT
         {}
         
-        virtual const char* what() const noexcept override
+        virtual const char* what() const NOEXCEPT override
         {
             stringstream ss;
             ss << "Missing parameter for argument " << mParam;
@@ -63,10 +69,10 @@ namespace opencollada
             : mParam(param)
         {}
         
-        virtual ~UnknowArgumentException() noexcept
+        virtual ~UnknowArgumentException() NOEXCEPT
         {}
         
-        virtual const char* what() const noexcept override
+        virtual const char* what() const NOEXCEPT override
         {
             stringstream ss;
             ss << "Unknown argument: " << mParam;
