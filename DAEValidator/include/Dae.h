@@ -1,6 +1,6 @@
 #pragma once
 
-#include "COLLADABUUri.h"
+#include "COLLADABUURI.h"
 #include "Xml.h"
 #include <set>
 #include <string>
