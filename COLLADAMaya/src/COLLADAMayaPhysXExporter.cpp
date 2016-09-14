@@ -949,8 +949,8 @@ namespace COLLADAMaya
 		ShapeCapsule(PhysXExporter& exporter, const PhysXXML::PxShape & shape)
             : Element(exporter, CSWC::CSW_ELEMENT_RIGID_BODY_SHAPE_CAPSULE)
         {
-			exportRadius(shape);
 			exportHeight(shape);
+			exportRadius(shape);
         }
 
     private:
@@ -3159,7 +3159,7 @@ namespace COLLADAMaya
 	{
 	public:
 		SpringAngularExtra(PhysXExporter & exporter, const PhysXXML::PxD6Joint & joint)
-			: Element(exporter, CSWC::CSW_ELEMENT_ANGULAR_EXTRA)
+			: Element(exporter, CSWC::CSW_ELEMENT_ANGULAR_EXTRA, qualified)
 		{
 			exportStiffness(joint);
 			exportDamping(joint);
@@ -4117,31 +4117,27 @@ namespace COLLADAMaya
             getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_BODY, rigidBodySID);
             getStreamWriter().appendURIAttribute(CSWC::CSW_ATTRIBUTE_TARGET, targetURI);
 
+			MVector initialSpin = MVector::zero;
+			MVector initialVelocity = MVector::zero;
 			if (!rigidBody.isNull())
 			{
-				MVector initialSpin = MVector::zero;
 				DagHelper::getPlugValue(rigidBody, ATTR_INITIAL_SPIN, initialSpin);
 				initialSpin.x = COLLADABU::Math::Utils::radToDeg(initialSpin.x);
 				initialSpin.y = COLLADABU::Math::Utils::radToDeg(initialSpin.y);
 				initialSpin.z = COLLADABU::Math::Utils::radToDeg(initialSpin.z);
 
-				MVector initialVelocity = MVector::zero;
 				DagHelper::getPlugValue(rigidBody, ATTR_INITIAL_VELOCITY, initialVelocity);
 				initialVelocity.x = MDistance::internalToUI(initialVelocity.x);
 				initialVelocity.y = MDistance::internalToUI(initialVelocity.y);
 				initialVelocity.z = MDistance::internalToUI(initialVelocity.z);
-
-				exportTechniqueCommon(initialSpin, initialVelocity);
 			}
+			exportTechniqueCommon(initialSpin, initialVelocity);
         }
 
     private:
         void exportTechniqueCommon(const MVector& angularVelocity, const MVector& velocity)
         {
-            if (!InstanceRigidBodyTechniqueCommon::AreDefaultValues(angularVelocity, velocity))
-            {
-                InstanceRigidBodyTechniqueCommon e(getPhysXExporter(), angularVelocity, velocity);
-            }
+            InstanceRigidBodyTechniqueCommon e(getPhysXExporter(), angularVelocity, velocity);
         }
     };
 
