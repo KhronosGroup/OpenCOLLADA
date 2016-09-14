@@ -261,6 +261,7 @@ namespace COLLADASW
         static const String CSW_ELEMENT_PROFILE_CG;
         static const String CSW_ELEMENT_PROFILE_GLES;
         static const String CSW_ELEMENT_PROFILE_GLSL;
+		static const String CSW_PREFIX_PX;
 		static const String CSW_ELEMENT_PX_D6JOINT;
 		static const String CSW_ELEMENT_PX_MATERIAL;
 		static const String CSW_ELEMENT_PX_RIGID_BODY;

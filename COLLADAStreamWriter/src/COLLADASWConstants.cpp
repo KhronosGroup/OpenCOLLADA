@@ -252,6 +252,7 @@ namespace COLLADASW
     const String CSWC::CSW_ELEMENT_PROFILE_CG = "profile_CG";
     const String CSWC::CSW_ELEMENT_PROFILE_GLES = "profile_GLES";
     const String CSWC::CSW_ELEMENT_PROFILE_GLSL = "profile_GLSL";
+	const String CSWC::CSW_PREFIX_PX = "px";
 	const String CSWC::CSW_ELEMENT_PX_D6JOINT = "px_d6joint";
 	const String CSWC::CSW_ELEMENT_PX_MATERIAL = "px_material";
 	const String CSWC::CSW_ELEMENT_PX_RIGID_BODY = "px_rigid_body";
