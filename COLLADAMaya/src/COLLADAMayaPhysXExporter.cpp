@@ -1217,6 +1217,19 @@ namespace COLLADAMaya
 			}
         }
 
+		static bool HasDefaultValues(const MObject & shape, const PhysXXML::PxShape & pxShape, const String & profile)
+		{
+			if (profile == PhysXExporter::GetPhysXProfile())
+			{
+				return PxShape::HasDefaultValues(pxShape);
+			}
+			else if (profile == PROFILE_MAYA)
+			{
+				return !PhysXExporter::HasExtraAttributes(shape);
+			}
+			return true;
+		}
+
     private:
         static const std::set<MString, MStringComp>& GetAttributes()
         {
@@ -1264,10 +1277,20 @@ namespace COLLADAMaya
 			exportProfile(shape, pxShape, PhysXExporter::GetPhysXProfile());
         }
 
+		static bool HasDefaultValues(const MObject & shape, const PhysXXML::PxShape & pxShape)
+		{
+			return
+				ShapeTechnique::HasDefaultValues(shape, pxShape, PROFILE_MAYA) &&
+				ShapeTechnique::HasDefaultValues(shape, pxShape, PhysXExporter::GetPhysXProfile());
+		}
+
     private:
 		void exportProfile(const MObject& shape, const PhysXXML::PxShape & pxShape, const String& profile)
         {
-            ShapeTechnique e(getPhysXExporter(), shape, pxShape, profile);
+			if (!ShapeTechnique::HasDefaultValues(shape, pxShape, profile))
+			{
+				ShapeTechnique e(getPhysXExporter(), shape, pxShape, profile);
+			}
         }
     };
 
@@ -1438,7 +1461,10 @@ namespace COLLADAMaya
 
 		void exportExtra(const MObject & shape, const PhysXXML::PxShape & pxShape)
         {
-            ShapeExtra e(getPhysXExporter(), shape, pxShape);
+			if (!ShapeExtra::HasDefaultValues(shape, pxShape))
+			{
+				ShapeExtra e(getPhysXExporter(), shape, pxShape);
+			}
         }
     };
 
@@ -2586,13 +2612,17 @@ namespace COLLADAMaya
 			}
         }
 
-		static bool HasDefaultValues(const PhysXXML::PxRigidBody & rb, const String & profile)
+		static bool HasDefaultValues(const MObject & rigidBody, const PhysXXML::PxRigidBody & rb, const String & profile)
 		{
 			if (profile == PhysXExporter::GetPhysXProfile())
 			{
 				return PxRigidBody::HasDefaultValues(rb);
 			}
-			return false;
+			else if (profile == PROFILE_MAYA)
+			{
+				return !PhysXExporter::HasExtraAttributes(rigidBody);
+			}
+			return true;
 		}
 
     private:
@@ -2659,10 +2689,17 @@ namespace COLLADAMaya
 			exportProfile(rigidBody, pxRigidBody, PhysXExporter::GetPhysXProfile());
         }
 
+		static bool HasDefaultValues(const MObject & rigidBody, const PhysXXML::PxRigidBody & pxRigidBody)
+		{
+			return
+				RigidBodyTechnique::HasDefaultValues(rigidBody, pxRigidBody, PROFILE_MAYA) &&
+				RigidBodyTechnique::HasDefaultValues(rigidBody, pxRigidBody, PhysXExporter::GetPhysXProfile());
+		}
+
     private:
 		void exportProfile(const MObject& rigidBody, const PhysXXML::PxRigidBody & pxRigidBody, const String& profile)
         {
-			if (!RigidBodyTechnique::HasDefaultValues(pxRigidBody, profile))
+			if (!RigidBodyTechnique::HasDefaultValues(rigidBody, pxRigidBody, profile))
 			{
 				RigidBodyTechnique e(getPhysXExporter(), rigidBody, pxRigidBody, profile);
 			}
@@ -2709,7 +2746,10 @@ namespace COLLADAMaya
 
 		void exportExtra(const MObject & rigidBody, const PhysXXML::PxRigidBody & pxRigidBody)
         {
-            RigidBodyExtra e(getPhysXExporter(), rigidBody, pxRigidBody);
+			if (!RigidBodyExtra::HasDefaultValues(rigidBody, pxRigidBody))
+			{
+				RigidBodyExtra e(getPhysXExporter(), rigidBody, pxRigidBody);
+			}
         }
     };
 
@@ -3815,13 +3855,17 @@ namespace COLLADAMaya
 			}
         }
 
-		static bool HasDefaultValues(const PhysXXML::PxD6Joint & joint, const String & profile)
+		static bool HasDefaultValues(const MObject & constraint, const PhysXXML::PxD6Joint & joint, const String & profile)
 		{
 			if (profile == PhysXExporter::GetPhysXProfile())
 			{
 				return PxD6Joint::HasDefaultValues(joint);
 			}
-			return false;
+			else if (profile == PROFILE_MAYA)
+			{
+				return !PhysXExporter::HasExtraAttributes(constraint);
+			}
+			return true;
 		}
 
     private:
@@ -3916,10 +3960,17 @@ namespace COLLADAMaya
 			exportTechnique(rigidConstraint, joint, PhysXExporter::GetPhysXProfile());
         }
 
+		static bool HasDefaultValues(const MObject & constraint, const PhysXXML::PxD6Joint & joint)
+		{
+			return
+				RigidConstraintTechnique::HasDefaultValues(constraint, joint, PROFILE_MAYA) &&
+				RigidConstraintTechnique::HasDefaultValues(constraint, joint, PhysXExporter::GetPhysXProfile());
+		}
+
     private:
 		void exportTechnique(const MObject& rigidConstraint, const PhysXXML::PxD6Joint & joint, const String& profile)
         {
-			if (!RigidConstraintTechnique::HasDefaultValues(joint, profile))
+			if (!RigidConstraintTechnique::HasDefaultValues(rigidConstraint, joint, profile))
 			{
 				RigidConstraintTechnique e(getPhysXExporter(), rigidConstraint, joint, profile);
 			}
@@ -3999,7 +4050,10 @@ namespace COLLADAMaya
 
 		void exportExtra(const MObject & rigidConstraint, const PhysXXML::PxD6Joint & joint)
         {
-            RigidConstraintExtra e(getPhysXExporter(), rigidConstraint, joint);
+			if (!RigidConstraintExtra::HasDefaultValues(rigidConstraint, joint))
+			{
+				RigidConstraintExtra e(getPhysXExporter(), rigidConstraint, joint);
+			}
         }
     };
 
