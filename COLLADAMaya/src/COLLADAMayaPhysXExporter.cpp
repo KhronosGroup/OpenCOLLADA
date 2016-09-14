@@ -526,7 +526,7 @@ namespace COLLADAMaya
             {
                 vertices = convexMesh->points.points;
                 std::stringstream s;
-                s << convexMesh->id.id;
+                s << "_" << convexMesh->id.id;
                 meshId = s.str().c_str();
                 return true;
             }
@@ -537,7 +537,7 @@ namespace COLLADAMaya
             {
                 vertices = triangleMesh->points.points;
                 std::stringstream s;
-                s << triangleMesh->id.id;
+                s << "_" << triangleMesh->id.id;
                 meshId = s.str().c_str();
                 return true;
             }
