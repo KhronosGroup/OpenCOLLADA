@@ -36,7 +36,8 @@ namespace COLLADAMaya
 			for (; markerIter != animationClip->markers.end(); ++markerIter)
 			{
 				COLLADASW::MarkersSW swMarkerElement;
-				swMarkerElement.ID = markerIter->ID;
+				
+				swMarkerElement.ID = COLLADABU::StringUtils::wideString2utf8String(COLLADABU::StringUtils::checkNCNameWithUCS2Encoding(markerIter->ID.asWChar()));
 				swMarkerElement.time = markerIter->time;
 
 				animationClip->colladaClip->getMarkersList().push_back(swMarkerElement);
