@@ -387,6 +387,7 @@ namespace COLLADAMaya
             + ";exportCameraAsLookat=" + ExportOptions::exportCameraAsLookat() 
             + ";cameraXFov=" + ExportOptions::cameraXFov() 
             + ";cameraYFov=" + ExportOptions::cameraYFov() 
+			+ ";encodedNames=" + ExportOptions::exportEncodedNames()
             + ";doublePrecision=" + ExportOptions::doublePrecision () + "\n\t\t";
         asset.getContributor().mComments = optstr.asChar();
 

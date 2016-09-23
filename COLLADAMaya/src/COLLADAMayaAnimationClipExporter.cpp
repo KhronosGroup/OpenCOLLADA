@@ -15,6 +15,7 @@
 
 #include "COLLADAMayaStableHeaders.h"
 #include "COLLADAMayaAnimationClipExporter.h"
+#include "COLLADAMayaExportOptions.h"
 
 namespace COLLADAMaya
 {
@@ -37,7 +38,13 @@ namespace COLLADAMaya
 			{
 				COLLADASW::MarkersSW swMarkerElement;
 				
-				swMarkerElement.ID = COLLADABU::StringUtils::wideString2utf8String(COLLADABU::StringUtils::checkNCNameWithUCS2Encoding(markerIter->ID.asWChar()));
+				COLLADASW::WideString markerName;
+				if (ExportOptions::exportEncodedNames())
+					markerName = COLLADABU::StringUtils::checkNCNameWithUCS2Encoding(markerIter->ID.asWChar());
+				else
+					markerName = COLLADABU::StringUtils::checkNCName(markerIter->ID.asWChar());
+
+				swMarkerElement.ID = COLLADABU::StringUtils::wideString2utf8String(markerName);
 				swMarkerElement.time = markerIter->time;
 
 				animationClip->colladaClip->getMarkersList().push_back(swMarkerElement);
