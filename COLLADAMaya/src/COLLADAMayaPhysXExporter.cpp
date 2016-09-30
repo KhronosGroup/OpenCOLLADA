@@ -81,17 +81,17 @@ namespace COLLADAMaya
 		return tm.asMatrix();
 	}
 
-	const bool qualified = true;
-	const bool unqualified = false;
+	const bool withPrefix = true;
+	const bool withoutPrefix = false;
 
     // Helper class used to open and auto close an element.
     class Element
     {
     public:
-        Element(PhysXExporter& exporter, const String & name, bool elementForm = unqualified)
+        Element(PhysXExporter& exporter, const String & name, bool elementForm = withoutPrefix)
             : mPhysXExporter(exporter)
         {
-			if (elementForm == unqualified)
+			if (elementForm == withoutPrefix)
 			{
 				mPhysXExporter.getStreamWriter().openElement(name, String());
 			}
@@ -669,7 +669,7 @@ namespace COLLADAMaya
 	{
 	public:
 		FrictionCombineMode(PhysXExporter & exporter, const PhysXXML::CombineMode::FlagEnum & combineMode)
-			: Element(exporter, CSWC::CSW_ELEMENT_FRICTION_COMBINE_MODE, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_FRICTION_COMBINE_MODE, withPrefix)
 		{
 			getStreamWriter().appendValues(PhysXExporter::CombineModeToCOLLADA(combineMode));
 		}
@@ -684,7 +684,7 @@ namespace COLLADAMaya
 	{
 	public:
 		RestitutionCombineMode(PhysXExporter & exporter, const PhysXXML::CombineMode::FlagEnum & combineMode)
-			: Element(exporter, CSWC::CSW_ELEMENT_RESTITUTION_COMBINE_MODE, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_RESTITUTION_COMBINE_MODE, withPrefix)
 		{
 			getStreamWriter().appendValues(PhysXExporter::CombineModeToCOLLADA(combineMode));
 		}
@@ -699,7 +699,7 @@ namespace COLLADAMaya
 	{
 	public:
 		PxMaterial(PhysXExporter & exporter, const PhysXXML::PxMaterial & mat)
-			: Element(exporter, CSWC::CSW_ELEMENT_PX_MATERIAL, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_PX_MATERIAL, withPrefix)
 		{
 			exportFrictionCombineMode(mat);
 			exportRestitutionCombineMode(mat);
@@ -1015,7 +1015,7 @@ namespace COLLADAMaya
 	{
 	public:
 		SimulationFilterData(PhysXExporter & exporter, int f0, int f1, int f2, int f3)
-			: Element(exporter, CSWC::CSW_ELEMENT_SIMULATION_FILTER_DATA, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_SIMULATION_FILTER_DATA, withPrefix)
 		{
 			getStreamWriter().appendValues(f0, f1, f2, f3);
 		}
@@ -1030,7 +1030,7 @@ namespace COLLADAMaya
 	{
 	public:
 		QueryFilterData(PhysXExporter & exporter, int f0, int f1, int f2, int f3)
-			: Element(exporter, CSWC::CSW_ELEMENT_QUERY_FILTER_DATA, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_QUERY_FILTER_DATA, withPrefix)
 		{
 			getStreamWriter().appendValues(f0, f1, f2, f3);
 		}
@@ -1045,7 +1045,7 @@ namespace COLLADAMaya
 	{
 	public:
 		ContactOffset(PhysXExporter & exporter, double contactOffset)
-			: Element(exporter, CSWC::CSW_ELEMENT_CONTACT_OFFSET, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_CONTACT_OFFSET, withPrefix)
 		{
 			getStreamWriter().appendValues(contactOffset);
 		}
@@ -1060,7 +1060,7 @@ namespace COLLADAMaya
 	{
 	public:
 		RestOffset(PhysXExporter & exporter, double restOffset)
-			: Element(exporter, CSWC::CSW_ELEMENT_REST_OFFSET, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_REST_OFFSET, withPrefix)
 		{
 			getStreamWriter().appendValues(restOffset);
 		}
@@ -1075,7 +1075,7 @@ namespace COLLADAMaya
 	{
 	public:
 		ShapeFlags(PhysXExporter & exporter, const Flags<PhysXXML::ShapeFlags::FlagEnum> & flags)
-			: Element(exporter, CSWC::CSW_ELEMENT_SHAPE_FLAGS, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_SHAPE_FLAGS, withPrefix)
 		{
 			getStreamWriter().appendText(PhysXExporter::ShapeFlagsToCOLLADA(flags));
 		}
@@ -1093,7 +1093,7 @@ namespace COLLADAMaya
 	{
 	public:
 		DebugName(PhysXExporter & exporter, const String & name)
-			: Element(exporter, CSWC::CSW_ELEMENT_NAME, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_NAME, withPrefix)
 		{
 			getStreamWriter().appendText(name);
 		}
@@ -1108,7 +1108,7 @@ namespace COLLADAMaya
 	{
 	public:
 		PxShape(PhysXExporter& exporter, const PhysXXML::PxShape & shape)
-			: Element(exporter, CSWC::CSW_ELEMENT_PX_SHAPE, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_PX_SHAPE, withPrefix)
 		{
 			exportSimulationFilterData(shape);
 			exportQueryFilterData(shape);
@@ -1736,7 +1736,7 @@ namespace COLLADAMaya
         {
             if (stiffness != Stiffness::DefaultValue())
             {
-                Stiffness e(getPhysXExporter(), stiffness, unqualified);
+                Stiffness e(getPhysXExporter(), stiffness, withoutPrefix);
             }
         }
 
@@ -1744,7 +1744,7 @@ namespace COLLADAMaya
         {
             if (damping != Damping::DefaultValue())
             {
-                Damping e(getPhysXExporter(), damping, unqualified);
+                Damping e(getPhysXExporter(), damping, withoutPrefix);
             }
         }
 
@@ -1783,7 +1783,7 @@ namespace COLLADAMaya
         {
             if (stiffness != Stiffness::DefaultValue())
             {
-                Stiffness e(getPhysXExporter(), stiffness, unqualified);
+                Stiffness e(getPhysXExporter(), stiffness, withoutPrefix);
             }
         }
 
@@ -1791,7 +1791,7 @@ namespace COLLADAMaya
         {
             if (damping != Damping::DefaultValue())
             {
-                Damping e(getPhysXExporter(), damping, unqualified);
+                Damping e(getPhysXExporter(), damping, withoutPrefix);
             }
         }
 
@@ -2195,7 +2195,7 @@ namespace COLLADAMaya
 	{
 	public:
 		ActorFlags(PhysXExporter & exporter, const Flags<PhysXXML::ActorFlags::FlagEnum> & flags)
-			: Element(exporter, CSWC::CSW_ELEMENT_ACTOR_FLAGS, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_ACTOR_FLAGS, withPrefix)
 		{
 			getStreamWriter().appendValues(PhysXExporter::ActorFlagsToCOLLADA(flags));
 		}
@@ -2210,7 +2210,7 @@ namespace COLLADAMaya
 	{
 	public:
 		DominanceGroup(PhysXExporter & exporter, int dominanceGroup)
-			: Element(exporter, CSWC::CSW_ELEMENT_DOMINANCE_GROUP, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_DOMINANCE_GROUP, withPrefix)
 		{
 			getStreamWriter().appendValues(dominanceGroup);
 		}
@@ -2225,7 +2225,7 @@ namespace COLLADAMaya
 	{
 	public:
 		OwnerClient(PhysXExporter & exporter, int ownerClient)
-			: Element(exporter, CSWC::CSW_ELEMENT_OWNER_CLIENT, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_OWNER_CLIENT, withPrefix)
 		{
 			getStreamWriter().appendValues(ownerClient);
 		}
@@ -2240,7 +2240,7 @@ namespace COLLADAMaya
 	{
 	public:
 		RigidBodyFlags(PhysXExporter & exporter, const Flags<PhysXXML::RigidBodyFlags::FlagEnum> & flags)
-			: Element(exporter, CSWC::CSW_ELEMENT_RIGID_BODY_FLAGS, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_RIGID_BODY_FLAGS, withPrefix)
 		{
 			getStreamWriter().appendValues(PhysXExporter::RigidBodyFlagsToCOLLADA(flags));
 		}
@@ -2255,7 +2255,7 @@ namespace COLLADAMaya
 	{
 	public:
 		MinCCDAdvanceCoefficient(PhysXExporter & exporter, double minCCDAdvanceCoefficient)
-			: Element(exporter, CSWC::CSW_ELEMENT_MIN_CCD_ADVANCE_COEFFICIENT, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_MIN_CCD_ADVANCE_COEFFICIENT, withPrefix)
 		{
 			getStreamWriter().appendValues(minCCDAdvanceCoefficient);
 		}
@@ -2270,7 +2270,7 @@ namespace COLLADAMaya
 	{
 	public:
 		MaxDepenetrationVelocity(PhysXExporter & exporter, double maxDepenetrationVelocity)
-			: Element(exporter, CSWC::CSW_ELEMENT_MAX_DEPENETRATION_VELOCITY, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_MAX_DEPENETRATION_VELOCITY, withPrefix)
 		{
 			getStreamWriter().appendValues(maxDepenetrationVelocity);
 		}
@@ -2285,7 +2285,7 @@ namespace COLLADAMaya
 	{
 	public:
 		LinearDamping(PhysXExporter & exporter, double linearDamping)
-			: Element(exporter, CSWC::CSW_ELEMENT_LINEAR_DAMPING, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_LINEAR_DAMPING, withPrefix)
 		{
 			getStreamWriter().appendValues(linearDamping);
 		}
@@ -2300,7 +2300,7 @@ namespace COLLADAMaya
 	{
 	public:
 		AngularDamping(PhysXExporter & exporter, double angularDamping)
-			: Element(exporter, CSWC::CSW_ELEMENT_ANGULAR_DAMPING, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_ANGULAR_DAMPING, withPrefix)
 		{
 			getStreamWriter().appendValues(angularDamping);
 		}
@@ -2315,7 +2315,7 @@ namespace COLLADAMaya
 	{
 	public:
 		MaxAngularVelocity(PhysXExporter & exporter, double maxAngularDamping)
-			: Element(exporter, CSWC::CSW_ELEMENT_MAX_ANGULAR_VELOCITY, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_MAX_ANGULAR_VELOCITY, withPrefix)
 		{
 			getStreamWriter().appendValues(maxAngularDamping);
 		}
@@ -2330,7 +2330,7 @@ namespace COLLADAMaya
 	{
 	public:
 		SleepThreshold(PhysXExporter & exporter, double sleepThreshold)
-			: Element(exporter, CSWC::CSW_ELEMENT_SLEEP_THRESHOLD, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_SLEEP_THRESHOLD, withPrefix)
 		{
 			getStreamWriter().appendValues(sleepThreshold);
 		}
@@ -2345,7 +2345,7 @@ namespace COLLADAMaya
 	{
 	public:
 		StabilizationThreshold(PhysXExporter & exporter, double stabilizationThreshold)
-			: Element(exporter, CSWC::CSW_ELEMENT_STABILIZATION_THRESHOLD, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_STABILIZATION_THRESHOLD, withPrefix)
 		{
 			getStreamWriter().appendValues(stabilizationThreshold);
 		}
@@ -2360,7 +2360,7 @@ namespace COLLADAMaya
 	{
 	public:
 		WakeCounter(PhysXExporter & exporter, double wakeCounter)
-			: Element(exporter, CSWC::CSW_ELEMENT_WAKE_COUNTER, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_WAKE_COUNTER, withPrefix)
 		{
 			getStreamWriter().appendValues(wakeCounter);
 		}
@@ -2375,7 +2375,7 @@ namespace COLLADAMaya
 	{
 	public:
 		MinPositionIters(PhysXExporter & exporter, int minPositionIters)
-			: Element(exporter, CSWC::CSW_ELEMENT_MIN_POSITION_ITERS, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_MIN_POSITION_ITERS, withPrefix)
 		{
 			getStreamWriter().appendValues(minPositionIters);
 		}
@@ -2390,7 +2390,7 @@ namespace COLLADAMaya
 	{
 	public:
 		MinVelocityIters(PhysXExporter & exporter, int minVelocityIters)
-			: Element(exporter, CSWC::CSW_ELEMENT_MIN_VELOCITY_ITERS, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_MIN_VELOCITY_ITERS, withPrefix)
 		{
 			getStreamWriter().appendValues(minVelocityIters);
 		}
@@ -2405,7 +2405,7 @@ namespace COLLADAMaya
 	{
 	public:
 		ContactReportThreshold(PhysXExporter & exporter, double contactReportThreshold)
-			: Element(exporter, CSWC::CSW_ELEMENT_CONTACT_REPORT_THRESHOLD, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_CONTACT_REPORT_THRESHOLD, withPrefix)
 		{
 			getStreamWriter().appendValues(contactReportThreshold);
 		}
@@ -2420,7 +2420,7 @@ namespace COLLADAMaya
 	{
 	public:
 		PxRigidBody(PhysXExporter& exporter, const PhysXXML::PxRigidBody & rb)
-			: Element(exporter, CSWC::CSW_ELEMENT_PX_RIGID_BODY, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_PX_RIGID_BODY, withPrefix)
 		{
 			exportActorFlags(rb);
 			exportDominanceGroup(rb);
@@ -2825,7 +2825,7 @@ namespace COLLADAMaya
 	{
 	public:
 		BreakForce(PhysXExporter & exporter, double breakForce)
-			: Element(exporter, CSWC::CSW_ELEMENT_BREAK_FORCE, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_BREAK_FORCE, withPrefix)
 		{
 			getStreamWriter().appendValues(breakForce);
 		}
@@ -2840,7 +2840,7 @@ namespace COLLADAMaya
 	{
 	public:
 		BreakTorque(PhysXExporter & exporter, double breakTorque)
-			: Element(exporter, CSWC::CSW_ELEMENT_BREAK_TORQUE, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_BREAK_TORQUE, withPrefix)
 		{
 			getStreamWriter().appendValues(breakTorque);
 		}
@@ -2855,7 +2855,7 @@ namespace COLLADAMaya
 	{
 	public:
 		ConstraintFlags(PhysXExporter & exporter, const Flags<PhysXXML::ConstraintFlags::FlagEnum> & flags)
-			: Element(exporter, CSWC::CSW_ELEMENT_CONSTRAINT_FLAGS, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_CONSTRAINT_FLAGS, withPrefix)
 		{
 			getStreamWriter().appendValues(PhysXExporter::ConstraintFlagsToCOLLADA(flags));
 		}
@@ -2870,7 +2870,7 @@ namespace COLLADAMaya
 	{
 	public:
 		InvMassScale0(PhysXExporter & exporter, double invMassScale0)
-			: Element(exporter, CSWC::CSW_ELEMENT_INV_MASS_SCALE_0, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_INV_MASS_SCALE_0, withPrefix)
 		{
 			getStreamWriter().appendValues(invMassScale0);
 		}
@@ -2885,7 +2885,7 @@ namespace COLLADAMaya
 	{
 	public:
 		InvInertiaScale0(PhysXExporter & exporter, double invInertiaScale0)
-			: Element(exporter, CSWC::CSW_ELEMENT_INV_INERTIA_SCALE_0, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_INV_INERTIA_SCALE_0, withPrefix)
 		{
 			getStreamWriter().appendValues(invInertiaScale0);
 		}
@@ -2900,7 +2900,7 @@ namespace COLLADAMaya
 	{
 	public:
 		InvMassScale1(PhysXExporter & exporter, double invMassScale1)
-			: Element(exporter, CSWC::CSW_ELEMENT_INV_MASS_SCALE_1, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_INV_MASS_SCALE_1, withPrefix)
 		{
 			getStreamWriter().appendValues(invMassScale1);
 		}
@@ -2915,7 +2915,7 @@ namespace COLLADAMaya
 	{
 	public:
 		InvInertiaScale1(PhysXExporter & exporter, double invInertiaScale1)
-			: Element(exporter, CSWC::CSW_ELEMENT_INV_INERTIA_SCALE_1, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_INV_INERTIA_SCALE_1, withPrefix)
 		{
 			getStreamWriter().appendValues(invInertiaScale1);
 		}
@@ -2930,7 +2930,7 @@ namespace COLLADAMaya
 	{
 	public:
 		ProjectionLinearTolerance(PhysXExporter & exporter, double projectionLinearTolerance)
-			: Element(exporter, CSWC::CSW_ELEMENT_PROJECTION_LINEAR_TOLERANCE, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_PROJECTION_LINEAR_TOLERANCE, withPrefix)
 		{
 			getStreamWriter().appendValues(projectionLinearTolerance);
 		}
@@ -2945,7 +2945,7 @@ namespace COLLADAMaya
 	{
 	public:
 		ProjectionAngularTolerance(PhysXExporter & exporter, double projectionAngularTolerance)
-			: Element(exporter, CSWC::CSW_ELEMENT_PROJECTION_ANGULAR_TOLERANCE, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_PROJECTION_ANGULAR_TOLERANCE, withPrefix)
 		{
 			getStreamWriter().appendValues(COLLADABU::Math::Utils::radToDeg(projectionAngularTolerance));
 		}
@@ -2960,7 +2960,7 @@ namespace COLLADAMaya
 	{
 	public:
 		BounceThreshold(PhysXExporter & exporter, double bounceThreshold)
-			: Element(exporter, CSWC::CSW_ELEMENT_BOUNCE_THRESHOLD, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_BOUNCE_THRESHOLD, withPrefix)
 		{
 			getStreamWriter().appendValues(bounceThreshold);
 		}
@@ -2975,7 +2975,7 @@ namespace COLLADAMaya
 	{
 	public:
 		ContactDistance(PhysXExporter & exporter, double contactDistance)
-			: Element(exporter, CSWC::CSW_ELEMENT_CONTACT_DISTANCE, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_CONTACT_DISTANCE, withPrefix)
 		{
 			getStreamWriter().appendValues(contactDistance);
 		}
@@ -2990,7 +2990,7 @@ namespace COLLADAMaya
 	{
 	public:
 		LimitsLinearExtra(PhysXExporter & exporter, const PhysXXML::PxD6Joint & joint)
-			: Element(exporter, CSWC::CSW_ELEMENT_LINEAR_EXTRA, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_LINEAR_EXTRA, withPrefix)
 		{
 			exportRestitution(joint);
 			exportBounceThreshold(joint);
@@ -3035,7 +3035,7 @@ namespace COLLADAMaya
 	{
 	public:
 		Restitution2(PhysXExporter & exporter, double swingRestitution, double twistRestitution)
-			: Element(exporter, CSWC::CSW_ELEMENT_RESTITUTION, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_RESTITUTION, withPrefix)
 		{
 			getStreamWriter().appendValues(swingRestitution, twistRestitution);
 		}
@@ -3050,7 +3050,7 @@ namespace COLLADAMaya
 	{
 	public:
 		BounceThreshold2(PhysXExporter & exporter, double swingBounceThreshold, double twistBounceThreshold)
-			: Element(exporter, CSWC::CSW_ELEMENT_BOUNCE_THRESHOLD, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_BOUNCE_THRESHOLD, withPrefix)
 		{
 			getStreamWriter().appendValues(swingBounceThreshold, twistBounceThreshold);
 		}
@@ -3065,7 +3065,7 @@ namespace COLLADAMaya
 	{
 	public:
 		ContactDistance2(PhysXExporter & exporter, double swingContactDistance, double twistContactDistance)
-			: Element(exporter, CSWC::CSW_ELEMENT_CONTACT_DISTANCE, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_CONTACT_DISTANCE, withPrefix)
 		{
 			getStreamWriter().appendValues(swingContactDistance, twistContactDistance);
 		}
@@ -3080,7 +3080,7 @@ namespace COLLADAMaya
 	{
 	public:
 		SwingConeAndTwistExtra(PhysXExporter & exporter, const PhysXXML::PxD6Joint & joint)
-			: Element(exporter, CSWC::CSW_ELEMENT_SWING_CONE_AND_TWIST_EXTRA, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_SWING_CONE_AND_TWIST_EXTRA, withPrefix)
 		{
 			exportRestitution(joint);
 			exportBounceThreshold(joint);
@@ -3125,7 +3125,7 @@ namespace COLLADAMaya
 	{
 	public:
 		LimitsExtra(PhysXExporter & exporter, const PhysXXML::PxD6Joint & joint)
-			: Element(exporter, CSWC::CSW_ELEMENT_LIMITS_EXTRA, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_LIMITS_EXTRA, withPrefix)
 		{
 			exportLinearExtra(joint);
 			exportSwingConeAndTwistExtra(joint);
@@ -3159,7 +3159,7 @@ namespace COLLADAMaya
 	{
 	public:
 		SpringAngularExtra(PhysXExporter & exporter, const PhysXXML::PxD6Joint & joint)
-			: Element(exporter, CSWC::CSW_ELEMENT_ANGULAR_EXTRA, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_ANGULAR_EXTRA, withPrefix)
 		{
 			exportStiffness(joint);
 			exportDamping(joint);
@@ -3176,7 +3176,7 @@ namespace COLLADAMaya
 		{
 			if (joint.twistLimit.stiffness.stiffness != Stiffness::DefaultValue())
 			{
-				Stiffness e(getPhysXExporter(), joint.twistLimit.stiffness.stiffness, qualified);
+				Stiffness e(getPhysXExporter(), joint.twistLimit.stiffness.stiffness, withPrefix);
 			}
 		}
 
@@ -3184,7 +3184,7 @@ namespace COLLADAMaya
 		{
 			if (joint.twistLimit.damping.damping != Damping::DefaultValue())
 			{
-				Damping e(getPhysXExporter(), joint.twistLimit.damping.damping, qualified);
+				Damping e(getPhysXExporter(), joint.twistLimit.damping.damping, withPrefix);
 			}
 		}
 	};
@@ -3193,7 +3193,7 @@ namespace COLLADAMaya
 	{
 	public:
 		SpringExtra(PhysXExporter & exporter, const PhysXXML::PxD6Joint & joint)
-			: Element(exporter, CSWC::CSW_ELEMENT_SPRING_EXTRA, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_SPRING_EXTRA, withPrefix)
 		{
 			exportAngularExtra(joint);
 		}
@@ -3217,7 +3217,7 @@ namespace COLLADAMaya
 	{
 	public:
 		ForceLimit(PhysXExporter & exporter, double forceLimit)
-			: Element(exporter, CSWC::CSW_ELEMENT_FORCE_LIMIT, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_FORCE_LIMIT, withPrefix)
 		{
 			getStreamWriter().appendValues(forceLimit);
 		}
@@ -3232,7 +3232,7 @@ namespace COLLADAMaya
 	{
 	public:
 		DriveFlags(PhysXExporter & exporter, const Flags<PhysXXML::DriveFlags::FlagEnum> & flags)
-			: Element(exporter, CSWC::CSW_ELEMENT_DRIVE_FLAGS, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_DRIVE_FLAGS, withPrefix)
 		{
 			getStreamWriter().appendValues(PhysXExporter::DriveFlagsToCOLLADA(flags));
 		}
@@ -3247,7 +3247,7 @@ namespace COLLADAMaya
 	{
 	public:
 		LinearX(PhysXExporter & exporter, const PhysXXML::PxD6Joint & joint)
-			: Element(exporter, CSWC::CSW_ELEMENT_LINEAR_X, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_LINEAR_X, withPrefix)
 		{
 			exportStiffness(joint);
 			exportDamping(joint);
@@ -3268,7 +3268,7 @@ namespace COLLADAMaya
 		{
 			if (joint.drive.driveX.stiffness.stiffness != Stiffness::DefaultValue())
 			{
-				Stiffness e(getPhysXExporter(), joint.drive.driveX.stiffness.stiffness, qualified);
+				Stiffness e(getPhysXExporter(), joint.drive.driveX.stiffness.stiffness, withPrefix);
 			}
 		}
 
@@ -3276,7 +3276,7 @@ namespace COLLADAMaya
 		{
 			if (joint.drive.driveX.damping.damping != Damping::DefaultValue())
 			{
-				Damping e(getPhysXExporter(), joint.drive.driveX.damping.damping, qualified);
+				Damping e(getPhysXExporter(), joint.drive.driveX.damping.damping, withPrefix);
 			}
 		}
 
@@ -3301,7 +3301,7 @@ namespace COLLADAMaya
 	{
 	public:
 		LinearY(PhysXExporter & exporter, const PhysXXML::PxD6Joint & joint)
-			: Element(exporter, CSWC::CSW_ELEMENT_LINEAR_Y, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_LINEAR_Y, withPrefix)
 		{
 			exportStiffness(joint);
 			exportDamping(joint);
@@ -3322,7 +3322,7 @@ namespace COLLADAMaya
 		{
 			if (joint.drive.driveY.stiffness.stiffness != Stiffness::DefaultValue())
 			{
-				Stiffness e(getPhysXExporter(), joint.drive.driveY.stiffness.stiffness, qualified);
+				Stiffness e(getPhysXExporter(), joint.drive.driveY.stiffness.stiffness, withPrefix);
 			}
 		}
 
@@ -3330,7 +3330,7 @@ namespace COLLADAMaya
 		{
 			if (joint.drive.driveY.damping.damping != Damping::DefaultValue())
 			{
-				Damping e(getPhysXExporter(), joint.drive.driveY.damping.damping, qualified);
+				Damping e(getPhysXExporter(), joint.drive.driveY.damping.damping, withPrefix);
 			}
 		}
 
@@ -3355,7 +3355,7 @@ namespace COLLADAMaya
 	{
 	public:
 		LinearZ(PhysXExporter & exporter, const PhysXXML::PxD6Joint & joint)
-			: Element(exporter, CSWC::CSW_ELEMENT_LINEAR_Z, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_LINEAR_Z, withPrefix)
 		{
 			exportStiffness(joint);
 			exportDamping(joint);
@@ -3376,7 +3376,7 @@ namespace COLLADAMaya
 		{
 			if (joint.drive.driveZ.stiffness.stiffness != Stiffness::DefaultValue())
 			{
-				Stiffness e(getPhysXExporter(), joint.drive.driveZ.stiffness.stiffness, qualified);
+				Stiffness e(getPhysXExporter(), joint.drive.driveZ.stiffness.stiffness, withPrefix);
 			}
 		}
 
@@ -3384,7 +3384,7 @@ namespace COLLADAMaya
 		{
 			if (joint.drive.driveZ.damping.damping != Damping::DefaultValue())
 			{
-				Damping e(getPhysXExporter(), joint.drive.driveZ.damping.damping, qualified);
+				Damping e(getPhysXExporter(), joint.drive.driveZ.damping.damping, withPrefix);
 			}
 		}
 
@@ -3409,7 +3409,7 @@ namespace COLLADAMaya
 	{
 	public:
 		Swing(PhysXExporter & exporter, const PhysXXML::PxD6Joint & joint)
-			: Element(exporter, CSWC::CSW_ELEMENT_SWING, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_SWING, withPrefix)
 		{
 			exportStiffness(joint);
 			exportDamping(joint);
@@ -3430,7 +3430,7 @@ namespace COLLADAMaya
 		{
 			if (joint.drive.driveSwing.stiffness.stiffness != Stiffness::DefaultValue())
 			{
-				Stiffness e(getPhysXExporter(), joint.drive.driveSwing.stiffness.stiffness, qualified);
+				Stiffness e(getPhysXExporter(), joint.drive.driveSwing.stiffness.stiffness, withPrefix);
 			}
 		}
 
@@ -3438,7 +3438,7 @@ namespace COLLADAMaya
 		{
 			if (joint.drive.driveSwing.damping.damping != Damping::DefaultValue())
 			{
-				Damping e(getPhysXExporter(), joint.drive.driveSwing.damping.damping, qualified);
+				Damping e(getPhysXExporter(), joint.drive.driveSwing.damping.damping, withPrefix);
 			}
 		}
 
@@ -3463,7 +3463,7 @@ namespace COLLADAMaya
 	{
 	public:
 		Twist(PhysXExporter & exporter, const PhysXXML::PxD6Joint & joint)
-			: Element(exporter, CSWC::CSW_ELEMENT_TWIST, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_TWIST, withPrefix)
 		{
 			exportStiffness(joint);
 			exportDamping(joint);
@@ -3484,7 +3484,7 @@ namespace COLLADAMaya
 		{
 			if (joint.drive.driveTwist.stiffness.stiffness != Stiffness::DefaultValue())
 			{
-				Stiffness e(getPhysXExporter(), joint.drive.driveTwist.stiffness.stiffness, qualified);
+				Stiffness e(getPhysXExporter(), joint.drive.driveTwist.stiffness.stiffness, withPrefix);
 			}
 		}
 
@@ -3492,7 +3492,7 @@ namespace COLLADAMaya
 		{
 			if (joint.drive.driveTwist.damping.damping != Damping::DefaultValue())
 			{
-				Damping e(getPhysXExporter(), joint.drive.driveTwist.damping.damping, qualified);
+				Damping e(getPhysXExporter(), joint.drive.driveTwist.damping.damping, withPrefix);
 			}
 		}
 
@@ -3517,7 +3517,7 @@ namespace COLLADAMaya
 	{
 	public:
 		Slerp(PhysXExporter & exporter, const PhysXXML::PxD6Joint & joint)
-			: Element(exporter, CSWC::CSW_ELEMENT_SLERP, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_SLERP, withPrefix)
 		{
 			exportStiffness(joint);
 			exportDamping(joint);
@@ -3537,7 +3537,7 @@ namespace COLLADAMaya
 		{
 			if (joint.drive.driveSlerp.stiffness.stiffness != Stiffness::DefaultValue())
 			{
-				Stiffness e(getPhysXExporter(), joint.drive.driveSlerp.stiffness.stiffness, qualified);
+				Stiffness e(getPhysXExporter(), joint.drive.driveSlerp.stiffness.stiffness, withPrefix);
 			}
 		}
 
@@ -3545,7 +3545,7 @@ namespace COLLADAMaya
 		{
 			if (joint.drive.driveSlerp.damping.damping != Damping::DefaultValue())
 			{
-				Damping e(getPhysXExporter(), joint.drive.driveSlerp.damping.damping, qualified);
+				Damping e(getPhysXExporter(), joint.drive.driveSlerp.damping.damping, withPrefix);
 			}
 		}
 
@@ -3570,7 +3570,7 @@ namespace COLLADAMaya
 	{
 	public:
 		LinearVelocity(PhysXExporter & exporter, const MVector & linearVelocity)
-			: Element(exporter, CSWC::CSW_ELEMENT_LINEAR_VELOCITY, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_LINEAR_VELOCITY, withPrefix)
 		{
 			getStreamWriter().appendValues(linearVelocity.x, linearVelocity.y, linearVelocity.z);
 		}
@@ -3600,7 +3600,7 @@ namespace COLLADAMaya
 	{
 	public:
 		Drive(PhysXExporter & exporter, const PhysXXML::PxD6Joint & joint)
-			: Element(exporter, CSWC::CSW_ELEMENT_DRIVE, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_DRIVE, withPrefix)
 		{
 			exportLinearX(joint);
 			exportLinearY(joint);
@@ -3697,7 +3697,7 @@ namespace COLLADAMaya
 		{
 			if (joint.driveVelocity.angular.angular != AngularVelocity::DefaultValue())
 			{
-				AngularVelocity e(getPhysXExporter(), joint.driveVelocity.angular.angular, qualified);
+				AngularVelocity e(getPhysXExporter(), joint.driveVelocity.angular.angular, withPrefix);
 			}
 		}
 	};
@@ -3706,7 +3706,7 @@ namespace COLLADAMaya
 	{
 	public:
 		PxD6Joint(PhysXExporter& exporter, const PhysXXML::PxD6Joint & joint)
-			: Element(exporter, CSWC::CSW_ELEMENT_PX_D6JOINT, qualified)
+			: Element(exporter, CSWC::CSW_ELEMENT_PX_D6JOINT, withPrefix)
 		{
 			exportBreakForce(joint);
 			exportBreakTorque(joint);
@@ -4094,7 +4094,7 @@ namespace COLLADAMaya
         {
             if (angularVelocity != AngularVelocity::DefaultValue())
             {
-                AngularVelocity e(getPhysXExporter(), angularVelocity, unqualified);
+                AngularVelocity e(getPhysXExporter(), angularVelocity, withoutPrefix);
             }
         }
 
