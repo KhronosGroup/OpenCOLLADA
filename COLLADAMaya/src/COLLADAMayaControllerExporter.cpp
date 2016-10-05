@@ -515,7 +515,9 @@ namespace COLLADAMaya
         // Set the joint entry into the other scene element, which use this joints.
         MDagPathArray influences = skinController.getInfluences();
         unsigned int numInfluences = influences.length();
-        for ( unsigned int i=0; i<numInfluences; ++i )
+
+		SceneElement* UppersceneElement;
+		for ( unsigned int i=0; i<numInfluences; ++i )
         {
             // Get the scene element.
             MDagPath skeletonPath = influences [i];
@@ -527,7 +529,21 @@ namespace COLLADAMaya
 
             // Get the uri of the current scene
             COLLADASW::URI skeletonUri ( visualSceneExporter->getSceneElementURI ( sceneElement, colladaNodeId ) );
-            sceneElement->addSkeletonURI ( skeletonUri );
+
+
+			bool result = false;
+			for (unsigned int i = 0; i < numInfluences; ++i)
+			{
+				// Get the scene element.
+				MDagPath skeletonPath = influences[i];
+				if (sceneElement->containsParentElement(skeletonPath))
+				{
+					result = true;
+					break;
+				}
+			}
+			            
+			sceneElement->addSkeletonURI(skeletonUri);
 
             // Set the id on the other instanced nodes.
             bool isInstanced = targetDagPath.isInstanced ();
@@ -537,13 +553,17 @@ namespace COLLADAMaya
             for (uint i=0; i<pathes.length(); ++i)
             {
                 SceneElement* foundElement = mDocumentExporter->getSceneGraph()->findElement ( pathes[i] );
-                if ( foundElement != NULL )
-                    foundElement->addSkeletonURI ( skeletonUri );
+				if (foundElement != NULL && !result)
+				{
+					foundElement->addSkeletonURI(skeletonUri);
+					UppersceneElement = sceneElement;
+				}
+                    
             }
         }
 
         // Gather the bind matrices and write them as the bind poses in the target controller object.
-        gatherBindMatrices ( &skinController, controllerNode );
+		gatherBindMatrices(&skinController, controllerNode, UppersceneElement);
 
         // Collect the vertex weights into the collada skin controller.
         collectVertexWeights ( &skinController, controllerNode, outputShape, weightFilters, clusterIndex, numInfluences );
@@ -735,7 +755,8 @@ namespace COLLADAMaya
     //------------------------------------------------------
     void ControllerExporter::gatherBindMatrices(
         SkinController* skinController,
-        const MObject& controllerNode )
+        const MObject& controllerNode,
+		SceneElement* UpperSceneNode)
     {
         // The list of joints
         MDagPathArray& influences = skinController->getInfluences();
@@ -744,10 +765,9 @@ namespace COLLADAMaya
 		{
 			// Retrieve Root
 			SceneElement* sceneElement = mDocumentExporter->getSceneGraph()->findElement(influences[0]);
-			SceneElement* rootElement = searchRootElement(sceneElement);
 
 			// Parse all childs from Root and add them into influences if not present into.
-			AddElementToInfluences(influences, rootElement);
+			AddElementToInfluences(influences, UpperSceneNode);
 		}
 
 		// Request a change in capacity
