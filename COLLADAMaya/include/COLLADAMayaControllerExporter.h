@@ -384,7 +384,8 @@ namespace COLLADAMaya
          */
         void gatherBindMatrices(
             SkinController* skinController,
-            const MObject& controllerNode );
+            const MObject& controllerNode,
+			SceneElement* UpperSceneNode);
 
         /**
          * Support for joint clusters pipeline.
