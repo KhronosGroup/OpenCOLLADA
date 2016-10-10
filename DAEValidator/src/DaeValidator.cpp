@@ -113,9 +113,6 @@ namespace opencollada
 			}
 		}
 
-		if (result != 0)
-			cerr << "Schema validation failed" << endl;
-
 		return result;
 	}
 

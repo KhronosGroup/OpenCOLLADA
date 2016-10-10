@@ -55,5 +55,10 @@ int main(int argc, char* argv[])
 		}
 	}
 
+	if (result == 0)
+		cerr << "Validation SUCCEEDED." << endl;
+	else
+		cout << "Validation FAILED." << endl;
+
 	return result;
 }
