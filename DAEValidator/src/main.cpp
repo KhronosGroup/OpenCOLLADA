@@ -8,6 +8,7 @@ using namespace opencollada;
 using namespace std;
 
 // Validation options
+const char* checkSchemaAuto = "--check-schema-auto";
 const char* checkSchema = "--check-schema";
 const char* checkUniqueIds = "--check-unique-ids";
 
@@ -16,7 +17,8 @@ int main(int argc, char* argv[])
 	// Parse arguments
 	ArgumentParser argparse(argc, argv);
 	argparse.addArgument(); // dae
-	argparse.addArgument(checkSchema);
+	argparse.addArgument(checkSchemaAuto);
+	argparse.addArgument(checkSchema).numParameters(1);
 	argparse.addArgument(checkUniqueIds);
 	if (!argparse.parseArguments())
 		return 1;
@@ -42,7 +44,7 @@ int main(int argc, char* argv[])
 	}
 	else
 	{
-		if (argparse.findArgument(checkSchema))
+		if (argparse.findArgument(checkSchemaAuto))
 		{
 			result |= validator.checkSchema();
 		}
@@ -50,6 +52,11 @@ int main(int argc, char* argv[])
 		if (argparse.findArgument(checkUniqueIds))
 		{
 			result |= validator.checkUniqueIds();
+		}
+
+		if (const auto & arg = argparse.findArgument(checkSchema))
+		{
+			result |= validator.checkSchema(arg.getValue<string>());
 		}
 	}
 

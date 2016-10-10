@@ -80,77 +80,85 @@ namespace opencollada
 		return parts;
 	}
 
-	int DaeValidator::checkSchema() const
+	int DaeValidator::checkSchema(const string & schema_uri) const
 	{
-		// Get root <COLLADA> element
-		auto collada = mDae.root();
-		if (!collada)
-		{
-			cerr << "Can't find document root" << endl;
-			return 1;
-		}
-
-		if (collada.name() != "COLLADA")
-		{
-			cerr << "Root element is not <COLLADA>" << endl;
-			return 1;
-		}
-
-		// Get COLLADA namespace
-		auto xmlns = collada.ns();
-		if (!xmlns)
-		{
-			cerr << "COLLADA element has no namespace" << endl;
-			return 1;
-		}
-
-		// Determine COLLADA version used by input dae file
 		int result = 0;
-		auto href = xmlns.href();
-		if (href == colladaNamespace141)
+		if (schema_uri.empty())
 		{
-			result |= validateAgainstFile(colladaSchema141);
-		}
-		else if (href == colladaNamespace15)
-		{
-			result |= validateAgainstFile(colladaSchema15);
-		}
-		else
-		{
-			cerr << "Can't determine COLLADA version used by input file" << endl;
-			return 1;
-		}
-
-		set<string> xsdURLs;
-
-		// Find xsi:schemaLocation attributes in dae and try to validate against specified xsd documents
-		auto elements = mDae.root().selectNodes("//*[@xsi:schemaLocation]");
-		for (const auto & element : elements)
-		{
-			if (auto schemaLocation = element.attribute("schemaLocation"))
+			// Get root <COLLADA> element
+			auto collada = mDae.root();
+			if (!collada)
 			{
-				vector<string> parts = Split(schemaLocation.value());
-				// Parse pairs of namespace/xsd and take second element
-				for (size_t i = 1; i < parts.size(); i += 2)
-				{
-					xsdURLs.insert(parts[i]);
-				}
+				cerr << "Can't find document root" << endl;
+				return 1;
 			}
-		}
 
-		for (const auto & URL : xsdURLs)
-		{
-			int tmpResult = validateAgainstFile(URL);
-			if (tmpResult == 2)
+			if (collada.name() != "COLLADA")
 			{
-				std::cout
-					<< "Warning: can't load \"" << URL << "\"." << endl
-					<< "Some parts of the document will not be validated." << endl;
+				cerr << "Root element is not <COLLADA>" << endl;
+				return 1;
+			}
+
+			// Get COLLADA namespace
+			auto xmlns = collada.ns();
+			if (!xmlns)
+			{
+				cerr << "COLLADA element has no namespace" << endl;
+				return 1;
+			}
+
+			// Determine COLLADA version used by input dae file
+			auto href = xmlns.href();
+			if (href == colladaNamespace141)
+			{
+				result |= validateAgainstFile(colladaSchema141);
+			}
+			else if (href == colladaNamespace15)
+			{
+				result |= validateAgainstFile(colladaSchema15);
 			}
 			else
 			{
-				result |= tmpResult;
+				cerr << "Can't determine COLLADA version used by input file" << endl;
+				return 1;
 			}
+
+			set<string> xsdURLs;
+
+			// Find xsi:schemaLocation attributes in dae and try to validate against specified xsd documents
+			auto elements = mDae.root().selectNodes("//*[@xsi:schemaLocation]");
+			for (const auto & element : elements)
+			{
+				if (auto schemaLocation = element.attribute("schemaLocation"))
+				{
+					vector<string> parts = Split(schemaLocation.value());
+					// Parse pairs of namespace/xsd and take second element
+					for (size_t i = 1; i < parts.size(); i += 2)
+					{
+						xsdURLs.insert(parts[i]);
+					}
+				}
+			}
+
+			for (const auto & URL : xsdURLs)
+			{
+				int tmpResult = validateAgainstFile(URL);
+				if (tmpResult == 2)
+				{
+					std::cout
+						<< "Warning: can't load \"" << URL << "\"." << endl
+						<< "Some parts of the document will not be validated." << endl;
+				}
+				else
+				{
+					result |= tmpResult;
+				}
+			}
+		}
+		else
+		{
+			// Validate against specified schema only
+			result |= validateAgainstFile(schema_uri);
 		}
 
 		return result;
@@ -176,8 +184,7 @@ namespace opencollada
 			auto it = ids.find(id_line);
 			if (it != ids.end())
 			{
-				cerr << mDae.getURI() << " line " << node.line() << ": Duplicated id \"" << id_line.getId() << "\"." << endl;
-				cerr << "See first declaration at line " << it->getLine() << "." << endl;
+				cerr << mDae.getURI() << ":" << node.line() << ": Duplicated id \"" << id_line.getId() << "\". See first declaration at line " << it->getLine() << "." << endl;
 				result |= 1;
 			}
 			else

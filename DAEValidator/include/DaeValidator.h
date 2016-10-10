@@ -12,7 +12,7 @@ namespace opencollada
 		DaeValidator(const Dae & dae);
 
 		int checkAll() const;
-		int checkSchema() const;
+		int checkSchema(const std::string & schema_uri = std::string()) const;
 		int checkUniqueIds() const;
 
 	private:
