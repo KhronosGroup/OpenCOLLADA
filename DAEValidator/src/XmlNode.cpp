@@ -96,6 +96,11 @@ namespace opencollada
 		return XmlNode(next);
 	}
 
+	size_t XmlNode::line() const
+	{
+		return mNode->line;
+	}
+
 	void XmlNode::for_each_attribute(const function<void(const XmlAttribute &)> & fn) const
 	{
 		for (xmlAttrPtr attr = mNode->properties; attr; attr = attr->next)

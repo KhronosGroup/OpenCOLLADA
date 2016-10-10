@@ -148,6 +148,11 @@ namespace opencollada
 		}
 	}
 
+	const COLLADABU::URI & Dae::getURI() const
+	{
+		return mUri;
+	}
+
 	void Dae::readExternalFile(const string & url)
 	{
 		// Simple load file but not the references

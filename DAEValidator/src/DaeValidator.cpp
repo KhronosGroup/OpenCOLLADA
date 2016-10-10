@@ -8,6 +8,46 @@ using namespace std;
 
 namespace opencollada
 {
+	class IdLine
+	{
+	public:
+		IdLine(const string & id, size_t line)
+			: mId(id)
+			, mLine(line)
+		{}
+
+		bool operator < (const IdLine & other) const
+		{
+			return mId < other.mId;
+		}
+
+		const string & getId() const
+		{
+			return mId;
+		}
+
+		size_t getLine() const
+		{
+			return mLine;
+		}
+
+	private:
+		string mId;
+		size_t mLine = string::npos;
+	};
+}
+
+template<>
+struct less<opencollada::IdLine>
+{
+	bool operator () (const opencollada::IdLine& a, const opencollada::IdLine& b) const
+	{
+		return a < b;
+	}
+};
+
+namespace opencollada
+{
 	const char* colladaNamespace141 = "http://www.collada.org/2005/11/COLLADASchema";
 	const char* colladaSchema141 = "collada_schema_1_4_1.xsd";
 
@@ -116,22 +156,33 @@ namespace opencollada
 		return result;
 	}
 
+	ostream & operator << (ostream & o, const COLLADABU::URI & uri)
+	{
+		o << uri.getURIString();
+		return o;
+	}
+
 	int DaeValidator::checkUniqueIds() const
 	{
 		int result = 0;
 		XmlNodeSet nodes = mDae.root().selectNodes("//*[@id]");
-		set<string> ids;
+		set<IdLine> ids;
 		for (const auto & node : nodes)
 		{
-			string id = node.attribute(CSWC::CSW_ATTRIBUTE_ID).value();
-			if (ids.find(id) != ids.end())
+			IdLine id_line(
+				node.attribute(CSWC::CSW_ATTRIBUTE_ID).value(),
+				node.line()
+			);
+			auto it = ids.find(id_line);
+			if (it != ids.end())
 			{
-				cerr << "Duplicated id: " << id << endl;
+				cerr << mDae.getURI() << " line " << node.line() << ": Duplicated id \"" << id_line.getId() << "\"." << endl;
+				cerr << "See first declaration at line " << it->getLine() << "." << endl;
 				result |= 1;
 			}
 			else
 			{
-				ids.insert(id);
+				ids.insert(id_line);
 			}
 		}
 		return result;
