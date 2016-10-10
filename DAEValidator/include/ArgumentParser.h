@@ -60,6 +60,7 @@ namespace opencollada
 		Argument& addArgument(const std::string & name = "");
 		const Argument& findArgument(const std::string & name);
 		const Argument& findArgument(size_t index);
+		size_t numSetArguments() const;
 
 	private:
 		std::map<std::string, Argument> mArguments;

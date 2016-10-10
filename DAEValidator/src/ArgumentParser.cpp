@@ -244,4 +244,16 @@ namespace opencollada
 			return Argument::null;
 		return mNoSwitchArguments[index];
 	}
+
+	size_t ArgumentParser::numSetArguments() const
+	{
+		size_t num = 0;
+		for (const auto & arg : mArguments)
+			if (arg.second.isSet())
+				++num;
+		for (const auto & arg : mNoSwitchArguments)
+			if (arg.isSet())
+				++num;
+		return num;
+	}
 }

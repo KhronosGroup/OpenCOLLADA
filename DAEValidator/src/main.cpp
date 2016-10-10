@@ -8,7 +8,6 @@ using namespace opencollada;
 using namespace std;
 
 // Validation options
-const char* checkAll = "--check-all";
 const char* checkSchema = "--check-schema";
 const char* checkUniqueIds = "--check-unique-ids";
 
@@ -17,7 +16,6 @@ int main(int argc, char* argv[])
 	// Parse arguments
 	ArgumentParser argparse(argc, argv);
 	argparse.addArgument(); // dae
-	argparse.addArgument(checkAll);
 	argparse.addArgument(checkSchema);
 	argparse.addArgument(checkUniqueIds);
 	if (!argparse.parseArguments())
@@ -38,7 +36,7 @@ int main(int argc, char* argv[])
 	DaeValidator validator(dae);
 	int result = 0;
 
-	if (argparse.findArgument(checkAll))
+	if (argparse.numSetArguments() == 1)
 	{
 		result |= validator.checkAll();
 	}
