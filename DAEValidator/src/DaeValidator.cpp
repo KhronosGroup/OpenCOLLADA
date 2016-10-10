@@ -37,14 +37,17 @@ namespace opencollada
 	};
 }
 
-template<>
-struct less<opencollada::IdLine>
+namespace std
 {
-	bool operator () (const opencollada::IdLine& a, const opencollada::IdLine& b) const
-	{
-		return a < b;
-	}
-};
+    template<>
+    struct less<opencollada::IdLine>
+    {
+        bool operator () (const opencollada::IdLine& a, const opencollada::IdLine& b) const
+        {
+            return a < b;
+        }
+    };
+}
 
 namespace opencollada
 {
