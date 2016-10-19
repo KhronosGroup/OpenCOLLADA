@@ -135,9 +135,12 @@ global proc int openColladaExporterOpts ( string $parent,
 					checkBoxGrp
 							-l " "
 							-ncb 1
-							-v1 false 
+							-v1 true
 							-l1 "Encode Names"
+							-en1 true
+							-ann "Any UCS-2 character that is not a valid XML name character is escaped as _xHHHH_ ,where HHHH stands for the four-digit hexadecimal UCS-2 code for the character in the most significant bit first order"
 							colladaEncodeNames;
+							
 
 				setParent ..; // columnLayout
 			setParent ..; // frameLayout

@@ -40,9 +40,9 @@ namespace COLLADAMaya
 				
 				COLLADASW::WideString markerName;
 				if (ExportOptions::exportEncodedNames())
-					markerName = COLLADABU::StringUtils::checkNCNameWithUCS2Encoding(markerIter->ID.asWChar());
+					markerName = COLLADABU::StringUtils::checkNCNameWithUCS2Encoding(markerIter->ID.asWChar(), true);
 				else
-					markerName = COLLADABU::StringUtils::checkNCName(markerIter->ID.asWChar());
+					markerName = COLLADABU::StringUtils::checkNCName(markerIter->ID.asWChar(), true);
 
 				swMarkerElement.ID = COLLADABU::StringUtils::wideString2utf8String(markerName);
 				swMarkerElement.time = markerIter->time;

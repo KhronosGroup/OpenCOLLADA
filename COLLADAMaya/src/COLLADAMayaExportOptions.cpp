@@ -24,7 +24,7 @@ namespace COLLADAMaya
     // Static Members
 
 	MString  ExportOptions::mDAEmodelName = "";
-	bool ExportOptions::mEncodedNames = false;
+	bool ExportOptions::mEncodedNames = true;
 	bool ExportOptions::mLOD = true;
     bool ExportOptions::mBakeTransforms = true;
     bool ExportOptions::mRelativePaths = true;
@@ -67,7 +67,7 @@ namespace COLLADAMaya
     // Parse the options String
     void ExportOptions::set ( const MString& optionsString )
     {
-		mEncodedNames = false;
+		mEncodedNames = true;
 		mLOD = true;
 		mDAEmodelName = "";
         

@@ -49,7 +49,7 @@ namespace COLLADABU
 		@param ncName The string to convert to a valid xs:NCName.
 		@return The checked string
 		*/
-		static WideString checkNCName ( const WideString &ncName );
+		static WideString checkNCName(const WideString &ncName, bool encodingColon);
 		//		static UTF8String checkNCName ( const UTF8String &ncName ){return UTF8String();};
 
 
@@ -61,7 +61,7 @@ namespace COLLADABU
 		@param ncName The string to convert to a valid xs:NCName.
 		@return The checked string
 		*/
-		static WideString checkNCNameWithUCS2Encoding ( const WideString &ncName );
+		static WideString checkNCNameWithUCS2Encoding(const WideString &ncName, bool encodingColon);
 
 
 		/** Checks for a valid xs:ID.
@@ -81,11 +81,13 @@ namespace COLLADABU
 		*/
 		static bool Prepass(const WideString &ncName, int i);
 
+		static bool isNameStartCharExcludingColon(wchar_t c);
+
 		/** Checks if @a c is name start character according to http://www.w3.org/TR/xml11/#NT-NameStartChar */
-		static bool isNameStartChar ( wchar_t c );
+		static bool isNameStartChar(wchar_t c, bool encodingColon);
 
 		/** Checks if @a c is name character according to http://www.w3.org/TR/xml11/#NT-NameChar */
-		static bool isNameChar ( wchar_t c );
+		static bool isNameChar(wchar_t c, bool encodingColon);
 
         /** Checks if @a c is an upper ASCII character*/
         static bool isUpperAsciiChar ( char c )

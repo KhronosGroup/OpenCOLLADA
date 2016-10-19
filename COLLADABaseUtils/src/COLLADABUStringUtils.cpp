@@ -25,7 +25,7 @@ namespace COLLADABU
 
 
     //---------------------------------
-	WideString StringUtils::checkNCName(const WideString &ncName)
+	WideString StringUtils::checkNCName(const WideString &ncName, bool encodingColon)
 	{
 		WideString result;
 		result.reserve(ncName.length());
@@ -33,7 +33,7 @@ namespace COLLADABU
 		// check if first character is an alpha character
 		const wchar_t& firstCharacter = ncName[0];
 
-		if (isNameStartChar((firstCharacter)))
+		if (isNameStartChar((firstCharacter), encodingColon))
 			result.append(1, firstCharacter);
 		else
 			result.append(1, '_');
@@ -43,7 +43,7 @@ namespace COLLADABU
 		{
 			const wchar_t& character = ncName[i];
 
-			if (isNameChar(character))
+			if (isNameChar(character, encodingColon))
 				result.append(1, character);
 			else
 				result.append(1, '_');
@@ -53,7 +53,7 @@ namespace COLLADABU
 	}
 
 	//---------------------------------
-	WideString StringUtils::checkNCNameWithUCS2Encoding(const WideString &ncName)
+	WideString StringUtils::checkNCNameWithUCS2Encoding(const WideString &ncName, bool encodingColon)
 	{
 		WideString result;
 		result.reserve(ncName.length());
@@ -61,7 +61,7 @@ namespace COLLADABU
 		// check if first character is an alpha character
 		const wchar_t& firstCharacter = ncName[0];
 
-		if (isNameStartChar((firstCharacter)))
+		if (isNameStartChar((firstCharacter), encodingColon))
 			result.append(1, firstCharacter);
 		else
 		{
@@ -76,7 +76,7 @@ namespace COLLADABU
 				result.append(ucs2Encode(WideString(&character, 1)));
 			else
 			{
-				if (isNameChar(character))
+				if (isNameChar(character, encodingColon))
 					result.append(1, character);
 				else
 					result.append(ucs2Encode(WideString(&character, 1)));
@@ -123,12 +123,12 @@ namespace COLLADABU
     //---------------------------------
     WideString StringUtils::checkID ( const WideString &id )
     {
-        return checkNCName ( id );
+        return checkNCName ( id, false);
     }
 
 	WideString StringUtils::checkIDWithUC2Encoding(const WideString &id)
 	{
-		return checkNCNameWithUCS2Encoding(id);
+		return checkNCNameWithUCS2Encoding(id,false);
 	}
 
     //---------------------------------
@@ -331,32 +331,46 @@ namespace COLLADABU
 		return true;
 	}
 
-	//--------------------------------
-	bool StringUtils::isNameStartChar( wchar_t c )
+	bool StringUtils::isNameStartCharExcludingColon(wchar_t c)
 	{
-		return		( c == ':' ) 
-				||	( c >= 'A' && c <= 'Z' )
-				||  ( c == '_' )
-				||  ( c >= 'a' && c <= 'z' )
-				||  ( c >= 0xC0 && c <= 0xD6 ) 
-				||	( c >= 0xD8 && c <= 0xF6 )
-				||	( c >= 0xF8 && c <= 0x2FF )
-				||	( c >= 0x370 && c <= 0x37D )
-				||	( c >= 0x37F && c <= 0x1FFF )
-				||	( c >= 0x200C && c <= 0x200D )
-				||	( c >= 0x2070 && c <= 0x218F )
-				||	( c >= 0x2C00 && c <= 0x2FEF )
-				||	( c >= 0x3001 && c <= 0xD7FF )
-				||	( c >= 0xF900 && c <= 0xFDCF )
-				||	( c >= 0xFDF0 && c <= 0xFFFD )
-				||	( c >= 0x10000 && c <= 0xEFFFF);
+		return ((c >= 'A' && c <= 'Z')
+			|| (c == '_')
+			|| (c >= 'a' && c <= 'z')
+			|| (c >= 0xC0 && c <= 0xD6)
+			|| (c >= 0xD8 && c <= 0xF6)
+			|| (c >= 0xF8 && c <= 0x2FF)
+			|| (c >= 0x370 && c <= 0x37D)
+			|| (c >= 0x37F && c <= 0x1FFF)
+			|| (c >= 0x200C && c <= 0x200D)
+			|| (c >= 0x2070 && c <= 0x218F)
+			|| (c >= 0x2C00 && c <= 0x2FEF)
+			|| (c >= 0x3001 && c <= 0xD7FF)
+			|| (c >= 0xF900 && c <= 0xFDCF)
+			|| (c >= 0xFDF0 && c <= 0xFFFD)
+			|| (c >= 0x10000 && c <= 0xEFFFF));
+	}
+
+	//--------------------------------
+	bool StringUtils::isNameStartChar(wchar_t c, bool encodingColon)
+	{
+		// The Namespaces in XML Recommendation [XML Names] assigns a meaning to names containing colon characters.
+		// Therefore, authors should not use the colon in XML names except for namespace purposes, but XML processors must accept the colon as a name character.
+					
+		if (!encodingColon)
+		{
+			return ((c == ':') || isNameStartCharExcludingColon(c));
+		}
+		else
+		{
+			return (isNameStartCharExcludingColon(c));
+		}
 	}
 
 
 	//--------------------------------
-	bool StringUtils::isNameChar( wchar_t c )
+	bool StringUtils::isNameChar(wchar_t c, bool encodingColon)
 	{
-		return	isNameStartChar( c )	
+		return	isNameStartChar( c, encodingColon )	
 			||	( c == '-' ) 
 			||  ( c == '.' )
 			||  ( c >= '0' && c <= '9' )
