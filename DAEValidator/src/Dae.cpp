@@ -1,10 +1,11 @@
 
 #include "Dae.h"
-#include "COLLADASWConstants.h"
 #include <string>
 #include <set>
 
-using namespace COLLADASW;
+// TODO remove
+#include <iostream>
+
 using namespace std;
 
 namespace opencollada
@@ -18,12 +19,171 @@ namespace opencollada
 
 	void Dae::readFile(const string & path)
 	{
-		mUri.set(COLLADABU::URI::nativePathToUri(path));
+		mUri = Uri::FromNativePath(path);
 
 		Super::readFile(path);
 
 		if (!*this)
 			return;
+
+		/*
+		string tests[] = {
+			"",
+			".",
+			"..",
+			"/.",
+			"/..",
+			"./",
+			"../",
+			"/./",
+			"/../",
+
+			"test",
+			".test",
+			"..test",
+			"/.test",
+			"/..test",
+			"./test",
+			"../test",
+			"/./test",
+			"/../test",
+
+			"test.",
+			"test..",
+			"test/.",
+			"test/..",
+			"test./",
+			"test../",
+			"test/./",
+			"test/../",
+
+			"...",
+			"/..",
+			"./.",
+			"../.",
+			"/./.",
+			"/../.",
+
+			"./.",
+			"./..",
+			".../",
+			"././",
+			"./../",
+
+			"....",
+			"/...",
+			"/....",
+			"./..",
+			"../..",
+			"/./..",
+			"/../..",
+
+			"../.",
+			"../..",
+			".../",
+			"..../",
+			".././",
+			"../../",
+
+			"test...",
+			"test/..",
+			"test./.",
+			"test../.",
+			"test/./.",
+			"test/../.",
+
+			"test./.",
+			"test./..",
+			"test.../",
+			"test././",
+			"test./../",
+
+			"test....",
+			"test/...",
+			"test/....",
+			"test./..",
+			"test../..",
+			"test/./..",
+			"test/../..",
+
+			"test../.",
+			"test../..",
+			"test.../",
+			"test..../",
+			"test.././",
+			"test../../",
+
+			"...test",
+			"/..test",
+			"./.test",
+			"../.test",
+			"/./.test",
+			"/../.test",
+
+			"./.test",
+			"./..test",
+			".../test",
+			"././test",
+			"./../test",
+
+			"....test",
+			"/...test",
+			"/....test",
+			"./..test",
+			"../..test",
+			"/./..test",
+			"/../..test",
+
+			"../.test",
+			"../..test",
+			".../test",
+			"..../test",
+			".././test",
+			"../../test",
+
+			"test...test",
+			"test/..test",
+			"test./.test",
+			"test../.test",
+			"test/./.test",
+			"test/../.test",
+
+			"test./.test",
+			"test./..test",
+			"test.../test",
+			"test././test",
+			"test./../test",
+
+			"test....test",
+			"test/...test",
+			"test/....test",
+			"test./..test",
+			"test../..test",
+			"test/./..test",
+			"test/../..test",
+
+			"test../.test",
+			"test../..test",
+			"test.../test",
+			"test..../test",
+			"test.././test",
+			"test../../test",
+			
+				"c:/.",
+				"c:/..",
+				"c:/test/./huhu/",
+				"c:/test/../huhu/",
+				"c:/test/.huhu/../../haha"
+		};
+		for (size_t i = 0; i < sizeof(tests) / sizeof(string); ++i)
+		{
+			cout << tests[i] << "->" << Uri::RemoveDotSegments(tests[i]) << endl;
+		}
+
+		int i = 0;
+		*/
+
+		/*
 
 		// List referenced DAEs
 
@@ -146,6 +306,7 @@ namespace opencollada
 				mExternalDAEs.push_back(move(dae));
 			}
 		}
+		*/
 	}
 
 	const COLLADABU::URI & Dae::getURI() const
@@ -161,7 +322,7 @@ namespace opencollada
 
 	void Dae::onAnyDAEURI(const string & uri)
 	{
-		COLLADABU::URI absoluteUri(mUri, uri);
+		Uri absoluteUri(mUri, uri);
 		if (!absoluteUri.getPathFile().empty())
 		{
 			COLLADABU::URI absoluteUriNoFragment(absoluteUri, true);

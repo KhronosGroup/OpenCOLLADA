@@ -1,11 +1,10 @@
 #include "DaeValidator.h"
-#include "COLLADASWConstants.h"
 #include "PathUtil.h"
 #include "StringUtil.h"
 #include <iostream>
 #include <set>
+#include <sstream>
 
-using namespace COLLADASW;
 using namespace std;
 
 namespace opencollada

@@ -15,6 +15,7 @@ set(SRC
 	src/main.cpp
 	src/PathUtil.cpp
 	src/StringUtil.cpp
+	src/Uri.cpp
 	src/XmlAttribute.cpp
 	src/XmlDoc.cpp
 	src/XmlNamespace.cpp
@@ -29,6 +30,7 @@ set(SRC
 	include/Log.h
 	include/PathUtil.h
 	include/StringUtil.h
+	include/Uri.h
 	include/Xml.h
 	include/XmlCommon.h
 	include/XmlAttribute.h
@@ -42,11 +44,7 @@ set(SRC
 )
 
 set(libDAEValidator_libs
-	OpenCOLLADABaseUtils
-	OpenCOLLADAStreamWriter
 	${LIBXML2_LIBRARIES}
-	UTF
-	${PCRE_LIBRARIES}
 )
 
 if (WIN32)
@@ -57,8 +55,6 @@ endif ()
 
 include_directories(
 	${libDAEValidator_include_dirs}
-	${libBaseUtils_include_dirs}
-	${libStreamWriter_include_dirs}
 	${LIBXML2_INCLUDE_DIR}
 )
 
@@ -84,8 +80,6 @@ if (NOT LIBXML2_FOUND)
 		add_dependencies(${name} xml_shared)
 	endif ()
 endif ()
-
-add_dependencies(${name} ${CMAKE_REQUIRED_LIBRARIES})
 
 if (NOT WIN32)
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")

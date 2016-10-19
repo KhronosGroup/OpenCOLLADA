@@ -1,7 +1,7 @@
 #pragma once
 
-#include "COLLADABUURI.h"
 #include "Xml.h"
+#include "Uri.h"
 #include <set>
 #include <string>
 #include <vector>
@@ -25,8 +25,8 @@ namespace opencollada
 		void onAnyDAEURI(const std::string & uri);
 
 	private:
-		COLLADABU::URI mUri;
-		std::set<COLLADABU::URI> mExternalDAEURIs;
+		Uri mUri;
+		std::set<Uri> mExternalDAEURIs;
 		std::vector<Dae> mExternalDAEs;
 	};
 }
