@@ -439,12 +439,14 @@ namespace COLLADASW
 		sw->openElement ( CSWC::CSW_ELEMENT_SURFACE );
 		sw->appendAttribute( CSWC::CSW_ATTRIBUTE_TYPE, getSurfaceTypeString ( mSamplerType ) );
 
-		sw->openElement( CSWC::CSW_ELEMENT_INIT_FROM );
 
-		if ( !mImageId.empty() )
-			sw->appendValues( mImageId );
-
-		sw->closeElement(); //CSW_ELEMENT_INIT_FROM
+		if (!mImageId.empty())
+		{
+			sw->openElement(CSWC::CSW_ELEMENT_INIT_FROM);
+			sw->appendValues(mImageId);
+			sw->closeElement(); //CSW_ELEMENT_INIT_FROM
+		}
+		
 
 		addExtraTechniques ( sw );
 
