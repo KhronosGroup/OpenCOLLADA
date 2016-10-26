@@ -1853,16 +1853,24 @@ namespace COLLADAMaya
 
 		void exportMass(const MObject & rigidBody, const PhysXXML::PxRigidBody & pxRigidBody)
         {
-			if (pxRigidBody.getType() == PhysXXML::PxRigidBody::Dynamic)
+			int dummy = 0;
+			MString overrideMassOrDensityStr;
+			DagHelper::getPlugValue(rigidBody, ATTR_OVERRIDE_MASS_OR_DENSITY, dummy, overrideMassOrDensityStr);
+			bool overrideMassOrDensity = overrideMassOrDensityStr != OVERRIDE_MASS_OR_DENSITY_DISABLED;
+
+			if (overrideMassOrDensity)
 			{
-				const PhysXXML::PxRigidDynamic & rigidDynamic = static_cast<const PhysXXML::PxRigidDynamic&>(pxRigidBody);
-				// PhysX mass is in grams. COLLADA uses kilograms.
-				Mass e(getPhysXExporter(), rigidDynamic.mass.mass / 1000.0);
-			}
-			else
-			{
-				double mass = getPhysXExporter().GetRigidBodyMass(rigidBody);
-				Mass e(getPhysXExporter(), mass);
+				if (pxRigidBody.getType() == PhysXXML::PxRigidBody::Dynamic)
+				{
+					const PhysXXML::PxRigidDynamic & rigidDynamic = static_cast<const PhysXXML::PxRigidDynamic&>(pxRigidBody);
+					// PhysX mass is in grams. COLLADA uses kilograms.
+					Mass e(getPhysXExporter(), rigidDynamic.mass.mass / 1000.0);
+				}
+				else
+				{
+					double mass = getPhysXExporter().GetRigidBodyMass(rigidBody);
+					Mass e(getPhysXExporter(), mass);
+				}
 			}
         }
 
