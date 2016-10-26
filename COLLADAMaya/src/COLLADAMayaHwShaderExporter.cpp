@@ -217,7 +217,9 @@ namespace COLLADAMaya
 
         // Export the effects parameter
         MObject shaderNode = shaderNodeCgfx->thisMObject();
-        exportEffectParameters ( shaderNode, cgEffect );
+
+		MaterialExporter::mSurfaceSidList.clear();
+		exportEffectParameters ( shaderNode, cgEffect );
 
         // Find if effect parameter is used by any program of the selected technique
         const cgfxTechnique* technique = cgEffect->getFirstTechnique();
@@ -930,10 +932,10 @@ namespace COLLADAMaya
 
         // Get the name of the current parameter
         const char* samplerSid = cgGetParameterName ( cgParameter );
-
+		
         // Name of the current texture
         const char* surfaceSid = cgGetParameterName( cgTextureParam );
-
+		
         // Create the collada sampler object
         COLLADASW::Sampler sampler ( COLLADASW::Sampler::SAMPLER_TYPE_UNSPECIFIED, samplerSid, surfaceSid );
 
@@ -1045,13 +1047,20 @@ namespace COLLADAMaya
             getAnnotations( samplerAnnotations, cgParameter );
 
             // Add the parameter.
-            sampler.addInNewParam ( streamWriter, &surfaceAnnotations, &samplerAnnotations );
+			sampler.addInNewParam(streamWriter, &surfaceAnnotations, &samplerAnnotations, (MaterialExporter::mSurfaceSidList.find(surfaceSid) == MaterialExporter::mSurfaceSidList.end()));
         }
         else
         {
             // Add the parameter.
-            sampler.addInSetParam ( streamWriter );
+			sampler.addInSetParam(streamWriter, 0, 0, (MaterialExporter::mSurfaceSidList.find(surfaceSid) == MaterialExporter::mSurfaceSidList.end()));
         }
+
+		MaterialExporter::SidSet::iterator it = MaterialExporter::mSurfaceSidList.find(surfaceSid);
+		if (it == MaterialExporter::mSurfaceSidList.end())
+		{
+			MaterialExporter::mSurfaceSidList.insert(surfaceSid);
+		}
+
     }
 
     // --------------------------------------
