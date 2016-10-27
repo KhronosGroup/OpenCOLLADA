@@ -33,7 +33,7 @@ namespace opencollada
 		}
 	}
 
-	bool XmlSchema::validate(const XmlDoc & doc)
+	bool XmlSchema::validate(const XmlDoc & doc) const
 	{
 		int result = 1;
 		if (xmlSchemaValidCtxtPtr ctxt = xmlSchemaNewValidCtxt(mSchema))

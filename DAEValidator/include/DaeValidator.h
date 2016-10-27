@@ -2,6 +2,8 @@
 
 #include "Dae.h"
 
+#include <functional>
+#include <list>
 #include <string>
 
 namespace opencollada
@@ -9,17 +11,22 @@ namespace opencollada
 	class DaeValidator
 	{
 	public:
-		DaeValidator(const Dae & dae);
+		DaeValidator(const std::list<std::string> & daePaths);
 
 		int checkAll() const;
 		int checkSchema(const std::string & schema_uri = std::string()) const;
 		int checkUniqueIds() const;
 
 	private:
-		int validateAgainstMemory(const char* xsd, size_t size) const;
-		int validateAgainstFile(const std::string & xsdPath) const;
+		static int CheckAll(const Dae & dae);
+		static int CheckSchema(const Dae & dae);
+		static int CheckUniqueIds(const Dae & dae);
+
+		int for_each_dae(const std::function<int(const Dae &)> & task) const;
+		static int ValidateAgainstFile(const Dae & dae, const std::string & xsdPath);
+		static int ValidateAgainstSchema(const Dae & dae, const XmlSchema & schema);
 
 	private:
-		const Dae & mDae;
+		std::vector<std::string> mDaePaths;
 	};
 }

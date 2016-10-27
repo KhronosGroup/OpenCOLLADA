@@ -13,7 +13,7 @@ namespace opencollada
 
 		void readFile(const std::string & url);
 		void readMemory(const char* xsd, size_t size);
-		bool validate(const class XmlDoc & doc);
+		bool validate(const class XmlDoc & doc) const;
 
 		operator bool() const;
 
