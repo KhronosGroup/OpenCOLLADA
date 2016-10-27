@@ -11,6 +11,7 @@ set(SRC
 	src/ArgumentParser.cpp
 	src/Dae.cpp
 	src/DaeValidator.cpp
+	src/Log.cpp
 	src/main.cpp
 	src/PathUtil.cpp
 	src/StringUtil.cpp
@@ -25,6 +26,7 @@ set(SRC
 	include/ArgumentParser.h
 	include/Dae.h
 	include/DaeValidator.h
+	include/Log.h
 	include/PathUtil.h
 	include/StringUtil.h
 	include/Xml.h
