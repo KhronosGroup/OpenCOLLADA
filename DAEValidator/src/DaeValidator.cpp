@@ -1,7 +1,16 @@
 #include "DaeValidator.h"
 #include "COLLADASWConstants.h"
+#include "PathUtil.h"
 #include <iostream>
 #include <set>
+
+#if defined(_WIN32)
+#include <Windows.h>
+#elif defined(__APPLE__)
+#include <mach-o/dyld.h>
+#elif defined(__LINUX__)
+#include <unistd.h>
+#endif
 
 using namespace COLLADASW;
 using namespace std;
@@ -39,14 +48,14 @@ namespace opencollada
 
 namespace std
 {
-    template<>
-    struct less<opencollada::IdLine>
-    {
-        bool operator () (const opencollada::IdLine& a, const opencollada::IdLine& b) const
-        {
-            return a < b;
-        }
-    };
+	template<>
+	struct less<opencollada::IdLine>
+	{
+		bool operator () (const opencollada::IdLine& a, const opencollada::IdLine& b) const
+		{
+			return a < b;
+		}
+	};
 }
 
 namespace opencollada
@@ -83,6 +92,57 @@ namespace opencollada
 		return parts;
 	}
 
+	string GetExecutablePath()
+	{
+#if defined(_WIN32)
+		vector<string::value_type> path;
+		path.resize(MAX_PATH);
+		GetModuleFileNameA(NULL, &path.front(), static_cast<DWORD>(path.size()));
+		while (GetLastError() == ERROR_INSUFFICIENT_BUFFER) {
+			path.resize(path.size() * 2);
+			GetModuleFileNameA(NULL, &path.front(), static_cast<DWORD>(path.size()));
+		}
+		return string(&path.front());
+#elif defined(__APPLE__)
+		// TODO test
+		uint32_t size = 0;
+		_NSGetExecutablePath(nullptr, &size);
+		string path;
+		path.resize(size - 1);
+		if (_NSGetExecutablePath(&path.front(), &size) == 0)
+			return path;
+		return string();
+#elif defined(__LINUX__)
+		// TODO test
+		static const char* proc_self_exe = "/proc/self/exe";
+		stat st;
+		if (lstat(proc_self_exe, &st) == 0)
+		{
+			string path;
+			path.resize(st.st_size);
+			if (readlink(proc_self_exe, &path.front(), st.st_size) != -1)
+				return path;
+		}
+		return string();
+#else
+#error not implemented
+#endif
+	}
+
+	string GetExecutableDirectory()
+	{
+		string exePath = GetExecutablePath();
+		if (exePath.length() > 0)
+		{
+			size_t sep = exePath.rfind(Path::Separator());
+			if (sep != string::npos)
+			{
+				return exePath.substr(0, sep);
+			}
+		}
+		return string();
+	}
+
 	int DaeValidator::checkSchema(const string & schema_uri) const
 	{
 		int result = 0;
@@ -114,11 +174,11 @@ namespace opencollada
 			auto href = xmlns.href();
 			if (href == colladaNamespace141)
 			{
-				result |= validateAgainstFile(colladaSchema141);
+				result |= validateAgainstFile(Path::Join(GetExecutableDirectory(), colladaSchema141));
 			}
 			else if (href == colladaNamespace15)
 			{
-				result |= validateAgainstFile(colladaSchema15);
+				result |= validateAgainstFile(Path::Join(GetExecutableDirectory(), colladaSchema15));
 			}
 			else
 			{

@@ -12,6 +12,8 @@ set(SRC
 	src/Dae.cpp
 	src/DaeValidator.cpp
 	src/main.cpp
+	src/PathUtil.cpp
+	src/StringUtil.cpp
 	src/XmlAttribute.cpp
 	src/XmlDoc.cpp
 	src/XmlNamespace.cpp
@@ -23,6 +25,8 @@ set(SRC
 	include/ArgumentParser.h
 	include/Dae.h
 	include/DaeValidator.h
+	include/PathUtil.h
+	include/StringUtil.h
 	include/Xml.h
 	include/XmlCommon.h
 	include/XmlAttribute.h
