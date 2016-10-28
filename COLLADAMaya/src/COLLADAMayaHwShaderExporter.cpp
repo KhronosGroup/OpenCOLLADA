@@ -743,15 +743,18 @@ namespace COLLADAMaya
             }
             case CG_STRING:
                 {
+
+					
                     // Create the parameter
                     COLLADASW::NewParam<> newParam ( streamWriter );
 
                     // Get the value
                     const char* paramValue = cgGetStringParameterValue ( cgParameter ); 
                     String paramString = (String) paramValue;
+					MGlobal::displayWarning(("CG String Parameter type: ") + MString(paramString.c_str()) + MString(" not supported!"));
 
                     // Export the parameter data.
-                    exportParam ( cgParameter, &newParam, paramString );
+                   // exportParam ( cgParameter, &newParam, paramString );
 
                     break;
                 }
