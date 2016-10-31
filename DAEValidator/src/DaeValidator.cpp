@@ -241,7 +241,6 @@ namespace opencollada
 	int DaeValidator::ValidateAgainstFile(const Dae & dae, const string & xsdPath)
 	{
 		// Open xsd
-		cout << "Validating against " << xsdPath << endl;
 		XmlSchema xsd;
 		xsd.readFile(xsdPath.c_str());
 		if (!xsd)

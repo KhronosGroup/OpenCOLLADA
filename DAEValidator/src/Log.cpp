@@ -73,20 +73,20 @@ namespace opencollada
 	void Log::Setup(bool quiet)
 	{
 		// mute/unmute cout and redirect to VS output
-		mCoutHook = make_unique<streamhook>(cout, quiet, [=](const std::string & str) {
+		mCoutHook.reset(new streamhook(cout, quiet, [=](const std::string & str) {
 #if defined(_WIN32)
 			if (!quiet)
 				OutputDebugString(str.c_str());
 #endif
-		});
+		}));
 
 		// mute/unmute cerr and redirect to VS output
-		mCerrHook = make_unique<streamhook>(cerr, quiet, [=](const std::string & str) {
+		mCerrHook.reset(new streamhook(cerr, quiet, [=](const std::string & str) {
 #if defined(_WIN32)
 			if (!quiet)
 				OutputDebugString(str.c_str());
 #endif
-		});
+		}));
 
 		// mute/unmute libxml output
 		if (quiet)
