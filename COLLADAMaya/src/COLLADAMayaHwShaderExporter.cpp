@@ -43,7 +43,7 @@ namespace COLLADAMaya
 {
 
     // ---------------------------------
-    void HwShaderExporter::exportPluginHwShaderNode (
+    bool HwShaderExporter::exportPluginHwShaderNode (
         const String &effectId,
         COLLADASW::EffectProfile *effectProfile,
         MObject shaderNode )
@@ -67,7 +67,7 @@ namespace COLLADAMaya
             cgfxShaderNode* shaderNodeCgfx = ( cgfxShaderNode* ) fnNode.userNode();
 
             // Exports the effect data of a cgfxShader node.
-            exportCgfxShader( shaderNodeCgfx );
+            return exportCgfxShader( shaderNodeCgfx );
         }
         else
         {
@@ -75,11 +75,13 @@ namespace COLLADAMaya
             mEffectProfile->openProfile ();
             mEffectProfile->addProfileElements ();
             mEffectProfile->closeProfile ();
+
+			return true;
         }
     }
 
     // ---------------------------------
-    void HwShaderExporter::exportCgfxShader ( cgfxShaderNode* shaderNodeCgfx )
+    bool HwShaderExporter::exportCgfxShader ( cgfxShaderNode* shaderNodeCgfx )
     {
 		// Disabled for Maya2012, the raw CGeffect is no-longer directly accessible from the cgfxShaderNode class.
 #if MAYA_API_VERSION < 201200
@@ -167,6 +169,14 @@ namespace COLLADAMaya
         // Set the current shader scope to CG
         setShaderScope ( COLLADASW::Shader::SCOPE_CG );
 
+		// Get the current CGeffect
+		const cgfxRCPtr<const cgfxEffect>& cgEffect = shaderNodeCgfx->effect();
+		if (cgEffect.isNull())
+		{
+			MGlobal::displayError("cgEffect is null.");
+			return false;
+		}
+
         // Writes the current effect profile into the collada document
         mEffectProfile->setProfileType ( COLLADASW::EffectProfile::CG );
         mEffectProfile->openProfile ();
@@ -227,6 +237,8 @@ namespace COLLADAMaya
             technique = technique->getNext();
         }
 #endif // MAYA_API_VERSION < 201200
+
+		return true;
     }
 
 #if MAYA_API_VERSION >= 201200
