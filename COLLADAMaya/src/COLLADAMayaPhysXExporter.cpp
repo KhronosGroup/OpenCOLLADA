@@ -4526,12 +4526,13 @@ namespace COLLADAMaya
     }
 
     bool ExtractPhysXPluginVersionNumbers(
+		const MString & mversion,
         int & major,
         int & minor,
         int & a,
         int & b)
     {
-        String version = PhysXExporter::GetInstalledPhysXPluginVersion().asChar();
+        String version = mversion.asChar();
 
         size_t p1 = version.find('(');
         if (p1 == String::npos) return false;
@@ -4577,20 +4578,22 @@ namespace COLLADAMaya
         int curr_a = 0;
         int curr_b = 0;
 
-        if (!ExtractPhysXPluginVersionNumbers(requ_major, requ_minor, requ_a, requ_b)) {
+        if (!ExtractPhysXPluginVersionNumbers(GetRequiredPhysXPluginVersion(), requ_major, requ_minor, requ_a, requ_b)) {
             return false;
         }
 
-        if (!ExtractPhysXPluginVersionNumbers(curr_major, curr_minor, curr_a, curr_b)) {
+        if (!ExtractPhysXPluginVersionNumbers(GetInstalledPhysXPluginVersion(), curr_major, curr_minor, curr_a, curr_b)) {
             return false;
         }
 
-        if (curr_major < requ_major ||
-            curr_minor < requ_minor ||
-            curr_a < requ_a ||
-            curr_b < requ_b) {
-            return false;
-        }
+		if (curr_major > requ_major) return true;
+		if (curr_major < requ_major) return false;
+		if (curr_minor > requ_minor) return true;
+		if (curr_minor < requ_minor) return false;
+		if (curr_a > requ_a) return true;
+		if (curr_a < requ_a) return false;
+		if (curr_b >= requ_b) return true;
+		if (curr_b < requ_b) return false;
 
         return true;
     }
