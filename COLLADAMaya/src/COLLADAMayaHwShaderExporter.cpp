@@ -190,15 +190,7 @@ namespace COLLADAMaya
         COLLADASW::URI  shaderFxFileUri ( COLLADASW::URI::nativePathToUri ( shaderFxFileName ) );
         setShaderFxFileUri ( shaderFxFileUri );
 
-        // Get the current CGeffect
-        const cgfxRCPtr<const cgfxEffect>& cgEffect = shaderNodeCgfx->effect();
-        if( cgEffect.isNull() )
-        {
-            MGlobal::displayError ("cgEffect is null.");
-            return;
-        }
-
-		// Set the current include file
+        // Set the current include file
         if ( ExportOptions::exportCgfxFileReferences () )
             mEffectProfile->setInclude ( shaderFxFileUri, shaderFxFileUri.getPathFileBase() );
         else
