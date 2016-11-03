@@ -4586,7 +4586,7 @@ namespace COLLADAMaya
             return false;
         }
 
-		if (curr_major > requ_major) return true;
+		if (curr_major > requ_major) return false;
 		if (curr_major < requ_major) return false;
 		if (curr_minor > requ_minor) return true;
 		if (curr_minor < requ_minor) return false;
