@@ -38,6 +38,7 @@ set(SRC
 	include/XmlNodes.h
 	include/XmlNodeSet.h
 	include/XmlSchema.h
+    include/win/dirent.h
 )
 
 set(libDAEValidator_libs

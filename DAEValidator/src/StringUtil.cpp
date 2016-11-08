@@ -30,7 +30,7 @@ namespace opencollada
 	string String::Lower(const string & str)
 	{
 		string res = str;
-		transform(res.begin(), res.end(), res.begin(), tolower);
+        transform(res.begin(), res.end(), res.begin(), ::tolower);
 		return res;
 	}
 }

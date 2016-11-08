@@ -3,9 +3,11 @@
 
 #if defined(_WIN32)
 #include <Windows.h>
-#include "dirent.h"
+#include "win/dirent.h"
 #elif defined(__APPLE__)
 #include <mach-o/dyld.h>
+#include <sys/stat.h>
+#include <dirent.h>
 #elif defined(__LINUX__)
 #include <unistd.h>
 #endif
