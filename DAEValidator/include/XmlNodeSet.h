@@ -30,13 +30,13 @@ namespace opencollada
 
 		private:
 			xmlNodeSetPtr mNodeSet = nullptr;
-			size_t mIndex = 0;
+			int mIndex = 0;
 		};
 
 		iterator begin() const;
 		iterator end() const;
 		size_t size() const;
-		XmlNode operator[](size_t index) const;
+		XmlNode operator[](int index) const;
 
 	private:
 		XmlNodeSet(xmlXPathObjectPtr xpathObject);

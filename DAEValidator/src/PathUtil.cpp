@@ -8,7 +8,10 @@
 #include <mach-o/dyld.h>
 #include <sys/stat.h>
 #include <dirent.h>
-#elif defined(__LINUX__)
+#else
+#include <dirent.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <unistd.h>
 #endif
 
@@ -39,7 +42,7 @@ namespace opencollada
 
 	bool Path::IsDirectory(const string & path)
 	{
-		struct stat st = { 0 };
+		struct stat st;
 		if (stat(path.c_str(), &st) == 0)
 			if ((st.st_mode & S_IFDIR) != 0)
 				return true;
@@ -58,7 +61,6 @@ namespace opencollada
 		}
 		return string(&path.front());
 #elif defined(__APPLE__)
-		// TODO test
 		uint32_t size = 0;
 		_NSGetExecutablePath(nullptr, &size);
 		string path;
@@ -66,11 +68,10 @@ namespace opencollada
 		if (_NSGetExecutablePath(&path.front(), &size) == 0)
 			return path;
 		return string();
-#elif defined(__LINUX__)
-		// TODO test
+#else
 		static const char* proc_self_exe = "/proc/self/exe";
-		stat st = { 0 };
-		if (lstat(proc_self_exe, &st) == 0)
+		struct stat st;
+		if (stat(proc_self_exe, &st) == 0)
 		{
 			string path;
 			path.resize(st.st_size);
@@ -78,8 +79,6 @@ namespace opencollada
 				return path;
 		}
 		return string();
-#else
-#error not implemented
 #endif
 	}
 
