@@ -110,6 +110,7 @@ namespace COLLADABU
 				(isAsciiAlphaChar(character3) || isDigit(character3)) &&
 				(isAsciiAlphaChar(character4) || isDigit(character4)) &&
 				(isAsciiAlphaChar(character5) || isDigit(character5)) &&
+				(isAsciiAlphaChar(character6) || isDigit(character6)) &&
 				(character7 == '_'))
 				return true;
 			else
