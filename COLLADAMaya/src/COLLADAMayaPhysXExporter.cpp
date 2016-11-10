@@ -4838,13 +4838,6 @@ namespace COLLADAMaya
         // Backup export options
         AutoRestorePhysXExportOptions autoRestorePhysXExportOptions;
 
-        // PhysX internal data is in centimeters and we need to export to UI unit.
-        MDistance unitDistance = MDistance(1.0, MDistance::uiUnit());
-        double asCentimeters = unitDistance.asCentimeters();
-        double centimetersToUIUnit = 1.0 / asCentimeters;
-        MString centimetersToUIUnitStr = "";
-        centimetersToUIUnitStr += centimetersToUIUnit;
-
         // Set export options
         status = MGlobal::executeCommand("optionVar -iv \"apexClothingExport_APBs\" 2");
         if (!status) return false;
@@ -4862,11 +4855,11 @@ namespace COLLADAMaya
         if (!status) return false;
         status = MGlobal::executeCommand("optionVar -iv \"PhysXExport_exportPhysX\" 1");
         if (!status) return false;
-        status = MGlobal::executeCommand("optionVar -sv \"PhysXExport_outputUnit\" \"meter\""); // Has no effect
+        status = MGlobal::executeCommand("optionVar -sv \"PhysXExport_outputUnit\" \"meter\"");
         if (!status) return false;
         status = MGlobal::executeCommand("optionVar -iv \"PhysXExport_customScaling\" true");
         if (!status) return false;
-        status = MGlobal::executeCommand("optionVar -fv \"PhysXExport_outputScale\" " + centimetersToUIUnitStr);
+        status = MGlobal::executeCommand("optionVar -fv \"PhysXExport_outputScale\" 1.0");
         if (!status) return false;
 
         String filePath = mDocumentExporter.getFilename();
