@@ -1,3 +1,4 @@
+#include "StringUtil.h"
 #include "Uri.h"
 #include <cctype>
 #include <regex>
@@ -16,11 +17,20 @@ namespace opencollada
 		set(baseUri, uri);
 	}
 
-	//const Uri & Uri::operator=(const Uri & uri)
-	//{
-	//	mUri = uri.mUri;
-	//	return *this;
-	//}
+	bool Uri::operator == (const Uri & uri) const
+	{
+		return mUri == uri.mUri;
+	}
+
+	bool Uri::operator != (const Uri & uri) const
+	{
+		return !this->operator==(uri);
+	}
+
+	bool Uri::operator < (const Uri & uri) const
+	{
+		return less<string>()(mUri, uri.str());
+	}
 
 	bool Uri::isValid() const
 	{
@@ -32,29 +42,79 @@ namespace opencollada
 		return mUri;
 	}
 
-	const std::string & Uri::scheme() const
+	const string & Uri::scheme() const
 	{
 		return mScheme;
 	}
 
-	const std::string & Uri::authority() const
+	const string & Uri::authority() const
 	{
 		return mAuthority;
 	}
 
-	const std::string & Uri::path() const
+	const string & Uri::path() const
 	{
 		return mPath;
 	}
 
-	const std::string & Uri::query() const
+	const string & Uri::query() const
 	{
 		return mQuery;
 	}
 
-	const std::string & Uri::fragment() const
+	const string & Uri::fragment() const
 	{
 		return mFragment;
+	}
+
+	void Uri::setFragment(const string & fragment)
+	{
+		mFragment = fragment;
+		rebuild();
+	}
+
+	string Uri::pathFile() const
+	{
+		// https://techtavern.wordpress.com/2009/04/06/regex-that-matches-path-filename-and-extension/
+		static regex parse_path_regex("^(.*/)?(?:$|(.+?)(?:(\\.[^.]*$)|$))");
+		smatch matches;
+		if (!regex_match(mPath, matches, parse_path_regex))
+			return string();
+
+		string base = matches.str(2);
+		string ext = matches.str(3);
+
+		return base + ext;
+	}
+
+	string Uri::nativePath() const
+	{
+		if (!mScheme.empty() && mScheme != "file")
+			return string();
+
+		string currentPath(mPath);
+		string native_path;
+#if _WIN32
+		if (!mAuthority.empty())
+			native_path += string("\\\\") + mAuthority; // UNC path
+
+		// Replace two leading slashes with one leading slash, so that
+		// ///otherComputer/file.dae becomes //otherComputer/file.dae and
+		// //folder/file.dae becomes /folder/file.dae
+		if (currentPath.length() >= 2 && currentPath[0] == '/' && currentPath[1] == '/')
+			currentPath.erase(0, 1);
+
+		// Convert "/C:/" to "C:/"
+		if (currentPath.length() >= 3 && currentPath[0] == '/' && currentPath[2] == ':')
+			currentPath.erase(0, 1);
+
+		// Convert forward slashes to back slashes
+		currentPath = String::Replace(currentPath, "/", "\\");
+#endif
+		native_path += currentPath;
+
+		// Replace % encoded characters
+		return Uri::Decode(native_path);
 	}
 
 	void Uri::clear()
@@ -71,6 +131,7 @@ namespace opencollada
 	void Uri::set(const string & uri)
 	{
 		clear();
+		mUri = uri;
 		mValid = Parse(uri, mScheme, mAuthority, mPath, mQuery, mFragment);
 	}
 
@@ -118,6 +179,7 @@ namespace opencollada
 			mScheme = base.mScheme;
 		}
 		mFragment = ref.mFragment;
+		rebuild();
 	}
 
 	Uri Uri::FromNativePath(const string & path)
@@ -130,8 +192,7 @@ namespace opencollada
 			tmp.insert(0, 1, '/');
 
 		// Replace \ by /
-		for (size_t pos = tmp.find('\\'); pos != string::npos; pos = tmp.find('\\', pos))
-			tmp.replace(pos, 1, 1, '/');
+		tmp = String::Replace(tmp, "\\", "/");
 
 		string uri = tmp;
 #else
@@ -140,21 +201,84 @@ namespace opencollada
 		return Encode(uri);
 	}
 
-	Uri Uri::Encode(const string & str)
+	string Uri::Decode(const std::string & str)
 	{
-		static char hex[] = "0123456789ABCDEF";
+		// Hexadecimal character to decimal value table.
+		// Examples:
+		// char '0' = 0x30 -> 0
+		// char 'A' = 0x41 -> 10
+		// char 'a' = 0x61 -> 10
+		// char 'G' = 0x47 -> err -> invalid  hexadecimal character
+		static const signed char err = -1;
+		static const signed char hex_to_dec[] =
+		{
+			//0   1   2   3    4   5   6   7    8   9   A   B    C   D   E   F
+			err,err,err,err, err,err,err,err, err,err,err,err, err,err,err,err, // 0
+			err,err,err,err, err,err,err,err, err,err,err,err, err,err,err,err, // 1
+			err,err,err,err, err,err,err,err, err,err,err,err, err,err,err,err, // 2
+			  0,  1,  2,  3,   4,  5,  6,  7,   8,  9,err,err, err,err,err,err, // 3
 
-		Uri uri;
-		uri.mUri.reserve(str.length() * 3);
+			err, 10, 11, 12,  13, 14, 15,err, err,err,err,err, err,err,err,err, // 4
+			err,err,err,err, err,err,err,err, err,err,err,err, err,err,err,err, // 5
+			err, 10, 11, 12,  13, 14, 15,err, err,err,err,err, err,err,err,err, // 6
+			err,err,err,err, err,err,err,err, err,err,err,err, err,err,err,err, // 7
+
+			err,err,err,err, err,err,err,err, err,err,err,err, err,err,err,err, // 8
+			err,err,err,err, err,err,err,err, err,err,err,err, err,err,err,err, // 9
+			err,err,err,err, err,err,err,err, err,err,err,err, err,err,err,err, // A
+			err,err,err,err, err,err,err,err, err,err,err,err, err,err,err,err, // B
+
+			err,err,err,err, err,err,err,err, err,err,err,err, err,err,err,err, // C
+			err,err,err,err, err,err,err,err, err,err,err,err, err,err,err,err, // D
+			err,err,err,err, err,err,err,err, err,err,err,err, err,err,err,err, // E
+			err,err,err,err, err,err,err,err, err,err,err,err, err,err,err,err  // F
+		};
+
+		const size_t str_len = str.length();
+		const size_t last_decodable_pos = min(str_len, str_len - 2);
+
+		string res;
+		res.reserve(str_len);
+		size_t i = 0;
+		while (i < last_decodable_pos)
+		{
+			if (str[i] == '%')
+			{
+				auto dec1 = hex_to_dec[str[i + 1]];
+				auto dec2 = hex_to_dec[str[i + 2]];
+				if (dec1 != err && dec2 != err)
+				{
+					res.append(1, static_cast<string::value_type>((dec1 << 4) + dec2));
+					i += 3;
+					continue;
+				}
+			}
+			res.append(1, str[i++]);
+		}
+
+		while (i < str_len)
+		{
+			res.append(1, str[i++]);
+		}
+
+		return res;
+	}
+
+	string Uri::Encode(const string & str)
+	{
+		static const char dec_to_hex[] = "0123456789ABCDEF";
+
+		string uri;
+		uri.reserve(str.length() * 3);
 		for (auto c : str)
 		{
 			if (c > 32 && c < 128)
-				uri.mUri += c;
+				uri += c;
 			else
 			{
-				uri.mUri += '%';
-				uri.mUri += hex[c >> 4];
-				uri.mUri += hex[c & 0x0F];
+				uri += '%';
+				uri += dec_to_hex[c >> 4];
+				uri += dec_to_hex[c & 0x0F];
 			}
 		}
 		return uri;
@@ -191,7 +315,7 @@ namespace opencollada
 		return true;
 	}
 
-	bool Uri::StartsWith(const std::string & str, const std::string & with)
+	bool Uri::StartsWith(const string & str, const string & with)
 	{
 		return str.substr(0, with.length()) == with;
 	}
@@ -285,4 +409,28 @@ namespace opencollada
 		}
 		return output;
 	}
+
+	void Uri::rebuild()
+	{
+		mUri.clear();
+		if (!mScheme.empty())
+			mUri += mScheme + ':';
+		if (!mAuthority.empty())
+			mUri += "//" + mAuthority;
+		if (!mPath.empty())
+			mUri += mPath;
+		if (!mQuery.empty())
+			mUri += '?' + mQuery;
+		if (!mFragment.empty())
+			mUri += '#' + mFragment;
+
+		string scheme, authority, path, query, fragment;
+		mValid = Parse(mUri, scheme, authority, path, query, fragment);
+	}
+}
+
+ostream & operator << (ostream & o, const opencollada::Uri & uri)
+{
+	o << uri.str();
+	return o;
 }

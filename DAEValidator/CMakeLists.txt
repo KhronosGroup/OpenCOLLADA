@@ -14,6 +14,7 @@ set(SRC
 	src/Log.cpp
 	src/main.cpp
 	src/PathUtil.cpp
+	src/Strings.cpp
 	src/StringUtil.cpp
 	src/Uri.cpp
 	src/XmlAttribute.cpp
@@ -29,6 +30,7 @@ set(SRC
 	include/DaeValidator.h
 	include/Log.h
 	include/PathUtil.h
+	include/Strings.h
 	include/StringUtil.h
 	include/Uri.h
 	include/Xml.h

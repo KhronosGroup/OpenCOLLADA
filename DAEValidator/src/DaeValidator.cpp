@@ -1,5 +1,6 @@
 #include "DaeValidator.h"
 #include "PathUtil.h"
+#include "Strings.h"
 #include "StringUtil.h"
 #include <iostream>
 #include <set>
@@ -134,9 +135,9 @@ namespace opencollada
 			return 1;
 		}
 
-		if (collada.name() != "COLLADA")
+		if (collada.name() != Strings::COLLADA)
 		{
-			cerr << "Root element is not <COLLADA>" << endl;
+			cerr << "Root element is not <" << Strings::COLLADA << ">" << endl;
 			return 1;
 		}
 
@@ -199,12 +200,6 @@ namespace opencollada
 		return result;
 	}
 
-	ostream & operator << (ostream & o, const COLLADABU::URI & uri)
-	{
-		o << uri.getURIString();
-		return o;
-	}
-
 	int DaeValidator::checkUniqueIds() const
 	{
 		return for_each_dae([&](const Dae & dae) {
@@ -220,7 +215,7 @@ namespace opencollada
 		for (const auto & node : nodes)
 		{
 			IdLine id_line(
-				node.attribute(CSWC::CSW_ATTRIBUTE_ID).value(),
+				node.attribute(Strings::id).value(),
 				node.line()
 			);
 			auto it = ids.find(id_line);

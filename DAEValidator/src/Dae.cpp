@@ -1,5 +1,6 @@
 
 #include "Dae.h"
+#include "Strings.h"
 #include <string>
 #include <set>
 
@@ -11,7 +12,7 @@ using namespace std;
 namespace opencollada
 {
 	const string xpath_all = "//collada:";
-	const string xpath_or_all = "|//collada";
+	const string xpath_or_all = "|//collada:";
 
 	Dae::Dae(Dae && other)
 		: XmlDoc(move(other))
@@ -26,195 +27,36 @@ namespace opencollada
 		if (!*this)
 			return;
 
-		/*
-		string tests[] = {
-			"",
-			".",
-			"..",
-			"/.",
-			"/..",
-			"./",
-			"../",
-			"/./",
-			"/../",
-
-			"test",
-			".test",
-			"..test",
-			"/.test",
-			"/..test",
-			"./test",
-			"../test",
-			"/./test",
-			"/../test",
-
-			"test.",
-			"test..",
-			"test/.",
-			"test/..",
-			"test./",
-			"test../",
-			"test/./",
-			"test/../",
-
-			"...",
-			"/..",
-			"./.",
-			"../.",
-			"/./.",
-			"/../.",
-
-			"./.",
-			"./..",
-			".../",
-			"././",
-			"./../",
-
-			"....",
-			"/...",
-			"/....",
-			"./..",
-			"../..",
-			"/./..",
-			"/../..",
-
-			"../.",
-			"../..",
-			".../",
-			"..../",
-			".././",
-			"../../",
-
-			"test...",
-			"test/..",
-			"test./.",
-			"test../.",
-			"test/./.",
-			"test/../.",
-
-			"test./.",
-			"test./..",
-			"test.../",
-			"test././",
-			"test./../",
-
-			"test....",
-			"test/...",
-			"test/....",
-			"test./..",
-			"test../..",
-			"test/./..",
-			"test/../..",
-
-			"test../.",
-			"test../..",
-			"test.../",
-			"test..../",
-			"test.././",
-			"test../../",
-
-			"...test",
-			"/..test",
-			"./.test",
-			"../.test",
-			"/./.test",
-			"/../.test",
-
-			"./.test",
-			"./..test",
-			".../test",
-			"././test",
-			"./../test",
-
-			"....test",
-			"/...test",
-			"/....test",
-			"./..test",
-			"../..test",
-			"/./..test",
-			"/../..test",
-
-			"../.test",
-			"../..test",
-			".../test",
-			"..../test",
-			".././test",
-			"../../test",
-
-			"test...test",
-			"test/..test",
-			"test./.test",
-			"test../.test",
-			"test/./.test",
-			"test/../.test",
-
-			"test./.test",
-			"test./..test",
-			"test.../test",
-			"test././test",
-			"test./../test",
-
-			"test....test",
-			"test/...test",
-			"test/....test",
-			"test./..test",
-			"test../..test",
-			"test/./..test",
-			"test/../..test",
-
-			"test../.test",
-			"test../..test",
-			"test.../test",
-			"test..../test",
-			"test.././test",
-			"test../../test",
-			
-				"c:/.",
-				"c:/..",
-				"c:/test/./huhu/",
-				"c:/test/../huhu/",
-				"c:/test/.huhu/../../haha"
-		};
-		for (size_t i = 0; i < sizeof(tests) / sizeof(string); ++i)
-		{
-			cout << tests[i] << "->" << Uri::RemoveDotSegments(tests[i]) << endl;
-		}
-
-		int i = 0;
-		*/
-
-		/*
-
 		// List referenced DAEs
 
 		// InstanceWithExtra and other <instance_*> with "url" attribute
 		auto instances = root().selectNodes(
-			xpath_all + CSWC::CSW_ELEMENT_INSTANCE_ANIMATION +
-			xpath_or_all + CSWC::CSW_ELEMENT_INSTANCE_CAMERA +
-			xpath_or_all + CSWC::CSW_ELEMENT_INSTANCE_CONTROLLER +
-			xpath_or_all + CSWC::CSW_ELEMENT_INSTANCE_EFFECT +
-			xpath_or_all + CSWC::CSW_ELEMENT_INSTANCE_FORCE_FIELD +
-			xpath_or_all + CSWC::CSW_ELEMENT_INSTANCE_GEOMETRY +
-			xpath_or_all + CSWC::CSW_ELEMENT_INSTANCE_LIGHT +
-			xpath_or_all + CSWC::CSW_ELEMENT_INSTANCE_NODE +
-			xpath_or_all + CSWC::CSW_ELEMENT_INSTANCE_PHYSICS_MATERIAL +
-			xpath_or_all + CSWC::CSW_ELEMENT_INSTANCE_PHYSICS_MODEL +
-			xpath_or_all + CSWC::CSW_ELEMENT_INSTANCE_PHYSICS_SCENE +
-			xpath_or_all + CSWC::CSW_ELEMENT_INSTANCE_VISUAL_SCENE
+			xpath_all + Strings::instance_animation +
+			xpath_or_all + Strings::instance_camera +
+			xpath_or_all + Strings::instance_controller +
+			xpath_or_all + Strings::instance_effect +
+			xpath_or_all + Strings::instance_force_field +
+			xpath_or_all + Strings::instance_geometry +
+			xpath_or_all + Strings::instance_light +
+			xpath_or_all + Strings::instance_node +
+			xpath_or_all + Strings::instance_physics_material +
+			xpath_or_all + Strings::instance_physics_model +
+			xpath_or_all + Strings::instance_physics_scene +
+			xpath_or_all + Strings::instance_visual_scene
 			);
 		for (auto instance : instances)
 		{
-			if (auto url = instance.attribute(CSWC::CSW_ATTRIBUTE_URL))
+			if (auto url = instance.attribute(Strings::url))
 			{
 				onAnyDAEURI(url.value());
 			}
 		}
 
 		// <accessor>
-		auto accessors = root().selectNodes(xpath_all + CSWC::CSW_ELEMENT_ACCESSOR);
+		auto accessors = root().selectNodes(xpath_all + Strings::accessor);
 		for (auto accessor : accessors)
 		{
-			if (auto source = accessor.attribute(CSWC::CSW_ATTRIBUTE_SOURCE))
+			if (auto source = accessor.attribute(Strings::source))
 			{
 				onAnyDAEURI(source.value());
 			}
@@ -222,19 +64,19 @@ namespace opencollada
 
 		// <skin>/<morph>
 		auto elementsWithSource = root().selectNodes(
-			xpath_all + CSWC::CSW_ELEMENT_SKIN +
-			xpath_or_all + CSWC::CSW_ELEMENT_MORPH
+			xpath_all + Strings::skin +
+			xpath_or_all + Strings::morph
 			);
 		for (auto element : elementsWithSource)
 		{
-			if (auto source = element.attribute(CSWC::CSW_ATTRIBUTE_SOURCE))
+			if (auto source = element.attribute(Strings::source))
 			{
 				onAnyDAEURI(source.value());
 			}
 		}
 
 		// <render>
-		auto renders = root().selectNodes(xpath_all + CSWC::CSW_ELEMENT_RENDER);
+		auto renders = root().selectNodes(xpath_all + Strings::render);
 		for (auto render : renders)
 		{
 			if (auto camera_node = render.attribute("camera_node"))
@@ -244,7 +86,7 @@ namespace opencollada
 		}
 
 		// <skeleton>
-		auto skeletons = root().selectNodes(xpath_all + CSWC::CSW_ELEMENT_SKELETON);
+		auto skeletons = root().selectNodes(xpath_all + Strings::skeleton);
 		for (auto skeleton : skeletons)
 		{
 			onAnyDAEURI(skeleton.text());
@@ -252,32 +94,32 @@ namespace opencollada
 
 		// <instance_material>/<instance_rigid_body>
 		auto elementsWithTarget = root().selectNodes(
-			xpath_all + CSWC::CSW_ELEMENT_INSTANCE_MATERIAL +
-			xpath_or_all + CSWC::CSW_ELEMENT_INSTANCE_RIGID_BODY
+			xpath_all + Strings::instance_material +
+			xpath_or_all + Strings::instance_rigid_body
 			);
 		for (auto element : elementsWithTarget)
 		{
-			if (auto target = element.attribute(CSWC::CSW_ATTRIBUTE_TARGET))
+			if (auto target = element.attribute(Strings::target))
 			{
 				onAnyDAEURI(target.value());
 			}
 		}
 
 		// <instance_physics_model>
-		auto instance_physics_models = root().selectNodes(xpath_all + CSWC::CSW_ELEMENT_INSTANCE_PHYSICS_MODEL);
+		auto instance_physics_models = root().selectNodes(xpath_all + Strings::instance_physics_model);
 		for (auto instance_physics_model : instance_physics_models)
 		{
-			if (auto parent = instance_physics_model.attribute(CSWC::CSW_ATTRIBUTE_PARENT))
+			if (auto parent = instance_physics_model.attribute(Strings::parent))
 			{
 				onAnyDAEURI(parent.value());
 			}
 		}
 
 		// <convex_mesh>
-		auto convex_meshes = root().selectNodes(xpath_all + CSWC::CSW_ELEMENT_CONVEX_MESH);
+		auto convex_meshes = root().selectNodes(xpath_all + Strings::convex_mesh);
 		for (auto convex_mesh : convex_meshes)
 		{
-			if (auto convex_hull_of = convex_mesh.attribute(CSWC::CSW_ATTRIBUTE_CONVEX_HULL_OF))
+			if (auto convex_hull_of = convex_mesh.attribute(Strings::convex_hull_of))
 			{
 				onAnyDAEURI(convex_hull_of.value());
 			}
@@ -285,12 +127,12 @@ namespace opencollada
 
 		// <ref_attachment>/<attachment>
 		auto attachments = root().selectNodes(
-			xpath_all + CSWC::CSW_ELEMENT_ATTACHMENT +
-			xpath_or_all + CSWC::CSW_ELEMENT_REF_ATTACHMENT
+			xpath_all + Strings::attachment +
+			xpath_or_all + Strings::ref_attachment
 			);
 		for (auto attachment : attachments)
 		{
-			if (auto rigid_body = attachment.attribute(CSWC::CSW_ATTRIBUTE_RIGID_BODY))
+			if (auto rigid_body = attachment.attribute(Strings::rigid_body))
 			{
 				onAnyDAEURI(rigid_body.value());
 			}
@@ -300,16 +142,15 @@ namespace opencollada
 		for (const auto & uri : mExternalDAEURIs)
 		{
 			Dae dae;
-			dae.readExternalFile(uri.toNativePath());
+			dae.readExternalFile(uri.nativePath());
 			if (dae)
 			{
 				mExternalDAEs.push_back(move(dae));
 			}
 		}
-		*/
 	}
 
-	const COLLADABU::URI & Dae::getURI() const
+	const Uri & Dae::getURI() const
 	{
 		return mUri;
 	}
@@ -323,9 +164,10 @@ namespace opencollada
 	void Dae::onAnyDAEURI(const string & uri)
 	{
 		Uri absoluteUri(mUri, uri);
-		if (!absoluteUri.getPathFile().empty())
+		if (!absoluteUri.pathFile().empty())
 		{
-			COLLADABU::URI absoluteUriNoFragment(absoluteUri, true);
+			Uri absoluteUriNoFragment(absoluteUri);
+			absoluteUriNoFragment.setFragment(string());
 			if (absoluteUriNoFragment != mUri)
 			{
 				mExternalDAEURIs.insert(absoluteUriNoFragment);

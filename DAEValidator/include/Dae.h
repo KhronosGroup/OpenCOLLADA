@@ -18,7 +18,7 @@ namespace opencollada
 
 		virtual void readFile(const std::string & path) override;
 
-		const COLLADABU::URI & getURI() const;
+		const Uri & getURI() const;
 
 	private:
 		void readExternalFile(const std::string & path);

@@ -8,10 +8,12 @@ namespace opencollada
 	{
 	public:
 		Uri() = default;
-		//Uri(Uri && uri);
 		Uri(const std::string & uri);
 		Uri(const Uri & baseUri, const Uri & uri);
-		//const Uri & operator = (const Uri & uri);
+
+		bool operator == (const Uri & uri) const;
+		bool operator != (const Uri & uri) const;
+		bool operator < (const Uri & uri) const;
 
 		bool isValid() const;
 		const std::string & str() const;
@@ -21,12 +23,18 @@ namespace opencollada
 		const std::string & query() const;
 		const std::string & fragment() const;
 
+		void setFragment(const std::string & fragment);
+
+		std::string pathFile() const;
+		std::string nativePath() const;
+
 		void clear();
 		void set(const std::string & uri);
 		void set(const Uri & baseUri, const Uri & uri);
 
 		static Uri FromNativePath(const std::string & path);
-		static Uri Encode(const std::string & uri);
+		static std::string Decode(const std::string & str);
+		static std::string Encode(const std::string & uri);
 		static bool Parse(
 			const std::string & uri,
 			std::string & scheme,
@@ -41,6 +49,9 @@ namespace opencollada
 		// TODO make in place version
 		static std::string RemoveDotSegments(const std::string & path);
 
+		// Rebuild mUri from mScheme, mAuthority, mPath, mQuery and mFragment
+		void rebuild();
+
 	private:
 		std::string mUri;
 		std::string mScheme;
@@ -51,3 +62,5 @@ namespace opencollada
 		bool mValid = false;
 	};
 }
+
+std::ostream & operator << (std::ostream & o, const opencollada::Uri & uri);

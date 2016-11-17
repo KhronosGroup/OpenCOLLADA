@@ -14,5 +14,7 @@ namespace opencollada
 		static std::vector<std::string> Split(const std::string & s);
 
 		static std::string Lower(const std::string & str);
+
+		static std::string Replace(const std::string & str, const std::string & a, const std::string & b);
 	};
 }
