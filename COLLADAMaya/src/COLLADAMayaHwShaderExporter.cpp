@@ -27,6 +27,8 @@
 #include "COLLADASWOpenGLConstants.h"
 #include "COLLADASWConstants.h"
 
+#include <maya/MFileIO.h>
+
 #if defined(WIN64) && MAYA_API_VERSION >= 201600 && !defined(WIN32)
 /* define WIN32 to work around CFGX WIN64 compilation */
 #define WIN32
@@ -187,8 +189,16 @@ namespace COLLADAMaya
         // Get the filename of the current cgfx file
         MString shaderFxFile = cgfxFindFile(shaderNodeCgfx->shaderFxFile());
         String shaderFxFileName = shaderFxFile.asChar (); // check3d.cgfx
-        COLLADASW::URI  shaderFxFileUri ( COLLADASW::URI::nativePathToUri ( shaderFxFileName ) );
-        setShaderFxFileUri ( shaderFxFileUri );
+		COLLADASW::URI shaderFxFileUri(COLLADASW::URI::nativePathToUri(shaderFxFileName));
+		
+		if (ExportOptions::relativePaths())
+		{
+			MString mayaSourceFile = MFileIO::currentFile();
+			COLLADASW::URI mayaSourceFileUri(COLLADASW::URI::nativePathToUri(mayaSourceFile.asChar()));
+			shaderFxFileUri.makeRelativeTo(mayaSourceFileUri);
+		}
+        
+		setShaderFxFileUri ( shaderFxFileUri );
 
         // Set the current include file
         if ( ExportOptions::exportCgfxFileReferences () )
