@@ -46,6 +46,8 @@
 namespace COLLADAMaya
 {
 
+	MaterialExporter::SidSet MaterialExporter::mSurfaceSidList;
+
     //---------------------------------------------------------------
     MaterialExporter::MaterialExporter ( COLLADASW::StreamWriter* streamWriter,
                                          DocumentExporter* documentExporter )
@@ -741,6 +743,9 @@ namespace COLLADAMaya
 
         MString sResult, sTemp;
         cgfxAttrDefList::iterator effectIt;
+
+		MaterialExporter::mSurfaceSidList.clear();
+
         for ( effectIt=effectAttributes->begin(); effectIt; ++effectIt )
         {
             cgfxAttrDef* effectAttribute = *effectIt;
