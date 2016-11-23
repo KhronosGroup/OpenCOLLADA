@@ -232,7 +232,7 @@ namespace COLLADAMaya
             bool initialized=false );
 
         /** Export a hardware shader node. */
-        void exportHwShaderNode (
+        bool exportHwShaderNode (
             const String &effectId, 
             COLLADASW::EffectProfile *effectProfile,
             MObject shadingNetwork );
