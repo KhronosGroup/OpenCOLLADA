@@ -68,7 +68,7 @@ namespace COLLADAMaya
 	struct Markers
 	{
 		float time;
-		String ID;
+		MString ID;
 	};
 	typedef std::vector<Markers> MarkersList;
 

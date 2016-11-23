@@ -24,6 +24,7 @@ namespace COLLADAMaya
     // Static Members
 
 	MString  ExportOptions::mDAEmodelName = "";
+	bool ExportOptions::mEncodedNames = true;
 	bool ExportOptions::mLOD = true;
     bool ExportOptions::mBakeTransforms = true;
     bool ExportOptions::mRelativePaths = true;
@@ -66,6 +67,7 @@ namespace COLLADAMaya
     // Parse the options String
     void ExportOptions::set ( const MString& optionsString )
     {
+		mEncodedNames = true;
 		mLOD = true;
 		mDAEmodelName = "";
         
@@ -177,6 +179,7 @@ namespace COLLADAMaya
 				else if (optionName == "modelNameDAE") mDAEmodelName = decomposedOption[1];
 				else if (optionName == "exportAnimationsOnly") mExportAnimationsOnly = value;
 				else if (optionName == "exportSeparateFile") mExportSeparateFile = value;
+				else if (optionName == "encodedNames") mEncodedNames = value;
             }
 			
 			if (mExportSkin)
@@ -201,6 +204,11 @@ namespace COLLADAMaya
 	bool ExportOptions::exportLOD()
 	{
 		return mLOD;
+	}
+
+	bool ExportOptions::exportEncodedNames()
+	{
+		return mEncodedNames;
 	}
 
     bool ExportOptions::bakeTransforms()
