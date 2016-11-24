@@ -49,8 +49,20 @@ namespace COLLADABU
 		@param ncName The string to convert to a valid xs:NCName.
 		@return The checked string
 		*/
-		static WideString checkNCName ( const WideString &ncName );
-//		static UTF8String checkNCName ( const UTF8String &ncName ){return UTF8String();};
+		static WideString checkNCName(const WideString &ncName, bool encodingColon);
+		//		static UTF8String checkNCName ( const UTF8String &ncName ){return UTF8String();};
+
+
+		/** Checks for a valid xs:NCName.
+		1. replaces all not allowed characters
+		2. Any XML name character that does not conform to the XML 1.0 spec (fourth edition) recommendation is escaped as _xHHHH_.
+		   The HHHH string stands for the four-digit hexadecimal UCS-2 code for the character in most significant bit first order.
+		   For example, the name Order Details is encoded as Order_x0020_Details.
+		@param ncName The string to convert to a valid xs:NCName.
+		@return The checked string
+		*/
+		static WideString checkNCNameWithUCS2Encoding(const WideString &ncName, bool encodingColon);
+
 
 		/** Checks for a valid xs:ID.
 		1. replaces all not allowed characters
@@ -59,14 +71,23 @@ namespace COLLADABU
 		@return The checked string
 		*/
         static WideString checkID ( const WideString &id );
+		static WideString checkIDWithUC2Encoding(const WideString &id);
+		
 
 //		static UTF8String checkID ( const UTF8String &id ){return UTF8String();};
 
+		/** Checks if @a c is followed by a character sequence that together with the underscore can be misinterpreted as an escape sequence when decoding the name
+			For example, Order_Details is not encoded, but Order_x0020_ is encoded as Order_x005f_x0020_. 
+		*/
+		static bool Prepass(const WideString &ncName, int i);
+
+		static bool isNameStartCharExcludingColon(wchar_t c);
+
 		/** Checks if @a c is name start character according to http://www.w3.org/TR/xml11/#NT-NameStartChar */
-		static bool isNameStartChar ( wchar_t c );
+		static bool isNameStartChar(wchar_t c, bool encodingColon);
 
 		/** Checks if @a c is name character according to http://www.w3.org/TR/xml11/#NT-NameChar */
-		static bool isNameChar ( wchar_t c );
+		static bool isNameChar(wchar_t c, bool encodingColon);
 
         /** Checks if @a c is an upper ASCII character*/
         static bool isUpperAsciiChar ( char c )
@@ -108,6 +129,8 @@ namespace COLLADABU
 		static char toUpperASCIIChar( char c );
 
         static String uriEncode ( const String & sSrc );
+		static String ucs2Encode(const String & sSrc);
+		static WideString ucs2Encode(const WideString & sSrc);
 
 		/** Escapes all the characters not allowed in xml text elements.
 		@param srcString The string to translate.

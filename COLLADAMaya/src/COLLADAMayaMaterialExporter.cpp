@@ -46,6 +46,8 @@
 namespace COLLADAMaya
 {
 
+	MaterialExporter::SidSet MaterialExporter::mSurfaceSidList;
+
     //---------------------------------------------------------------
     MaterialExporter::MaterialExporter ( COLLADASW::StreamWriter* streamWriter,
                                          DocumentExporter* documentExporter )
@@ -314,6 +316,9 @@ namespace COLLADAMaya
             }
         case cgfxAttrDef::kAttrTypeString:
             {
+				MGlobal::displayWarning(("CG String Parameter type: ") + MString(attributeName.c_str()) + MString(" not supported!")  );
+
+				/*
 				if (attribute->fStringDef.length() > 0)
 				{
 					COLLADASW::SetParamString setParam(streamWriter);
@@ -322,6 +327,7 @@ namespace COLLADAMaya
 					setParam.closeParam();
 				}
                 break;
+				*/
             }
         case cgfxAttrDef::kAttrTypeFloat:
             {
@@ -737,6 +743,9 @@ namespace COLLADAMaya
 
         MString sResult, sTemp;
         cgfxAttrDefList::iterator effectIt;
+
+		MaterialExporter::mSurfaceSidList.clear();
+
         for ( effectIt=effectAttributes->begin(); effectIt; ++effectIt )
         {
             cgfxAttrDef* effectAttribute = *effectIt;

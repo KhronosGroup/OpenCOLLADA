@@ -131,6 +131,16 @@ global proc int openColladaExporterOpts ( string $parent,
 							-la2 "Curve constrain" "Static curve removal"
 							-en1 false
 							colladaAnimOpts2;
+							
+					checkBoxGrp
+							-l " "
+							-ncb 1
+							-v1 true
+							-l1 "Encode Names"
+							-en1 true
+							-ann "Any UCS-2 character that is not a valid XML name character is escaped as _xHHHH_ ,where HHHH stands for the four-digit hexadecimal UCS-2 code for the character in the most significant bit first order"
+							colladaEncodeNames;
+							
 
 				setParent ..; // columnLayout
 			setParent ..; // frameLayout
@@ -387,7 +397,11 @@ global proc int openColladaExporterOpts ( string $parent,
 					$intVal = $optionBreakDown[1];
 					checkBoxGrp -e -v2 $intVal colladaAnimOpts2;
 				}
-
+				else if ( $optionBreakDown[0] == "encodedNames" )
+				{
+					$intVal = $optionBreakDown[1];
+					checkBoxGrp -e -v1 $intVal colladaEncodeNames;
+				}
 // Export filter
 //
 				else if ($optionBreakDown[0] == "exportPolygonMeshes")
@@ -556,6 +570,7 @@ global proc int openColladaExporterOpts ( string $parent,
 		$currentOptions = $currentOptions + "preserveSourceTree=" + `checkBoxGrp -q -v1 colladaPreserveSourceTree` + ";";
 		$currentOptions = $currentOptions + "exportTriangles=" + `checkBoxGrp -q -v1 colladaExportTriangles` + ";";
 		$currentOptions = $currentOptions + "cgfxFileReferences=" + `checkBoxGrp -q -v1 colladaCgfxFileReferences` + ";";
+		$currentOptions = $currentOptions + "encodedNames=" + `checkBoxGrp -q -v1 colladaEncodeNames` + ";";
  		$currentOptions = $currentOptions + "isSampling=" + `checkBoxGrp -q -v1 colladaIsSampling` + ";";
  		$currentOptions = $currentOptions + "curveConstrainSampling=" + `checkBoxGrp -q -v1 colladaAnimOpts2` + ";";
  		$currentOptions = $currentOptions + "removeStaticCurves=" + `checkBoxGrp -q -v2 colladaAnimOpts2` + ";";

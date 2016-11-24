@@ -285,12 +285,14 @@ namespace COLLADASW
 		void addInSetParam( 
             StreamWriter* sw, 
             std::vector<COLLADASW::Annotation>* surfaceAnnotations = 0, 
-            std::vector<COLLADASW::Annotation>* samplerAnnotations = 0 ) const;
+            std::vector<COLLADASW::Annotation>* samplerAnnotations = 0,
+			bool AddSurfaceParam = true) const;
 
 		void addInNewParam( 
             StreamWriter* sw, 
             std::vector<COLLADASW::Annotation>* surfaceAnnotations = 0, 
-            std::vector<COLLADASW::Annotation>* samplerAnnotations = 0 ) const;
+            std::vector<COLLADASW::Annotation>* samplerAnnotations = 0,
+			bool AddSurfaceParam = true) const;
 	
 	private:
 
@@ -304,7 +306,8 @@ namespace COLLADASW
 		void addInParam ( 
             StreamWriter* sw, 
             std::vector<COLLADASW::Annotation>* surfaceAnnotations = 0, 
-            std::vector<COLLADASW::Annotation>* samplerAnnotations = 0 ) const;
+            std::vector<COLLADASW::Annotation>* samplerAnnotations = 0,
+			bool AddSurfaceParam = true) const;
 	
 		void addSurface ( StreamWriter* sw ) const;
 	};
