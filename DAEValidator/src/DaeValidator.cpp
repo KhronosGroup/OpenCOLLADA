@@ -3,6 +3,7 @@
 #include "Strings.h"
 #include "StringUtil.h"
 #include <iostream>
+#include <map>
 #include <set>
 #include <sstream>
 
@@ -123,6 +124,12 @@ namespace opencollada
 		return 1;
 	}
 
+	struct SubDoc
+	{
+		XmlNode node;
+		string xsdPath;
+	};
+
 	int DaeValidator::CheckSchema(const Dae & dae)
 	{
 		int result = 0;
@@ -165,7 +172,8 @@ namespace opencollada
 			return 1;
 		}
 
-		set<string> xsdURLs;
+		map<string, XmlSchema> schemas;
+		vector<SubDoc> subDocs;
 
 		// Find xsi:schemaLocation attributes in dae and try to validate against specified xsd documents
 		auto elements = dae.root().selectNodes("//*[@xsi:schemaLocation]");
@@ -174,26 +182,71 @@ namespace opencollada
 			if (auto schemaLocation = element.attribute("schemaLocation"))
 			{
 				vector<string> parts = String::Split(schemaLocation.value());
-				// Parse pairs of namespace/xsd and take second element
+				// Parse pairs of namespace/xsd
 				for (size_t i = 1; i < parts.size(); i += 2)
 				{
-					xsdURLs.insert(parts[i]);
+					const string & ns = parts[i - 1];
+					const string & xsdUri = parts[i];
+
+					if (ns != colladaNamespace141 && ns != colladaNamespace15)
+					{
+						SubDoc subDoc;
+						if (element.ns().href() == colladaNamespace141 || element.ns().href() == colladaNamespace15)
+							subDoc.node = element.firstChild();
+						else
+							subDoc.node = element;
+						
+						subDoc.xsdPath = xsdUri;
+						subDocs.push_back(subDoc);
+
+						schemas.insert(pair<string, XmlSchema>(xsdUri, XmlSchema()));
+					}
 				}
 			}
 		}
 
-		for (const auto & URL : xsdURLs)
+		// Preload .xsd files
+		for (auto & p : schemas)
 		{
-			int tmpResult = ValidateAgainstFile(dae, URL);
-			if (tmpResult == 2)
+			const auto & schemaUri = p.first;
+			auto & schema = p.second;
+
+			schema.readFile(p.first);
+			if (!schema)
 			{
-				std::cout
-					<< "Warning: can't load \"" << URL << "\"." << endl
-					<< "Some parts of the document will not be validated." << endl;
+				Uri xsdUri(schemaUri);
+				if (xsdUri.isValid())
+				{
+					// Try local file
+					string localPath = Path::Join(Path::GetExecutableDirectory(), xsdUri.pathFile());
+					schema.readFile(localPath);
+					if (schema)
+					{
+						cout << "Using " << localPath << endl;
+					}
+				}
+				
+				if (!schema)
+				{
+					cerr << "Error loading " << schemaUri << endl;
+					result |= 1;
+				}
+			}
+		}
+
+		// Validate "sub documents"
+		for (const auto & subDoc : subDocs)
+		{
+			auto it = schemas.find(subDoc.xsdPath);
+			if (it != schemas.end() && it->second)
+			{
+				auto old = dae.setRoot(subDoc.node);
+				result |= ValidateAgainstSchema(dae, it->second);
+				dae.setRoot(old);
 			}
 			else
 			{
-				result |= tmpResult;
+				cerr << "Cannot validate document at line " << subDoc.node.line() << endl;
 			}
 		}
 
@@ -239,8 +292,21 @@ namespace opencollada
 		xsd.readFile(xsdPath.c_str());
 		if (!xsd)
 		{
-			cerr << "Error loading " << xsdPath << endl;
-			return 2;
+			Uri xsdUri(xsdPath);
+			if (!xsdUri.isValid())
+			{
+				cerr << "Error loading " << xsdPath << endl;
+				return 2;
+			}
+			// Try local file
+			string localPath = Path::Join(Path::GetExecutableDirectory(), xsdUri.pathFile());
+			xsd.readFile(localPath);
+			if (!xsd)
+			{
+				cerr << "Error loading " << xsdPath << endl;
+				return 2;
+			}
+			cout << "Using " << localPath << endl;
 		}
 		return ValidateAgainstSchema(dae, xsd);
 	}

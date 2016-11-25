@@ -19,6 +19,7 @@ namespace opencollada
 		operator bool() const;
 
 		XmlNode child(const std::string & name) const;
+		XmlNode firstChild() const;
 		std::string text() const;
 		std::string name() const;
 		class XmlAttribute attribute(const std::string & name) const;

@@ -9,6 +9,7 @@ namespace opencollada
 	{
 	public:
 		XmlSchema() = default;
+		XmlSchema(XmlSchema && other) = default;
 		~XmlSchema();
 
 		void readFile(const std::string & url);
