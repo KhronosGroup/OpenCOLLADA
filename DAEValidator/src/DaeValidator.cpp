@@ -3,7 +3,6 @@
 #include "Strings.h"
 #include "StringUtil.h"
 #include <iostream>
-#include <map>
 #include <set>
 #include <sstream>
 
@@ -88,26 +87,26 @@ namespace opencollada
 		return result;
 	}
 
-	int DaeValidator::checkAll() const
+	int DaeValidator::checkAll()
 	{
 		return for_each_dae([&](const Dae & dae) {
-			return CheckAll(dae);
+			return checkAll(dae);
 		});
 	}
 
-	int DaeValidator::CheckAll(const Dae & dae)
+	int DaeValidator::checkAll(const Dae & dae)
 	{
 		return
-			CheckSchema(dae) |
-			CheckUniqueIds(dae);
+			checkSchema(dae) |
+			checkUniqueIds(dae);
 	}
 
-	int DaeValidator::checkSchema(const string & schema_uri) const
+	int DaeValidator::checkSchema(const string & schema_uri)
 	{
 		if (schema_uri.empty())
 		{
 			return for_each_dae([&](const Dae & dae) {
-				return CheckSchema(dae);
+				return checkSchema(dae);
 			});
 		}
 
@@ -130,7 +129,7 @@ namespace opencollada
 		string xsdPath;
 	};
 
-	int DaeValidator::CheckSchema(const Dae & dae)
+	int DaeValidator::checkSchema(const Dae & dae)
 	{
 		int result = 0;
 
@@ -172,7 +171,6 @@ namespace opencollada
 			return 1;
 		}
 
-		map<string, XmlSchema> schemas;
 		vector<SubDoc> subDocs;
 
 		// Find xsi:schemaLocation attributes in dae and try to validate against specified xsd documents
@@ -199,37 +197,41 @@ namespace opencollada
 						subDoc.xsdPath = xsdUri;
 						subDocs.push_back(subDoc);
 
-						schemas.insert(pair<string, XmlSchema>(xsdUri, XmlSchema()));
+						// "insert" does nothing if element already exists.
+						mSchemas.insert(pair<string, XmlSchema>(xsdUri, XmlSchema()));
 					}
 				}
 			}
 		}
 
-		// Preload .xsd files
-		for (auto & p : schemas)
+		// Preload uninitialized .xsd files
+		for (auto & p : mSchemas)
 		{
 			const auto & schemaUri = p.first;
 			auto & schema = p.second;
 
-			schema.readFile(p.first);
 			if (!schema)
 			{
-				Uri xsdUri(schemaUri);
-				if (xsdUri.isValid())
-				{
-					// Try local file
-					string localPath = Path::Join(Path::GetExecutableDirectory(), xsdUri.pathFile());
-					schema.readFile(localPath);
-					if (schema)
-					{
-						cout << "Using " << localPath << endl;
-					}
-				}
-				
+				schema.readFile(p.first);
 				if (!schema)
 				{
-					cerr << "Error loading " << schemaUri << endl;
-					result |= 1;
+					Uri xsdUri(schemaUri);
+					if (xsdUri.isValid())
+					{
+						// Try local file
+						string localPath = Path::Join(Path::GetExecutableDirectory(), xsdUri.pathFile());
+						schema.readFile(localPath);
+						if (schema)
+						{
+							cout << "Using " << localPath << endl;
+						}
+					}
+
+					if (!schema)
+					{
+						cerr << "Error loading " << schemaUri << endl;
+						result |= 1;
+					}
 				}
 			}
 		}
@@ -237,8 +239,8 @@ namespace opencollada
 		// Validate "sub documents"
 		for (const auto & subDoc : subDocs)
 		{
-			auto it = schemas.find(subDoc.xsdPath);
-			if (it != schemas.end() && it->second)
+			auto it = mSchemas.find(subDoc.xsdPath);
+			if (it != mSchemas.end() && it->second)
 			{
 				auto old = dae.setRoot(subDoc.node);
 				result |= ValidateAgainstSchema(dae, it->second);
@@ -246,21 +248,21 @@ namespace opencollada
 			}
 			else
 			{
-				cerr << "Cannot validate document at line " << subDoc.node.line() << endl;
+				cerr << "Cannot validate " << dae.getURI() << " at line " << subDoc.node.line() << endl;
 			}
 		}
 
 		return result;
 	}
 
-	int DaeValidator::checkUniqueIds() const
+	int DaeValidator::checkUniqueIds()
 	{
 		return for_each_dae([&](const Dae & dae) {
-			return CheckUniqueIds(dae);
+			return checkUniqueIds(dae);
 		});
 	}
 
-	int DaeValidator::CheckUniqueIds(const Dae & dae)
+	int DaeValidator::checkUniqueIds(const Dae & dae)
 	{
 		int result = 0;
 		XmlNodeSet nodes = dae.root().selectNodes("//*[@id]");
