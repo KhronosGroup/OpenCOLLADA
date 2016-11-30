@@ -64,7 +64,8 @@ Directories
 * [COLLADAMaya](https://github.com/KhronosGroup/OpenCOLLADA/tree/master/COLLADAMaya) -- COLLADAMaya NextGen plug-in sources
 * [COLLADASaxFrameworkLoader](https://github.com/KhronosGroup/OpenCOLLADA/tree/master/COLLADASaxFrameworkLoader) -- Library that loads COLLADA files in a sax like manner into the framework data model
 * [COLLADAStreamWriter](https://github.com/KhronosGroup/OpenCOLLADA/tree/master/COLLADAStreamWriter) -- COLLADAStreamWriter sources (Library to write COLLADA files) 
-* [COLLADAValidator](https://github.com/KhronosGroup/OpenCOLLADA/tree/master/COLLADAValidator) -- XML validator for COLLADA files, based on the COLLADASaxFrameworkLoader
+* [COLLADAValidator](https://github.com/KhronosGroup/OpenCOLLADA/tree/master/COLLADAValidator) -- XML validator for COLLADA files, based on the COLLADASaxFrameworkLoader. Limited/partial COLLADA validation. Should be replaced by DAEValidator.
+* [DAEValidator](https://github.com/KhronosGroup/OpenCOLLADA/tree/master/DAEValidator) -- XML validator + coherency tests for COLLADA files based on LibXml2. Aims for replacing COLLADAValidator.
 * [dae2ogre](https://github.com/KhronosGroup/OpenCOLLADA/tree/master/dae2ogre) -- Demo project that converts COLLADA files to OGRE meshes
 * [Externals](https://github.com/KhronosGroup/OpenCOLLADA/tree/master/Externals) -- Third party projects required to build the NextGen plug-ins    
 * [GeneratedSaxParser](https://github.com/KhronosGroup/OpenCOLLADA/tree/master/GeneratedSaxParser) -- Library used to load xml files in the way used by COLLADASaxFrameworkLoader      
