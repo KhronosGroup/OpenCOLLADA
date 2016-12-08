@@ -108,12 +108,14 @@ namespace COLLADASW
         static const String CSW_ELEMENT_INSTANCE_CAMERA;
         static const String CSW_ELEMENT_INSTANCE_CONTROLLER;
         static const String CSW_ELEMENT_INSTANCE_EFFECT;
+		static const String CSW_ELEMENT_INSTANCE_FORCE_FIELD;
 		static const String CSW_ELEMENT_INSTANCE_GEOMETRY;
 		static const String CSW_ELEMENT_INSTANCE_IMAGE;
         static const String CSW_ELEMENT_INSTANCE_LIGHT;
         static const String CSW_ELEMENT_INSTANCE_MATERIAL;
 		static const String CSW_ELEMENT_INSTANCE_RIGID_BODY;
         static const String CSW_ELEMENT_INSTANCE_RIGID_CONSTRAINT;
+		static const String CSW_ELEMENT_INSTANCE_PHYSICS_MATERIAL;
 		static const String CSW_ELEMENT_INSTANCE_PHYSICS_MODEL;
         static const String CSW_ELEMENT_INSTANCE_NODE;
         static const String CSW_ELEMENT_INSTANCE_VISUAL_SCENE;
@@ -159,6 +161,10 @@ namespace COLLADASW
 		static const String CSW_ELEMENT_REST_OFFSET;
 		static const String CSW_ELEMENT_SHAPE_FLAGS;
 		static const String CSW_ELEMENT_ACTOR_FLAGS;
+		static const String CSW_ELEMENT_LOCAL_POSE;
+		static const String CSW_ELEMENT_LOCAL_POSE_0;
+		static const String CSW_ELEMENT_LOCAL_POSE_1;
+		static const String CSW_ELEMENT_GLOBAL_POSE;
 		static const String CSW_ELEMENT_DOMINANCE_GROUP;
 		static const String CSW_ELEMENT_OWNER_CLIENT;
 		static const String CSW_ELEMENT_RIGID_BODY_FLAGS;
@@ -271,6 +277,7 @@ namespace COLLADASW
 		static const String CSW_ELEMENT_QUADRATIC_ATTENUATION;
         static const String CSW_ELEMENT_REFLECTIVE;
         static const String CSW_ELEMENT_REFLECTIVITY;
+		static const String CSW_ELEMENT_RENDER;
         static const String CSW_ELEMENT_REVISION;
         static const String CSW_ELEMENT_ROTATE;
         static const String CSW_ELEMENT_SAMPLER;
@@ -346,6 +353,7 @@ namespace COLLADASW
         static const String CSW_ATTRIBUTE_NAME;
         static const String CSW_ATTRIBUTE_OFFSET;
         static const String CSW_ATTRIBUTE_OPAQUE;
+		static const String CSW_ATTRIBUTE_PARENT;
         static const String CSW_ATTRIBUTE_PLATFORM;
         static const String CSW_ATTRIBUTE_PROFILE;
         static const String CSW_ATTRIBUTE_PROGRAM;
