@@ -701,6 +701,9 @@ namespace COLLADAMaya
 		PxMaterial(PhysXExporter & exporter, const PhysXXML::PxMaterial & mat)
 			: Element(exporter, CSWC::CSW_ELEMENT_PX_MATERIAL, withPrefix)
 		{
+			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XMLNS + ":" + CSWC::CSW_PREFIX_PX, PhysXExporter::GetXMLNS());
+			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XSI_SCHEMALOCATION, PhysXExporter::GetXSISchemaLocation());
+
 			exportFrictionCombineMode(mat);
 			exportRestitutionCombineMode(mat);
 		}
@@ -739,9 +742,6 @@ namespace COLLADAMaya
             getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, profile);
 			if (profile == PhysXExporter::GetPhysXProfile())
 			{
-				getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XMLNS + ":" + CSWC::CSW_PREFIX_PX, PhysXExporter::GetXMLNS());
-				getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XSI_SCHEMALOCATION, PhysXExporter::GetXSISchemaLocation());
-
 				exportPxMaterial(material);
 			}
         }
@@ -1015,7 +1015,7 @@ namespace COLLADAMaya
     {
     public:
         LocalPose(PhysXExporter& exporter, const MQuaternion& rotation, const MVector& translation)
-            : Element(exporter, CSWC::CSW_ELEMENT_LOCAL_POSE)
+            : Element(exporter, CSWC::CSW_ELEMENT_LOCAL_POSE, withPrefix)
         {
             double localPose[] = { rotation.x, rotation.y, rotation.z, rotation.w, translation.x, translation.y, translation.z };
             getStreamWriter().appendValues(localPose, sizeof(localPose) / sizeof(localPose[0]));
@@ -1121,7 +1121,7 @@ namespace COLLADAMaya
 		PxShape(PhysXExporter& exporter, const PhysXXML::PxShape & shape)
 			: Element(exporter, CSWC::CSW_ELEMENT_PX_SHAPE, withPrefix)
 		{
-			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XMLNS, PhysXExporter::GetXMLNS());
+			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XMLNS + ":" + CSWC::CSW_PREFIX_PX, PhysXExporter::GetXMLNS());
 			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XSI_SCHEMALOCATION, PhysXExporter::GetXSISchemaLocation());
 
 			exportLocalPose(shape);
@@ -1225,9 +1225,6 @@ namespace COLLADAMaya
                 exporter.exportExtraAttributes(shape);
             }
 			else if (profile == PhysXExporter::GetPhysXProfile()) {
-				getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XMLNS + ":" + CSWC::CSW_PREFIX_PX, PhysXExporter::GetXMLNS());
-				getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XSI_SCHEMALOCATION, PhysXExporter::GetXSISchemaLocation());
-
 				exportPxShape(pxShape);
 			}
         }
@@ -2443,7 +2440,7 @@ namespace COLLADAMaya
 	{
 	public:
 		GlobalPose(PhysXExporter& exporter, const MQuaternion & rotation, const MVector & translation)
-			: Element(exporter, CSWC::CSW_ELEMENT_GLOBAL_POSE)
+			: Element(exporter, CSWC::CSW_ELEMENT_GLOBAL_POSE, withPrefix)
 		{
 			double pose [] = { rotation.x, rotation.y, rotation.z, rotation.w, translation.x, translation.y, translation.z };
 			getStreamWriter().appendValues(pose, sizeof(pose) / sizeof(pose[0]));
@@ -2456,7 +2453,7 @@ namespace COLLADAMaya
 		PxRigidBody(PhysXExporter& exporter, const PhysXXML::PxRigidBody & rb)
 			: Element(exporter, CSWC::CSW_ELEMENT_PX_RIGID_BODY, withPrefix)
 		{
-			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XMLNS, PhysXExporter::GetXMLNS());
+			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XMLNS + ":" + CSWC::CSW_PREFIX_PX, PhysXExporter::GetXMLNS());
 			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XSI_SCHEMALOCATION, PhysXExporter::GetXSISchemaLocation());
 
 			exportGlobalPose(rb);
@@ -2626,9 +2623,6 @@ namespace COLLADAMaya
 				exporter.exportExtraAttributes(rigidBody);
 			}
 			else if (profile == PhysXExporter::GetPhysXProfile()) {
-				getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XMLNS + ":" + CSWC::CSW_PREFIX_PX, PhysXExporter::GetXMLNS());
-				getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XSI_SCHEMALOCATION, PhysXExporter::GetXSISchemaLocation());
-
 				exportPxRigidBody(pxRigidBody);
 			}
         }
@@ -3727,7 +3721,7 @@ namespace COLLADAMaya
 	{
 	public:
 		LocalPose0(PhysXExporter& exporter, const MQuaternion& rotation, const MVector& translation)
-			: Element(exporter, CSWC::CSW_ELEMENT_LOCAL_POSE_0)
+			: Element(exporter, CSWC::CSW_ELEMENT_LOCAL_POSE_0, withPrefix)
 		{
 			double localPose[] = { rotation.x, rotation.y, rotation.z, rotation.w, translation.x, translation.y, translation.z };
 			getStreamWriter().appendValues(localPose, sizeof(localPose) / sizeof(localPose[0]));
@@ -3738,7 +3732,7 @@ namespace COLLADAMaya
 	{
 	public:
 		LocalPose1(PhysXExporter& exporter, const MQuaternion& rotation, const MVector& translation)
-			: Element(exporter, CSWC::CSW_ELEMENT_LOCAL_POSE_1)
+			: Element(exporter, CSWC::CSW_ELEMENT_LOCAL_POSE_1, withPrefix)
 		{
 			double localPose[] = { rotation.x, rotation.y, rotation.z, rotation.w, translation.x, translation.y, translation.z };
 			getStreamWriter().appendValues(localPose, sizeof(localPose) / sizeof(localPose[0]));
@@ -3751,7 +3745,7 @@ namespace COLLADAMaya
 		PxD6Joint(PhysXExporter& exporter, const PhysXXML::PxD6Joint & joint)
 			: Element(exporter, CSWC::CSW_ELEMENT_PX_D6JOINT, withPrefix)
 		{
-			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XMLNS, PhysXExporter::GetXMLNS());
+			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XMLNS + ":" + CSWC::CSW_PREFIX_PX, PhysXExporter::GetXMLNS());
 			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XSI_SCHEMALOCATION, PhysXExporter::GetXSISchemaLocation());
 
 			exportLocalPose0(joint);
@@ -3895,9 +3889,6 @@ namespace COLLADAMaya
 				exporter.exportExtraAttributes(rigidConstraint);
 			}
 			else if (profile == PhysXExporter::GetPhysXProfile()) {
-				getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XMLNS + ":" + CSWC::CSW_PREFIX_PX, PhysXExporter::GetXMLNS());
-				getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XSI_SCHEMALOCATION, PhysXExporter::GetXSISchemaLocation());
-
 				exportPxD6Joint(joint);
 			}
         }
