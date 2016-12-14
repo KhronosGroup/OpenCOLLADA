@@ -27,6 +27,8 @@
 #include "COLLADASWOpenGLConstants.h"
 #include "COLLADASWConstants.h"
 
+#include <maya/MFileIO.h>
+
 #if defined(WIN64) && MAYA_API_VERSION >= 201600 && !defined(WIN32)
 /* define WIN32 to work around CFGX WIN64 compilation */
 #define WIN32
@@ -43,7 +45,7 @@ namespace COLLADAMaya
 {
 
     // ---------------------------------
-    void HwShaderExporter::exportPluginHwShaderNode (
+    bool HwShaderExporter::exportPluginHwShaderNode (
         const String &effectId,
         COLLADASW::EffectProfile *effectProfile,
         MObject shaderNode )
@@ -67,7 +69,7 @@ namespace COLLADAMaya
             cgfxShaderNode* shaderNodeCgfx = ( cgfxShaderNode* ) fnNode.userNode();
 
             // Exports the effect data of a cgfxShader node.
-            exportCgfxShader( shaderNodeCgfx );
+            return exportCgfxShader( shaderNodeCgfx );
         }
         else
         {
@@ -75,11 +77,13 @@ namespace COLLADAMaya
             mEffectProfile->openProfile ();
             mEffectProfile->addProfileElements ();
             mEffectProfile->closeProfile ();
+
+			return true;
         }
     }
 
     // ---------------------------------
-    void HwShaderExporter::exportCgfxShader ( cgfxShaderNode* shaderNodeCgfx )
+    bool HwShaderExporter::exportCgfxShader ( cgfxShaderNode* shaderNodeCgfx )
     {
 		// Disabled for Maya2012, the raw CGeffect is no-longer directly accessible from the cgfxShaderNode class.
 #if MAYA_API_VERSION < 201200
@@ -167,6 +171,14 @@ namespace COLLADAMaya
         // Set the current shader scope to CG
         setShaderScope ( COLLADASW::Shader::SCOPE_CG );
 
+		// Get the current CGeffect
+		const cgfxRCPtr<const cgfxEffect>& cgEffect = shaderNodeCgfx->effect();
+		if (cgEffect.isNull())
+		{
+			MGlobal::displayError("cgEffect is null.");
+			return false;
+		}
+
         // Writes the current effect profile into the collada document
         mEffectProfile->setProfileType ( COLLADASW::EffectProfile::CG );
         mEffectProfile->openProfile ();
@@ -177,18 +189,18 @@ namespace COLLADAMaya
         // Get the filename of the current cgfx file
         MString shaderFxFile = cgfxFindFile(shaderNodeCgfx->shaderFxFile());
         String shaderFxFileName = shaderFxFile.asChar (); // check3d.cgfx
-        COLLADASW::URI  shaderFxFileUri ( COLLADASW::URI::nativePathToUri ( shaderFxFileName ) );
-        setShaderFxFileUri ( shaderFxFileUri );
-
-        // Get the current CGeffect
-        const cgfxRCPtr<const cgfxEffect>& cgEffect = shaderNodeCgfx->effect();
-        if( cgEffect.isNull() )
-        {
-            MGlobal::displayError ("cgEffect is null.");
-            return;
-        }
+		COLLADASW::URI shaderFxFileUri(COLLADASW::URI::nativePathToUri(shaderFxFileName));
 		
-		// Set the current include file
+		if (ExportOptions::relativePaths())
+		{
+			MString mayaSourceFile = MFileIO::currentFile();
+			COLLADASW::URI mayaSourceFileUri(COLLADASW::URI::nativePathToUri(mayaSourceFile.asChar()));
+			shaderFxFileUri.makeRelativeTo(mayaSourceFileUri);
+		}
+        
+		setShaderFxFileUri ( shaderFxFileUri );
+
+        // Set the current include file
         if ( ExportOptions::exportCgfxFileReferences () )
             mEffectProfile->setInclude ( shaderFxFileUri, shaderFxFileUri.getPathFileBase() );
         else
@@ -217,7 +229,9 @@ namespace COLLADAMaya
 
         // Export the effects parameter
         MObject shaderNode = shaderNodeCgfx->thisMObject();
-        exportEffectParameters ( shaderNode, cgEffect );
+
+		MaterialExporter::mSurfaceSidList.clear();
+		exportEffectParameters ( shaderNode, cgEffect );
 
         // Find if effect parameter is used by any program of the selected technique
         const cgfxTechnique* technique = cgEffect->getFirstTechnique();
@@ -227,6 +241,8 @@ namespace COLLADAMaya
             technique = technique->getNext();
         }
 #endif // MAYA_API_VERSION < 201200
+
+		return true;
     }
 
 #if MAYA_API_VERSION >= 201200
@@ -743,15 +759,18 @@ namespace COLLADAMaya
             }
             case CG_STRING:
                 {
+
+					
                     // Create the parameter
                     COLLADASW::NewParam<> newParam ( streamWriter );
 
                     // Get the value
                     const char* paramValue = cgGetStringParameterValue ( cgParameter ); 
                     String paramString = (String) paramValue;
+					MGlobal::displayWarning(("CG String Parameter type: ") + MString(paramString.c_str()) + MString(" not supported!"));
 
                     // Export the parameter data.
-                    exportParam ( cgParameter, &newParam, paramString );
+                   // exportParam ( cgParameter, &newParam, paramString );
 
                     break;
                 }
@@ -930,10 +949,10 @@ namespace COLLADAMaya
 
         // Get the name of the current parameter
         const char* samplerSid = cgGetParameterName ( cgParameter );
-
+		
         // Name of the current texture
         const char* surfaceSid = cgGetParameterName( cgTextureParam );
-
+		
         // Create the collada sampler object
         COLLADASW::Sampler sampler ( COLLADASW::Sampler::SAMPLER_TYPE_UNSPECIFIED, samplerSid, surfaceSid );
 
@@ -1045,13 +1064,20 @@ namespace COLLADAMaya
             getAnnotations( samplerAnnotations, cgParameter );
 
             // Add the parameter.
-            sampler.addInNewParam ( streamWriter, &surfaceAnnotations, &samplerAnnotations );
+			sampler.addInNewParam(streamWriter, &surfaceAnnotations, &samplerAnnotations, (MaterialExporter::mSurfaceSidList.find(surfaceSid) == MaterialExporter::mSurfaceSidList.end()));
         }
         else
         {
             // Add the parameter.
-            sampler.addInSetParam ( streamWriter );
+			sampler.addInSetParam(streamWriter, 0, 0, (MaterialExporter::mSurfaceSidList.find(surfaceSid) == MaterialExporter::mSurfaceSidList.end()));
         }
+
+		MaterialExporter::SidSet::iterator it = MaterialExporter::mSurfaceSidList.find(surfaceSid);
+		if (it == MaterialExporter::mSurfaceSidList.end())
+		{
+			MaterialExporter::mSurfaceSidList.insert(surfaceSid);
+		}
+
     }
 
     // --------------------------------------

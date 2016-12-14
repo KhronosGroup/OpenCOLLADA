@@ -37,6 +37,9 @@ namespace COLLADAMaya
         /** General export options  */
         /****************************/
 
+		/** True, if we want to encode xsd:name with UCS2 to have valid xml. */
+		static bool mEncodedNames;
+
 		/** DAE ModelPathName when exporting into two separate files */
 		static MString mDAEmodelName;
 
@@ -121,6 +124,7 @@ namespace COLLADAMaya
         /****************************/
 		static MString getDAEmodelName();
 		static bool exportLOD();
+		static bool exportEncodedNames();
 
         /** Should the transforms be baked into a single matrix, as opposed to decomposed into 
         primitive collada transforms (e.g. translate, rotate, scale)? Default: FALSE */

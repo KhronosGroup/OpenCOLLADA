@@ -16,6 +16,7 @@ CMakeCache.txt
 .DS_Store
 *.xcodeproj
 *.build
+cmake_temp
 CMakeScripts/
 /bin/
 /lib/
