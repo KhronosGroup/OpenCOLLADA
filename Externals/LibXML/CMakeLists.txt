@@ -1,6 +1,15 @@
 set(name xml)
 project(${name})
 
+add_definitions(
+		-DLIBXML_AUTOMATA_ENABLED
+        -DLIBXML_HTTP_ENABLED
+		-DLIBXML_PATTERN_ENABLED
+		-DLIBXML_REGEXP_ENABLED
+		-DLIBXML_SCHEMAS_ENABLED
+		-DLIBXML_XPATH_ENABLED
+	)
+	
 if(USE_STATIC_MSVC_RUNTIME)
 	foreach(flag CMAKE_CXX_FLAGS CMAKE_CXX_FLAGS_DEBUG CMAKE_CXX_FLAGS_RELEASE CMAKE_CXX_FLAGS_MINSIZEREL
 			CMAKE_CXX_FLAGS_RELWITHDEBINFO CMAKE_C_FLAGS CMAKE_C_FLAGS_DEBUG CMAKE_C_FLAGS_RELEASE
@@ -55,9 +64,12 @@ set(SRC
 	xmlreader.c
 	xmlregexp.c
 	xmlsave.c
+	xmlschemas.c
+	xmlschemastypes.c
 	xmlstring.c
 	xmlunicode.c
 	xmlwriter.c
+	xpath.c
 	tree.c
 )
 

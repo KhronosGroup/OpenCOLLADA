@@ -755,7 +755,7 @@ namespace COLLADAMaya
 					if (found != std::string::npos)
 					{
 						Markers markersElement;
-						markersElement.ID = String(value.asChar());
+						markersElement.ID = value;
 						markersElement.time = markerTime;
 						markers.push_back(markersElement);
 					}

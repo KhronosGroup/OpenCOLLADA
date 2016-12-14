@@ -1005,7 +1005,7 @@ namespace COLLADAMaya
     {
     public:
         LocalPose(PhysXExporter& exporter, const MQuaternion& rotation, const MVector& translation)
-            : Element(exporter, LOCAL_POSE)
+            : Element(exporter, CSWC::CSW_ELEMENT_LOCAL_POSE)
         {
             double localPose[] = { rotation.x, rotation.y, rotation.z, rotation.w, translation.x, translation.y, translation.z };
             getStreamWriter().appendValues(localPose, sizeof(localPose) / sizeof(localPose[0]));
@@ -1114,6 +1114,7 @@ namespace COLLADAMaya
 			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XMLNS, PhysXExporter::GetXMLNS());
 			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XSI_SCHEMALOCATION, PhysXExporter::GetXSISchemaLocation());
 
+			exportLocalPose(shape);
 			exportSimulationFilterData(shape);
 			exportQueryFilterData(shape);
 			exportContactOffset(shape);
@@ -1124,16 +1125,16 @@ namespace COLLADAMaya
 
 		static bool HasDefaultValues(const PhysXXML::PxShape & shape)
 		{
-			return
-				SimulationFilterData::AreDefaultValues(shape.simulationFilterData.filter0, shape.simulationFilterData.filter1, shape.simulationFilterData.filter2, shape.simulationFilterData.filter3) &&
-				QueryFilterData::AreDefaultValues(shape.queryFilterData.filter0, shape.queryFilterData.filter1, shape.queryFilterData.filter2, shape.queryFilterData.filter3) &&
-				shape.contactOffset.contactOffset == ContactOffset::DefaultValue() &&
-				shape.restOffset.restOffset == RestOffset::DefaultValue() &&
-				shape.flags.flags == ShapeFlags::DefaultValue() &&
-				shape.name.name == DebugName::DefaultValue();
+			// Always export local pose
+			return false;
 		}
 
 	private:
+		void exportLocalPose(const PhysXXML::PxShape & shape)
+		{
+			LocalPose e(getPhysXExporter(), shape.localPose.rotation, shape.localPose.translation);
+		}
+
 		void exportSimulationFilterData(const PhysXXML::PxShape & shape)
 		{
 			if (!SimulationFilterData::AreDefaultValues(
@@ -1853,16 +1854,24 @@ namespace COLLADAMaya
 
 		void exportMass(const MObject & rigidBody, const PhysXXML::PxRigidBody & pxRigidBody)
         {
-			if (pxRigidBody.getType() == PhysXXML::PxRigidBody::Dynamic)
+			int dummy = 0;
+			MString overrideMassOrDensityStr;
+			DagHelper::getPlugValue(rigidBody, ATTR_OVERRIDE_MASS_OR_DENSITY, dummy, overrideMassOrDensityStr);
+			bool overrideMassOrDensity = overrideMassOrDensityStr != OVERRIDE_MASS_OR_DENSITY_DISABLED;
+
+			if (overrideMassOrDensity)
 			{
-				const PhysXXML::PxRigidDynamic & rigidDynamic = static_cast<const PhysXXML::PxRigidDynamic&>(pxRigidBody);
-				// PhysX mass is in grams. COLLADA uses kilograms.
-				Mass e(getPhysXExporter(), rigidDynamic.mass.mass / 1000.0);
-			}
-			else
-			{
-				double mass = getPhysXExporter().GetRigidBodyMass(rigidBody);
-				Mass e(getPhysXExporter(), mass);
+				if (pxRigidBody.getType() == PhysXXML::PxRigidBody::Dynamic)
+				{
+					const PhysXXML::PxRigidDynamic & rigidDynamic = static_cast<const PhysXXML::PxRigidDynamic&>(pxRigidBody);
+					// PhysX mass is in grams. COLLADA uses kilograms.
+					Mass e(getPhysXExporter(), rigidDynamic.mass.mass / 1000.0);
+				}
+				else
+				{
+					double mass = getPhysXExporter().GetRigidBodyMass(rigidBody);
+					Mass e(getPhysXExporter(), mass);
+				}
 			}
         }
 
@@ -2391,6 +2400,17 @@ namespace COLLADAMaya
 		}
 	};
 
+	class GlobalPose : public Element
+	{
+	public:
+		GlobalPose(PhysXExporter& exporter, const MQuaternion & rotation, const MVector & translation)
+			: Element(exporter, CSWC::CSW_ELEMENT_GLOBAL_POSE)
+		{
+			double pose [] = { rotation.x, rotation.y, rotation.z, rotation.w, translation.x, translation.y, translation.z };
+			getStreamWriter().appendValues(pose, sizeof(pose) / sizeof(pose[0]));
+		}
+	};
+
 	class PxRigidBody : public Element
 	{
 	public:
@@ -2400,6 +2420,7 @@ namespace COLLADAMaya
 			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XMLNS, PhysXExporter::GetXMLNS());
 			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XSI_SCHEMALOCATION, PhysXExporter::GetXSISchemaLocation());
 
+			exportGlobalPose(rb);
 			exportActorFlags(rb);
 			exportDominanceGroup(rb);
 			exportOwnerClient(rb);
@@ -2423,33 +2444,16 @@ namespace COLLADAMaya
 
 		static bool HasDefaultValues(const PhysXXML::PxRigidBody & rb)
 		{
-			bool hasCommonDefaultValues =
-				rb.actorFlags.actorFlags == ActorFlags::DefaultValue() &&
-				rb.dominanceGroup.dominanceGroup == DominanceGroup::DefaultValue() &&
-				rb.ownerClient.ownerClient == OwnerClient::DefaultValue();
-
-			if (rb.getType() == PhysXXML::PxRigidBody::Dynamic)
-			{
-				const PhysXXML::PxRigidDynamic & rd = static_cast<const PhysXXML::PxRigidDynamic&>(rb);
-				return hasCommonDefaultValues &&
-					rd.rigidBodyFlags.rigidBodyFlags == RigidBodyFlags::DefaultValue() &&
-					rd.minCCDAdvanceCoefficient.minCCDAdvanceCoefficient == MinCCDAdvanceCoefficient::DefaultValue() &&
-					rd.maxDepenetrationVelocity.maxDepenetrationVelocity == MaxDepenetrationVelocity::DefaultValue() &&
-					rd.linearDamping.linearDamping == LinearDamping::DefaultValue() &&
-					rd.angularDamping.angularDamping == AngularDamping::DefaultValue() &&
-					rd.maxAngularVelocity.maxAngularVelocity == MaxAngularVelocity::DefaultValue() &&
-					rd.sleepThreshold.sleepThreshold == SleepThreshold::DefaultValue() &&
-					rd.stabilizationThreshold.stabilizationThreshold == StabilizationThreshold::DefaultValue() &&
-					rd.wakeCounter.wakeCounter == WakeCounter::DefaultValue() &&
-					rd.solverIterationCounts.minPositionIters.minPositionIters == MinPositionIters::DefaultValue() &&
-					rd.solverIterationCounts.minVelocityIters.minVelocityIters == MinVelocityIters::DefaultValue() &&
-					rd.contactReportThreshold.contactReportThreshold == ContactReportThreshold::DefaultValue();
-			}
-
-			return hasCommonDefaultValues;
+			// Always export global pose
+			return false;
 		}
 
 	private:
+		void exportGlobalPose(const PhysXXML::PxRigidBody & pxRigidBody)
+		{
+			GlobalPose e(getPhysXExporter(), pxRigidBody.globalPose.rotation, pxRigidBody.globalPose.translation);
+		}
+
 		void exportActorFlags(const PhysXXML::PxRigidBody & pxRigidBody)
 		{
 			if (pxRigidBody.actorFlags.actorFlags != ActorFlags::DefaultValue())
@@ -3663,6 +3667,28 @@ namespace COLLADAMaya
 		}
 	};
 
+	class LocalPose0 : public Element
+	{
+	public:
+		LocalPose0(PhysXExporter& exporter, const MQuaternion& rotation, const MVector& translation)
+			: Element(exporter, CSWC::CSW_ELEMENT_LOCAL_POSE_0)
+		{
+			double localPose[] = { rotation.x, rotation.y, rotation.z, rotation.w, translation.x, translation.y, translation.z };
+			getStreamWriter().appendValues(localPose, sizeof(localPose) / sizeof(localPose[0]));
+		}
+	};
+
+	class LocalPose1 : public Element
+	{
+	public:
+		LocalPose1(PhysXExporter& exporter, const MQuaternion& rotation, const MVector& translation)
+			: Element(exporter, CSWC::CSW_ELEMENT_LOCAL_POSE_1)
+		{
+			double localPose[] = { rotation.x, rotation.y, rotation.z, rotation.w, translation.x, translation.y, translation.z };
+			getStreamWriter().appendValues(localPose, sizeof(localPose) / sizeof(localPose[0]));
+		}
+	};
+
 	class PxD6Joint : public Element
 	{
 	public:
@@ -3672,6 +3698,8 @@ namespace COLLADAMaya
 			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XMLNS, PhysXExporter::GetXMLNS());
 			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XSI_SCHEMALOCATION, PhysXExporter::GetXSISchemaLocation());
 
+			exportLocalPose0(joint);
+			exportLocalPose1(joint);
 			exportBreakForce(joint);
 			exportBreakTorque(joint);
 			exportConstraintFlags(joint);
@@ -3688,22 +3716,21 @@ namespace COLLADAMaya
 
 		static bool HasDefaultValues(const PhysXXML::PxD6Joint & joint)
 		{
-			return
-				joint.breakForce.force.force == BreakForce::DefaultValue() &&
-				joint.breakForce.torque.torque == BreakTorque::DefaultValue() &&
-				joint.constraintFlags.flags == ConstraintFlags::DefaultValue() &&
-				joint.invMassScale0.invMassScale0 == InvMassScale0::DefaultValue() &&
-				joint.invInertiaScale0.invInertiaScale0 == InvInertiaScale0::DefaultValue() &&
-				joint.invMassScale1.invMassScale1 == InvMassScale1::DefaultValue() &&
-				joint.invInertiaScale1.invInertiaScale1 == InvInertiaScale1::DefaultValue() &&
-				joint.projectionLinearTolerance.projectionLinearTolerance == ProjectionLinearTolerance::DefaultValue() &&
-				joint.projectionAngularTolerance.projectionAngularTolerance == ProjectionAngularTolerance::DefaultValue() &&
-				LimitsExtra::HasDefaultValues(joint) &&
-				SpringExtra::HasDefaultValues(joint) &&
-				Drive::HasDefaultValues(joint);
+			// Always export local pose 0 and 1
+			return false;
 		}
 
 	private:
+		void exportLocalPose0(const PhysXXML::PxD6Joint & joint)
+		{
+			LocalPose0 e(getPhysXExporter(), joint.localPose.eActor0.rotation, joint.localPose.eActor0.translation);
+		}
+
+		void exportLocalPose1(const PhysXXML::PxD6Joint & joint)
+		{
+			LocalPose1 e(getPhysXExporter(), joint.localPose.eActor1.rotation, joint.localPose.eActor1.translation);
+		}
+
 		void exportBreakForce(const PhysXXML::PxD6Joint & joint)
 		{
 			if (joint.breakForce.force.force != BreakForce::DefaultValue())
@@ -4526,12 +4553,13 @@ namespace COLLADAMaya
     }
 
     bool ExtractPhysXPluginVersionNumbers(
+		const MString & mversion,
         int & major,
         int & minor,
         int & a,
         int & b)
     {
-        String version = PhysXExporter::GetInstalledPhysXPluginVersion().asChar();
+        String version = mversion.asChar();
 
         size_t p1 = version.find('(');
         if (p1 == String::npos) return false;
@@ -4577,20 +4605,22 @@ namespace COLLADAMaya
         int curr_a = 0;
         int curr_b = 0;
 
-        if (!ExtractPhysXPluginVersionNumbers(requ_major, requ_minor, requ_a, requ_b)) {
+        if (!ExtractPhysXPluginVersionNumbers(GetRequiredPhysXPluginVersion(), requ_major, requ_minor, requ_a, requ_b)) {
             return false;
         }
 
-        if (!ExtractPhysXPluginVersionNumbers(curr_major, curr_minor, curr_a, curr_b)) {
+        if (!ExtractPhysXPluginVersionNumbers(GetInstalledPhysXPluginVersion(), curr_major, curr_minor, curr_a, curr_b)) {
             return false;
         }
 
-        if (curr_major < requ_major ||
-            curr_minor < requ_minor ||
-            curr_a < requ_a ||
-            curr_b < requ_b) {
-            return false;
-        }
+		if (curr_major > requ_major) return false;
+		if (curr_major < requ_major) return false;
+		if (curr_minor > requ_minor) return true;
+		if (curr_minor < requ_minor) return false;
+		if (curr_a > requ_a) return true;
+		if (curr_a < requ_a) return false;
+		if (curr_b >= requ_b) return true;
+		if (curr_b < requ_b) return false;
 
         return true;
     }
@@ -4827,13 +4857,6 @@ namespace COLLADAMaya
         // Backup export options
         AutoRestorePhysXExportOptions autoRestorePhysXExportOptions;
 
-        // PhysX internal data is in centimeters and we need to export to UI unit.
-        MDistance unitDistance = MDistance(1.0, MDistance::uiUnit());
-        double asCentimeters = unitDistance.asCentimeters();
-        double centimetersToUIUnit = 1.0 / asCentimeters;
-        MString centimetersToUIUnitStr = "";
-        centimetersToUIUnitStr += centimetersToUIUnit;
-
         // Set export options
         status = MGlobal::executeCommand("optionVar -iv \"apexClothingExport_APBs\" 2");
         if (!status) return false;
@@ -4851,11 +4874,11 @@ namespace COLLADAMaya
         if (!status) return false;
         status = MGlobal::executeCommand("optionVar -iv \"PhysXExport_exportPhysX\" 1");
         if (!status) return false;
-        status = MGlobal::executeCommand("optionVar -sv \"PhysXExport_outputUnit\" \"meter\""); // Has no effect
+        status = MGlobal::executeCommand("optionVar -sv \"PhysXExport_outputUnit\" \"meter\"");
         if (!status) return false;
         status = MGlobal::executeCommand("optionVar -iv \"PhysXExport_customScaling\" true");
         if (!status) return false;
-        status = MGlobal::executeCommand("optionVar -fv \"PhysXExport_outputScale\" " + centimetersToUIUnitStr);
+        status = MGlobal::executeCommand("optionVar -fv \"PhysXExport_outputScale\" 1.0");
         if (!status) return false;
 
         String filePath = mDocumentExporter.getFilename();
