@@ -604,9 +604,17 @@ namespace COLLADAMaya
 			getPhysXExporter().exportRotation(r.asEulerRotation(), rSid);
         }
 
-		static bool AreDefaultValues(const MVector & t, const MQuaternion & r)
+		static bool AreDefaultValues(PhysXExporter & exporter, const MVector & t, const MQuaternion & r)
 		{
-			return t == MVector::zero && r == MQuaternion::identity;
+			bool zero_translation =
+				COLLADABU::Math::Utils::equalsZero(t.x, exporter.getDocumentExporter().getTolerance()) &&
+				COLLADABU::Math::Utils::equalsZero(t.y, exporter.getDocumentExporter().getTolerance()) &&
+				COLLADABU::Math::Utils::equalsZero(t.z, exporter.getDocumentExporter().getTolerance());
+
+			RotateHelper rotation(r.asEulerRotation());
+			bool zero_rotation = rotation.isIdentity(exporter.getDocumentExporter().getTolerance());
+
+			return zero_translation && zero_rotation;
 		}
     };
 
@@ -1972,7 +1980,7 @@ namespace COLLADAMaya
 				}
 			}
 
-			if (!MassFrame::AreDefaultValues(translation, rotation))
+			if (!MassFrame::AreDefaultValues(getPhysXExporter(), translation, rotation))
 			{
 				MassFrame e(getPhysXExporter(), translation, rotation, ATTR_TRANSLATE, ATTR_ROTATE);
 			}
