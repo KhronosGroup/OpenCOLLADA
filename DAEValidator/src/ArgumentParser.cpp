@@ -167,7 +167,7 @@ namespace opencollada
 
 	ArgumentParser::ArgumentParser(int argc, char* argv[])
 	{
-		mCommandLine.reserve(argc);
+		mCommandLine.reserve(static_cast<size_t>(argc));
 		for (int i = 0; i < argc; ++i)
 		{
 			mCommandLine.push_back(argv[i]);
@@ -333,10 +333,10 @@ namespace opencollada
 			w = max(w, arg.first.length());
 
 		for (const auto & arg : mNoSwitchArguments)
-			s << setw(w) << left << arg.getHint() << " " << arg.getHelp() << endl;
+			s << setw(static_cast<streamsize>(w)) << left << arg.getHint() << " " << arg.getHelp() << endl;
 
 		for (const auto & arg : mArguments)
-			s << setw(w) << left << arg.first << " " << arg.second.getHelp() << endl;
+			s << setw(static_cast<streamsize>(w)) << left << arg.first << " " << arg.second.getHelp() << endl;
 
 		return s.str();
 	}

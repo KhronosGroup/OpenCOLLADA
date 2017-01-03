@@ -381,7 +381,7 @@ namespace opencollada
 				if (slash_pos == string::npos)
 					output.clear();
 				else
-					output.erase(output.begin() + slash_pos, output.end());
+					output.erase(output.begin() + static_cast<ptrdiff_t>(slash_pos), output.end());
 			}
 			else if (StartsWith(input, slash_dot_dot) &&
 				(input[slash_dot_dot_len] == '/' || input[slash_dot_dot_len] == '\0'))
@@ -391,7 +391,7 @@ namespace opencollada
 				if (slash_pos == string::npos)
 					output.clear();
 				else
-					output.erase(output.begin() + slash_pos, output.end());
+					output.erase(output.begin() + static_cast<ptrdiff_t>(slash_pos), output.end());
 			}
 			else if (input == dot || input == dot_dot)
 			{

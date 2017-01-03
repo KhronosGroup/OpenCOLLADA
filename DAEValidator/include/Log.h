@@ -22,6 +22,9 @@ namespace opencollada
 		std::char_traits<char>::int_type overflow(std::char_traits<char>::int_type v);
 
 	private:
+		const streamhook& operator = (const streamhook&) = delete;
+
+	private:
 		std::ostream& mStream;
 		std::streambuf* mStreamBuf;
 		std::function<void(const std::string &)> mCallback;

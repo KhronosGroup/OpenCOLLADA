@@ -26,7 +26,7 @@ namespace opencollada
 		std::string getHelp() const;
 
 		template<typename T>
-		T getValue(int index = 0) const
+		T getValue(size_t index = 0) const
 		{
 			T value;
 			std::stringstream ss;
@@ -52,7 +52,7 @@ namespace opencollada
 	};
     
     template<>
-    inline std::string Argument::getValue<std::string>(int index) const
+    inline std::string Argument::getValue<std::string>(size_t index) const
     {
         return mValues[index];
     }

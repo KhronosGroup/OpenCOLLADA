@@ -24,6 +24,9 @@ namespace opencollada
 		void readExternalFile(const std::string & path);
 		void onAnyDAEURI(const std::string & uri);
 
+		Dae(const Dae&) = delete;
+		const Dae& operator = (const Dae&) = delete;
+
 	private:
 		Uri mUri;
 		std::set<Uri> mExternalDAEURIs;
