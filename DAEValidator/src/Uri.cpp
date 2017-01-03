@@ -244,8 +244,8 @@ namespace opencollada
 		{
 			if (str[i] == '%')
 			{
-				auto dec1 = hex_to_dec[str[i + 1]];
-				auto dec2 = hex_to_dec[str[i + 2]];
+				auto dec1 = hex_to_dec[static_cast<int>(str[i + 1])];
+				auto dec2 = hex_to_dec[static_cast<int>(str[i + 2])];
 				if (dec1 != err && dec2 != err)
 				{
 					res.append(1, static_cast<string::value_type>((dec1 << 4) + dec2));
@@ -272,7 +272,7 @@ namespace opencollada
 		uri.reserve(str.length() * 3);
 		for (auto c : str)
 		{
-			if (c > 32 && c < 128)
+			if (c > 32)
 				uri += c;
 			else
 			{
