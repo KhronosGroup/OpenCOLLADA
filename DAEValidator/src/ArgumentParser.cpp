@@ -1,4 +1,6 @@
 #include "ArgumentParser.h"
+#include <algorithm>
+#include <iomanip>
 #include <iostream>
 
 using namespace std;
@@ -90,6 +92,7 @@ namespace opencollada
 	Argument& Argument::numParameters(size_t n)
 	{
 		mValues.resize(n);
+		mHints.resize(n);
 		return *this;
 	}
 
@@ -99,9 +102,21 @@ namespace opencollada
 		return *this;
 	}
 
-	Argument& Argument::action(const std::function<void(const std::string & param)> & toDo)
+	Argument& Argument::hint(const string & s)
 	{
-		mToDo = toDo;
+		mHint = s;
+		return *this;
+	}
+
+	Argument& Argument::hint(size_t index, const string & s)
+	{
+		mHints[index] = s;
+		return *this;
+	}
+
+	Argument& Argument::help(const string & s)
+	{
+		mHelp = s;
 		return *this;
 	}
 
@@ -120,13 +135,24 @@ namespace opencollada
 		return mRequired;
 	}
 
+	string Argument::getHint() const
+	{
+		return mHint;
+	}
+
+	string Argument::getHint(size_t index) const
+	{
+		return mHints[index];
+	}
+
+	string Argument::getHelp() const
+	{
+		return mHelp;
+	}
+
 	void Argument::setValue(const string & str, size_t index)
 	{
 		mValues[index] = str;
-		if (mToDo)
-		{
-			mToDo(str);
-		}
 	}
 
 	Argument::operator bool() const
@@ -197,17 +223,21 @@ namespace opencollada
 			{
 				if (argument.isRequired() && !argument.isSet())
 				{
-                    throw MissingArgumentException();
+					throw MissingArgumentException(argument.getHint());
 				}
 			}
 		}
 		catch (exception& e)
 		{
-			cerr << "Command line error:" << endl;
-			cerr << e.what() << endl;
+			mParseError = e.what();
 			return false;
 		}
 		return true;
+	}
+
+	string ArgumentParser::getParseError() const
+	{
+		return mParseError;
 	}
 
 	Argument& ArgumentParser::addArgument(const string & name)
@@ -255,5 +285,59 @@ namespace opencollada
 			if (arg.isSet())
 				++num;
 		return num;
+	}
+
+	string ArgumentParser::usage() const
+	{
+		stringstream s;
+		s
+			<< endl
+			<< "COLLADA document validator." << endl
+			<< endl
+			<< "Validates COLLADA documents against COLLADA schema and performs several coherency tests." << endl
+			<< endl
+			<< "Usage:" << endl
+			<< endl
+			<< mCommandLine[0];
+
+		for (const auto & arg : mNoSwitchArguments)
+		{
+			s << " ";
+			if (!arg.isRequired())
+				s << '[';
+			s << arg.getHint();
+			if (!arg.isRequired())
+				s << ']';
+		}
+
+		for (const auto & arg : mArguments)
+		{
+			s << " ";
+			if (!arg.second.isRequired())
+				s << '[';
+			s << arg.first;
+			for (size_t i = 0; i < arg.second.getNumParameters(); ++i)
+			{
+				s << " " << arg.second.getHint(i);
+			}
+			if (!arg.second.isRequired())
+				s << ']';
+		}
+
+		s
+			<< endl
+			<< endl;
+
+		size_t w = 0;
+		for (const auto & arg : mArguments)
+			w = max(w, arg.first.length());
+
+		for (const auto & arg : mNoSwitchArguments)
+			s << setw(w) << left << arg.getHint() << " " << arg.getHelp() << endl;
+
+		for (const auto & arg : mArguments)
+			s << setw(w) << left << arg.first << " " << arg.second.getHelp() << endl;
+
+		return s.str();
 	}
 }

@@ -18,6 +18,7 @@ namespace opencollada
 	const char* checkUniqueIds = "--check-unique-ids";
 	const char* recursive = "--recursive";
 	const char* quiet = "--quiet";
+	const char* help = "--help";
 
 	const char* colladaNamespace141 = "http://www.collada.org/2005/11/COLLADASchema";
 	const char* colladaSchemaFileName141 = "collada_schema_1_4_1.xsd";
@@ -32,15 +33,26 @@ int main(int argc, char* argv[])
 {
 	// Parse arguments
 	ArgumentParser argparse(argc, argv);
-	argparse.addArgument(); // dae or directory
-	argparse.addArgument(checkSchemaAuto);
-	argparse.addArgument(checkSchema).numParameters(1);
-	argparse.addArgument(checkUniqueIds);
-	argparse.addArgument(recursive);
-	argparse.addArgument(quiet);
+	argparse.addArgument().hint("path").help("Path to COLLADA document or directory to parse. If 'path' is a directory it is parsed for files with .DAE extension.");
+	argparse.addArgument(checkSchemaAuto).help("Regular XML schema validation.");
+	argparse.addArgument(checkSchema).numParameters(1).hint(0, "schema_path").help("Validate against given XML schema.");
+	argparse.addArgument(checkUniqueIds).help("Check that ids in documents are unique.");
+	argparse.addArgument(recursive).help("Recursively parse directories. Ignored if 'path' is not a directory.");
+	argparse.addArgument(quiet).help("If set, no output is sent to standard out/err.");
+	argparse.addArgument(help).help("Display help.");
 
-	if (!argparse.parseArguments())
+	bool argparse_ok = argparse.parseArguments();
+
+	if (argparse.findArgument(help)) {
+		cout << argparse.usage() << endl;
+		return 0;
+	}
+
+	if (!argparse_ok) {
+		cerr << argparse.getParseError() << endl;
+		cout << argparse.usage() << endl;
 		return 1;
+	}
 
 	bool muted = argparse.findArgument(quiet);
 	Log::Setup(muted);
