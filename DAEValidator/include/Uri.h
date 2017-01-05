@@ -1,3 +1,4 @@
+#include <ostream>
 #include <string>
 
 // https://tools.ietf.org/html/rfc3986
