@@ -62,6 +62,10 @@ include_directories(
 
 SET(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
 
+if (WIN32)
+	link_directories(${LIBRARY_OUTPUT_PATH})
+endif ()
+
 add_executable(${name} ${SRC})
 target_link_libraries(${name} ${libDAEValidator_libs})
 
