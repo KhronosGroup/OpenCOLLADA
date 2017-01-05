@@ -61,7 +61,6 @@ include_directories(
 )
 
 SET(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
-link_directories(${LIBRARY_OUTPUT_PATH})
 
 add_executable(${name} ${SRC})
 target_link_libraries(${name} ${libDAEValidator_libs})
