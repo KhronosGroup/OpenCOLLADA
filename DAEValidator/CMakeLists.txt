@@ -47,6 +47,7 @@ set(SRC
 
 set(libDAEValidator_libs
 	${LIBXML2_LIBRARIES}
+	zlib
 )
 
 if (WIN32)
@@ -58,6 +59,7 @@ endif ()
 include_directories(
 	${libDAEValidator_include_dirs}
 	${LIBXML2_INCLUDE_DIR}
+	${zlib_include_dirs}
 )
 
 SET(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
@@ -85,6 +87,12 @@ if (NOT LIBXML2_FOUND)
 	if (USE_SHARED)
 		add_dependencies(${name} xml_shared)
 	endif ()
+endif ()
+
+if (USE_STATIC)
+	add_dependencies(${name} zlib_static)
+else ()
+	add_dependencies(${name} zlib_shared)
 endif ()
 
 if (WIN32)
