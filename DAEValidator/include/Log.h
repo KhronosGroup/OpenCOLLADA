@@ -27,7 +27,7 @@ namespace opencollada
 	private:
 		std::ostream& mStream;
 		std::streambuf* mStreamBuf;
-		std::function<void(const std::string &)> mCallback;
+		hookcallback mCallback;
 		bool mQuiet = false;
 	};
 
