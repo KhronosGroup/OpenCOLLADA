@@ -3,6 +3,9 @@
 
 #include <fstream>
 #include <vector>
+#ifndef _WIN32
+#include <sys/stat.h>
+#endif
 
 using namespace std;
 
