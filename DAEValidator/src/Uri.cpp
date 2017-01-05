@@ -67,10 +67,27 @@ namespace opencollada
 		return mFragment;
 	}
 
+	void Uri::setScheme(const std::string & scheme)
+	{
+		mScheme = scheme;
+		rebuild();
+	}
+
 	void Uri::setFragment(const string & fragment)
 	{
 		mFragment = fragment;
 		rebuild();
+	}
+
+	void Uri::setPathFile(const string & filename)
+	{
+		auto pf = pathFile();
+		if (!pf.empty())
+		{
+			auto pos = mPath.rfind(pf);
+			mPath.replace(pos, pf.length(), filename);
+			rebuild();
+		}
 	}
 
 	string Uri::pathFile() const
@@ -198,7 +215,9 @@ namespace opencollada
 #else
 		string uri = path;
 #endif
-		return Encode(uri);
+		Uri res = Encode(uri);
+		res.setScheme("file");
+		return res;
 	}
 
 	string Uri::Decode(const std::string & str)

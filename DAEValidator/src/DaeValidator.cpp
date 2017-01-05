@@ -210,29 +210,43 @@ namespace opencollada
 			const auto & schemaUri = p.first;
 			auto & schema = p.second;
 
+			string uri = schemaUri;
+
 			if (!schema)
 			{
-				schema.readFile(p.first);
-				if (!schema)
-				{
-					Uri xsdUri(schemaUri);
-					if (xsdUri.isValid())
-					{
-						// Try local file
-						string localPath = Path::Join(Path::GetExecutableDirectory(), xsdUri.pathFile());
-						schema.readFile(localPath);
-						if (schema)
-						{
-							cout << "Using " << localPath << endl;
-						}
-					}
+				schema.readFile(uri);
+			}
 
-					if (!schema)
-					{
-						cerr << "Error loading " << schemaUri << endl;
-						result |= 1;
-					}
+			if (!schema)
+			{
+				// Try to find schema document in executable directory
+				Uri xsdUri(schemaUri);
+				if (xsdUri.isValid())
+				{
+					uri = Path::Join(Path::GetExecutableDirectory(), xsdUri.pathFile());
+					schema.readFile(uri);
 				}
+			}
+
+			if (!schema)
+			{
+				// Try to find schema document in COLLADA document directory
+				Uri xsdUri(schemaUri);
+				string xsdFile = xsdUri.pathFile();
+				xsdUri = dae.getURI();
+				xsdUri.setPathFile(xsdFile);
+				uri = xsdUri.str();
+				schema.readFile(uri);
+			}
+
+			if (schema && uri != schemaUri)
+			{
+				cout << "Using " << uri << endl;
+			}
+			else
+			{
+				cerr << "Error loading " << schemaUri << endl;
+				result |= 1;
 			}
 		}
 

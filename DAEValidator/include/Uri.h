@@ -23,7 +23,9 @@ namespace opencollada
 		const std::string & query() const;
 		const std::string & fragment() const;
 
+		void setScheme(const std::string & scheme);
 		void setFragment(const std::string & fragment);
+		void setPathFile(const std::string & filename);
 
 		std::string pathFile() const;
 		std::string nativePath() const;
