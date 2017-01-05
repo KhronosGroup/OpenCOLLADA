@@ -163,7 +163,14 @@ namespace opencollada
 
 	void Dae::onAnyDAEURI(const string & uri)
 	{
+		if (uri.find('#') == 0)
+			return;
+
 		Uri absoluteUri(mUri, uri);
+		
+		if (absoluteUri.path().empty())
+			return;
+
 		if (!absoluteUri.pathFile().empty())
 		{
 			Uri absoluteUriNoFragment(absoluteUri);
