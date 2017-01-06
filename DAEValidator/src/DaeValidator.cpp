@@ -131,6 +131,8 @@ namespace opencollada
 
 	int DaeValidator::checkSchema(const Dae & dae)
 	{
+		cout << dae.getURI() << ": checking schema..." << endl;
+
 		int result = 0;
 
 		// Get root <COLLADA> element
@@ -278,6 +280,8 @@ namespace opencollada
 
 	int DaeValidator::checkUniqueIds(const Dae & dae)
 	{
+		cout << dae.getURI() << ": checking unique ids..." << endl;
+
 		int result = 0;
 		XmlNodeSet nodes = dae.root().selectNodes("//*[@id]");
 		set<IdLine> ids;
