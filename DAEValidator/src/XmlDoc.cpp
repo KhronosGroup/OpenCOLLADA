@@ -54,7 +54,7 @@ namespace opencollada
 		else
 		{
 			vector<char> decompressed_content(*reinterpret_cast<const uint32_t*>(content.data() + content.size() - 4));
-			z_stream zInfo = { 0 };
+			z_stream zInfo = {};
 			zInfo.total_in = zInfo.avail_in = static_cast<uInt>(content.size());
 			zInfo.total_out = zInfo.avail_out = static_cast<uInt>(decompressed_content.size());
 			zInfo.next_in = reinterpret_cast<Bytef*>(content.data());
