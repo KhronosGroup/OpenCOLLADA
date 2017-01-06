@@ -15,12 +15,13 @@ namespace opencollada
 		XmlDoc(XmlDoc && other);
 		virtual ~XmlDoc();
 
+		const XmlDoc & operator = (XmlDoc && other);
+
 		virtual void readFile(const std::string & path);
 
 		operator bool() const;
-
+		void reset();
 		XmlNode root() const;
-
 		XmlNode setRoot(const XmlNode & node) const;
 
 	private:

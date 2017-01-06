@@ -8,45 +8,14 @@
 
 using namespace std;
 
-namespace opencollada
-{
-	class IdLine
-	{
-	public:
-		IdLine(const string & id, size_t line)
-			: mId(id)
-			, mLine(line)
-		{}
-
-		bool operator < (const IdLine & other) const
-		{
-			return mId < other.mId;
-		}
-
-		const string & getId() const
-		{
-			return mId;
-		}
-
-		size_t getLine() const
-		{
-			return mLine;
-		}
-
-	private:
-		string mId;
-		size_t mLine = string::npos;
-	};
-}
-
 namespace std
 {
 	template<>
-	struct less<opencollada::IdLine>
+	struct less<tuple<size_t, string>>
 	{
-		bool operator () (const opencollada::IdLine& a, const opencollada::IdLine& b) const
+		bool operator () (const tuple<size_t, string>& a, const tuple<size_t, string>& b) const
 		{
-			return a < b;
+			return get<1>(a) < get<1>(b);
 		}
 	};
 }
@@ -70,8 +39,17 @@ namespace opencollada
 	int DaeValidator::for_each_dae(const function<int(const Dae &)> & task) const
 	{
 		int result = 0;
+		size_t count = 1;
 		for (const auto & daePath : mDaePaths)
 		{
+			if (mDaePaths.size() > 1)
+			{
+				cout << "[" << count << "/" << mDaePaths.size() << " " << static_cast<size_t>(static_cast<float>(count) / static_cast<float>(mDaePaths.size()) * 100.0f) << "%]" << endl;
+				++count;
+
+				cout << "Processing " << daePath << endl;
+			}
+
 			Dae dae;
 			dae.readFile(daePath);
 			if (dae)
@@ -98,7 +76,8 @@ namespace opencollada
 	{
 		return
 			checkSchema(dae) |
-			checkUniqueIds(dae);
+			checkUniqueIds(dae) |
+			checkLinks(dae);
 	}
 
 	int DaeValidator::checkSchema(const string & schema_uri)
@@ -131,7 +110,7 @@ namespace opencollada
 
 	int DaeValidator::checkSchema(const Dae & dae)
 	{
-		cout << dae.getURI() << ": checking schema..." << endl;
+		cout << "Checking schema..." << endl;
 
 		int result = 0;
 
@@ -264,7 +243,7 @@ namespace opencollada
 			}
 			else
 			{
-				cerr << "Cannot validate " << dae.getURI() << " at line " << subDoc.node.line() << endl;
+				cerr << "Can't validate " << dae.getURI() << " at line " << subDoc.node.line() << endl;
 			}
 		}
 
@@ -280,59 +259,117 @@ namespace opencollada
 
 	int DaeValidator::checkUniqueIds(const Dae & dae)
 	{
-		cout << dae.getURI() << ": checking unique ids..." << endl;
+		cout << "Checking unique ids..." << endl;
 
 		int result = 0;
-		XmlNodeSet nodes = dae.root().selectNodes("//*[@id]");
-		set<IdLine> ids;
-		for (const auto & node : nodes)
+		set<tuple<size_t, string>> ids;
+		for (const auto & line_id : dae.getLineIds())
 		{
-			IdLine id_line(
-				node.attribute(Strings::id).value(),
-				node.line()
-			);
-			auto it = ids.find(id_line);
+			const auto & line = get<0>(line_id);
+			const auto & id = get<1>(line_id);
+
+			int checkEscapeCharResult = CheckEscapeChar(id);
+			if (checkEscapeCharResult != 0)
+			{
+				cerr << dae.getURI() << ":" << line << ": \"" << id << "\" contains non-escaped characters." << endl;
+				result |= checkEscapeCharResult;
+			}
+
+			auto it = ids.find(line_id);
 			if (it != ids.end())
 			{
-				cerr << dae.getURI() << ":" << node.line() << ": Duplicated id \"" << id_line.getId() << "\". See first declaration at line " << it->getLine() << "." << endl;
+				cerr << dae.getURI() << ":" << line << ": Duplicated id \"" << id << "\". See first declaration at line " << get<0>(*it) << "." << endl;
 				result |= 1;
 			}
 			else
 			{
-				ids.insert(id_line);
+				ids.insert(line_id);
 			}
 		}
 		return result;
 	}
 
-	int DaeValidator::ValidateAgainstFile(const Dae & dae, const string & xsdPath)
+	int DaeValidator::checkLinks()
 	{
-		// Open xsd
-		XmlSchema xsd;
-		xsd.readFile(xsdPath.c_str());
-		if (!xsd)
+		return for_each_dae([&](const Dae & dae) {
+			return checkLinks(dae);
+		});
+	}
+
+	int DaeValidator::checkLinks(const Dae & dae)
+	{
+		cout << "Checking links..." << endl;
+
+		int result = 0;
+		for (const auto & t : dae.getAnyURIs())
 		{
-			Uri xsdUri(xsdPath);
-			if (!xsdUri.isValid())
+			const auto & line = get<0>(t);
+			const auto & uri = get<1>(t);
+			if (!Path::Exists(uri.nativePath()))
 			{
-				cerr << "Error loading " << xsdPath << endl;
-				return 2;
+				cerr << dae.getURI() << ":" << line << ": Can't resolve " << uri << endl;
+				result |= 1;
 			}
-			// Try local file
-			string localPath = Path::Join(Path::GetExecutableDirectory(), xsdUri.pathFile());
-			xsd.readFile(localPath);
-			if (!xsd)
+			else if (!uri.fragment().empty())
 			{
-				cerr << "Error loading " << xsdPath << endl;
-				return 2;
+				Uri no_fragment_uri(uri);
+				no_fragment_uri.setFragment("");
+				if (no_fragment_uri == dae.getURI())
+				{
+					auto id = dae.getIds().find(uri.fragment());
+					if (id == dae.getIds().end())
+					{
+						cerr << dae.getURI() << ":" << line << ": Can't resolve #" << uri.fragment() << endl;
+						result |= 1;
+					}
+				}
+				else
+				{
+					auto it = dae.getExternalDAEs().find(no_fragment_uri);
+					if (it != dae.getExternalDAEs().end())
+					{
+						auto id = it->second.getIds().find(uri.fragment());
+						if (id == it->second.getIds().end())
+						{
+							cerr << dae.getURI() << ":" << line << ": Can't resolve " << uri << endl;
+							result |= 1;
+						}
+					}
+					else
+					{
+						cerr << dae.getURI() << ":" << line << ": " << uri << ": referenced file exists but has not been successfully loaded." << endl;
+						result |= 1;
+					}
+				}
 			}
-			cout << "Using " << localPath << endl;
 		}
-		return ValidateAgainstSchema(dae, xsd);
+
+		// IDREF
+		for (const auto & IDREF : dae.getIDREFs())
+		{
+			const auto & line = get<0>(IDREF);
+			const auto & idref = get<1>(IDREF);
+
+			auto id = dae.getIds().find(idref);
+			if (id == dae.getIds().end())
+			{
+				cerr << dae.getURI() << ":" << line << ": Can't resolve #" << idref << endl;
+				result |= 1;
+			}
+		}
+
+		return result;
 	}
 
 	int DaeValidator::ValidateAgainstSchema(const Dae & dae, const XmlSchema & schema)
 	{
 		return schema.validate(dae) ? 0 : 1;
+	}
+
+	int DaeValidator::CheckEscapeChar(const std::string & s)
+	{
+		if (s.find_first_of(" #$%&/:;<=>?@[\\:]^`{|}~") != string::npos)
+			return 1;
+		return 0;
 	}
 }

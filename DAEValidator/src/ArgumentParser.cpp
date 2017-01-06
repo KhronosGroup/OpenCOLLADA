@@ -1,4 +1,5 @@
 #include "ArgumentParser.h"
+#include "PathUtil.h"
 #include <algorithm>
 #include <iomanip>
 #include <iostream>
@@ -298,7 +299,7 @@ namespace opencollada
 			<< endl
 			<< "Usage:" << endl
 			<< endl
-			<< mCommandLine[0];
+			<< Path::GetFileBase(mCommandLine[0]);
 
 		for (const auto & arg : mNoSwitchArguments)
 		{

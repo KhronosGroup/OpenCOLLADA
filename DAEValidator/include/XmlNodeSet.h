@@ -14,8 +14,6 @@ namespace opencollada
 		XmlNodeSet(XmlNodeSet&& other);
 		~XmlNodeSet();
 
-		operator bool() const;
-
 		class iterator
 		{
 			friend class XmlNodeSet;

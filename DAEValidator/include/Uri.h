@@ -47,13 +47,12 @@ namespace opencollada
 			std::string & fragment);
 
 	private:
-		static bool StartsWith(const std::string & str, const std::string & with);
 		static std::string MergePaths(const Uri & baseUri, const std::string & ref_path);
-		// TODO make in place version
-		static std::string RemoveDotSegments(const std::string & path);
 
 		// Rebuild mUri from mScheme, mAuthority, mPath, mQuery and mFragment
 		void rebuild();
+		// Rebuild mUri from mScheme, mAuthority, mPath, mQuery and mFragment but don't validate
+		void rebuild_fast();
 
 	private:
 		std::string mUri;

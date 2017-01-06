@@ -21,11 +21,6 @@ namespace opencollada
 		: mXPathObject(xpathObject)
 	{}
 
-	XmlNodeSet::operator bool() const
-	{
-		return mXPathObject != nullptr;
-	}
-
 	XmlNode XmlNodeSet::iterator::operator*() const
 	{
 		if (!mNodeSet)

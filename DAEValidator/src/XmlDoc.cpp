@@ -15,20 +15,24 @@ namespace opencollada
 {
 	XmlDoc::XmlDoc(XmlDoc && other)
 	{
-		swap(mDoc, other.mDoc);
+		*this = move(other);
 	}
 
 	XmlDoc::~XmlDoc()
 	{
-		if (mDoc)
-		{
-			xmlFreeDoc(mDoc);
-			mDoc = nullptr;
-		}
+		reset();
+	}
+
+	const XmlDoc & XmlDoc::operator = (XmlDoc && other)
+	{
+		swap(mDoc, other.mDoc);
+		return *this;
 	}
 
 	void XmlDoc::readFile(const string & path)
 	{
+		reset();
+
 		ifstream ifile(path, ios_base::binary);
 
 		if (!ifile.is_open()) return;
@@ -75,6 +79,15 @@ namespace opencollada
 	XmlDoc::operator bool() const
 	{
 		return mDoc != nullptr;
+	}
+
+	void XmlDoc::reset()
+	{
+		if (mDoc)
+		{
+			xmlFreeDoc(mDoc);
+			mDoc = nullptr;
+		}
 	}
 
 	XmlNode XmlDoc::root() const

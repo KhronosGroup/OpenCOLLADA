@@ -16,6 +16,7 @@ namespace opencollada
 	const char* checkSchemaAuto = "--check-schema-auto";
 	const char* checkSchema = "--check-schema";
 	const char* checkUniqueIds = "--check-unique-ids";
+	const char* checkLinks = "--check-links";
 	const char* recursive = "--recursive";
 	const char* quiet = "--quiet";
 	const char* help = "--help";
@@ -35,8 +36,9 @@ int main(int argc, char* argv[])
 	ArgumentParser argparse(argc, argv);
 	argparse.addArgument().hint("path").help("Path to COLLADA document or directory to parse. If 'path' is a directory it is parsed for files with .DAE extension.");
 	argparse.addArgument(checkSchemaAuto).help("Regular XML schema validation.");
-	argparse.addArgument(checkSchema).numParameters(1).hint(0, "schema_path").help("Validate against given XML schema.");
+	argparse.addArgument(checkSchema).numParameters(1).hint(0, "schema_path").help("Validate against arbitrary XML schema.");
 	argparse.addArgument(checkUniqueIds).help("Check that ids in documents are unique.");
+	argparse.addArgument(checkLinks).help("Check that URIs refer to valid files and/or elements.");
 	argparse.addArgument(recursive).help("Recursively parse directories. Ignored if 'path' is not a directory.");
 	argparse.addArgument(quiet).help("If set, no output is sent to standard out/err.");
 	argparse.addArgument(help).help("Display help.");
@@ -73,11 +75,12 @@ int main(int argc, char* argv[])
 	//	return 1;
 	//}
 
-	string path = argparse.findArgument(0).getValue<string>();
+	string path = Path::GetAbsolutePath(argparse.findArgument(0).getValue<string>());
 
 	list<string> daePaths;
 	if (Path::IsDirectory(path))
 	{
+		cout << "Listing COLLADA files..." << endl;
 		daePaths = Path::ListDaes(path, argparse.findArgument(recursive));
 	}
 	else
@@ -96,7 +99,8 @@ int main(int argc, char* argv[])
 
 	if (!argparse.findArgument(checkSchemaAuto) &&
 		!argparse.findArgument(checkUniqueIds) &&
-		!argparse.findArgument(checkSchema))
+		!argparse.findArgument(checkSchema) &&
+		!argparse.findArgument(checkLinks))
 	{
 		result |= validator.checkAll();
 	}
@@ -110,6 +114,11 @@ int main(int argc, char* argv[])
 		if (argparse.findArgument(checkUniqueIds))
 		{
 			result |= validator.checkUniqueIds();
+		}
+
+		if (argparse.findArgument(checkLinks))
+		{
+			result |= validator.checkLinks();
 		}
 
 		if (const auto & arg = argparse.findArgument(checkSchema))

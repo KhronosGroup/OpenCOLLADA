@@ -6,6 +6,11 @@ using namespace std;
 
 namespace opencollada
 {
+	bool String::StartsWith(const std::string & str, const std::string & start)
+	{
+		return str.substr(0, start.length()) == start;
+	}
+
 	bool String::EndsWith(const string & str, const string & end)
 	{
 		if (end.length() > str.length())
@@ -45,5 +50,16 @@ namespace opencollada
 			res.replace(found, search_len, replace_str);
 
 		return res;
+	}
+
+	size_t String::Replace(string & str, char a, char b)
+	{
+		size_t count = 0;
+		for (auto pos = str.find(a); pos != string::npos; pos = str.find(a, pos + 1))
+		{
+			str[pos] = b;
+			++count;
+		}
+		return count;
 	}
 }
