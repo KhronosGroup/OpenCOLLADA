@@ -268,7 +268,7 @@ namespace opencollada
 			absoluteUriNoFragment.setFragment(string());
 			if (absoluteUriNoFragment != mUri)
 			{
-				mExternalDAEs[absoluteUriNoFragment] = move(Dae());
+				mExternalDAEs[absoluteUriNoFragment] = Dae();
 			}
 		}
 	}
