@@ -24,7 +24,7 @@ namespace opencollada
 		std::string name() const;
 		class XmlAttribute attribute(const std::string & name) const;
 		class XmlNamespace ns() const;
-		class XmlNodeSet selectNodes(const std::string & xpath) const;
+		const XmlNodeSet & selectNodes(const std::string & xpath) const;
 		class XmlNodes<class XmlNodeIteratorByName> children(const std::string & name) const;
 		XmlNode next(const std::string & name) const;
 		size_t line() const;

@@ -2,5 +2,5 @@
 
 namespace opencollada
 {
-	typedef char XmlChar;
+	using XmlChar = char;
 }

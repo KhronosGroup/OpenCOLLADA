@@ -1,15 +1,22 @@
 #pragma once
 
+#include "XmlNodeSet.h"
 #include <libxml/parser.h>
+#include <map>
 #include <string>
 
 namespace opencollada
 {
 	class XmlNode;
 
+	using XPathCacheKey = std::tuple<xmlNodePtr, std::string>;
+	using XPathCache = std::map<XPathCacheKey, XmlNodeSet>;
+
 	class XmlDoc
 	{
 		friend class XmlSchema;
+		friend class XmlNode;
+
 	public:
 		XmlDoc() = default;
 		XmlDoc(XmlDoc && other);
@@ -28,7 +35,11 @@ namespace opencollada
 		XmlDoc(const XmlDoc&) = delete;
 		const XmlDoc& operator = (const XmlDoc & other) = delete;
 
+		static XmlDoc & GetXmlDoc(xmlDocPtr doc);
+
 	private:
 		xmlDocPtr mDoc = nullptr;
+
+		XPathCache mXPathCache;
 	};
 }

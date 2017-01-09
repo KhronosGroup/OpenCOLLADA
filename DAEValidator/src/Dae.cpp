@@ -37,7 +37,7 @@ namespace opencollada
 		// List referenced DAEs
 
 		// InstanceWithExtra and other <instance_*> with "url" attribute
-		auto instances = root().selectNodes(
+		const auto & instances = root().selectNodes(
 			xpath_all + Strings::instance_animation +
 			xpath_or_all + Strings::instance_camera +
 			xpath_or_all + Strings::instance_controller +
@@ -61,7 +61,7 @@ namespace opencollada
 				onAnyDAEURI(instance.line(), url.value());
 
 		// <instance_node>
-		auto instance_nodes = root().selectNodes(xpath_all + Strings::instance_node);
+		const auto & instance_nodes = root().selectNodes(xpath_all + Strings::instance_node);
 		for (auto instance_node : instance_nodes)
 		{
 			if (auto proxy = instance_node.attribute(Strings::proxy))
@@ -71,7 +71,7 @@ namespace opencollada
 		// <accessor>
 		// <skin>
 		// <morph>
-		auto elementsWithSource = root().selectNodes(
+		const auto & elementsWithSource = root().selectNodes(
 			xpath_all + Strings::accessor +
 			xpath_or_all + Strings::skin +
 			xpath_or_all + Strings::morph
@@ -83,7 +83,7 @@ namespace opencollada
 		}
 
 		// <render>
-		auto renders = root().selectNodes(xpath_all + Strings::render);
+		const auto & renders = root().selectNodes(xpath_all + Strings::render);
 		for (auto render : renders)
 		{
 			if (auto camera_node = render.attribute("camera_node"))
@@ -91,7 +91,7 @@ namespace opencollada
 		}
 
 		// <skeleton>
-		auto skeletons = root().selectNodes(xpath_all + Strings::skeleton);
+		const auto & skeletons = root().selectNodes(xpath_all + Strings::skeleton);
 		for (auto skeleton : skeletons)
 		{
 			onAnyDAEURI(skeleton.line(), skeleton.text());
@@ -99,7 +99,7 @@ namespace opencollada
 
 		// <instance_material>
 		// <instance_rigid_body>
-		auto elementsWithTarget = root().selectNodes(
+		const auto & elementsWithTarget = root().selectNodes(
 			xpath_all + Strings::instance_material +
 			xpath_or_all + Strings::instance_rigid_body
 		);
@@ -110,7 +110,7 @@ namespace opencollada
 		}
 
 		// <instance_physics_model>
-		auto instance_physics_models = root().selectNodes(xpath_all + Strings::instance_physics_model);
+		const auto & instance_physics_models = root().selectNodes(xpath_all + Strings::instance_physics_model);
 		for (auto instance_physics_model : instance_physics_models)
 		{
 			if (auto parent = instance_physics_model.attribute(Strings::parent))
@@ -118,7 +118,7 @@ namespace opencollada
 		}
 
 		// <convex_mesh>
-		auto convex_meshes = root().selectNodes(xpath_all + Strings::convex_mesh);
+		const auto & convex_meshes = root().selectNodes(xpath_all + Strings::convex_mesh);
 		for (auto convex_mesh : convex_meshes)
 		{
 			if (auto convex_hull_of = convex_mesh.attribute(Strings::convex_hull_of))
@@ -147,7 +147,7 @@ namespace opencollada
 		// Look for additional xs:anyURI that are not DAE references:
 
 		// <image>/<init_from>
-		auto init_froms = root().selectNodes(xpath_all + Strings::image + xpath_child + Strings::init_from);
+		const auto & init_froms = root().selectNodes(xpath_all + Strings::image + xpath_child + Strings::init_from);
 		for (auto init_from : init_froms)
 		{
 			onAnyURI(init_from.line(), init_from.text());
@@ -155,7 +155,7 @@ namespace opencollada
 
 		// <binary>/<ref>
 		// <init_from>/<ref>
-		auto refs = root().selectNodes(
+		const auto & refs = root().selectNodes(
 			xpath_all + Strings::binary + xpath_child + Strings::ref +
 			xpath_or_all + Strings::init_from + xpath_child + Strings::ref
 		);
@@ -166,7 +166,7 @@ namespace opencollada
 
 		// <include>
 		// <profile_BRIDGE>
-		auto elementsWithUrl = root().selectNodes(
+		const auto & elementsWithUrl = root().selectNodes(
 			xpath_all + Strings::include +
 			xpath_or_all + Strings::profile_BRIDGE
 		);
@@ -185,7 +185,7 @@ namespace opencollada
 
 		// <channel>
 		// <input>
-		auto elementsWithSourceFragment = root().selectNodes(
+		const auto & elementsWithSourceFragment = root().selectNodes(
 			xpath_all + Strings::channel +
 			xpath_or_all + Strings::input
 		);
@@ -199,7 +199,7 @@ namespace opencollada
 		// Look for IDREFs
 
 		// <IDREF_array>
-		auto IDREF_arrays = root().selectNodes(xpath_all + Strings::IDREF_array);
+		const auto & IDREF_arrays = root().selectNodes(xpath_all + Strings::IDREF_array);
 		for (auto IDREF_array : IDREF_arrays)
 		{
 			stringstream ss(IDREF_array.text());
@@ -209,39 +209,17 @@ namespace opencollada
 		}
 
 		// <accessor>/<param type="IDREF">
-		auto params = root().selectNodes(xpath_all + Strings::accessor + xpath_child + Strings::param + "[@type=\"IDREF\"]");
+		const auto & params = root().selectNodes(xpath_all + Strings::accessor + xpath_child + Strings::param + "[@type=\"IDREF\"]");
 		for (auto param : params)
 		{
 			mIDREFs.emplace_back(param.line(), param.text());
 		}
 	}
 
-	void Dae::initializeIdCache() const
+	const set<string> & Dae::getIds() const
 	{
-		if (!mIdCacheInitialized)
-		{
-			mIdCacheInitialized = true;
-
-			auto nodes = root().selectNodes("//*[@id]");
-			for (auto node : nodes)
-			{
-				string id = node.attribute("id").value();
-				mIdCache.insert(id);
-				mLineIdCache.emplace_back(node.line(), id);
-			}
-		}
-	}
-
-	const std::set<string> & Dae::getIds() const
-	{
-		initializeIdCache();
+		initializeCache();
 		return mIdCache;
-	}
-
-	const std::vector<std::tuple<size_t, std::string>> & Dae::getLineIds() const
-	{
-		initializeIdCache();
-		return mLineIdCache;
 	}
 
 	void Dae::readExternalFile(const string & url)
@@ -273,8 +251,23 @@ namespace opencollada
 		}
 	}
 
-	void Dae::onAnyURI(size_t line, const std::string & uri)
+	void Dae::onAnyURI(size_t line, const string & uri)
 	{
 		mAnyURIs.emplace_back(line, Uri(mUri, uri));
+	}
+
+	void Dae::initializeCache() const
+	{
+		if (!mCacheInitialized)
+		{
+			mCacheInitialized = true;
+
+			const auto & nodes = root().selectNodes("//*[@id]");
+			for (const auto & node : nodes)
+			{
+				string id = node.attribute("id").value();
+				mIdCache.insert(id);
+			}
+		}
 	}
 }

@@ -155,7 +155,7 @@ namespace opencollada
 		vector<SubDoc> subDocs;
 
 		// Find xsi:schemaLocation attributes in dae and try to validate against specified xsd documents
-		auto elements = dae.root().selectNodes("//*[@xsi:schemaLocation]");
+		const auto & elements = dae.root().selectNodes("//*[@xsi:schemaLocation]");
 		for (const auto & element : elements)
 		{
 			if (auto schemaLocation = element.attribute("schemaLocation"))
@@ -262,11 +262,13 @@ namespace opencollada
 		cout << "Checking unique ids..." << endl;
 
 		int result = 0;
-		set<tuple<size_t, string>> ids;
-		for (const auto & line_id : dae.getLineIds())
+		set<tuple<string, size_t>> ids;
+		const auto & nodes = dae.root().selectNodes("//*[@id]");
+		for (const auto & node : nodes)
 		{
-			const auto & line = get<0>(line_id);
-			const auto & id = get<1>(line_id);
+			tuple<string, size_t> id_line(node.attribute("id").value(), node.line());
+			const auto & id = get<0>(id_line);
+			const auto & line = get<1>(id_line);
 
 			int checkEscapeCharResult = CheckEscapeChar(id);
 			if (checkEscapeCharResult != 0)
@@ -275,15 +277,15 @@ namespace opencollada
 				result |= checkEscapeCharResult;
 			}
 
-			auto it = ids.find(line_id);
+			auto it = ids.find(id_line);
 			if (it != ids.end())
 			{
-				cerr << dae.getURI() << ":" << line << ": Duplicated id \"" << id << "\". See first declaration at line " << get<0>(*it) << "." << endl;
+				cerr << dae.getURI() << ":" << line << ": Duplicated id \"" << id << "\". See first declaration at line " << get<1>(*it) << "." << endl;
 				result |= 1;
 			}
 			else
 			{
-				ids.insert(line_id);
+				ids.insert(id_line);
 			}
 		}
 		return result;
@@ -299,6 +301,8 @@ namespace opencollada
 	int DaeValidator::checkLinks(const Dae & dae)
 	{
 		cout << "Checking links..." << endl;
+
+		const auto & ids = dae.getIds();
 
 		int result = 0;
 		for (const auto & t : dae.getAnyURIs())
@@ -316,8 +320,8 @@ namespace opencollada
 				no_fragment_uri.setFragment("");
 				if (no_fragment_uri == dae.getURI())
 				{
-					auto id = dae.getIds().find(uri.fragment());
-					if (id == dae.getIds().end())
+					auto id = ids.find(uri.fragment());
+					if (id == ids.end())
 					{
 						cerr << dae.getURI() << ":" << line << ": Can't resolve #" << uri.fragment() << endl;
 						result |= 1;
@@ -328,8 +332,9 @@ namespace opencollada
 					auto it = dae.getExternalDAEs().find(no_fragment_uri);
 					if (it != dae.getExternalDAEs().end())
 					{
-						auto id = it->second.getIds().find(uri.fragment());
-						if (id == it->second.getIds().end())
+						auto ext_ids = it->second.getIds();
+						auto id = ext_ids.find(uri.fragment());
+						if (id == ext_ids.end())
 						{
 							cerr << dae.getURI() << ":" << line << ": Can't resolve " << uri << endl;
 							result |= 1;
@@ -350,8 +355,8 @@ namespace opencollada
 			const auto & line = get<0>(IDREF);
 			const auto & idref = get<1>(IDREF);
 
-			auto id = dae.getIds().find(idref);
-			if (id == dae.getIds().end())
+			auto id = ids.find(idref);
+			if (id == ids.end())
 			{
 				cerr << dae.getURI() << ":" << line << ": Can't resolve #" << idref << endl;
 				result |= 1;

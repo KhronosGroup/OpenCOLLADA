@@ -1,5 +1,6 @@
 #include "XmlNode.h"
 #include "XmlAttribute.h"
+#include "XmlDoc.h"
 #include "XmlNamespace.h"
 #include "XmlNodeSet.h"
 #include "XmlNodes.h"
@@ -72,8 +73,13 @@ namespace opencollada
 		return XmlNamespace(mNode->ns);
 	}
 
-	XmlNodeSet XmlNode::selectNodes(const string & xpath) const
+	const XmlNodeSet & XmlNode::selectNodes(const string & xpath) const
 	{
+		auto & xpathCache = XmlDoc::GetXmlDoc(mNode->doc).mXPathCache;
+		auto cache = xpathCache.find(XPathCacheKey(mNode, xpath));
+		if (cache != xpathCache.end())
+			return cache->second;
+
 		if (xmlXPathContextPtr context = xmlXPathNewContext(mNode->doc))
 		{
 			xmlXPathRegisterNs(context, BAD_CAST "collada", BAD_CAST "http://www.collada.org/2005/11/COLLADASchema");
@@ -81,9 +87,10 @@ namespace opencollada
 
 			XmlNodeSet result(xmlXPathEvalExpression(BAD_CAST xpath.c_str(), context));
 			xmlXPathFreeContext(context);
-			return result;
+			auto p = xpathCache.insert(pair<XPathCacheKey, XmlNodeSet>(XPathCacheKey(mNode, xpath), move(result)));
+			return p.first->second;
 		}
-		return XmlNodeSet();
+		return XmlNodeSet::null;
 	}
 
 	XmlNodes<XmlNodeIteratorByName> XmlNode::children(const string & name) const

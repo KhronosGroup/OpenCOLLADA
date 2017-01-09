@@ -10,7 +10,7 @@ namespace opencollada
 	class streamhook : public std::streambuf
 	{
 	public:
-		typedef std::function<void(const std::string &)> hookcallback;
+		using hookcallback = std::function<void(const std::string &)>;
 
 		streamhook(std::ostream & stream, bool quiet, const hookcallback & callback = hookcallback());
 		~streamhook();

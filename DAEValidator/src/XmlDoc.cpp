@@ -74,6 +74,9 @@ namespace opencollada
 			if (nErr == Z_STREAM_END)
 				mDoc = xmlReadMemory(decompressed_content.data(), static_cast<int>(decompressed_content.size()), path.c_str(), NULL, 0);
 		}
+
+		if (mDoc)
+			mDoc->_private = this;
 	}
 
 	XmlDoc::operator bool() const
@@ -83,6 +86,8 @@ namespace opencollada
 
 	void XmlDoc::reset()
 	{
+		mXPathCache.clear();
+
 		if (mDoc)
 		{
 			xmlFreeDoc(mDoc);
@@ -98,5 +103,10 @@ namespace opencollada
 	XmlNode XmlDoc::setRoot(const XmlNode & node) const
 	{
 		return XmlNode(xmlDocSetRootElement(mDoc, node.mNode));
+	}
+
+	XmlDoc & XmlDoc::GetXmlDoc(xmlDocPtr doc)
+	{
+		return *static_cast<XmlDoc*>(doc->_private);
 	}
 }
