@@ -191,6 +191,10 @@ namespace opencollada
 			const auto & schemaUri = p.first;
 			auto & schema = p.second;
 
+			// Don't try to load schemas that already failed in a previous run
+			if (schema.nbErrors() > 0)
+				continue;
+
 			string uri = schemaUri;
 
 			if (!schema)

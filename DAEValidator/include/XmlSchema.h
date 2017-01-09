@@ -18,11 +18,16 @@ namespace opencollada
 
 		operator bool() const;
 
+		size_t nbErrors() const { return mNbErrors; }
+
 	private:
 		XmlSchema(const XmlSchema&) = delete;
 		const XmlSchema& operator = (const XmlSchema & other) = delete;
 
+		static void schemaValidityError(void *ctx, const char *msg, ...);
+
 	private:
 		xmlSchemaPtr mSchema = nullptr;
+		size_t mNbErrors = 0;
 	};
 }
