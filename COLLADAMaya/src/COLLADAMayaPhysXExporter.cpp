@@ -2809,10 +2809,13 @@ namespace COLLADAMaya
     class RefAttachment : public Element, public IAttachment
     {
     public:
-		RefAttachment(PhysXExporter& exporter, const PhysXXML::PxD6Joint & joint, const URI & rigidBodyURI)
+		RefAttachment(PhysXExporter& exporter, const PhysXXML::PxD6Joint & joint, const String & rigidBodySID)
             : Element(exporter, CSWC::CSW_ELEMENT_REF_ATTACHMENT)
         {
-            getStreamWriter().appendURIAttribute(CSWC::CSW_ATTRIBUTE_RIGID_BODY, rigidBodyURI);
+			if (rigidBodySID.empty())
+				getStreamWriter().appendURIAttribute(CSWC::CSW_ATTRIBUTE_RIGID_BODY, "");
+			else
+				getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_RIGID_BODY, String("./") + rigidBodySID);
             exportRotateTranslate(joint);
         }
 
@@ -2826,10 +2829,13 @@ namespace COLLADAMaya
     class Attachment : public Element, public IAttachment
     {
     public:
-		Attachment(PhysXExporter& exporter, const PhysXXML::PxD6Joint & joint, const URI & rigidBodyURI)
+		Attachment(PhysXExporter& exporter, const PhysXXML::PxD6Joint & joint, const String & rigidBodySID)
             : Element(exporter, CSWC::CSW_ELEMENT_ATTACHMENT)
         {
-            getStreamWriter().appendURIAttribute(CSWC::CSW_ATTRIBUTE_RIGID_BODY, rigidBodyURI);
+			if (rigidBodySID.empty())
+				getStreamWriter().appendURIAttribute(CSWC::CSW_ATTRIBUTE_RIGID_BODY, "");
+			else
+				getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_RIGID_BODY, String("./") + rigidBodySID);
             exportRotateTranslate(joint);
         }
 
@@ -4049,21 +4055,16 @@ namespace COLLADAMaya
 				rigidBody = getPhysXExporter().getNodeRigidBody(target);
 			}
 			
-            URI rigidBodyURI;
-            if (rigidBody.isNull())
-            {
-                rigidBodyURI.set("");
-            }
-            else
+			String rigidBodySID;
+            if (!rigidBody.isNull())
             {
                 MDagPath rigidBodyDagPath;
                 MDagPath::getAPathTo(rigidBody, rigidBodyDagPath);
 
-                String rigidBodyId = getPhysXExporter().generateColladaId(rigidBodyDagPath);
-                rigidBodyURI = getPhysXExporter().getDocumentExporter().getVisualSceneExporter()->getSceneElementURI(rigidBodyDagPath, rigidBodyId);
+                rigidBodySID = getPhysXExporter().generateColladaId(rigidBodyDagPath);
             }
 
-            RefAttachment e(getPhysXExporter(), joint, rigidBodyURI);
+            RefAttachment e(getPhysXExporter(), joint, rigidBodySID);
         }
 
 		void exportAttachment(const PhysXXML::PxD6Joint & joint)
@@ -4078,10 +4079,9 @@ namespace COLLADAMaya
             MDagPath rigidBodyDagPath;
             MDagPath::getAPathTo(rigidBody, rigidBodyDagPath);
 
-            String rigidBodyId = getPhysXExporter().generateColladaId(rigidBodyDagPath);
-            URI rigidBodyURI = getPhysXExporter().getDocumentExporter().getVisualSceneExporter()->getSceneElementURI(rigidBodyDagPath, rigidBodyId);
+            String rigidBodySID = getPhysXExporter().generateColladaId(rigidBodyDagPath);
 
-            Attachment e(getPhysXExporter(), joint, rigidBodyURI);
+            Attachment e(getPhysXExporter(), joint, rigidBodySID);
         }
 
 		void exportTechniqueCommon(const MObject & rigidConstraint, const PhysXXML::PxD6Joint & joint)
