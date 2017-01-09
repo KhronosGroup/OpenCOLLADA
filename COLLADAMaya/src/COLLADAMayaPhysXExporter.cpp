@@ -709,9 +709,6 @@ namespace COLLADAMaya
 		PxMaterial(PhysXExporter & exporter, const PhysXXML::PxMaterial & mat)
 			: Element(exporter, CSWC::CSW_ELEMENT_PX_MATERIAL, withPrefix)
 		{
-			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XMLNS + ":" + CSWC::CSW_PREFIX_PX, PhysXExporter::GetXMLNS());
-			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XSI_SCHEMALOCATION, PhysXExporter::GetXSISchemaLocation());
-
 			exportFrictionCombineMode(mat);
 			exportRestitutionCombineMode(mat);
 		}
@@ -748,6 +745,8 @@ namespace COLLADAMaya
             : Element(exporter, CSWC::CSW_ELEMENT_TECHNIQUE)
         {
             getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, profile);
+			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XMLNS + ":" + CSWC::CSW_PREFIX_PX, PhysXExporter::GetXMLNS());
+			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XSI_SCHEMALOCATION, PhysXExporter::GetXSISchemaLocation());
 			if (profile == PhysXExporter::GetPhysXProfile())
 			{
 				exportPxMaterial(material);
@@ -1129,9 +1128,6 @@ namespace COLLADAMaya
 		PxShape(PhysXExporter& exporter, const PhysXXML::PxShape & shape)
 			: Element(exporter, CSWC::CSW_ELEMENT_PX_SHAPE, withPrefix)
 		{
-			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XMLNS + ":" + CSWC::CSW_PREFIX_PX, PhysXExporter::GetXMLNS());
-			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XSI_SCHEMALOCATION, PhysXExporter::GetXSISchemaLocation());
-
 			exportLocalPose(shape);
 			exportSimulationFilterData(shape);
 			exportQueryFilterData(shape);
@@ -1229,6 +1225,8 @@ namespace COLLADAMaya
             : Element(exporter, CSWC::CSW_ELEMENT_TECHNIQUE)
         {
             getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, profile);
+			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XMLNS + ":" + CSWC::CSW_PREFIX_PX, PhysXExporter::GetXMLNS());
+			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XSI_SCHEMALOCATION, PhysXExporter::GetXSISchemaLocation());
             if (profile == PROFILE_MAYA) {
                 exporter.exportExtraAttributes(shape);
             }
@@ -2461,9 +2459,6 @@ namespace COLLADAMaya
 		PxRigidBody(PhysXExporter& exporter, const PhysXXML::PxRigidBody & rb)
 			: Element(exporter, CSWC::CSW_ELEMENT_PX_RIGID_BODY, withPrefix)
 		{
-			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XMLNS + ":" + CSWC::CSW_PREFIX_PX, PhysXExporter::GetXMLNS());
-			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XSI_SCHEMALOCATION, PhysXExporter::GetXSISchemaLocation());
-
 			exportGlobalPose(rb);
 			exportActorFlags(rb);
 			exportDominanceGroup(rb);
@@ -2626,7 +2621,8 @@ namespace COLLADAMaya
             : Element(exporter, CSWC::CSW_ELEMENT_TECHNIQUE)
         {
             getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, profile);
-            
+			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XMLNS + ":" + CSWC::CSW_PREFIX_PX, PhysXExporter::GetXMLNS());
+			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XSI_SCHEMALOCATION, PhysXExporter::GetXSISchemaLocation());
             if (profile == PROFILE_MAYA) {
 				exporter.exportExtraAttributes(rigidBody);
 			}
@@ -3753,9 +3749,6 @@ namespace COLLADAMaya
 		PxD6Joint(PhysXExporter& exporter, const PhysXXML::PxD6Joint & joint)
 			: Element(exporter, CSWC::CSW_ELEMENT_PX_D6JOINT, withPrefix)
 		{
-			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XMLNS + ":" + CSWC::CSW_PREFIX_PX, PhysXExporter::GetXMLNS());
-			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XSI_SCHEMALOCATION, PhysXExporter::GetXSISchemaLocation());
-
 			exportLocalPose0(joint);
 			exportLocalPose1(joint);
 			exportBreakForce(joint);
@@ -3893,6 +3886,8 @@ namespace COLLADAMaya
             : Element(exporter, CSWC::CSW_ELEMENT_TECHNIQUE)
         {
             getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_PROFILE, profile);
+			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XMLNS + ":" + CSWC::CSW_PREFIX_PX, PhysXExporter::GetXMLNS());
+			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XSI_SCHEMALOCATION, PhysXExporter::GetXSISchemaLocation());
 			if (profile == PROFILE_MAYA) {
 				exporter.exportExtraAttributes(rigidConstraint);
 			}
