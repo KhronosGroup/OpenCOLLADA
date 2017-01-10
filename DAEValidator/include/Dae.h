@@ -23,9 +23,9 @@ namespace opencollada
 
 		const Uri & getURI() const { return mUri; }
 
-		const auto & getExternalDAEs() const { return mExternalDAEs; }
-		const auto & getAnyURIs() const { return mAnyURIs; }
-		const auto & getIDREFs() const { return mIDREFs; }
+		const std::map<Uri, Dae> & getExternalDAEs() const { return mExternalDAEs; }
+		const std::vector<std::tuple<size_t, Uri>> & getAnyURIs() const { return mAnyURIs; }
+		const std::vector<std::tuple<size_t, std::string>> & getIDREFs() const { return mIDREFs; }
 		const std::set<std::string> & getIds() const;
 
 	private:
