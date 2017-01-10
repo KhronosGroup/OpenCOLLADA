@@ -149,8 +149,7 @@ namespace opencollada
 		if (path == ".")
 			return GetWorkingDirectory();
 
-		if (!String::StartsWith(path, ".") &&
-			!String::StartsWith(path, ".."))
+		if (String::StartsWith(path, "/"))
 			return RemoveDotSegments(path);
 
 		return RemoveDotSegments(Join(GetWorkingDirectory(), path));
