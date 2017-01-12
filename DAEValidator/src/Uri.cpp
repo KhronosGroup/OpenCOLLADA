@@ -33,6 +33,11 @@ namespace opencollada
 		return less<string>()(mUri, uri.str());
 	}
 
+	bool Uri::empty() const
+	{
+		return mUri.empty();
+	}
+
 	bool Uri::isValid() const
 	{
 		return mValid;

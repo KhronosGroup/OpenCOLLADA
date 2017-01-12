@@ -15,30 +15,9 @@ namespace opencollada
 		}
 	}
 
-	void XmlSchema::schemaValidityError(void *ctx, const char *, ...)
-	{
-		XmlSchema & schema = *static_cast<XmlSchema*>(ctx);
-		++schema.mNbErrors;
-	}
-
 	void XmlSchema::readFile(const string & url)
 	{
 		if (xmlSchemaParserCtxtPtr ctxt = xmlSchemaNewParserCtxt(url.c_str()))
-		{
-			xmlSchemaValidityErrorFunc err;
-			xmlSchemaValidityWarningFunc warn;
-			void* ctx = nullptr;
-			xmlSchemaGetParserErrors(ctxt, &err, &warn, &ctx);
-			xmlSchemaSetParserErrors(ctxt, schemaValidityError, warn, this);
-			mSchema = xmlSchemaParse(ctxt);
-			xmlSchemaSetParserErrors(ctxt, err, warn, ctx);
-			xmlSchemaFreeParserCtxt(ctxt);
-		}
-	}
-
-	void XmlSchema::readMemory(const char* xsd, size_t size)
-	{
-		if (xmlSchemaParserCtxtPtr ctxt = xmlSchemaNewMemParserCtxt(xsd, static_cast<int>(size)))
 		{
 			mSchema = xmlSchemaParse(ctxt);
 			xmlSchemaFreeParserCtxt(ctxt);
@@ -59,5 +38,10 @@ namespace opencollada
 	XmlSchema::operator bool() const
 	{
 		return mSchema != nullptr;
+	}
+
+	bool XmlSchema::failedToLoad() const
+	{
+		return !(*this) && !mUri.empty();
 	}
 }

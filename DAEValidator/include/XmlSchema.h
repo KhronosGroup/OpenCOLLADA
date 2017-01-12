@@ -2,6 +2,7 @@
 
 #include <libxml/xmlschemas.h>
 #include <string>
+#include "Uri.h"
 
 namespace opencollada
 {
@@ -13,21 +14,19 @@ namespace opencollada
 		~XmlSchema();
 
 		void readFile(const std::string & url);
-		void readMemory(const char* xsd, size_t size);
 		bool validate(const class XmlDoc & doc) const;
 
 		operator bool() const;
 
-		size_t nbErrors() const { return mNbErrors; }
+		const Uri & getURI() const { return mUri; }
+		bool failedToLoad() const;
 
 	private:
 		XmlSchema(const XmlSchema&) = delete;
 		const XmlSchema& operator = (const XmlSchema & other) = delete;
 
-		static void schemaValidityError(void *ctx, const char *msg, ...);
-
 	private:
 		xmlSchemaPtr mSchema = nullptr;
-		size_t mNbErrors = 0;
+		Uri mUri;
 	};
 }

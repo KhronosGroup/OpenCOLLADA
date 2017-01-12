@@ -34,5 +34,7 @@ namespace opencollada
 		std::vector<std::string> mDaePaths;
 		// namespace to XmlSchema
 		std::map<std::string, XmlSchema> mSchemas;
+		// namespace to xsd location
+		std::map<std::string, std::string> mSchemaLocations;
 	};
 }

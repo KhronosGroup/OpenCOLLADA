@@ -146,11 +146,19 @@ namespace opencollada
 
 	string Path::GetAbsolutePath(const std::string & path)
 	{
+		if (path.empty())
+			return GetWorkingDirectory();
+
 		if (path == ".")
 			return GetWorkingDirectory();
 
 		if (String::StartsWith(path, "/"))
 			return RemoveDotSegments(path);
+
+#if defined(_WIN32)
+		if (isalpha(path[0]) && path.substr(1, 2) == ":\\")
+			return RemoveDotSegments(path);
+#endif
 
 		return RemoveDotSegments(Join(GetWorkingDirectory(), path));
 	}

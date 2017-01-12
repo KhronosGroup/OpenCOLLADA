@@ -102,12 +102,6 @@ namespace opencollada
 		return 1;
 	}
 
-	struct SubDoc
-	{
-		XmlNode node;
-		string xsdPath;
-	};
-
 	int DaeValidator::checkSchema(const Dae & dae)
 	{
 		cout << "Checking schema..." << endl;
@@ -152,7 +146,7 @@ namespace opencollada
 			return 1;
 		}
 
-		vector<SubDoc> subDocs;
+		vector<XmlNode> subDocs;
 
 		// Find xsi:schemaLocation attributes in dae and try to validate against specified xsd documents
 		const auto & elements = dae.root().selectNodes("//*[@xsi:schemaLocation]");
@@ -169,30 +163,24 @@ namespace opencollada
 
 					if (ns != colladaNamespace141 && ns != colladaNamespace15)
 					{
-						SubDoc subDoc;
-						if (element.ns().href() == colladaNamespace141 || element.ns().href() == colladaNamespace15)
-							subDoc.node = element.firstChild();
-						else
-							subDoc.node = element;
-						
-						subDoc.xsdPath = xsdUri;
-						subDocs.push_back(subDoc);
-
 						// "insert" does nothing if element already exists.
-						mSchemas.insert(pair<string, XmlSchema>(xsdUri, XmlSchema()));
+						mSchemas.insert(pair<string, XmlSchema>(ns, XmlSchema()));
+						mSchemaLocations.insert(pair<string, string>(ns, xsdUri));
 					}
 				}
 			}
 		}
 
 		// Preload uninitialized .xsd files
-		for (auto & p : mSchemas)
+		auto itSchema = mSchemas.begin();
+		auto itSchemaLocation = mSchemaLocations.begin();
+		for (; itSchema != mSchemas.end(); ++itSchema, ++itSchemaLocation)
 		{
-			const auto & schemaUri = p.first;
-			auto & schema = p.second;
+			const auto & schemaUri = itSchemaLocation->second;
+			auto & schema = itSchema->second;
 
 			// Don't try to load schemas that already failed in a previous run
-			if (schema.nbErrors() > 0)
+			if (schema.failedToLoad())
 				continue;
 
 			string uri = schemaUri;
@@ -228,7 +216,7 @@ namespace opencollada
 			{
 				cout << "Using " << uri << endl;
 			}
-			else
+			else if (!schema)
 			{
 				cerr << "Error loading " << schemaUri << endl;
 				result |= 1;
@@ -236,18 +224,21 @@ namespace opencollada
 		}
 
 		// Validate "sub documents"
-		for (const auto & subDoc : subDocs)
+		for (const auto & schema : mSchemas)
 		{
-			auto it = mSchemas.find(subDoc.xsdPath);
-			if (it != mSchemas.end() && it->second)
+			// Ignore schemas that failed to load
+			if (!schema.second)
+				continue;
+
+			const auto & ns = schema.first;
+			stringstream xpath;
+			xpath << "//*[namespace-uri()='" << ns << "' and not(namespace-uri(./..)='" << ns << "')]";
+			const auto & nodes = dae.root().selectNodes(xpath.str());
+			for (auto node : nodes)
 			{
-				auto old = dae.setRoot(subDoc.node);
-				result |= ValidateAgainstSchema(dae, it->second);
+				auto old = dae.setRoot(node);
+				result |= ValidateAgainstSchema(dae, schema.second);
 				dae.setRoot(old);
-			}
-			else
-			{
-				cerr << "Can't validate " << dae.getURI() << " at line " << subDoc.node.line() << endl;
 			}
 		}
 

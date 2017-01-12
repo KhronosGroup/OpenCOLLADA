@@ -1,3 +1,5 @@
+#pragma once
+
 #include <ostream>
 #include <string>
 
@@ -16,6 +18,7 @@ namespace opencollada
 		bool operator != (const Uri & uri) const;
 		bool operator < (const Uri & uri) const;
 
+		bool empty() const;
 		bool isValid() const;
 		const std::string & str() const;
 		const std::string & scheme() const;
