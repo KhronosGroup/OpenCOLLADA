@@ -200,6 +200,7 @@ namespace COLLADAMaya
 
 		MString shaderNodeTypeName = shaderNode.typeName();
 
+		bool result = true;
         // Export the shader attributes.
         if ( shader.hasFn ( MFn::kLambert ) )
         {
@@ -219,7 +220,12 @@ namespace COLLADAMaya
         else if ( shader.hasFn ( MFn::kPluginHwShaderNode ) )
         {
             // Export a cgfx hardware shader node.
-            exportHwShaderNode ( colladaEffectId, &effectProfile, shader );
+			if (!exportHwShaderNode(colladaEffectId, &effectProfile, shader))
+			{
+				MGlobal::displayError("Shader file not found. Replaced with lambert common shader!");
+				result = false;
+			}
+				
         }
 #endif
 
@@ -244,15 +250,20 @@ namespace COLLADAMaya
             exportConstantShader ( colladaEffectId, &effectProfile, shader );
         }
 
-        // Export the original maya name into extra data.
-        effectProfile.addExtraTechniqueParameter ( PROFILE_MAYA, PARAMETER_MAYA_ID, mayaMaterialId );
+		if (!result)
+			exportStandardShader(colladaEffectId, &effectProfile, shader);
+		else
+		{
+			// Export the original maya name into extra data.
+			effectProfile.addExtraTechniqueParameter(PROFILE_MAYA, PARAMETER_MAYA_ID, mayaMaterialId);
 
-		exportExtraAttributes(shader, effectProfile);
-        // TODO
-//         // Export the user defined effect extra data from import (extra preservation).
-//         mDocumentExporter->exportExtraData ( shader, COLLADAFW::ExtraKeys::EFFECT, 0, &effectProfile );
+			exportExtraAttributes(shader, effectProfile);
+			// TODO
+			//         // Export the user defined effect extra data from import (extra preservation).
+			//         mDocumentExporter->exportExtraData ( shader, COLLADAFW::ExtraKeys::EFFECT, 0, &effectProfile );
 
-		effectProfile.addExtraTechniques(mSW);
+			effectProfile.addExtraTechniques(mSW);
+		}
         
 		// Closes the current effect tag
         closeEffect ();
@@ -376,14 +387,14 @@ namespace COLLADAMaya
 	}
 
     // ---------------------------------
-    void EffectExporter::exportHwShaderNode (
+    bool EffectExporter::exportHwShaderNode (
         const String &effectId,
         COLLADASW::EffectProfile *effectProfile,
         MObject shader )
     {
 #if MAYA_API_VERSION > 700 
         HwShaderExporter hwShaderExporter ( mDocumentExporter );
-        hwShaderExporter.exportPluginHwShaderNode ( effectId, effectProfile, shader );
+        return hwShaderExporter.exportPluginHwShaderNode ( effectId, effectProfile, shader );
 #endif
     }
 

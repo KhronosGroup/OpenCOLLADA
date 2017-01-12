@@ -53,6 +53,11 @@ namespace COLLADAMaya
             unsigned long mColor;  // The color that was used to export the effect
         };
 
+	public:
+		
+		typedef std::set<String> SidSet;
+		static SidSet mSurfaceSidList;
+
     private:
 
         /** Pointer to the document exporter */
