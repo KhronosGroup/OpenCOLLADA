@@ -262,4 +262,10 @@ namespace opencollada
 			return base;
 		return base.substr(0, base_end);
 	}
+
+	size_t Path::GetFileSize(const std::string & path)
+	{
+		struct stat st;
+		return static_cast<size_t>(stat(path.c_str(), &st) == 0 ? st.st_size : 0);
+	}
 }

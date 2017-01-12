@@ -380,6 +380,5 @@ namespace opencollada
 
 ostream & operator << (ostream & o, const opencollada::Uri & uri)
 {
-	o << uri.str();
-	return o;
+	return o << uri.str();
 }

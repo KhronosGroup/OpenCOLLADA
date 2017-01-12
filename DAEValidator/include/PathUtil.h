@@ -19,6 +19,7 @@ namespace opencollada
 		static std::string GetAbsolutePath(const std::string & path);
 		static std::string RemoveDotSegments(const std::string & path);
 		static std::string GetFileBase(const std::string & path);
+		static size_t GetFileSize(const std::string & path);
 
 	private:
 		static std::string mSeparator;

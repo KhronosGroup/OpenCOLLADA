@@ -2,6 +2,7 @@
 #include "PathUtil.h"
 #include "Strings.h"
 #include "StringUtil.h"
+#include <iomanip>
 #include <iostream>
 #include <set>
 #include <sstream>
@@ -36,6 +37,40 @@ namespace opencollada
 		mDaePaths.insert(mDaePaths.end(), daePaths.begin(), daePaths.end());
 	}
 
+	class Size
+	{
+	public:
+		Size(size_t size)
+			: mSize(size)
+		{}
+
+		string str() const
+		{
+			static vector<tuple<uint64_t, string>> table =
+			{
+				{ 1, "B" },
+				{ 1024, "kB" },
+				{ 1048576, "MB" },
+				{ 1073741824, "GB" },
+				{ 1099511627776, "TB" }
+			};
+
+			stringstream s;
+			for (const auto & entry : table)
+			{
+				if (mSize < (get<0>(entry) * 1024))
+				{
+					s << round(mSize / static_cast<double>(get<0>(entry))) << get<1>(entry);
+					break;
+				}
+			}
+			return s.str();
+		}
+
+	private:
+		size_t mSize = 0;
+	};
+
 	int DaeValidator::for_each_dae(const function<int(const Dae &)> & task) const
 	{
 		int result = 0;
@@ -46,9 +81,9 @@ namespace opencollada
 			{
 				cout << "[" << count << "/" << mDaePaths.size() << " " << static_cast<size_t>(static_cast<float>(count) / static_cast<float>(mDaePaths.size()) * 100.0f) << "%]" << endl;
 				++count;
-
-				cout << "Processing " << daePath << endl;
 			}
+
+			cout << "Processing " << daePath << " (" << Size(Path::GetFileSize(daePath)).str() << ")" << endl;
 
 			Dae dae;
 			dae.readFile(daePath);
