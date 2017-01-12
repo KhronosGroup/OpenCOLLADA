@@ -3,7 +3,7 @@
 #include <libxml/parser.h>
 #include <string>
 #include <functional>
-#include "XmlCommon.h"
+#include "XmlNodeSet.h"
 
 namespace opencollada
 {

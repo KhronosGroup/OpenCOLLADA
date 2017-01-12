@@ -2,6 +2,7 @@
 #include "PathUtil.h"
 #include "Strings.h"
 #include "StringUtil.h"
+#include <cmath>
 #include <iomanip>
 #include <iostream>
 #include <set>
