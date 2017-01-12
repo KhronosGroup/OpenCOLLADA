@@ -1,3 +1,4 @@
+#include <chrono>
 #include <iostream>
 
 #include "ArgumentParser.h"
@@ -32,6 +33,8 @@ namespace opencollada
 
 int main(int argc, char* argv[])
 {
+	auto start = chrono::high_resolution_clock::now();
+
 	// Parse arguments
 	ArgumentParser argparse(argc, argv);
 	argparse.addArgument().hint("path").help("Path to COLLADA document or directory to parse. If 'path' is a directory it is parsed for files with .DAE extension.");
@@ -126,6 +129,11 @@ int main(int argc, char* argv[])
 			result |= validator.checkSchema(arg.getValue<string>());
 		}
 	}
+
+	auto end = chrono::high_resolution_clock::now();
+	auto duration_ms = chrono::duration_cast<chrono::milliseconds>(end - start);
+
+	cout << "Processed " << daePaths.size() << " documents in " << duration_ms.count() / 1000.0 << "s" << endl;
 
 	if (result == 0)
 		cout << "Validation SUCCEEDED." << endl;
