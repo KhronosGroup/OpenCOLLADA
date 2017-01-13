@@ -257,13 +257,12 @@ namespace opencollada
 		cout << "Checking unique ids..." << endl;
 
 		int result = 0;
-		set<tuple<string, size_t>> ids;
+		map<string, size_t> ids;
 		const auto & nodes = dae.root().selectNodes("//*[@id]");
 		for (const auto & node : nodes)
 		{
-			tuple<string, size_t> id_line(node.attribute("id").value(), node.line());
-			const auto & id = get<0>(id_line);
-			const auto & line = get<1>(id_line);
+			string id = node.attribute("id").value();
+			size_t line = node.line();
 
 			int checkEscapeCharResult = CheckEscapeChar(id);
 			if (checkEscapeCharResult != 0)
@@ -272,15 +271,15 @@ namespace opencollada
 				result |= checkEscapeCharResult;
 			}
 
-			auto it = ids.find(id_line);
+			auto it = ids.find(id);
 			if (it != ids.end())
 			{
-				cerr << dae.getURI() << ":" << line << ": Duplicated id \"" << id << "\". See first declaration at line " << get<1>(*it) << "." << endl;
+				cerr << dae.getURI() << ":" << line << ": Duplicated id \"" << id << "\". See first declaration at line " << it->second << "." << endl;
 				result |= 1;
 			}
 			else
 			{
-				ids.insert(id_line);
+				ids[id] = line;
 			}
 		}
 		return result;
