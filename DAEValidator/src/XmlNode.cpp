@@ -21,6 +21,11 @@ namespace opencollada
 		return mNode != nullptr;
 	}
 
+	XmlDoc & XmlNode::doc() const
+	{
+		return XmlDoc::GetXmlDoc(mNode->doc);
+	}
+
 	XmlNode XmlNode::child(const string & name) const
 	{
 		for (xmlNodePtr node = mNode->children; node; node = node->next)
@@ -73,12 +78,37 @@ namespace opencollada
 		return XmlNamespace(mNode->ns);
 	}
 
+	class ScopedSetDocRoot
+	{
+	public:
+		ScopedSetDocRoot(const XmlNode & node)
+			: mDoc(node.doc())
+			, mRoot(mDoc.root())
+		{
+			mDoc.setRoot(node);
+		}
+
+		~ScopedSetDocRoot()
+		{
+			mDoc.setRoot(mRoot);
+		}
+
+	private:
+		const ScopedSetDocRoot & operator = (const ScopedSetDocRoot &) = delete;
+
+	private:
+		XmlDoc & mDoc;
+		XmlNode mRoot;
+	};
+
 	const XmlNodeSet & XmlNode::selectNodes(const string & xpath) const
 	{
 		auto & xpathCache = XmlDoc::GetXmlDoc(mNode->doc).mXPathCache;
 		auto cache = xpathCache.find(XPathCacheKey(mNode, xpath));
 		if (cache != xpathCache.end())
 			return cache->second;
+
+		ScopedSetDocRoot ssdr(*this);
 
 		if (xmlXPathContextPtr context = xmlXPathNewContext(mNode->doc))
 		{

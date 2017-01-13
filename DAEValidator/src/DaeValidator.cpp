@@ -113,6 +113,7 @@ namespace opencollada
 		return
 			checkSchema(dae) |
 			checkUniqueIds(dae) |
+			checkUniqueSids(dae) |
 			checkLinks(dae);
 	}
 
@@ -316,6 +317,43 @@ namespace opencollada
 			else
 			{
 				ids[id] = line;
+			}
+		}
+		return result;
+	}
+
+	int DaeValidator::checkUniqueSids()
+	{
+		return for_each_dae([&](const Dae & dae) {
+			return checkUniqueSids(dae);
+		});
+	}
+
+	int DaeValidator::checkUniqueSids(const Dae & dae)
+	{
+		cout << "Checking unique sids..." << endl;
+
+		int result = 0;
+		const auto & parents = dae.root().selectNodes("//*[@sid]/..");
+		for (auto parent : parents)
+		{
+			const auto & children = parent.selectNodes("/*[@sid]");
+			map<string, size_t> sids;
+			for (auto child : children)
+			{
+				string sid = child.attribute("sid").value();
+				size_t line = child.line();
+
+				auto it = sids.find(sid);
+				if (it != sids.end())
+				{
+					cerr << dae.getURI() << ":" << line << ": Duplicated sid \"" << sid << "\". See first declaration at line " << it->second << "." << endl;
+					result |= 1;
+				}
+				else
+				{
+					sids[sid] = line;
+				}
 			}
 		}
 		return result;

@@ -17,12 +17,14 @@ namespace opencollada
 		int checkAll();
 		int checkSchema(const std::string & schema_uri = std::string());
 		int checkUniqueIds();
+		int checkUniqueSids();
 		int checkLinks();
 
 	private:
 		int checkSchema(const Dae & dae);
 		int checkAll(const Dae & dae);
 		int checkUniqueIds(const Dae & dae);
+		int checkUniqueSids(const Dae & dae);
 		int checkLinks(const Dae & dae);
 
 		int for_each_dae(const std::function<int(const Dae &)> & task) const;

@@ -18,6 +18,7 @@ namespace opencollada
 		XmlNode() = default;
 		operator bool() const;
 
+		XmlDoc & doc() const;
 		XmlNode child(const std::string & name) const;
 		XmlNode firstChild() const;
 		std::string text() const;

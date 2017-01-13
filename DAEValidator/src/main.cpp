@@ -17,6 +17,7 @@ namespace opencollada
 	const char* checkSchemaAuto = "--check-schema-auto";
 	const char* checkSchema = "--check-schema";
 	const char* checkUniqueIds = "--check-unique-ids";
+	const char* checkUniqueSids = "--check-unique-sids";
 	const char* checkLinks = "--check-links";
 	const char* recursive = "--recursive";
 	const char* quiet = "--quiet";
@@ -41,6 +42,7 @@ int main(int argc, char* argv[])
 	argparse.addArgument(checkSchemaAuto).help("Regular XML schema validation.");
 	argparse.addArgument(checkSchema).numParameters(1).hint(0, "schema_path").help("Validate against arbitrary XML schema.");
 	argparse.addArgument(checkUniqueIds).help("Check that ids in documents are unique.");
+	argparse.addArgument(checkUniqueSids).help("Check that sids in documents are unique in their scope.");
 	argparse.addArgument(checkLinks).help("Check that URIs refer to valid files and/or elements.");
 	argparse.addArgument(recursive).help("Recursively parse directories. Ignored if 'path' is not a directory.");
 	argparse.addArgument(quiet).help("If set, no output is sent to standard out/err.");
@@ -102,6 +104,7 @@ int main(int argc, char* argv[])
 
 	if (!argparse.findArgument(checkSchemaAuto) &&
 		!argparse.findArgument(checkUniqueIds) &&
+		!argparse.findArgument(checkUniqueSids) &&
 		!argparse.findArgument(checkSchema) &&
 		!argparse.findArgument(checkLinks))
 	{
@@ -110,24 +113,19 @@ int main(int argc, char* argv[])
 	else
 	{
 		if (argparse.findArgument(checkSchemaAuto))
-		{
 			result |= validator.checkSchema();
-		}
 
 		if (argparse.findArgument(checkUniqueIds))
-		{
 			result |= validator.checkUniqueIds();
-		}
+
+		if (argparse.findArgument(checkUniqueSids))
+			result |= validator.checkUniqueSids();
 
 		if (argparse.findArgument(checkLinks))
-		{
 			result |= validator.checkLinks();
-		}
 
 		if (const auto & arg = argparse.findArgument(checkSchema))
-		{
 			result |= validator.checkSchema(arg.getValue<string>());
-		}
 	}
 
 	auto end = chrono::high_resolution_clock::now();
