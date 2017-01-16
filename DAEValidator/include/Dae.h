@@ -1,7 +1,7 @@
 #pragma once
 
-#include "COLLADABUURI.h"
 #include "Xml.h"
+#include "Uri.h"
 #include <set>
 #include <string>
 #include <vector>
@@ -18,15 +18,15 @@ namespace opencollada
 
 		virtual void readFile(const std::string & path) override;
 
-		const COLLADABU::URI & getURI() const;
+		const Uri & getURI() const;
 
 	private:
 		void readExternalFile(const std::string & path);
 		void onAnyDAEURI(const std::string & uri);
 
 	private:
-		COLLADABU::URI mUri;
-		std::set<COLLADABU::URI> mExternalDAEURIs;
+		Uri mUri;
+		std::set<Uri> mExternalDAEURIs;
 		std::vector<Dae> mExternalDAEs;
 	};
 }
