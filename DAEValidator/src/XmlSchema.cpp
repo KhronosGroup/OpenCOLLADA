@@ -6,6 +6,11 @@ using namespace std;
 
 namespace opencollada
 {
+	XmlSchema::XmlSchema(XmlSchema && other)
+	{
+		swap(mSchema, other.mSchema);
+	}
+
 	XmlSchema::~XmlSchema()
 	{
 		if (mSchema)
