@@ -9,6 +9,7 @@ namespace opencollada
 {
 	template<typename T>
 	class XmlNodes;
+    class XmlDoc;
 
 	class XmlNode
 	{
