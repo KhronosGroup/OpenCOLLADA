@@ -49,11 +49,11 @@ namespace opencollada
 		{
 			static vector<tuple<uint64_t, string>> table =
 			{
-				{ 1, "B" },
-				{ 1024, "kB" },
-				{ 1048576, "MB" },
-				{ 1073741824, "GB" },
-				{ 1099511627776, "TB" }
+				make_tuple(1, "B"),
+				make_tuple(1024, "kB"),
+				make_tuple(1048576, "MB"),
+				make_tuple(1073741824, "GB"),
+				make_tuple(1099511627776, "TB")
 			};
 
 			stringstream s;
