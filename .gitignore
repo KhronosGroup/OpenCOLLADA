@@ -2,7 +2,8 @@
 *.suo
 *.sdf
 *.opensdf
-*.VC.db
+*.db
+*.opendb
 *.ipch
 *~
 CMakeFiles
