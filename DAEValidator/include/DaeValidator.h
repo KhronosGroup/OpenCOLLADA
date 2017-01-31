@@ -14,18 +14,18 @@ namespace opencollada
 	public:
 		DaeValidator(const std::list<std::string> & daePaths);
 
-		int checkAll();
-		int checkSchema(const std::string & schema_uri = std::string());
-		int checkUniqueIds();
-		int checkUniqueSids();
-		int checkLinks();
+		int checkAll() const;
+		int checkSchema(const std::string & schema_uri = std::string()) const;
+		int checkUniqueIds() const;
+		int checkUniqueSids() const;
+		int checkLinks() const;
 
 	private:
-		int checkSchema(const Dae & dae);
-		int checkAll(const Dae & dae);
-		int checkUniqueIds(const Dae & dae);
-		int checkUniqueSids(const Dae & dae);
-		int checkLinks(const Dae & dae);
+		int checkSchema(const Dae & dae) const;
+		int checkAll(const Dae & dae) const;
+		int checkUniqueIds(const Dae & dae) const;
+		int checkUniqueSids(const Dae & dae) const;
+		int checkLinks(const Dae & dae) const;
 
 		int for_each_dae(const std::function<int(const Dae &)> & task) const;
 
@@ -35,8 +35,8 @@ namespace opencollada
 	private:
 		std::vector<std::string> mDaePaths;
 		// namespace to XmlSchema
-		std::map<std::string, XmlSchema> mSchemas;
+		mutable std::map<std::string, XmlSchema> mSchemas;
 		// namespace to xsd location
-		std::map<std::string, std::string> mSchemaLocations;
+		mutable std::map<std::string, std::string> mSchemaLocations;
 	};
 }

@@ -101,14 +101,14 @@ namespace opencollada
 		return result;
 	}
 
-	int DaeValidator::checkAll()
+	int DaeValidator::checkAll() const
 	{
 		return for_each_dae([&](const Dae & dae) {
 			return checkAll(dae);
 		});
 	}
 
-	int DaeValidator::checkAll(const Dae & dae)
+	int DaeValidator::checkAll(const Dae & dae) const
 	{
 		return
 			checkSchema(dae) |
@@ -117,7 +117,7 @@ namespace opencollada
 			checkLinks(dae);
 	}
 
-	int DaeValidator::checkSchema(const string & schema_uri)
+	int DaeValidator::checkSchema(const string & schema_uri) const
 	{
 		if (schema_uri.empty())
 		{
@@ -139,7 +139,7 @@ namespace opencollada
 		return 1;
 	}
 
-	int DaeValidator::checkSchema(const Dae & dae)
+	int DaeValidator::checkSchema(const Dae & dae) const
 	{
 		cout << "Checking schema..." << endl;
 
@@ -284,14 +284,14 @@ namespace opencollada
 		return result;
 	}
 
-	int DaeValidator::checkUniqueIds()
+	int DaeValidator::checkUniqueIds() const
 	{
 		return for_each_dae([&](const Dae & dae) {
 			return checkUniqueIds(dae);
 		});
 	}
 
-	int DaeValidator::checkUniqueIds(const Dae & dae)
+	int DaeValidator::checkUniqueIds(const Dae & dae) const
 	{
 		cout << "Checking unique ids..." << endl;
 
@@ -324,14 +324,14 @@ namespace opencollada
 		return result;
 	}
 
-	int DaeValidator::checkUniqueSids()
+	int DaeValidator::checkUniqueSids() const
 	{
 		return for_each_dae([&](const Dae & dae) {
 			return checkUniqueSids(dae);
 		});
 	}
 
-	int DaeValidator::checkUniqueSids(const Dae & dae)
+	int DaeValidator::checkUniqueSids(const Dae & dae) const
 	{
 		cout << "Checking unique sids..." << endl;
 
@@ -361,14 +361,14 @@ namespace opencollada
 		return result;
 	}
 
-	int DaeValidator::checkLinks()
+	int DaeValidator::checkLinks() const
 	{
 		return for_each_dae([&](const Dae & dae) {
 			return checkLinks(dae);
 		});
 	}
 
-	int DaeValidator::checkLinks(const Dae & dae)
+	int DaeValidator::checkLinks(const Dae & dae) const
 	{
 		cout << "Checking links..." << endl;
 
