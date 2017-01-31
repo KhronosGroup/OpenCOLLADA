@@ -1,7 +1,7 @@
 #pragma once
 
 #include <functional>
-#include <iostream>
+#include "no_warning_iostream"
 #include <memory>
 #include <string>
 

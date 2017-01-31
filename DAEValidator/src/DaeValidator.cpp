@@ -4,7 +4,7 @@
 #include "StringUtil.h"
 #include <cmath>
 #include <iomanip>
-#include <iostream>
+#include "no_warning_iostream"
 #include <set>
 #include <sstream>
 
@@ -30,7 +30,7 @@ namespace opencollada
 
 	extern const char* colladaNamespace15;
 	extern const char* colladaSchemaFileName15;
-	extern XmlSchema colladaSchema15;
+	//extern XmlSchema colladaSchema15;
 
 	DaeValidator::DaeValidator(const list<string> & daePaths)
 	{
@@ -175,7 +175,9 @@ namespace opencollada
 		}
 		else if (href == colladaNamespace15)
 		{
-			result |= ValidateAgainstSchema(dae, colladaSchema15);
+			//result |= ValidateAgainstSchema(dae, colladaSchema15);
+			cerr << "COLLADA 1.5 not supported yet." << endl;
+			return 1;
 		}
 		else
 		{

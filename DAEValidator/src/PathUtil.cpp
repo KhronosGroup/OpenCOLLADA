@@ -5,7 +5,10 @@
 #include <direct.h>
 #define getcwd _getcwd
 #include <Windows.h>
+#pragma warning(push)
+#pragma warning(disable:4505)
 #include "win/dirent.h"
+#pragma warning(pop)
 #elif defined(__APPLE__)
 #include <unistd.h>
 #include <mach-o/dyld.h>

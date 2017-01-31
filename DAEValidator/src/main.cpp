@@ -1,5 +1,5 @@
 #include <chrono>
-#include <iostream>
+#include "no_warning_iostream"
 
 #include "ArgumentParser.h"
 #include "DaeValidator.h"
@@ -29,7 +29,7 @@ namespace opencollada
 
 	const char* colladaNamespace15 = "http://www.collada.org/2008/03/COLLADASchema";
 	const char* colladaSchemaFileName15 = "collada_schema_1_5.xsd";
-	XmlSchema colladaSchema15;
+	//XmlSchema colladaSchema15;
 }
 
 int main(int argc, char* argv[])
