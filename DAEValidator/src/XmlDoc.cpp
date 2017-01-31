@@ -33,4 +33,9 @@ namespace opencollada
 	{
 		return xmlDocGetRootElement(mDoc);
 	}
+
+	XmlNode XmlDoc::setRoot(const XmlNode & node) const
+	{
+		return XmlNode(xmlDocSetRootElement(mDoc, node.mNode));
+	}
 }

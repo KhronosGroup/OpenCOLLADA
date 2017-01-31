@@ -74,6 +74,7 @@ if (NOT LIBXML2_FOUND)
 		-DLIBXML_REGEXP_ENABLED
 		-DLIBXML_SCHEMAS_ENABLED
 		-DLIBXML_XPATH_ENABLED
+		-DLIBXML_TREE_ENABLED
 		)
 	if (USE_STATIC)
 		add_dependencies(${name} xml_static)
@@ -83,7 +84,9 @@ if (NOT LIBXML2_FOUND)
 	endif ()
 endif ()
 
-if (NOT WIN32)
+if (WIN32)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
+else ()
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 endif ()
 

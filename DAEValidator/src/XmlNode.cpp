@@ -33,6 +33,11 @@ namespace opencollada
 		return XmlNode();
 	}
 
+	XmlNode XmlNode::firstChild() const
+	{
+		return XmlNode(mNode->children->next);
+	}
+
 	string XmlNode::text() const
 	{
 		for (xmlNodePtr node = mNode->children; node; node = node->next)

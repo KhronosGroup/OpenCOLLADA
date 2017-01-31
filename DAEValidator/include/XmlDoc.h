@@ -21,6 +21,8 @@ namespace opencollada
 
 		XmlNode root() const;
 
+		XmlNode setRoot(const XmlNode & node) const;
+
 	private:
 		XmlDoc(const XmlDoc&) = delete;
 		const XmlDoc& operator = (const XmlDoc & other) = delete;

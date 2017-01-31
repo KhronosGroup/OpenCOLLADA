@@ -4,6 +4,7 @@
 
 #include <functional>
 #include <list>
+#include <map>
 #include <string>
 
 namespace opencollada
@@ -13,14 +14,14 @@ namespace opencollada
 	public:
 		DaeValidator(const std::list<std::string> & daePaths);
 
-		int checkAll() const;
-		int checkSchema(const std::string & schema_uri = std::string()) const;
-		int checkUniqueIds() const;
+		int checkAll();
+		int checkSchema(const std::string & schema_uri = std::string());
+		int checkUniqueIds();
 
 	private:
-		static int CheckAll(const Dae & dae);
-		static int CheckSchema(const Dae & dae);
-		static int CheckUniqueIds(const Dae & dae);
+		int checkSchema(const Dae & dae);
+		int checkAll(const Dae & dae);
+		int checkUniqueIds(const Dae & dae);
 
 		int for_each_dae(const std::function<int(const Dae &)> & task) const;
 		static int ValidateAgainstFile(const Dae & dae, const std::string & xsdPath);
@@ -28,5 +29,7 @@ namespace opencollada
 
 	private:
 		std::vector<std::string> mDaePaths;
+		// namespace to XmlSchema
+		std::map<std::string, XmlSchema> mSchemas;
 	};
 }
