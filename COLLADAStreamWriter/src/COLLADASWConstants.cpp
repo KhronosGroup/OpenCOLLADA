@@ -150,6 +150,10 @@ namespace COLLADASW
 	const String CSWC::CSW_ELEMENT_REST_OFFSET = "rest_offset";
 	const String CSWC::CSW_ELEMENT_SHAPE_FLAGS = "shape_flags";
 	const String CSWC::CSW_ELEMENT_ACTOR_FLAGS = "actor_flags";
+	const String CSWC::CSW_ELEMENT_LOCAL_POSE = "local_pose";
+	const String CSWC::CSW_ELEMENT_LOCAL_POSE_0 = "local_pose0";
+	const String CSWC::CSW_ELEMENT_LOCAL_POSE_1 = "local_pose1";
+	const String CSWC::CSW_ELEMENT_GLOBAL_POSE = "global_pose";
 	const String CSWC::CSW_ELEMENT_DOMINANCE_GROUP = "dominance_group";
 	const String CSWC::CSW_ELEMENT_OWNER_CLIENT = "owner_client";
 	const String CSWC::CSW_ELEMENT_RIGID_BODY_FLAGS = "rigid_body_flags";

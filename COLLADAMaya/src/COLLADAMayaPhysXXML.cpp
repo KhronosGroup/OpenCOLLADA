@@ -2510,9 +2510,8 @@ namespace COLLADAMaya
             // A fix for this would be to set PhysX object name to node full DagPath (in PhysX plugin source code).
 
             for (size_t i = 0; i < physX30Collection.rigidDynamics.size(); ++i) {
-                for (size_t j = 0; j < physX30Collection.rigidDynamics.size(); ++j) {
-                    if (i != j &&
-                        physX30Collection.rigidDynamics[i].name.name == physX30Collection.rigidDynamics[j].name.name) {
+                for (size_t j = i + 1; j < physX30Collection.rigidDynamics.size(); ++j) {
+                    if (physX30Collection.rigidDynamics[i].name.name == physX30Collection.rigidDynamics[j].name.name) {
                         MGlobal::displayError((String("Duplicated dynamic rigid body name: ") + physX30Collection.rigidDynamics[i].name.name).c_str());
                         return false;
                     }
@@ -2520,9 +2519,8 @@ namespace COLLADAMaya
                 
                 // Also check for duplicated shape name
                 for (size_t si = 0; si < physX30Collection.rigidDynamics[i].shapes.shapes.size(); ++si) {
-                    for (size_t sj = 0; sj < physX30Collection.rigidDynamics[i].shapes.shapes.size(); ++sj) {
-                        if (si !=  sj &&
-                            physX30Collection.rigidDynamics[i].shapes.shapes[si].name.name ==
+                    for (size_t sj = si + 1; sj < physX30Collection.rigidDynamics[i].shapes.shapes.size(); ++sj) {
+                        if (physX30Collection.rigidDynamics[i].shapes.shapes[si].name.name ==
                             physX30Collection.rigidDynamics[i].shapes.shapes[sj].name.name) {
                             MGlobal::displayError((String("Duplicated shape name: ") + physX30Collection.rigidDynamics[i].shapes.shapes[si].name.name).c_str());
                             return false;
@@ -2532,9 +2530,8 @@ namespace COLLADAMaya
             }
 
             for (size_t i = 0; i < physX30Collection.rigidStatics.size(); ++i) {
-                for (size_t j = 0; j < physX30Collection.rigidStatics.size(); ++j) {
-                    if (i != j &&
-                        physX30Collection.rigidStatics[i].name.name == physX30Collection.rigidStatics[j].name.name) {
+                for (size_t j = i + 1; j < physX30Collection.rigidStatics.size(); ++j) {
+                    if (physX30Collection.rigidStatics[i].name.name == physX30Collection.rigidStatics[j].name.name) {
                         MGlobal::displayError((String("Duplicated static rigid body name: ") + physX30Collection.rigidStatics[i].name.name).c_str());
                         return false;
                     }
@@ -2542,9 +2539,8 @@ namespace COLLADAMaya
                 
                 // Also check for duplicated shape name
                 for (size_t si = 0; si < physX30Collection.rigidStatics[i].shapes.shapes.size(); ++si) {
-                    for (size_t sj = 0; sj < physX30Collection.rigidStatics[i].shapes.shapes.size(); ++sj) {
-                        if (si !=  sj &&
-                            physX30Collection.rigidStatics[i].shapes.shapes[si].name.name ==
+                    for (size_t sj = si + 1; sj < physX30Collection.rigidStatics[i].shapes.shapes.size(); ++sj) {
+                        if (physX30Collection.rigidStatics[i].shapes.shapes[si].name.name ==
                             physX30Collection.rigidStatics[i].shapes.shapes[sj].name.name) {
                             MGlobal::displayError((String("Duplicated shape name: ") + physX30Collection.rigidStatics[i].shapes.shapes[si].name.name).c_str());
                             return false;
@@ -2554,9 +2550,8 @@ namespace COLLADAMaya
             }
 
             for (size_t i = 0; i < physX30Collection.D6Joints.size(); ++i) {
-                for (size_t j = 0; j < physX30Collection.D6Joints.size(); ++j) {
-                    if (i != j &&
-                        physX30Collection.D6Joints[i].name.name == physX30Collection.D6Joints[j].name.name) {
+                for (size_t j = i + 1; j < physX30Collection.D6Joints.size(); ++j) {
+                    if (physX30Collection.D6Joints[i].name.name == physX30Collection.D6Joints[j].name.name) {
                         MGlobal::displayError((String("Duplicated constraint name: ") + physX30Collection.D6Joints[i].name.name).c_str());
                         return false;
                     }

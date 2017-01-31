@@ -10,7 +10,8 @@ namespace opencollada
 	{
 	public:
 		XmlSchema() = default;
-		XmlSchema(XmlSchema && other) = default;
+		// Move constructor can not be defaulted with vs2012
+		XmlSchema(XmlSchema && other);
 		~XmlSchema();
 
 		void readFile(const std::string & url);
