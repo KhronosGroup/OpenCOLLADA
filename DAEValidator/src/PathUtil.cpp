@@ -4,11 +4,8 @@
 #if defined(_WIN32)
 #include <direct.h>
 #define getcwd _getcwd
-#include <Windows.h>
-#pragma warning(push)
-#pragma warning(disable:4505)
+#include "no_warning_Windows.h"
 #include "win/dirent.h"
-#pragma warning(pop)
 #elif defined(__APPLE__)
 #include <unistd.h>
 #include <mach-o/dyld.h>
@@ -166,23 +163,23 @@ namespace opencollada
 		return RemoveDotSegments(Join(GetWorkingDirectory(), path));
 	}
 
+	static const string dot(".");
+	static const string dot_dot("..");
+	static const string dot_dot_slash("../");
+	static const string dot_slash("./");
+	static const string slash_dot_slash("/./");
+	static const string slash_dot("/.");
+	static const string slash_dot_dot_slash("/../");
+	static const string slash_dot_dot("/..");
+	static const size_t dot_dot_slash_len = dot_dot_slash.length();
+	static const size_t dot_slash_len = dot_slash.length();
+	static const size_t slash_dot_slash_len = slash_dot_slash.length();
+	static const size_t slash_dot_len = slash_dot.length();
+	static const size_t slash_dot_dot_slash_len = slash_dot_dot_slash.length();
+	static const size_t slash_dot_dot_len = slash_dot_dot.length();
+
 	string Path::RemoveDotSegments(const string & path)
 	{
-		static string dot(".");
-		static string dot_dot("..");
-		static string dot_dot_slash("../");
-		static string dot_slash("./");
-		static string slash_dot_slash("/./");
-		static string slash_dot("/.");
-		static string slash_dot_dot_slash("/../");
-		static string slash_dot_dot("/..");
-		static size_t dot_dot_slash_len = dot_dot_slash.length();
-		static size_t dot_slash_len = dot_slash.length();
-		static size_t slash_dot_slash_len = slash_dot_slash.length();
-		static size_t slash_dot_len = slash_dot.length();
-		static size_t slash_dot_dot_slash_len = slash_dot_dot_slash.length();
-		static size_t slash_dot_dot_len = slash_dot_dot.length();
-
 		string input = path;
 		string output;
 		output.reserve(input.length());

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <ostream>
-#include <string>
+#include "no_warning_string"
 
 // https://tools.ietf.org/html/rfc3986
 

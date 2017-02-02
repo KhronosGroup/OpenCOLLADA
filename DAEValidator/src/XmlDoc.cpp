@@ -2,10 +2,8 @@
 #include "XmlNode.h"
 
 #include <fstream>
-#include <vector>
-#ifndef _WIN32
+#include "no_warning_vector"
 #include <sys/stat.h>
-#endif
 
 using namespace std;
 
@@ -46,6 +44,9 @@ namespace opencollada
 		vector<char> content(static_cast<size_t>(size));
 		ifile.read(content.data(), size);
 
+#if defined(_MSC_VER) && _MSC_VER < 1900
+		typedef unsigned int uint32_t;
+#endif
 		uint32_t signature = *reinterpret_cast<const uint32_t*>(content.data());
 
 		// Uncompressed document

@@ -2,8 +2,8 @@
 
 #include "XmlNodeSet.h"
 #include <libxml/parser.h>
-#include <map>
-#include <string>
+#include "no_warning_map"
+#include "no_warning_string"
 
 namespace opencollada
 {

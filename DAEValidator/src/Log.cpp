@@ -1,7 +1,7 @@
 #include <libxml/parser.h>
 #if defined(_WIN32)
-#include <array>
-#include <Windows.h>
+#include "no_warning_array"
+#include "no_warning_Windows.h"
 #endif
 
 #include "Log.h"

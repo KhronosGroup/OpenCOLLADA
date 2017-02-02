@@ -38,6 +38,18 @@ namespace opencollada
 		mDaePaths.insert(mDaePaths.end(), daePaths.begin(), daePaths.end());
 	}
 
+#if defined(_MSC_VER) && _MSC_VER < 1900
+	typedef unsigned long long uint64_t;
+#endif
+	static const vector<tuple<uint64_t, string>> table =
+	{
+		make_tuple(1, "B"),
+		make_tuple(1024, "kB"),
+		make_tuple(1048576, "MB"),
+		make_tuple(1073741824, "GB"),
+		make_tuple(1099511627776, "TB")
+	};
+
 	class Size
 	{
 	public:
@@ -47,15 +59,6 @@ namespace opencollada
 
 		string str() const
 		{
-			static vector<tuple<uint64_t, string>> table =
-			{
-				make_tuple(1, "B"),
-				make_tuple(1024, "kB"),
-				make_tuple(1048576, "MB"),
-				make_tuple(1073741824, "GB"),
-				make_tuple(1099511627776, "TB")
-			};
-
 			stringstream s;
 			for (const auto & entry : table)
 			{

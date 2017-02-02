@@ -1,9 +1,9 @@
 #pragma once
 
-#include <functional>
+#include "no_warning_functional"
 #include "no_warning_iostream"
 #include <memory>
-#include <string>
+#include "no_warning_string"
 
 namespace opencollada
 {

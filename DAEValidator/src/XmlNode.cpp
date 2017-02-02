@@ -6,7 +6,7 @@
 #include "XmlNodes.h"
 #include "libxml/xpathInternals.h"
 
-#include <string>
+#include "no_warning_string"
 
 using namespace std;
 

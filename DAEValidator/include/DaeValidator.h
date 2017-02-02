@@ -2,10 +2,10 @@
 
 #include "Dae.h"
 
-#include <functional>
-#include <list>
-#include <map>
-#include <string>
+#include "no_warning_functional"
+#include "no_warning_list"
+#include "no_warning_map"
+#include "no_warning_string"
 
 namespace opencollada
 {

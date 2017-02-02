@@ -29,7 +29,14 @@ set(SRC
 	include/Dae.h
 	include/DaeValidator.h
 	include/Log.h
+	include/no_warning_array
+	include/no_warning_functional
 	include/no_warning_iostream
+	include/no_warning_list
+	include/no_warning_map
+	include/no_warning_string
+	include/no_warning_vector
+	include/no_warning_Windows.h
 	include/PathUtil.h
 	include/Strings.h
 	include/StringUtil.h
@@ -95,11 +102,12 @@ else ()
 endif ()
 
 if (WIN32)
+# C4505: 'function' : unreferenced local function has been removed
 # C4514: 'function' : unreferenced inline function has been removed
 # C4710: 'function' : function not inlined
 # C4711: function 'function' selected for inline expansion
 # C4820: 'bytes' bytes padding added after construct 'member_name'
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP /Wall /WX /wd4514 /wd4710 /wd4711 /wd4820")
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP /Wall /WX /wd4505 /wd4514 /wd4710 /wd4711 /wd4820")
 else ()
 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Werror")
 endif ()

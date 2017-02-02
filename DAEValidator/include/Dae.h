@@ -2,11 +2,11 @@
 
 #include "Xml.h"
 #include "Uri.h"
-#include <map>
+#include "no_warning_map"
 #include <set>
-#include <string>
+#include "no_warning_string"
 #include <tuple>
-#include <vector>
+#include "no_warning_vector"
 
 namespace opencollada
 {

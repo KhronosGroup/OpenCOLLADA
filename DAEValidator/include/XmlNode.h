@@ -1,8 +1,8 @@
 #pragma once
 
 #include <libxml/parser.h>
-#include <string>
-#include <functional>
+#include "no_warning_string"
+#include "no_warning_functional"
 #include "XmlNodeSet.h"
 
 namespace opencollada

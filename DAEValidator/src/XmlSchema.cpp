@@ -1,7 +1,7 @@
 #include "XmlSchema.h"
 #include "XmlDoc.h"
 
-#include <string>
+#include "no_warning_string"
 using namespace std;
 
 namespace opencollada

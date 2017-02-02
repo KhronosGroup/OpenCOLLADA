@@ -1,7 +1,7 @@
 #pragma once
 
 #include <libxml/parser.h>
-#include <string>
+#include "no_warning_string"
 #include "XmlCommon.h"
 
 namespace opencollada

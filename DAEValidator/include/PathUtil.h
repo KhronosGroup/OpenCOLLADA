@@ -1,7 +1,7 @@
 #pragma once
 
-#include <list>
-#include <string>
+#include "no_warning_list"
+#include "no_warning_string"
 
 namespace opencollada
 {

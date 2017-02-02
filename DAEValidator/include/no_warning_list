@@ -1,0 +1,12 @@
+#if defined(_WIN32)
+#pragma warning(push)
+#if defined(_MSC_VER) && _MSC_VER < 1900
+#pragma warning(disable:4350)
+#endif
+#endif
+
+#include <list>
+
+#if defined(_WIN32)
+#pragma warning(pop)
+#endif

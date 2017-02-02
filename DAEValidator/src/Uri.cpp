@@ -96,10 +96,11 @@ namespace opencollada
 		}
 	}
 
+	// https://techtavern.wordpress.com/2009/04/06/regex-that-matches-path-filename-and-extension/
+	static const regex parse_path_regex("^(.*/)?(?:$|(.+?)(?:(\\.[^.]*$)|$))");
+
 	string Uri::pathFile() const
 	{
-		// https://techtavern.wordpress.com/2009/04/06/regex-that-matches-path-filename-and-extension/
-		static regex parse_path_regex("^(.*/)?(?:$|(.+?)(?:(\\.[^.]*$)|$))");
 		smatch matches;
 		if (!regex_match(mPath, matches, parse_path_regex))
 			return string();
@@ -309,6 +310,17 @@ namespace opencollada
 		return uri;
 	}
 
+	// scheme: = $1
+	// scheme = $2
+	// //authority = $3
+	// authority = $4
+	// path = $5
+	// ?query = $6
+	// query = $7
+	// #fragment = $8
+	// fragment = $9
+	static const regex uri_regex("^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?");
+
 	bool Uri::Parse(
 		const string & uri,
 		string & scheme,
@@ -317,16 +329,6 @@ namespace opencollada
 		string & query,
 		string & fragment)
 	{
-		// scheme: = $1
-		// scheme = $2
-		// //authority = $3
-		// authority = $4
-		// path = $5
-		// ?query = $6
-		// query = $7
-		// #fragment = $8
-		// fragment = $9
-		static regex uri_regex("^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?");
 		smatch matches;
 		if (!regex_match(uri, matches, uri_regex))
 			return false;

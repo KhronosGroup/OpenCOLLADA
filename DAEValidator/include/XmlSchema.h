@@ -1,7 +1,7 @@
 #pragma once
 
 #include <libxml/xmlschemas.h>
-#include <string>
+#include "no_warning_string"
 #include "Uri.h"
 
 namespace opencollada
