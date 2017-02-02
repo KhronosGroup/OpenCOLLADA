@@ -59,7 +59,12 @@ namespace opencollada
 		else
 		{
 			vector<char> decompressed_content(*reinterpret_cast<const uint32_t*>(content.data() + content.size() - 4));
+#if defined(__GNUC__) && (__GNUC__ < 5 || (__GNUC__ == 5 && (__GNUC_MINOR__ < 1 || (__GNUC_MINOR__ == 1 && __GNUC_PATCHLEVEL__ < 1))))
+			z_stream zInfo;
+			memset(&zInfo, 0, sizeof(zInfo));
+#else
 			z_stream zInfo {};
+#endif
 			zInfo.total_in = zInfo.avail_in = static_cast<uInt>(content.size());
 			zInfo.total_out = zInfo.avail_out = static_cast<uInt>(decompressed_content.size());
 			zInfo.next_in = reinterpret_cast<Bytef*>(content.data());
