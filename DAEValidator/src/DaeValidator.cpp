@@ -1,3 +1,4 @@
+#include "Macros.h"
 #include "DaeValidator.h"
 #include "PathUtil.h"
 #include "Strings.h"
@@ -38,7 +39,7 @@ namespace opencollada
 		mDaePaths.insert(mDaePaths.end(), daePaths.begin(), daePaths.end());
 	}
 
-#if defined(_MSC_VER) && _MSC_VER < 1900
+#if IS_MSVC_AND_MSVC_VERSION_LT(1900)
 	typedef unsigned long long uint64_t;
 #endif
 	static const vector<tuple<uint64_t, string>> table =

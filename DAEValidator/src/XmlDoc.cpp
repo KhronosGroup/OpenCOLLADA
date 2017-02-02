@@ -1,3 +1,9 @@
+#include "Macros.h"
+
+#if IS_GNUC_AND_GNUC_VERSION_LT(5,1,1)
+#include <cstring>
+#endif
+
 #include "XmlDoc.h"
 #include "XmlNode.h"
 
@@ -44,7 +50,7 @@ namespace opencollada
 		vector<char> content(static_cast<size_t>(size));
 		ifile.read(content.data(), size);
 
-#if defined(_MSC_VER) && _MSC_VER < 1900
+#if IS_MSVC_AND_MSVC_VERSION_LT(1900)
 		typedef unsigned int uint32_t;
 #endif
 		uint32_t signature = *reinterpret_cast<const uint32_t*>(content.data());
@@ -59,7 +65,7 @@ namespace opencollada
 		else
 		{
 			vector<char> decompressed_content(*reinterpret_cast<const uint32_t*>(content.data() + content.size() - 4));
-#if defined(__GNUC__) && (__GNUC__ < 5 || (__GNUC__ == 5 && (__GNUC_MINOR__ < 1 || (__GNUC_MINOR__ == 1 && __GNUC_PATCHLEVEL__ < 1))))
+#if IS_GNUC_AND_GNUC_VERSION_LT(5,1,1)
 			z_stream zInfo;
 			memset(&zInfo, 0, sizeof(zInfo));
 #else

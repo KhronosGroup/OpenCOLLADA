@@ -29,6 +29,7 @@ set(SRC
 	include/Dae.h
 	include/DaeValidator.h
 	include/Log.h
+	include/Macros.h
 	include/no_warning_array
 	include/no_warning_functional
 	include/no_warning_iostream
