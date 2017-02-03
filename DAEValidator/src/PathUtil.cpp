@@ -2,9 +2,12 @@
 #include "StringUtil.h"
 
 #if defined(_WIN32)
-#include <Windows.h>
+#include <direct.h>
+#define getcwd _getcwd
+#include "no_warning_Windows.h"
 #include "win/dirent.h"
 #elif defined(__APPLE__)
+#include <unistd.h>
 #include <mach-o/dyld.h>
 #include <sys/stat.h>
 #include <dirent.h>
@@ -47,6 +50,12 @@ namespace opencollada
 			if ((st.st_mode & S_IFDIR) != 0)
 				return true;
 		return false;
+	}
+
+	bool Path::Exists(const string & path)
+	{
+		struct stat st;
+		return stat(path.c_str(), &st) == 0;
 	}
 
 	string Path::GetExecutablePath()
@@ -96,6 +105,14 @@ namespace opencollada
 		return string();
 	}
 
+	string Path::GetWorkingDirectory()
+	{
+		char buffer[1024];
+		if (getcwd(buffer, sizeof(buffer)))
+			return buffer;
+		return "";
+	}
+
 	list<string> Path::ListDaes(const string & path, bool recursive)
 	{
 		list<string> daes;
@@ -125,5 +142,130 @@ namespace opencollada
 			dirs.pop_front();
 		}
 		return daes;
+	}
+
+	string Path::GetAbsolutePath(const std::string & path)
+	{
+		if (path.empty())
+			return GetWorkingDirectory();
+
+		if (path == ".")
+			return GetWorkingDirectory();
+
+		if (String::StartsWith(path, "/"))
+			return RemoveDotSegments(path);
+
+#if defined(_WIN32)
+		if (isalpha(path[0]) && path.substr(1, 2) == ":\\")
+			return RemoveDotSegments(path);
+#endif
+
+		return RemoveDotSegments(Join(GetWorkingDirectory(), path));
+	}
+
+	static const string dot(".");
+	static const string dot_dot("..");
+	static const string dot_dot_slash("../");
+	static const string dot_slash("./");
+	static const string slash_dot_slash("/./");
+	static const string slash_dot("/.");
+	static const string slash_dot_dot_slash("/../");
+	static const string slash_dot_dot("/..");
+	static const size_t dot_dot_slash_len = dot_dot_slash.length();
+	static const size_t dot_slash_len = dot_slash.length();
+	static const size_t slash_dot_slash_len = slash_dot_slash.length();
+	static const size_t slash_dot_len = slash_dot.length();
+	static const size_t slash_dot_dot_slash_len = slash_dot_dot_slash.length();
+	static const size_t slash_dot_dot_len = slash_dot_dot.length();
+
+	string Path::RemoveDotSegments(const string & path)
+	{
+		string input = path;
+		string output;
+		output.reserve(input.length());
+
+#if defined(_WIN32)
+		bool contains_anti_slash = String::Replace(input, '\\', '/') > 0;
+#endif
+
+		while (!input.empty())
+		{
+			if (String::StartsWith(input, dot_dot_slash))
+			{
+				input.erase(0, dot_dot_slash_len);
+			}
+			else if (String::StartsWith(input, dot_slash))
+			{
+				input.erase(0, dot_slash_len);
+			}
+			else if (String::StartsWith(input, slash_dot_slash))
+			{
+				input.replace(0, slash_dot_slash_len, "/");
+			}
+			else if (String::StartsWith(input, slash_dot) &&
+				(input[slash_dot_len] == '/' || input[slash_dot_len] == '\0'))
+			{
+				input.replace(0, slash_dot_len, "/");
+			}
+			else if (String::StartsWith(input, slash_dot_dot_slash))
+			{
+				input.replace(0, slash_dot_dot_slash_len, "/");
+				size_t slash_pos = output.rfind('/');
+				if (slash_pos == string::npos)
+					output.clear();
+				else
+					output.erase(output.begin() + static_cast<ptrdiff_t>(slash_pos), output.end());
+			}
+			else if (String::StartsWith(input, slash_dot_dot) &&
+				(input[slash_dot_dot_len] == '/' || input[slash_dot_dot_len] == '\0'))
+			{
+				input.replace(0, slash_dot_dot_len, "/");
+				size_t slash_pos = output.rfind('/');
+				if (slash_pos == string::npos)
+					output.clear();
+				else
+					output.erase(output.begin() + static_cast<ptrdiff_t>(slash_pos), output.end());
+			}
+			else if (input == dot || input == dot_dot)
+			{
+				input.clear();
+			}
+			else
+			{
+				size_t begin = input.find('/');
+				if (begin == 0)
+					begin = 0;
+				size_t end = input.find('/', 1);
+				output.append(input.substr(0, end));
+				input.erase(0, end);
+			}
+		}
+
+#if defined(_WIN32)
+		if (contains_anti_slash)
+			String::Replace(output, '/', '\\');
+#endif
+
+		return output;
+	}
+
+	string Path::GetFileBase(const std::string & path)
+	{
+		size_t base_begin = path.rfind(Separator());
+		if (base_begin == string::npos)
+			base_begin = 0;
+		else
+			++base_begin;
+		string base = path.substr(base_begin);
+		size_t base_end = base.rfind('.');
+		if (base_end == 0)
+			return base;
+		return base.substr(0, base_end);
+	}
+
+	size_t Path::GetFileSize(const std::string & path)
+	{
+		struct stat st;
+		return static_cast<size_t>(stat(path.c_str(), &st) == 0 ? st.st_size : 0);
 	}
 }

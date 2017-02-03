@@ -1,7 +1,8 @@
 #pragma once
 
 #include <libxml/xmlschemas.h>
-#include <string>
+#include "no_warning_string"
+#include "Uri.h"
 
 namespace opencollada
 {
@@ -14,10 +15,12 @@ namespace opencollada
 		~XmlSchema();
 
 		void readFile(const std::string & url);
-		void readMemory(const char* xsd, size_t size);
 		bool validate(const class XmlDoc & doc) const;
 
 		operator bool() const;
+
+		const Uri & getURI() const { return mUri; }
+		bool failedToLoad() const;
 
 	private:
 		XmlSchema(const XmlSchema&) = delete;
@@ -25,5 +28,6 @@ namespace opencollada
 
 	private:
 		xmlSchemaPtr mSchema = nullptr;
+		Uri mUri;
 	};
 }

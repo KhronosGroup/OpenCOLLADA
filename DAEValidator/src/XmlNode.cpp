@@ -1,11 +1,12 @@
 #include "XmlNode.h"
 #include "XmlAttribute.h"
+#include "XmlDoc.h"
 #include "XmlNamespace.h"
 #include "XmlNodeSet.h"
 #include "XmlNodes.h"
 #include "libxml/xpathInternals.h"
 
-#include <string>
+#include "no_warning_string"
 
 using namespace std;
 
@@ -18,6 +19,11 @@ namespace opencollada
 	XmlNode::operator bool() const
 	{
 		return mNode != nullptr;
+	}
+
+	XmlDoc & XmlNode::doc() const
+	{
+		return XmlDoc::GetXmlDoc(mNode->doc);
 	}
 
 	XmlNode XmlNode::child(const string & name) const
@@ -72,8 +78,38 @@ namespace opencollada
 		return XmlNamespace(mNode->ns);
 	}
 
-	XmlNodeSet XmlNode::selectNodes(const string & xpath) const
+	class ScopedSetDocRoot
 	{
+	public:
+		ScopedSetDocRoot(const XmlNode & node)
+			: mDoc(node.doc())
+			, mRoot(mDoc.root())
+		{
+			mDoc.setRoot(node);
+		}
+
+		~ScopedSetDocRoot()
+		{
+			mDoc.setRoot(mRoot);
+		}
+
+	private:
+		const ScopedSetDocRoot & operator = (const ScopedSetDocRoot &) = delete;
+
+	private:
+		XmlDoc & mDoc;
+		XmlNode mRoot;
+	};
+
+	const XmlNodeSet & XmlNode::selectNodes(const string & xpath) const
+	{
+		auto & xpathCache = XmlDoc::GetXmlDoc(mNode->doc).mXPathCache;
+		auto cache = xpathCache.find(XPathCacheKey(mNode, xpath));
+		if (cache != xpathCache.end())
+			return cache->second;
+
+		ScopedSetDocRoot ssdr(*this);
+
 		if (xmlXPathContextPtr context = xmlXPathNewContext(mNode->doc))
 		{
 			xmlXPathRegisterNs(context, BAD_CAST "collada", BAD_CAST "http://www.collada.org/2005/11/COLLADASchema");
@@ -81,9 +117,10 @@ namespace opencollada
 
 			XmlNodeSet result(xmlXPathEvalExpression(BAD_CAST xpath.c_str(), context));
 			xmlXPathFreeContext(context);
-			return result;
+			auto p = xpathCache.insert(pair<XPathCacheKey, XmlNodeSet>(XPathCacheKey(mNode, xpath), move(result)));
+			return p.first->second;
 		}
-		return XmlNodeSet();
+		return XmlNodeSet::null;
 	}
 
 	XmlNodes<XmlNodeIteratorByName> XmlNode::children(const string & name) const

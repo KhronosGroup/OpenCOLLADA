@@ -1,7 +1,7 @@
 #include <libxml/parser.h>
 #if defined(_WIN32)
-#include <array>
-#include <Windows.h>
+#include "no_warning_array"
+#include "no_warning_Windows.h"
 #endif
 
 #include "Log.h"
@@ -27,7 +27,7 @@ namespace opencollada
 
 	streamsize streamhook::xsputn(const char *_Ptr, streamsize _Count)
 	{
-		string str(_Ptr, _Count);
+		string str(_Ptr, static_cast<size_t>(_Count));
 
 		if (mCallback)
 		{
@@ -64,7 +64,7 @@ namespace opencollada
 		return char_traits<char>::not_eof(v);
 	}
 
-	void libxmlhook::GenericErrorFunc(void *ctx, const char *msg, ...)
+	void libxmlhook::GenericErrorFunc(void *, const char *, ...)
 	{}
 
 	unique_ptr<streamhook> Log::mCoutHook;

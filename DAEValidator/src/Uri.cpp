@@ -1,3 +1,4 @@
+#include "PathUtil.h"
 #include "StringUtil.h"
 #include "Uri.h"
 #include <cctype>
@@ -30,6 +31,11 @@ namespace opencollada
 	bool Uri::operator < (const Uri & uri) const
 	{
 		return less<string>()(mUri, uri.str());
+	}
+
+	bool Uri::empty() const
+	{
+		return mUri.empty();
 	}
 
 	bool Uri::isValid() const
@@ -67,16 +73,34 @@ namespace opencollada
 		return mFragment;
 	}
 
+	void Uri::setScheme(const std::string & scheme)
+	{
+		mScheme = scheme;
+		rebuild_fast();
+	}
+
 	void Uri::setFragment(const string & fragment)
 	{
 		mFragment = fragment;
-		rebuild();
+		rebuild_fast();
 	}
+
+	void Uri::setPathFile(const string & filename)
+	{
+		auto pf = pathFile();
+		if (!pf.empty())
+		{
+			auto pos = mPath.rfind(pf);
+			mPath.replace(pos, pf.length(), filename);
+			rebuild_fast();
+		}
+	}
+
+	// https://techtavern.wordpress.com/2009/04/06/regex-that-matches-path-filename-and-extension/
+	static const regex parse_path_regex("^(.*/)?(?:$|(.+?)(?:(\\.[^.]*$)|$))");
 
 	string Uri::pathFile() const
 	{
-		// https://techtavern.wordpress.com/2009/04/06/regex-that-matches-path-filename-and-extension/
-		static regex parse_path_regex("^(.*/)?(?:$|(.+?)(?:(\\.[^.]*$)|$))");
 		smatch matches;
 		if (!regex_match(mPath, matches, parse_path_regex))
 			return string();
@@ -142,7 +166,7 @@ namespace opencollada
 		{
 			mScheme = ref.mScheme;
 			mAuthority = ref.mAuthority;
-			mPath = RemoveDotSegments(ref.mPath);
+			mPath = Path::RemoveDotSegments(ref.mPath);
 			mQuery = ref.mQuery;
 		}
 		else
@@ -150,7 +174,7 @@ namespace opencollada
 			if (!ref.mAuthority.empty())
 			{
 				//mAuthority = uri.mAuthority;
-				mPath = RemoveDotSegments(ref.mPath);
+				mPath = Path::RemoveDotSegments(ref.mPath);
 				mQuery = ref.mQuery;
 			}
 			else
@@ -165,12 +189,12 @@ namespace opencollada
 				}
 				else
 				{
-					if (StartsWith(ref.mPath, "/"))
-						mPath = RemoveDotSegments(ref.mPath);
+					if (String::StartsWith(ref.mPath, "/"))
+						mPath = Path::RemoveDotSegments(ref.mPath);
 					else
 					{
 						mPath = MergePaths(base, ref.mPath);
-						mPath = RemoveDotSegments(mPath);
+						mPath = Path::RemoveDotSegments(mPath);
 					}
 					mQuery = ref.mQuery;
 				}
@@ -179,7 +203,7 @@ namespace opencollada
 			mScheme = base.mScheme;
 		}
 		mFragment = ref.mFragment;
-		rebuild();
+		rebuild_fast();
 	}
 
 	Uri Uri::FromNativePath(const string & path)
@@ -198,7 +222,9 @@ namespace opencollada
 #else
 		string uri = path;
 #endif
-		return Encode(uri);
+		Uri res = Encode(uri);
+		res.setScheme("file");
+		return res;
 	}
 
 	string Uri::Decode(const std::string & str)
@@ -244,8 +270,8 @@ namespace opencollada
 		{
 			if (str[i] == '%')
 			{
-				auto dec1 = hex_to_dec[str[i + 1]];
-				auto dec2 = hex_to_dec[str[i + 2]];
+				auto dec1 = hex_to_dec[static_cast<int>(str[i + 1])];
+				auto dec2 = hex_to_dec[static_cast<int>(str[i + 2])];
 				if (dec1 != err && dec2 != err)
 				{
 					res.append(1, static_cast<string::value_type>((dec1 << 4) + dec2));
@@ -272,7 +298,7 @@ namespace opencollada
 		uri.reserve(str.length() * 3);
 		for (auto c : str)
 		{
-			if (c > 32 && c < 128)
+			if (c > 32)
 				uri += c;
 			else
 			{
@@ -284,6 +310,17 @@ namespace opencollada
 		return uri;
 	}
 
+	// scheme: = $1
+	// scheme = $2
+	// //authority = $3
+	// authority = $4
+	// path = $5
+	// ?query = $6
+	// query = $7
+	// #fragment = $8
+	// fragment = $9
+	static const regex uri_regex("^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?");
+
 	bool Uri::Parse(
 		const string & uri,
 		string & scheme,
@@ -292,16 +329,6 @@ namespace opencollada
 		string & query,
 		string & fragment)
 	{
-		// scheme: = $1
-		// scheme = $2
-		// //authority = $3
-		// authority = $4
-		// path = $5
-		// ?query = $6
-		// query = $7
-		// #fragment = $8
-		// fragment = $9
-		static regex uri_regex("^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\\?([^#]*))?(#(.*))?");
 		smatch matches;
 		if (!regex_match(uri, matches, uri_regex))
 			return false;
@@ -313,11 +340,6 @@ namespace opencollada
 		fragment = matches.str(9);
 
 		return true;
-	}
-
-	bool Uri::StartsWith(const string & str, const string & with)
-	{
-		return str.substr(0, with.length()) == with;
 	}
 
 	string Uri::MergePaths(const Uri & base, const string & ref_path)
@@ -334,103 +356,31 @@ namespace opencollada
 		}
 	}
 
-	string Uri::RemoveDotSegments(const string & path)
+	void Uri::rebuild()
 	{
-		static string dot(".");
-		static string dot_dot("..");
-		static string dot_dot_slash("../");
-		static string dot_slash("./");
-		static string slash_dot_slash("/./");
-		static string slash_dot("/.");
-		static string slash_dot_dot_slash("/../");
-		static string slash_dot_dot("/..");
-		static size_t dot_dot_slash_len = dot_dot_slash.length();
-		static size_t dot_slash_len = dot_slash.length();
-		static size_t slash_dot_slash_len = slash_dot_slash.length();
-		static size_t slash_dot_len = slash_dot.length();
-		static size_t slash_dot_dot_slash_len = slash_dot_dot_slash.length();
-		static size_t slash_dot_dot_len = slash_dot_dot.length();
+		rebuild_fast();
 
-		string input = path;
-		string output;
-		output.reserve(input.length());
-
-		while (!input.empty())
-		{
-			if (StartsWith(input, dot_dot_slash))
-			{
-				input.erase(0, dot_dot_slash_len);
-			}
-			else if (StartsWith(input, dot_slash))
-			{
-				input.erase(0, dot_slash_len);
-			}
-			else if (StartsWith(input, slash_dot_slash))
-			{
-				input.replace(0, slash_dot_slash_len, "/");
-			}
-			else if (StartsWith(input, slash_dot) &&
-				(input[slash_dot_len] == '/' || input[slash_dot_len] == '\0'))
-			{
-				input.replace(0, slash_dot_len, "/");
-			}
-			else if (StartsWith(input, slash_dot_dot_slash))
-			{
-				input.replace(0, slash_dot_dot_slash_len, "/");
-				size_t slash_pos = output.rfind('/');
-				if (slash_pos == string::npos)
-					output.clear();
-				else
-					output.erase(output.begin() + slash_pos, output.end());
-			}
-			else if (StartsWith(input, slash_dot_dot) &&
-				(input[slash_dot_dot_len] == '/' || input[slash_dot_dot_len] == '\0'))
-			{
-				input.replace(0, slash_dot_dot_len, "/");
-				size_t slash_pos = output.rfind('/');
-				if (slash_pos == string::npos)
-					output.clear();
-				else
-					output.erase(output.begin() + slash_pos, output.end());
-			}
-			else if (input == dot || input == dot_dot)
-			{
-				input.clear();
-			}
-			else
-			{
-				size_t begin = input.find('/');
-				if (begin == 0)
-					begin = 0;
-				size_t end = input.find('/', 1);
-				output.append(input.substr(0, end));
-				input.erase(0, end);
-			}
-		}
-		return output;
+		string scheme, authority, path, query, fragment;
+		mValid = Parse(mUri, scheme, authority, path, query, fragment);
 	}
 
-	void Uri::rebuild()
+	void Uri::rebuild_fast()
 	{
 		mUri.clear();
 		if (!mScheme.empty())
-			mUri += mScheme + ':';
+			mUri += mScheme + "://";
 		if (!mAuthority.empty())
-			mUri += "//" + mAuthority;
+			mUri += mAuthority;
 		if (!mPath.empty())
 			mUri += mPath;
 		if (!mQuery.empty())
 			mUri += '?' + mQuery;
 		if (!mFragment.empty())
 			mUri += '#' + mFragment;
-
-		string scheme, authority, path, query, fragment;
-		mValid = Parse(mUri, scheme, authority, path, query, fragment);
 	}
 }
 
 ostream & operator << (ostream & o, const opencollada::Uri & uri)
 {
-	o << uri.str();
-	return o;
+	return o << uri.str();
 }

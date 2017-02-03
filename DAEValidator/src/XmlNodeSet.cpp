@@ -1,11 +1,15 @@
 #include "XmlNodeSet.h"
 #include "XmlNode.h"
 
+using namespace std;
+
 namespace opencollada
 {
+	XmlNodeSet XmlNodeSet::null;
+
 	XmlNodeSet::XmlNodeSet(XmlNodeSet&& other)
 	{
-		std::swap(mXPathObject, other.mXPathObject);
+		*this = move(other);
 	}
 
 	XmlNodeSet::~XmlNodeSet()
@@ -21,9 +25,10 @@ namespace opencollada
 		: mXPathObject(xpathObject)
 	{}
 
-	XmlNodeSet::operator bool() const
+	const XmlNodeSet & XmlNodeSet::operator = (XmlNodeSet && other)
 	{
-		return mXPathObject != nullptr;
+		swap(mXPathObject, other.mXPathObject);
+		return *this;
 	}
 
 	XmlNode XmlNodeSet::iterator::operator*() const
@@ -72,7 +77,7 @@ namespace opencollada
 	{
 		if (!mXPathObject)
 			return 0;
-		return xmlXPathNodeSetGetLength(mXPathObject->nodesetval);
+		return static_cast<size_t>(xmlXPathNodeSetGetLength(mXPathObject->nodesetval));
 	}
 
 	XmlNode XmlNodeSet::operator[](int index) const
