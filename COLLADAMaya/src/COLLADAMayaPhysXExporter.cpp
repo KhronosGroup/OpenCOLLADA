@@ -1934,6 +1934,10 @@ namespace COLLADAMaya
 				{
 					DagHelper::getPlugValue(rigidBody, ATTR_CENTER_OF_MASS_OVERRIDE, translation);
 				}
+
+				translation.x = MDistance::internalToUI(translation.x);
+				translation.y = MDistance::internalToUI(translation.y);
+				translation.z = MDistance::internalToUI(translation.z);
 			}
 
 			if (!MassFrame::AreDefaultValues(translation, rotation))
