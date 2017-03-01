@@ -209,9 +209,10 @@ namespace COLLADAMaya
 			// TODO: ExportOptions::copyTextures() should be renamed to something like ExportOptions::copyDependencies()
 			if (ExportOptions::copyTextures())
 			{
-				// Get the target file from source file.
-				COLLADASW::URI targetUri = mDocumentExporter->createTargetURI(shaderFxFileUri);
-				mDocumentExporter->copyFile(shaderFxFileUri, targetUri);
+				COLLADABU::URI src = COLLADASW::URI::nativePathToUri(shaderFxFileName);
+				src.setScheme(String("file"));
+				COLLADASW::URI dst = mDocumentExporter->createTargetURI(src);
+				mDocumentExporter->copyFile(src, dst);
 			}
 		}
         else
