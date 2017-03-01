@@ -1345,7 +1345,11 @@ namespace COLLADAMaya
         {
             // Get the image path
             // Take the filename for the unique image name
-            COLLADASW::URI sourceFileUri(COLLADASW::URI::nativePathToUri(fileName));
+			MString workspace;
+			MStatus status = MGlobal::executeCommand(MString("workspace -q -rd;"), workspace);
+			if (!status) workspace.clear();
+			COLLADABU::URI workspaceURI(COLLADABU::URI::nativePathToUri(workspace.asChar()));
+			COLLADABU::URI sourceFileUri(workspaceURI, COLLADABU::URI::nativePathToUri(fileName));
             if ( sourceFileUri.getScheme ().empty () )
                 sourceFileUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
             String mayaImageId = DocumentExporter::mayaNameToColladaName ( sourceFileUri.getPathFileBase().c_str () );
