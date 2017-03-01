@@ -246,8 +246,8 @@ namespace COLLADAMaya
 
 				// Don't export Physics if required PhysX plugin is not loaded
 				if (ExportOptions::exportPhysics() && !PhysXExporter::CheckPhysXPluginVersion()) {
-					MGlobal::displayError(MString("Physics not exported. Minimum PhysX plugin version: ") + PhysXExporter::GetRequiredPhysXPluginVersion());
-					MGlobal::displayError(MString("Installed version: ") + PhysXExporter::GetInstalledPhysXPluginVersion());
+					MGlobal::displayWarning(MString("Physics not exported. Minimum PhysX plugin version required: ") + PhysXExporter::GetRequiredPhysXPluginVersion());
+					MGlobal::displayWarning(MString("Installed version: ") + PhysXExporter::GetInstalledPhysXPluginVersion());
 					ExportOptions::setExportPhysics(false);
 				}
 
