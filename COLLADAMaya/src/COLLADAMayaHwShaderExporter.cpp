@@ -201,8 +201,19 @@ namespace COLLADAMaya
 		setShaderFxFileUri ( shaderFxFileUri );
 
         // Set the current include file
-        if ( ExportOptions::exportCgfxFileReferences () )
-            mEffectProfile->setInclude ( shaderFxFileUri, shaderFxFileUri.getPathFileBase() );
+		if (ExportOptions::exportCgfxFileReferences())
+		{
+			mEffectProfile->setInclude(shaderFxFileUri, shaderFxFileUri.getPathFileBase());
+
+			// Check, if we should copy the cgfx file to the destination folder.
+			// TODO: ExportOptions::copyTextures() should be renamed to something like ExportOptions::copyDependencies()
+			if (ExportOptions::copyTextures())
+			{
+				// Get the target file from source file.
+				COLLADASW::URI targetUri = mDocumentExporter->createTargetURI(shaderFxFileUri);
+				mDocumentExporter->copyFile(shaderFxFileUri, targetUri);
+			}
+		}
         else
         {
 #if 1

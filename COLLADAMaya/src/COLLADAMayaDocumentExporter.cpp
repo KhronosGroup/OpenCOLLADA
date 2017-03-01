@@ -515,6 +515,96 @@ namespace COLLADAMaya
         return mayaNameToColladaName ( node.name(), true );
     }
 
+	COLLADASW::URI DocumentExporter::createTargetURI(const COLLADASW::URI& sourceUri) const
+	{
+		COLLADASW::URI targetUri;
+
+		if (ExportOptions::preserveSourceTree())
+		{
+			// Get the URI of the Maya source file.
+			MString mayaSourceFile = MFileIO::currentFile();
+			COLLADASW::URI mayaSourceFileUri(COLLADASW::URI::nativePathToUri(mayaSourceFile.asChar()));
+			if (mayaSourceFileUri.getScheme().empty())
+				mayaSourceFileUri.setScheme(COLLADASW::URI::SCHEME_FILE);
+
+			// Get the URI of the source file.
+			bool success = true;
+			COLLADASW::URI targetRelativeUri = sourceUri.getRelativeTo(mayaSourceFileUri, success);
+			if (!success)
+			{
+				String message = "Not able to generate a relative path from "
+					+ mayaSourceFileUri.getURIString() + " to " + sourceUri.getURIString()
+					+ ". An absolute path will be written! ";
+				MGlobal::displayError(message.c_str());
+				targetUri = sourceUri;
+			}
+			else
+			{
+				// Get the URI of the COLLADA file.
+				String targetColladaFile = getFilename();
+				COLLADASW::URI targetColladaUri(COLLADASW::URI::nativePathToUri(targetColladaFile));
+				if (targetColladaUri.getScheme().empty())
+					targetColladaUri.setScheme(COLLADASW::URI::SCHEME_FILE);
+
+				COLLADASW::URI targetColladaDirUri(targetColladaUri.getPathDir());
+				targetColladaDirUri.setScheme(targetColladaUri.getScheme());
+
+				String pathDir = targetColladaDirUri.getPathDir() + targetRelativeUri.getPathDir();
+				COLLADASW::URI::normalizeURIPath(const_cast<char*>(pathDir.c_str()));
+
+				targetUri = targetColladaDirUri;
+				targetUri.setPathDir(pathDir);
+				targetUri.setPathFile(sourceUri.getPathFile());
+			}
+		}
+		else
+		{
+			// Target file
+			String targetFile = getFilename();
+			targetUri = COLLADASW::URI::nativePathToUri(targetFile);
+			const String& targetScheme = targetUri.getScheme();
+
+			// Get the pure file name of the source file and set 
+			// the source file name to the target path
+			targetUri.setPathFile(sourceUri.getPathFile());
+			if (!targetScheme.empty())
+				targetUri.setScheme(targetScheme);
+			else
+				targetUri.setScheme(COLLADASW::URI::SCHEME_FILE);
+		}
+
+		// Generate the target file name
+		return targetUri;
+	}
+
+	bool DocumentExporter::copyFile(const COLLADABU::URI & src, const COLLADABU::URI & dst) const
+	{
+		if (COLLADABU::Utils::fileExistsAndIsReadable(src.toNativePath()))
+		{
+			COLLADASW::URI dstDirURI(dst.getPathDir());
+			if (COLLADABU::Utils::createDirectoryRecursive(dstDirURI.toNativePath()))
+			{
+				if (COLLADABU::Utils::copyFile(src.toNativePath(), dst.toNativePath()))
+				{
+					return true;
+				}
+				else
+				{
+					MGlobal::displayError(MString("Cannot copy ") + src.toNativePath().c_str() + " to " + dst.toNativePath().c_str());
+				}
+			}
+			else
+			{
+				MGlobal::displayError(MString("Cannot create ") + dstDirURI.toNativePath().c_str());
+			}
+		}
+		else
+		{
+			MGlobal::displayError(MString("Cannot open ") + src.getURIString().c_str());
+		}
+		return false;
+	}
+
     //---------------------------
     SceneGraph* DocumentExporter::getSceneGraph()
     {

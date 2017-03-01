@@ -172,13 +172,6 @@ namespace COLLADAMaya
             const COLLADASW::URI &sourceUri, 
             COLLADASW::URI &fullFileNameURI );
 
-        /**
-         * Returns the target file name of the given source file name.
-         * @param sourceFileName The source file name.
-         * @return String The target file name.
-         */
-        COLLADASW::URI createTargetURI ( const COLLADASW::URI &sourceUri );
-
         /** Dump a place2dTexture node */
         void add2DPlacement ( COLLADASW::Texture* colladaTexture, MObject texture );
 
