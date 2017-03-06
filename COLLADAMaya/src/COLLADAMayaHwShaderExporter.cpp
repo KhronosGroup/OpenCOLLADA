@@ -848,6 +848,49 @@ namespace COLLADAMaya
     }
 
     // --------------------------------------
+	COLLADASW::ValueType::ColladaType CGtypeToColladaType(CGtype type)
+	{
+		switch (type)
+		{
+		case CG_BOOL:
+		case CG_BOOL1:				return COLLADASW::ValueType::BOOL;
+		case CG_BOOL2:				return COLLADASW::ValueType::BOOL2;
+		case CG_BOOL3:				return COLLADASW::ValueType::BOOL3;
+		case CG_BOOL4:				return COLLADASW::ValueType::BOOL4;
+		case CG_INT:
+		case CG_INT1:				return COLLADASW::ValueType::INT;
+		case CG_INT2:				return COLLADASW::ValueType::INT2;
+		case CG_INT3:				return COLLADASW::ValueType::INT3;
+		case CG_INT4:				return COLLADASW::ValueType::INT4;
+		case CG_HALF:
+		case CG_HALF1:
+		case CG_FLOAT:
+		case CG_FLOAT1:				return COLLADASW::ValueType::FLOAT;
+		case CG_HALF2:
+		case CG_FLOAT2:				return COLLADASW::ValueType::FLOAT2;
+		case CG_HALF3:
+		case CG_FLOAT3:				return COLLADASW::ValueType::FLOAT3;
+		case CG_HALF4:
+		case CG_FLOAT4:				return COLLADASW::ValueType::FLOAT4;
+		case CG_DOUBLE:
+		case CG_DOUBLE1:			return COLLADASW::ValueType::DOUBLE;
+		case CG_DOUBLE2:			return COLLADASW::ValueType::DOUBLE2;
+		case CG_DOUBLE3:			return COLLADASW::ValueType::DOUBLE3;
+		case CG_DOUBLE4:			return COLLADASW::ValueType::DOUBLE4;
+		case CG_FLOAT2x2:			return COLLADASW::ValueType::FLOAT2x2;
+		case CG_FLOAT3x3:			return COLLADASW::ValueType::FLOAT3x3;
+		case CG_FLOAT4x4:			return COLLADASW::ValueType::FLOAT4x4;
+		case CG_STRING:				return COLLADASW::ValueType::STRING;
+		case CG_SAMPLER1D:			return COLLADASW::ValueType::SAMPLER_1D;
+		case CG_SAMPLER2D:			return COLLADASW::ValueType::SAMPLER_2D;
+		case CG_SAMPLER3D:			return COLLADASW::ValueType::SAMPLER_3D;
+		case CG_SAMPLERCUBE:		return COLLADASW::ValueType::SAMPLER_CUBE;
+		case CG_SAMPLERRECT:		return COLLADASW::ValueType::SAMPLER_RECT;
+		case CG_SAMPLER2DSHADOW:	return COLLADASW::ValueType::SAMPLER_DEPTH;
+		}
+		return COLLADASW::ValueType::VALUE_TYPE_UNSPECIFIED;
+	}
+
     void HwShaderExporter::exportAnnotations (
         const CGparameter& cgParameter, 
         COLLADASW::ParamBase* param )
@@ -855,118 +898,54 @@ namespace COLLADAMaya
         CGannotation cgAnno = cgGetFirstParameterAnnotation ( cgParameter );
         while ( cgAnno )
         {
-            CGtype cgAnnoType = cgGetAnnotationType( cgAnno );
-            const char* cgAnnoName = cgGetAnnotationName( cgAnno );
-            String annotationName ( cgAnnoName );
-            switch ( cgAnnoType )
+            CGtype cgType = cgGetAnnotationType(cgAnno);
+			String annotationName = cgGetAnnotationName(cgAnno);
+			COLLADASW::ValueType::ColladaType colladaType = CGtypeToColladaType(cgType);
+			int nvalues = 0;
+            switch (cgType)
             {
             case CG_BOOL:
             case CG_BOOL1:
+			case CG_BOOL2:
+			case CG_BOOL3:
+			case CG_BOOL4:
 			{
-				int nvalues = 0;
 				const CGbool* values = cgGetBoolAnnotationValues(cgAnno, &nvalues);
-				param->addAnnotation(annotationName, COLLADASW::ValueType::BOOL, values, nvalues);
-				break;
-			}
-            case CG_BOOL2:
-			{
-				int nvalues = 0;
-				const CGbool* values = cgGetBoolAnnotationValues(cgAnno, &nvalues);
-				param->addAnnotation(annotationName, COLLADASW::ValueType::BOOL2, values, nvalues);
-				break;
-			}
-            case CG_BOOL3:
-			{
-				int nvalues = 0;
-				const CGbool* values = cgGetBoolAnnotationValues(cgAnno, &nvalues);
-				param->addAnnotation(annotationName, COLLADASW::ValueType::BOOL3, values, nvalues);
-				break;
-			}
-            case CG_BOOL4:
-			{
-				int nvalues = 0;
-				const CGbool* values = cgGetBoolAnnotationValues(cgAnno, &nvalues);
-				param->addAnnotation(annotationName, COLLADASW::ValueType::BOOL4, values, nvalues);
+				param->addAnnotation(annotationName, colladaType, values, nvalues);
 				break;
 			}
             case CG_INT:
             case CG_INT1:
+			case CG_INT2:
+			case CG_INT3:
+			case CG_INT4:
 			{
-				int nvalues = 0;
 				const int* values = cgGetIntAnnotationValues(cgAnno, &nvalues);
-				param->addAnnotation(annotationName, COLLADASW::ValueType::INT, values, nvalues);
-				break;
-			}
-            case CG_INT2:
-			{
-				int nvalues = 0;
-				const int* values = cgGetIntAnnotationValues(cgAnno, &nvalues);
-				param->addAnnotation(annotationName, COLLADASW::ValueType::INT2, values, nvalues);
-				break;
-			}
-            case CG_INT3:
-			{
-				int nvalues = 0;
-				const int* values = cgGetIntAnnotationValues(cgAnno, &nvalues);
-				param->addAnnotation(annotationName, COLLADASW::ValueType::INT3, values, nvalues);
-				break;
-			}
-            case CG_INT4:
-			{
-				int nvalues = 0;
-				const int* values = cgGetIntAnnotationValues(cgAnno, &nvalues);
-				param->addAnnotation(annotationName, COLLADASW::ValueType::INT4, values, nvalues);
+				param->addAnnotation(annotationName, colladaType, values, nvalues);
 				break;
 			}
             case CG_HALF:
 			case CG_HALF1:
 			case CG_FLOAT:
 			case CG_FLOAT1:
-			{
-				int nvalues = 0;
-				const float* values = cgGetFloatAnnotationValues(cgAnno, &nvalues);
-				param->addAnnotation(annotationName, COLLADASW::ValueType::FLOAT, values, nvalues);
-				break;
-			}
-            case CG_HALF2:
+			case CG_HALF2:
 			case CG_FLOAT2:
-			{
-				int nvalues = 0;
-				const float* values = cgGetFloatAnnotationValues(cgAnno, &nvalues);
-				param->addAnnotation(annotationName, COLLADASW::ValueType::FLOAT2, values, nvalues);
-				break;
-			}
-            case CG_HALF3:
+			case CG_HALF3:
 			case CG_FLOAT3:
-			{
-				int nvalues = 0;
-				const float* values = cgGetFloatAnnotationValues(cgAnno, &nvalues);
-				param->addAnnotation(annotationName, COLLADASW::ValueType::FLOAT3, values, nvalues);
-				break;
-			}
-            case CG_HALF4:
+			case CG_HALF4:
 			case CG_FLOAT4:
 			{
-				int nvalues = 0;
 				const float* values = cgGetFloatAnnotationValues(cgAnno, &nvalues);
-				param->addAnnotation(annotationName, COLLADASW::ValueType::FLOAT4, values, nvalues);
+				param->addAnnotation(annotationName, colladaType, values, nvalues);
 				break;
 			}
-            case CG_HALF4x4:
-            case CG_FLOAT4x4:
-                {
-                    // TODO
-//                    assert ( "Annotation type not supported! " + cgAnnoType );
-                    break;
-                }
             case CG_STRING:
-                {
-                    const char* val = cgGetStringAnnotationValue ( cgAnno );
-                    param->addAnnotation ( annotationName, COLLADASW::ValueType::STRING, String ( val ) );
-                    break;
-                }
+            {
+				String value = cgGetStringAnnotationValue(cgAnno);
+				param->addAnnotation(annotationName, colladaType, value);
+                break;
+            }
             default:
- //               assert ( "Annotation type not supported! " + cgAnnoType );
                 break;
             }
 
