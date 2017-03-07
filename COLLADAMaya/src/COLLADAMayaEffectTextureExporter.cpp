@@ -316,53 +316,8 @@ namespace COLLADAMaya
         if ( ExportOptions::copyTextures() )
         {
             // Get the target file from source file.
-            COLLADASW::URI targetUri = createTargetURI ( sourceUri );
-
-			bool exists = COLLADABU::Utils::fileExistsAndIsReadable( sourceUri.toNativePath() );
-			if ( !exists )
-            {
-                String message = "The source texture file doesn't exist! Filename = " + sourceUri.toNativePath();
-                std::cerr << message << std::endl;
-            }
-            else
-            {
-                // Copy the texture, if it isn't already there...
-				// exists = COLLADABU::Utils::directoryExists( targetUri.toNativePath() );
-                // Remi - always copy the texture, it may not be the same file
-                exists = false;
-				if ( !exists )
-                {
-                    try 
-                    {
-                        // Create the target directory, if necessary. 
-                        // Note: some systems (window$) requires the string to be 
-                        // enclosed in quotes when a space is present.
-                        COLLADASW::URI targetPathUri ( targetUri.getPathDir() );
-						exists = COLLADABU::Utils::createDirectoryRecursive( targetPathUri.toNativePath() );
-
-						if( exists )
-						{
-							// Throws: basic_filesystem_error<Path> if
-							// from_fp.empty() || to_fp.empty() ||!exists(from_fp) || !is_regular(from_fp) || exists(to_fp)
-							exists = COLLADABU::Utils::copyFile ( sourceUri.toNativePath(), targetUri.toNativePath() );
-						}
-                    }
-                    catch ( std::exception ex )
-                    {
-						exists = false;
-                        String message = "Could not successful create directory and copy file: " + sourceUri.toNativePath();
-                        MGlobal::displayError( message.c_str() );
-                        std::cerr << "[ERROR] Could not copy file " << sourceUri.toNativePath() << std::endl;
-                    }
-
-					if( !exists )
-					{
-						String message = "Could not successful create directory and copy file: " + sourceUri.toNativePath();
-						MGlobal::displayError( message.c_str() );
-						std::cerr << "[ERROR] Could not copy file " << sourceUri.toNativePath() << std::endl;
-					}
-				}
-            }
+            COLLADASW::URI targetUri = mDocumentExporter->createTargetURI ( sourceUri );
+			mDocumentExporter->copyFile(sourceUri, targetUri);
         }
 
         // Create a new image structure
@@ -375,69 +330,6 @@ namespace COLLADAMaya
         mExportedImageMap[ fullFileName ] = colladaImage;
 
         return colladaImage;
-    }
-
-    // ------------------------------------------------------------
-    COLLADASW::URI EffectTextureExporter::createTargetURI ( const COLLADASW::URI& sourceUri )
-    {
-		COLLADASW::URI targetUri;
-
-		if (ExportOptions::preserveSourceTree())
-		{
-			// Get the URI of the Maya source file.
-			MString mayaSourceFile = MFileIO::currentFile();
-			COLLADASW::URI mayaSourceFileUri(COLLADASW::URI::nativePathToUri(mayaSourceFile.asChar()));
-			if (mayaSourceFileUri.getScheme().empty())
-				mayaSourceFileUri.setScheme(COLLADASW::URI::SCHEME_FILE);
-
-			// Get the URI of the texture source file.
-			bool success = true;
-			COLLADASW::URI targetTextureRelativeUri = sourceUri.getRelativeTo(mayaSourceFileUri, success);
-			if (!success)
-			{
-				String message = "Not able to generate a relative path from " 
-					+ mayaSourceFileUri.getURIString() + " to " + sourceUri.getURIString() 
-					+ ". An absolute path will be written! ";
-				MGlobal::displayError ( message.c_str() );
-				targetUri = sourceUri;
-			}
-			else
-			{
-				// Get the URI of the COLLADA file.
-				String targetColladaFile = mDocumentExporter->getFilename();
-				COLLADASW::URI targetColladaUri ( COLLADASW::URI::nativePathToUri ( targetColladaFile ) );
-				if ( targetColladaUri.getScheme ().empty () )
-					targetColladaUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
-
-				COLLADASW::URI targetColladaDirUri(targetColladaUri.getPathDir());
-				targetColladaDirUri.setScheme(targetColladaUri.getScheme());
-
-				String pathDir = targetColladaDirUri.getPathDir() + targetTextureRelativeUri.getPathDir();
-				COLLADASW::URI::normalizeURIPath(const_cast<char*>(pathDir.c_str()));
-
-				targetUri = targetColladaDirUri;
-				targetUri.setPathDir(pathDir);
-				targetUri.setPathFile(sourceUri.getPathFile());
-			}
-		}
-		else
-		{
-            // Target file
-            String targetFile = mDocumentExporter->getFilename();
-            targetUri = COLLADASW::URI::nativePathToUri ( targetFile );
-            const String& targetScheme = targetUri.getScheme ();
-
-            // Get the pure file name of the source file and set 
-            // the source file name to the target path
-            targetUri.setPathFile ( sourceUri.getPathFile () );
-            if ( !targetScheme.empty () )
-                targetUri.setScheme ( targetScheme );
-            else
-                targetUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
-		}
-
-        // Generate the target file name
-        return targetUri;
     }
 
     // ------------------------------------------------------------
@@ -651,7 +543,7 @@ namespace COLLADAMaya
                     targetColladaUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
 
                 // Get the URI of the copied texture file.
-                COLLADASW::URI textureUri = createTargetURI ( sourceUri );
+                COLLADASW::URI textureUri = mDocumentExporter->createTargetURI ( sourceUri );
 
                 // Get the texture URI relative to the COLLADA file URI.
                 fullFileNameURI = textureUri.getRelativeTo ( targetColladaUri, success );
@@ -689,7 +581,7 @@ namespace COLLADAMaya
             // Different filename and URI, if we copy the textures to the destination directory!
 			if ( ExportOptions::copyTextures() || ExportOptions::preserveSourceTree() )
             {
-                fullFileNameURI = createTargetURI ( sourceUri );
+                fullFileNameURI = mDocumentExporter->createTargetURI ( sourceUri );
             }
             else
             {

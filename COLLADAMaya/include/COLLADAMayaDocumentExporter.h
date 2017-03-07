@@ -324,12 +324,20 @@ namespace COLLADAMaya
          */
         String dagPathToColladaName ( const MDagPath& dagPath );
 
-        /**
-         * Make a COLLADA name suitable for a DAG name.
-         * @param name The name to convert.
-         * @return MString Valid dag name.
-         */
-        String colladaNameToDagName ( const MString& name );
+		/**
+		* Returns the target file name of the given source file name.
+		* @param sourceFileName The source file name.
+		* @return String The target file name.
+		*/
+		COLLADASW::URI createTargetURI(const COLLADASW::URI &sourceUri) const;
+
+		/**
+		* Copies src file to dst file.
+		* @param src The source file name.
+		* @param dst The destination file name.
+		* @return bool true=success, false=fail.
+		*/
+		bool copyFile(const COLLADABU::URI & src, const COLLADABU::URI & dst) const;
 
         /**
          * Return the id of the current scene.
