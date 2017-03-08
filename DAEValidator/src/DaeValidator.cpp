@@ -279,9 +279,8 @@ namespace opencollada
 			const auto & nodes = dae.root().selectNodes(xpath.str());
 			for (auto node : nodes)
 			{
-				auto old = dae.setRoot(node);
+				auto autoRestoreRoot = dae.setTempRoot(node);
 				result |= ValidateAgainstSchema(dae, schema.second);
-				dae.setRoot(old);
 			}
 		}
 
@@ -343,7 +342,7 @@ namespace opencollada
 		const auto & parents = dae.root().selectNodes("//*[@sid]/..");
 		for (auto parent : parents)
 		{
-			const auto & children = parent.selectNodes("/*[@sid]");
+			const auto & children = parent.selectNodes("*[@sid]");
 			map<string, size_t> sids;
 			for (auto child : children)
 			{
