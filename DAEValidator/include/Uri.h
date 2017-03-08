@@ -1,5 +1,7 @@
+#pragma once
+
 #include <ostream>
-#include <string>
+#include "no_warning_string"
 
 // https://tools.ietf.org/html/rfc3986
 
@@ -16,6 +18,7 @@ namespace opencollada
 		bool operator != (const Uri & uri) const;
 		bool operator < (const Uri & uri) const;
 
+		bool empty() const;
 		bool isValid() const;
 		const std::string & str() const;
 		const std::string & scheme() const;
@@ -24,7 +27,9 @@ namespace opencollada
 		const std::string & query() const;
 		const std::string & fragment() const;
 
+		void setScheme(const std::string & scheme);
 		void setFragment(const std::string & fragment);
+		void setPathFile(const std::string & filename);
 
 		std::string pathFile() const;
 		std::string nativePath() const;
@@ -45,13 +50,12 @@ namespace opencollada
 			std::string & fragment);
 
 	private:
-		static bool StartsWith(const std::string & str, const std::string & with);
 		static std::string MergePaths(const Uri & baseUri, const std::string & ref_path);
-		// TODO make in place version
-		static std::string RemoveDotSegments(const std::string & path);
 
 		// Rebuild mUri from mScheme, mAuthority, mPath, mQuery and mFragment
 		void rebuild();
+		// Rebuild mUri from mScheme, mAuthority, mPath, mQuery and mFragment but don't validate
+		void rebuild_fast();
 
 	private:
 		std::string mUri;

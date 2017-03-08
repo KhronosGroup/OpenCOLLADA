@@ -1,11 +1,16 @@
 #include "XmlSchema.h"
 #include "XmlDoc.h"
 
-#include <string>
+#include "no_warning_string"
 using namespace std;
 
 namespace opencollada
 {
+	XmlSchema::XmlSchema(XmlSchema && other)
+	{
+		swap(mSchema, other.mSchema);
+	}
+
 	XmlSchema::~XmlSchema()
 	{
 		if (mSchema)
@@ -18,15 +23,6 @@ namespace opencollada
 	void XmlSchema::readFile(const string & url)
 	{
 		if (xmlSchemaParserCtxtPtr ctxt = xmlSchemaNewParserCtxt(url.c_str()))
-		{
-			mSchema = xmlSchemaParse(ctxt);
-			xmlSchemaFreeParserCtxt(ctxt);
-		}
-	}
-
-	void XmlSchema::readMemory(const char* xsd, size_t size)
-	{
-		if (xmlSchemaParserCtxtPtr ctxt = xmlSchemaNewMemParserCtxt(xsd, static_cast<int>(size)))
 		{
 			mSchema = xmlSchemaParse(ctxt);
 			xmlSchemaFreeParserCtxt(ctxt);
@@ -47,5 +43,10 @@ namespace opencollada
 	XmlSchema::operator bool() const
 	{
 		return mSchema != nullptr;
+	}
+
+	bool XmlSchema::failedToLoad() const
+	{
+		return !(*this) && !mUri.empty();
 	}
 }

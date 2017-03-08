@@ -1044,8 +1044,8 @@ namespace COLLADAMaya
         COLLADASW::Sampler::SamplerType samplerType = COLLADASW::Sampler::SAMPLER_TYPE_UNSPECIFIED;
         COLLADASW::ValueType::ColladaType samplerValueType = COLLADASW::ValueType::VALUE_TYPE_UNSPECIFIED;
 
-        // Get the type of the resource, if is set.
-        getResourceType ( cgTextureParam, samplerType, samplerValueType );
+        // Get the type of the resource.
+		getResourceTypeFromCGParameter(cgParameter, samplerType);
 
         // Set the sampler type
         sampler.setSamplerType ( samplerType );
@@ -1378,7 +1378,40 @@ namespace COLLADAMaya
                 samplerValueType = COLLADASW::ValueType::SAMPLER_RECT;
             }
         }
-    }
+	}
+
+
+
+	void HwShaderExporter::getResourceTypeFromCGParameter(
+		const CGparameter& cgParameter,
+		COLLADASW::Sampler::SamplerType &samplerType)
+	{
+
+		CGtype paramType = cgGetParameterType(cgParameter);
+
+		switch (paramType)
+		{
+			case (CG_SAMPLER1D) :
+				samplerType = COLLADASW::Sampler::SAMPLER_TYPE_1D;
+				break;
+			case (CG_SAMPLER2D) :
+				samplerType = COLLADASW::Sampler::SAMPLER_TYPE_2D;
+				break;
+			case (CG_SAMPLER3D) :
+				samplerType = COLLADASW::Sampler::SAMPLER_TYPE_3D;
+				break;
+			case (CG_SAMPLERCUBE) :
+				samplerType = COLLADASW::Sampler::SAMPLER_TYPE_CUBE;
+				break;
+			case (CG_SAMPLERRECT) :
+				samplerType = COLLADASW::Sampler::SAMPLER_TYPE_RECT;
+				break;
+			default:
+				samplerType = COLLADASW::Sampler::SAMPLER_TYPE_UNSPECIFIED;
+				break;
+		}
+	}
+
 
     // --------------------------------------
     String HwShaderExporter::getProgramSourceString ( const char* programSourceCG )

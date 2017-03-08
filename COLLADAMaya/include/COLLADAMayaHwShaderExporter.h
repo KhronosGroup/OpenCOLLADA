@@ -113,6 +113,10 @@ namespace COLLADAMaya
             COLLADASW::Sampler::SamplerType &samplerType,
             COLLADASW::ValueType::ColladaType &samplerValueType );
 
+		void getResourceTypeFromCGParameter(
+			const CGparameter& cgParameter,
+			COLLADASW::Sampler::SamplerType &samplerType);
+
         /** Exports the given parameter with all his annotations, the semantic and the given values. */
         template<class Type>
         void exportParam (

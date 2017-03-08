@@ -1,6 +1,6 @@
 #pragma once
 
-#include <string>
+#include "no_warning_string"
 #include "XmlNode.h"
 
 namespace opencollada

@@ -2,6 +2,8 @@
 *.suo
 *.sdf
 *.opensdf
+*.db
+*.opendb
 *.ipch
 *~
 CMakeFiles

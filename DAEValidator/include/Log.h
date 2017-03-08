@@ -1,16 +1,16 @@
 #pragma once
 
-#include <functional>
-#include <iostream>
+#include "no_warning_functional"
+#include "no_warning_iostream"
 #include <memory>
-#include <string>
+#include "no_warning_string"
 
 namespace opencollada
 {
 	class streamhook : public std::streambuf
 	{
 	public:
-		typedef std::function<void(const std::string &)> hookcallback;
+		using hookcallback = std::function<void(const std::string &)>;
 
 		streamhook(std::ostream & stream, bool quiet, const hookcallback & callback = hookcallback());
 		~streamhook();
@@ -22,9 +22,12 @@ namespace opencollada
 		std::char_traits<char>::int_type overflow(std::char_traits<char>::int_type v);
 
 	private:
+		const streamhook& operator = (const streamhook&) = delete;
+
+	private:
 		std::ostream& mStream;
 		std::streambuf* mStreamBuf;
-		std::function<void(const std::string &)> mCallback;
+		hookcallback mCallback;
 		bool mQuiet = false;
 	};
 

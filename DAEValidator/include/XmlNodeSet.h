@@ -14,7 +14,7 @@ namespace opencollada
 		XmlNodeSet(XmlNodeSet&& other);
 		~XmlNodeSet();
 
-		operator bool() const;
+		const XmlNodeSet & operator = (XmlNodeSet && other);
 
 		class iterator
 		{
@@ -37,6 +37,9 @@ namespace opencollada
 		iterator end() const;
 		size_t size() const;
 		XmlNode operator[](int index) const;
+
+	public:
+		static XmlNodeSet null;
 
 	private:
 		XmlNodeSet(xmlXPathObjectPtr xpathObject);
