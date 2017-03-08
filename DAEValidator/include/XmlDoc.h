@@ -1,5 +1,6 @@
 #pragma once
 
+#include "XmlNode.h"
 #include "XmlNodeSet.h"
 #include <libxml/parser.h>
 #include "no_warning_map"
@@ -29,7 +30,26 @@ namespace opencollada
 		operator bool() const;
 		void reset();
 		XmlNode root() const;
-		XmlNode setRoot(const XmlNode & node) const;
+
+		class TempRootMod
+		{
+		public:
+			TempRootMod(const XmlNode & old_root);
+			TempRootMod(TempRootMod && other);
+			~TempRootMod();
+
+		private:
+			TempRootMod(const TempRootMod&) = delete;
+			const TempRootMod & operator = (const TempRootMod&) = delete;
+
+		private:
+			XmlNode mOldDocChildren;
+			XmlNode mOldDocLast;
+		};
+
+		// Temporarily changes document's root node.
+		// Original root is restored when TempRootMod object is destroyed.
+		TempRootMod setTempRoot(const XmlNode & node) const;
 
 	private:
 		XmlDoc(const XmlDoc&) = delete;
