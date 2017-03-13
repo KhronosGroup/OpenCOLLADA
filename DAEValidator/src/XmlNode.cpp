@@ -78,29 +78,6 @@ namespace opencollada
 		return XmlNamespace(mNode->ns);
 	}
 
-	class ScopedSetDocRoot
-	{
-	public:
-		ScopedSetDocRoot(const XmlNode & node)
-			: mDoc(node.doc())
-			, mRoot(mDoc.root())
-		{
-			mDoc.setRoot(node);
-		}
-
-		~ScopedSetDocRoot()
-		{
-			mDoc.setRoot(mRoot);
-		}
-
-	private:
-		const ScopedSetDocRoot & operator = (const ScopedSetDocRoot &) = delete;
-
-	private:
-		XmlDoc & mDoc;
-		XmlNode mRoot;
-	};
-
 	const XmlNodeSet & XmlNode::selectNodes(const string & xpath) const
 	{
 		auto & xpathCache = XmlDoc::GetXmlDoc(mNode->doc).mXPathCache;
@@ -108,12 +85,12 @@ namespace opencollada
 		if (cache != xpathCache.end())
 			return cache->second;
 
-		ScopedSetDocRoot ssdr(*this);
-
 		if (xmlXPathContextPtr context = xmlXPathNewContext(mNode->doc))
 		{
 			xmlXPathRegisterNs(context, BAD_CAST "collada", BAD_CAST "http://www.collada.org/2005/11/COLLADASchema");
 			xmlXPathRegisterNs(context, BAD_CAST "xsi", BAD_CAST "http://www.w3.org/2001/XMLSchema-instance");
+
+			context->node = mNode;
 
 			XmlNodeSet result(xmlXPathEvalExpression(BAD_CAST xpath.c_str(), context));
 			xmlXPathFreeContext(context);
