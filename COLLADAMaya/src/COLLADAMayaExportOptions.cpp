@@ -31,7 +31,7 @@ namespace COLLADAMaya
 		MString("Relative to exported DAE"),
 		MString("Relative to Maya project workspace")
 	};
-	ExportOptions::SourceDataFormat ExportOptions::mSourceDataFormat = ExportOptions::SourceDataFormat::Absolute;
+	ExportOptions::SourceDataFormat ExportOptions::mSourceDataFormat = ExportOptions::Absolute;
     bool ExportOptions::mBakeTransforms = true;
     bool ExportOptions::mRelativePaths = true;
 	bool ExportOptions::mPreserveSourceTree = false;
@@ -78,7 +78,7 @@ namespace COLLADAMaya
 		mDAEmodelName = "";
         
 		// Reset everything to the default value
-		mSourceDataFormat = SourceDataFormat::Absolute;
+		mSourceDataFormat = Absolute;
         mBakeTransforms = false;
         mRelativePaths = true;
 		mPreserveSourceTree = false;

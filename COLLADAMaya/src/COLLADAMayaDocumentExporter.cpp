@@ -335,15 +335,15 @@ namespace COLLADAMaya
             COLLADASW::URI sourceFileUri ( COLLADASW::URI::nativePathToUri ( currentScene ) );
             if ( sourceFileUri.getScheme ().empty () )
                 sourceFileUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
-			if (sourceFileUri.scheme() == COLLADASW::URI::SCHEME_FILE && ExportOptions::sourceDataFormat() != ExportOptions::SourceDataFormat::Absolute)
+			if (sourceFileUri.scheme() == COLLADASW::URI::SCHEME_FILE && ExportOptions::sourceDataFormat() != ExportOptions::Absolute)
 			{
 				COLLADABU::URI relativeTo;
 				switch (ExportOptions::sourceDataFormat())
 				{
-				case ExportOptions::SourceDataFormat::RelativeToExportedDAE:
+				case ExportOptions::RelativeToExportedDAE:
 					relativeTo = COLLADABU::URI::nativePathToUri(getFilename());
 					break;
-				case ExportOptions::SourceDataFormat::RelativeToMayaProjectWorkspace:
+				case ExportOptions::RelativeToMayaProjectWorkspace:
 				{
 					MString workspace;
 					if (MGlobal::executeCommand(MString("workspace -q -rd;"), workspace))
