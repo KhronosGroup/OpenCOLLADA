@@ -340,18 +340,20 @@ namespace COLLADAMaya
 				COLLADABU::URI relativeTo;
 				switch (ExportOptions::sourceDataFormat())
 				{
-				case ExportOptions::RelativeToExportedDAE:
-					relativeTo = COLLADABU::URI::nativePathToUri(getFilename());
-					break;
-				case ExportOptions::RelativeToMayaProjectWorkspace:
-				{
-					MString workspace;
-					if (MGlobal::executeCommand(MString("workspace -q -rd;"), workspace))
-						relativeTo = COLLADABU::URI::nativePathToUri(String(workspace.asChar()));
-					else
-						MGlobal::displayError("Cannot query workspace. <source_data> will be absolute.");
-				}
-					break;
+					case ExportOptions::RelativeToExportedDAE:
+					{
+						relativeTo = COLLADABU::URI::nativePathToUri(getFilename());
+						break;
+					}
+					case ExportOptions::RelativeToMayaProjectWorkspace:
+					{
+						MString workspace;
+						if (MGlobal::executeCommand(MString("workspace -q -rd;"), workspace))
+							relativeTo = COLLADABU::URI::nativePathToUri(String(workspace.asChar()));
+						else
+							MGlobal::displayError("Cannot query workspace. <source_data> will be absolute.");
+						break;
+					}
 				}
 
 				relativeTo.setScheme(COLLADABU::URI::SCHEME_FILE);

@@ -82,6 +82,7 @@ global proc int openColladaExporterOpts ( string $parent,
 						menuItem -label "Relative to exported DAE";
 						menuItem -label "Relative to Maya project workspace";
 					setParent -m ..;
+					optionMenu -e -select 3 colladaSourceDataFormat;
 
 					checkBoxGrp
 							-l " "
