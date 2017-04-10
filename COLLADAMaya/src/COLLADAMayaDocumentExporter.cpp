@@ -326,7 +326,11 @@ namespace COLLADAMaya
 					}
 					mStreamWriter.closeElement();
 				}
+				else
+					MGlobal::displayWarning("Workspace path is empty. <source_data_base_uri> won't be exported.");
 			}
+			else
+				MGlobal::displayWarning("Can't query workspace. <source_data_base_uri> won't be exported.");
         }
 
         mStreamWriter.endDocument();
