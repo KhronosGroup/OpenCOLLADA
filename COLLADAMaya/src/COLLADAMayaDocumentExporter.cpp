@@ -305,6 +305,28 @@ namespace COLLADAMaya
                 // Export the images
                 mImageExporter->exportImages ( imageMap );
             }
+
+			MString workspace;
+			if (MGlobal::executeCommand(MString("workspace -q -rd;"), workspace))
+			{
+				if (workspace.length() > 0)
+				{
+					COLLADABU::URI workspaceURI = COLLADABU::URI::nativePathToUri(String(workspace.asChar()));
+					workspaceURI.setScheme(COLLADABU::URI::SCHEME_FILE);
+					mStreamWriter.openElement(COLLADASW::CSWC::CSW_ELEMENT_EXTRA);
+					{
+						mStreamWriter.openElement(COLLADASW::CSWC::CSW_ELEMENT_TECHNIQUE);
+						mStreamWriter.appendAttribute(COLLADASW::CSWC::CSW_ATTRIBUTE_PROFILE, PROFILE_MAYA);
+						{
+							mStreamWriter.openElement("workspace");
+							mStreamWriter.appendText(workspaceURI.getURIString());
+							mStreamWriter.closeElement();
+						}
+						mStreamWriter.closeElement();
+					}
+					mStreamWriter.closeElement();
+				}
+			}
         }
 
         mStreamWriter.endDocument();
