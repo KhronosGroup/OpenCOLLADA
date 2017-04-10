@@ -316,9 +316,9 @@ namespace COLLADAMaya
 					mStreamWriter.openElement(COLLADASW::CSWC::CSW_ELEMENT_EXTRA);
 					{
 						mStreamWriter.openElement(COLLADASW::CSWC::CSW_ELEMENT_TECHNIQUE);
-						mStreamWriter.appendAttribute(COLLADASW::CSWC::CSW_ATTRIBUTE_PROFILE, PROFILE_MAYA);
+						mStreamWriter.appendAttribute(COLLADASW::CSWC::CSW_ATTRIBUTE_PROFILE, PROFILE_COLLADA);
 						{
-							mStreamWriter.openElement("workspace");
+							mStreamWriter.openElement(COLLADASW::CSWC::CSW_ELEMENT_SOURCE_DATA_BASE_URI);
 							mStreamWriter.appendText(workspaceURI.getURIString());
 							mStreamWriter.closeElement();
 						}
