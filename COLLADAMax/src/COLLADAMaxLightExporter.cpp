@@ -141,7 +141,7 @@ namespace COLLADAMax
 	//---------------------------------------------------------------
 	void LightExporter::doExport()
 	{
-		exportEnvironmentAmbientLight();
+		//exportEnvironmentAmbientLight();
 		doExport( mExportSceneGraph->getRootExportNode() );
 		closeLibrary();
 	}

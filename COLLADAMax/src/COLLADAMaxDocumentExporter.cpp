@@ -113,11 +113,16 @@ namespace COLLADAMax
 		exportGeometries();
 		exportControllers();
 		exportCameras();
-		exportLights();
+		if (false)			//获取界面数据，判断是否导出灯光
+		{
+			exportLights();
+		}	
 		exportImages();
 		exportVisualScenes();
-		if ( mOptions.getExportAnimations() )
+		if (mOptions.getExportAnimations())
+		{
 			exportAnimations();
+		}
 		exportScene();
 
 		deleteExporters();
