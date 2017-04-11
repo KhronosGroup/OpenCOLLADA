@@ -237,6 +237,7 @@ namespace COLLADASW
 		static const String CSW_ELEMENT_LINEAR_VELOCITY;
 		static const String CSW_ELEMENT_FORCE_LIMIT;
 		static const String CSW_ELEMENT_DRIVE_FLAGS;
+		static const String CSW_ELEMENT_FORCE_TO_SLEEP;
         static const String CSW_ELEMENT_MINFILTER;
         static const String CSW_ELEMENT_MIPFILTER;
         static const String CSW_ELEMENT_MIP_LEVELS;

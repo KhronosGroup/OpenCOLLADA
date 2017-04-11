@@ -226,6 +226,7 @@ namespace COLLADASW
 	const String CSWC::CSW_ELEMENT_LINEAR_VELOCITY = "linear_velocity";
 	const String CSWC::CSW_ELEMENT_FORCE_LIMIT = "force_limit";
 	const String CSWC::CSW_ELEMENT_DRIVE_FLAGS = "drive_flags";
+	const String CSWC::CSW_ELEMENT_FORCE_TO_SLEEP = "force_to_sleep";
     const String CSWC::CSW_ELEMENT_MINFILTER = "minfilter";
     const String CSWC::CSW_ELEMENT_MIPFILTER = "mipfilter";
     const String CSWC::CSW_ELEMENT_MIP_LEVELS = "mip_levels";
