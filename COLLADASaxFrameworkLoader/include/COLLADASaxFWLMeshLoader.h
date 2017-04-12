@@ -363,13 +363,13 @@ namespace COLLADASaxFWL
 
 
 		/** Sets the offsets for the different semantics (positions normals etc)*/
-		void initializeOffsets();
-        void initializeTexCoordsOffset ();
-        void initializeColorsOffset ();
+        bool initializeOffsets();
+        bool initializeTexCoordsOffset ();
+        bool initializeColorsOffset ();
         void initializeNormalsOffset ();
         void initializeTangentsOffset ();
         void initializeBinormalsOffset ();
-        void initializePositionsOffset ();
+        bool initializePositionsOffset ();
 
 		/** Writes all the indices in data into the indices array of the current mesh primitive.*/
 		bool writePrimitiveIndices ( const unsigned long long* data, size_t length );
