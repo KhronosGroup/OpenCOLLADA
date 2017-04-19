@@ -295,6 +295,7 @@ namespace COLLADASW
         static const String CSW_ELEMENT_SOURCE;
         static const String CSW_ELEMENT_SPECULAR;
         static const String CSW_ELEMENT_SOURCE_DATA;
+		static const String CSW_ELEMENT_SOURCE_DATA_BASE_URI;
 		static const String CSW_ELEMENT_SPLINE;
 		static const String CSW_ELEMENT_SPOT;
         static const String CSW_ELEMENT_STENCIL_CLEAR;

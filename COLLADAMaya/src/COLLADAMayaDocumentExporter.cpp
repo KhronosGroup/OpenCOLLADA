@@ -305,6 +305,32 @@ namespace COLLADAMaya
                 // Export the images
                 mImageExporter->exportImages ( imageMap );
             }
+
+			MString workspace;
+			if (MGlobal::executeCommand(MString("workspace -q -rd;"), workspace))
+			{
+				if (workspace.length() > 0)
+				{
+					COLLADABU::URI workspaceURI = COLLADABU::URI::nativePathToUri(String(workspace.asChar()));
+					workspaceURI.setScheme(COLLADABU::URI::SCHEME_FILE);
+					mStreamWriter.openElement(COLLADASW::CSWC::CSW_ELEMENT_EXTRA);
+					{
+						mStreamWriter.openElement(COLLADASW::CSWC::CSW_ELEMENT_TECHNIQUE);
+						mStreamWriter.appendAttribute(COLLADASW::CSWC::CSW_ATTRIBUTE_PROFILE, PROFILE_COLLADA);
+						{
+							mStreamWriter.openElement(COLLADASW::CSWC::CSW_ELEMENT_SOURCE_DATA_BASE_URI);
+							mStreamWriter.appendText(workspaceURI.getURIString());
+							mStreamWriter.closeElement();
+						}
+						mStreamWriter.closeElement();
+					}
+					mStreamWriter.closeElement();
+				}
+				else
+					MGlobal::displayWarning("Workspace path is empty. <source_data_base_uri> won't be exported.");
+			}
+			else
+				MGlobal::displayWarning("Can't query workspace. <source_data_base_uri> won't be exported.");
         }
 
         mStreamWriter.endDocument();
@@ -335,6 +361,37 @@ namespace COLLADAMaya
             COLLADASW::URI sourceFileUri ( COLLADASW::URI::nativePathToUri ( currentScene ) );
             if ( sourceFileUri.getScheme ().empty () )
                 sourceFileUri.setScheme ( COLLADASW::URI::SCHEME_FILE );
+			if (sourceFileUri.scheme() == COLLADASW::URI::SCHEME_FILE && ExportOptions::sourceDataFormat() != ExportOptions::Absolute)
+			{
+				COLLADABU::URI relativeTo;
+				switch (ExportOptions::sourceDataFormat())
+				{
+					case ExportOptions::RelativeToExportedDAE:
+					{
+						relativeTo = COLLADABU::URI::nativePathToUri(getFilename());
+						break;
+					}
+					case ExportOptions::RelativeToMayaProjectWorkspace:
+					{
+						MString workspace;
+						if (MGlobal::executeCommand(MString("workspace -q -rd;"), workspace))
+							relativeTo = COLLADABU::URI::nativePathToUri(String(workspace.asChar()));
+						else
+							MGlobal::displayError("Cannot query workspace. <source_data> will be absolute.");
+						break;
+					}
+				}
+
+				relativeTo.setScheme(COLLADABU::URI::SCHEME_FILE);
+
+				bool ok = false;
+				sourceFileUri = sourceFileUri.getRelativeTo(relativeTo, ok);
+				if (!ok)
+				{
+					String message = "Cannot make " + sourceFileUri.getURIString() + " relative to " + relativeTo.getURIString() + ". An absolute path will be written to <source_data>.";
+					MGlobal::displayError(message.c_str());
+				}
+			}
             asset.getContributor().mSourceData = sourceFileUri.getURIString();
         }
 		
@@ -349,46 +406,48 @@ namespace COLLADAMaya
 			(COLLADABU::CURRENT_REVISION.empty() ? "" : String(";  ") + String("Revision: ") + COLLADABU::CURRENT_REVISION.substr(foundLast + 1));
 		
         // comments
-		MString optstr = MString("\n\t\t\tColladaMaya export options: ")
-			+ "\n\t\t\tbakeTransforms=" + ExportOptions::bakeTransforms()
-			+ ";relativePaths=" + ExportOptions::relativePaths()
-			+ ";preserveSourceTree=" + ExportOptions::preserveSourceTree()
-			+ ";copyTextures=" + ExportOptions::copyTextures()
-			+ ";exportTriangles=" + ExportOptions::exportTriangles()
-			+ ";exportCgfxFileReferences=" + ExportOptions::exportCgfxFileReferences()
-			+ ";\n\t\t\tisSampling=" + ExportOptions::isSampling()
-			+ ";curveConstrainSampling=" + ExportOptions::curveConstrainSampling()
-			+ ";removeStaticCurves=" + ExportOptions::removeStaticCurves()
-			+ ";exportPhysics=" + ExportOptions::exportPhysics()
-            + ";exportConvexMeshGeometries=" + ExportOptions::exportConvexMeshGeometries()
-            + ";exportPolygonMeshes=" + ExportOptions::exportPolygonMeshes() 
-            + ";exportLights=" + ExportOptions::exportLights() 
-            + ";\n\t\t\texportCameras=" + ExportOptions::exportCameras() 
-			+ ";exportAnimationsOnly=" + ExportOptions::exportAnimationsOnly()
-			+ ";exportSeparateFile=" + ExportOptions::exportSeparateFile()
-			+ ";modelNameDAE=" + ExportOptions::getDAEmodelName()
-            + ";exportJoints=" + ExportOptions::exportJoints() 
-			+ ";exportSkin=" + ExportOptions::exportSkin()
-            + ";exportAnimations=" + ExportOptions::exportAnimations()
-            + ";exportOptimizedBezierAnimation=" + ExportOptions::exportOptimizedBezierAnimations()
-            + ";exportInvisibleNodes=" + ExportOptions::exportInvisibleNodes()
-            + ";exportDefaultCameras=" + ExportOptions::exportDefaultCameras()
-            + ";\n\t\t\texportTexCoords=" + ExportOptions::exportTexCoords()
-            + ";exportNormals=" + ExportOptions::exportNormals() 
-            + ";exportNormalsPerVertex=" + ExportOptions::exportNormalsPerVertex() 
-            + ";exportVertexColors=" + ExportOptions::exportVertexColors()
-            + ";exportVertexColorsPerVertex=" + ExportOptions::exportVertexColorsPerVertex()
-            + ";\n\t\t\texportTexTangents=" + ExportOptions::exportTexTangents() 
-            + ";exportTangents=" + ExportOptions::exportTangents() 
-            + ";exportReferencedMaterials=" + ExportOptions::exportReferencedMaterials() 
-            + ";exportMaterialsOnly=" + ExportOptions::exportMaterialsOnly() 
-            + ";\n\t\t\texportXRefs=" + ExportOptions::exportXRefs() 
-            + ";dereferenceXRefs=" + ExportOptions::dereferenceXRefs() 
-            + ";exportCameraAsLookat=" + ExportOptions::exportCameraAsLookat() 
-            + ";cameraXFov=" + ExportOptions::cameraXFov() 
-            + ";cameraYFov=" + ExportOptions::cameraYFov() 
-			+ ";encodedNames=" + ExportOptions::exportEncodedNames()
-            + ";doublePrecision=" + ExportOptions::doublePrecision () + "\n\t\t";
+		MString optstr = MString("\n        ColladaMaya export options:")
+			+ "\n          sourceDataFormat=" + ExportOptions::sourceDataFormatToString().asChar()
+			+ ";\n          bakeTransforms=" + ExportOptions::bakeTransforms()
+			+ ";\n          relativePaths=" + ExportOptions::relativePaths()
+			+ ";\n          preserveSourceTree=" + ExportOptions::preserveSourceTree()
+			+ ";\n          copyTextures=" + ExportOptions::copyTextures()
+			+ ";\n          exportTriangles=" + ExportOptions::exportTriangles()
+			+ ";\n          exportCgfxFileReferences=" + ExportOptions::exportCgfxFileReferences()
+			+ ";\n          isSampling=" + ExportOptions::isSampling()
+			+ ";\n          curveConstrainSampling=" + ExportOptions::curveConstrainSampling()
+			+ ";\n          removeStaticCurves=" + ExportOptions::removeStaticCurves()
+			+ ";\n          exportPhysics=" + ExportOptions::exportPhysics()
+			+ ";\n          exportConvexMeshGeometries=" + ExportOptions::exportConvexMeshGeometries()
+			+ ";\n          exportPolygonMeshes=" + ExportOptions::exportPolygonMeshes()
+			+ ";\n          exportLights=" + ExportOptions::exportLights()
+			+ ";\n          exportCameras=" + ExportOptions::exportCameras()
+			+ ";\n          exportAnimationsOnly=" + ExportOptions::exportAnimationsOnly()
+			+ ";\n          exportSeparateFile=" + ExportOptions::exportSeparateFile()
+			+ ";\n          modelNameDAE=" + ExportOptions::getDAEmodelName()
+			+ ";\n          exportJoints=" + ExportOptions::exportJoints()
+			+ ";\n          exportSkin=" + ExportOptions::exportSkin()
+			+ ";\n          exportAnimations=" + ExportOptions::exportAnimations()
+			+ ";\n          exportOptimizedBezierAnimation=" + ExportOptions::exportOptimizedBezierAnimations()
+			+ ";\n          exportInvisibleNodes=" + ExportOptions::exportInvisibleNodes()
+			+ ";\n          exportDefaultCameras=" + ExportOptions::exportDefaultCameras()
+			+ ";\n          exportTexCoords=" + ExportOptions::exportTexCoords()
+			+ ";\n          exportNormals=" + ExportOptions::exportNormals()
+			+ ";\n          exportNormalsPerVertex=" + ExportOptions::exportNormalsPerVertex()
+			+ ";\n          exportVertexColors=" + ExportOptions::exportVertexColors()
+			+ ";\n          exportVertexColorsPerVertex=" + ExportOptions::exportVertexColorsPerVertex()
+			+ ";\n          exportTexTangents=" + ExportOptions::exportTexTangents()
+			+ ";\n          exportTangents=" + ExportOptions::exportTangents()
+			+ ";\n          exportReferencedMaterials=" + ExportOptions::exportReferencedMaterials()
+			+ ";\n          exportMaterialsOnly=" + ExportOptions::exportMaterialsOnly()
+			+ ";\n          exportXRefs=" + ExportOptions::exportXRefs()
+			+ ";\n          dereferenceXRefs=" + ExportOptions::dereferenceXRefs()
+			+ ";\n          exportCameraAsLookat=" + ExportOptions::exportCameraAsLookat()
+			+ ";\n          cameraXFov=" + ExportOptions::cameraXFov()
+			+ ";\n          cameraYFov=" + ExportOptions::cameraYFov()
+			+ ";\n          encodedNames=" + ExportOptions::exportEncodedNames()
+			+ ";\n          doublePrecision=" + ExportOptions::doublePrecision()
+			+ "\n      ";
         asset.getContributor().mComments = optstr.asChar();
 
         // Up axis

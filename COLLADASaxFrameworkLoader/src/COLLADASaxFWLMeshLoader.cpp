@@ -707,8 +707,9 @@ namespace COLLADASaxFWL
 
 
 	//------------------------------
-	void MeshLoader::initializeOffsets()
+	bool MeshLoader::initializeOffsets()
 	{
+        bool has_errors = false;
         // Reset the members
         mCurrentOffset = 0;
         mPositionsOffset = 0;
@@ -727,37 +728,44 @@ namespace COLLADASaxFWL
 		mCurrentMaxOffset = (size_t)mMeshPrimitiveInputs.getInputArrayMaxOffset ();
 
 		// The offset values of the input elements.
-        initializePositionsOffset();
+        has_errors |= initializePositionsOffset();
         initializeNormalsOffset();
-        initializeColorsOffset();
-        initializeTexCoordsOffset();
+        has_errors |= initializeColorsOffset();
+        has_errors |= initializeTexCoordsOffset();
         initializeTangentsOffset();
         initializeBinormalsOffset();
+        return has_errors;
 	}
 
     //------------------------------
-    void MeshLoader::initializePositionsOffset ()
+    bool MeshLoader::initializePositionsOffset ()
     {
+        bool has_errors = false;
         const InputShared* positionInput = mMeshPrimitiveInputs.getPositionInput ();
-		COLLADABU_ASSERT ( positionInput != 0 );
-        if ( positionInput == 0 )
-            handleFWLError ( SaxFWLError::ERROR_DATA_NOT_VALID, "No positions, can't import!", IError::SEVERITY_CRITICAL );
+        COLLADABU_ASSERT ( positionInput != 0 );
+        if (positionInput == 0) {
+            has_errors |= handleFWLError(SaxFWLError::ERROR_DATA_NOT_VALID, "No positions, can't import!", IError::SEVERITY_CRITICAL);
+        }
+        else {
+            // Get the offset value, the initial index values and alloc the memory.
+            mPositionsOffset = positionInput->getOffset();
+        }
 
-        // Get the offset value, the initial index values and alloc the memory.
-        mPositionsOffset = positionInput->getOffset ();
         COLLADABU::URI inputUrl = positionInput->getSource ();
         String sourceId = inputUrl.getFragment ();
         const SourceBase* sourceBase = getSourceById ( sourceId );
         COLLADABU_ASSERT ( sourceBase != 0 );
         if ( sourceBase == 0 )
-            handleFWLError ( SaxFWLError::ERROR_DATA_NOT_VALID, "Positions sourceBase is null.", IError::SEVERITY_CRITICAL );
+            has_errors |= handleFWLError(SaxFWLError::ERROR_DATA_NOT_VALID, "Positions sourceBase is null.", IError::SEVERITY_CRITICAL);
+        else {
+            // only stride 3 makes sense for normals
+            unsigned long long stride = sourceBase->getStride();
+            if (stride != 3)
+                has_errors |= handleFWLError(SaxFWLError::ERROR_DATA_NOT_VALID, "Positios stride is not three.", IError::SEVERITY_CRITICAL);
 
-        // only stride 3 makes sense for normals
-        unsigned long long stride = sourceBase->getStride();
-        if ( stride != 3 )
-            handleFWLError ( SaxFWLError::ERROR_DATA_NOT_VALID, "Positios stride is not three.", IError::SEVERITY_CRITICAL );
-
-        mPositionsIndexOffset = (unsigned int)sourceBase->getInitialIndex();
+            mPositionsIndexOffset = (unsigned int)sourceBase->getInitialIndex();
+        }
+        return has_errors;
     }
 
     //------------------------------
@@ -876,7 +884,7 @@ namespace COLLADASaxFWL
     }
 
     //------------------------------
-    void MeshLoader::initializeColorsOffset ()
+    bool MeshLoader::initializeColorsOffset ()
     {
         // Check for using colors
         const InputSharedArray& inputArray = mMeshPrimitiveInputs.getInputArray ();
@@ -892,8 +900,7 @@ namespace COLLADASaxFWL
                 SourceBase* sourceBase = getSourceById ( sourceId );
                 if ( sourceBase == 0 ) 
                 {
-                    handleFWLError ( SaxFWLError::ERROR_DATA_NOT_VALID, "SourceBase of tex coords with semantic TEXCOORD not valid!" );
-                    return;
+                    return handleFWLError ( SaxFWLError::ERROR_DATA_NOT_VALID, "SourceBase of tex coords with semantic TEXCOORD not valid!" );
                 }
 
                 // only stride 1, 2, 3 or 4 makes sense for uv coords
@@ -913,10 +920,11 @@ namespace COLLADASaxFWL
                 mColorList.push_back ( color );
             }
         }
+		return false;
     }
 
     //------------------------------
-    void MeshLoader::initializeTexCoordsOffset ()
+    bool MeshLoader::initializeTexCoordsOffset ()
     {
         // Check for using tex coordinates 
         const InputSharedArray& inputArray = mMeshPrimitiveInputs.getInputArray ();
@@ -932,8 +940,7 @@ namespace COLLADASaxFWL
                 SourceBase* sourceBase = getSourceById ( sourceId );
                 if ( sourceBase == 0 ) 
                 {
-                    handleFWLError ( SaxFWLError::ERROR_DATA_NOT_VALID, "SourceBase of tex coords with semantic TEXCOORD not valid!" );
-                    return;
+                    return handleFWLError ( SaxFWLError::ERROR_DATA_NOT_VALID, "SourceBase of tex coords with semantic TEXCOORD not valid!" );
                 }
 
                 // only stride 1, 2, 3 or 4 makes sense for uv coords
@@ -953,6 +960,7 @@ namespace COLLADASaxFWL
                 mTexCoordList.push_back ( texCoord );
             }
         }
+		return false;
     }
 
 
@@ -1385,13 +1393,15 @@ namespace COLLADASaxFWL
 		case TRIANGLES:
 			{
 				loadSourceElements(mMeshPrimitiveInputs);
-				initializeOffsets();
+				if (initializeOffsets())
+					return false; // abort
 			}
 			break;
         case LINES:
             {
                 loadSourceElements(mMeshPrimitiveInputs);
-                initializeOffsets();
+				if (initializeOffsets())
+					return false; // abort
                 mCurrentMeshPrimitive = new COLLADAFW::Lines(createUniqueId(COLLADAFW::Lines::ID()));
                 if ( mCurrentCOLLADAPrimitiveCount > 0)
                 {
@@ -1411,7 +1421,8 @@ namespace COLLADASaxFWL
 				if ( mPOrPhElementCountOfCurrentPrimitive == 0)
 				{
 					loadSourceElements(mMeshPrimitiveInputs);
-					initializeOffsets();
+					if (initializeOffsets())
+						return false; // abort
 				}
 				int currentTrifanVertexCount = (int)mCurrentVertexCount - (int)mCurrentLastPrimitiveVertexCount;
 				if ( currentTrifanVertexCount > 0 )
@@ -1450,7 +1461,8 @@ namespace COLLADASaxFWL
 				if ( mPOrPhElementCountOfCurrentPrimitive == 0)
 				{
 					loadSourceElements(mMeshPrimitiveInputs);
-					initializeOffsets();
+					if (initializeOffsets())
+						return false; // abort
 				}
 			}
 			break;
