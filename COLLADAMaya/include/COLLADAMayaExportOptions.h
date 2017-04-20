@@ -30,13 +30,6 @@ namespace COLLADAMaya
      */
     class ExportOptions
     {
-	public:
-		enum SourceDataFormat
-		{
-			Absolute,
-			RelativeToExportedDAE,
-			RelativeToMayaProjectWorkspace
-		};
 
     private:
 
@@ -52,14 +45,6 @@ namespace COLLADAMaya
 
 		/** True, if we want to export LOD from LODGroup. */
 		static bool mLOD;
-
-		/** <source_data> element path format:
-		"Absolute"
-		"Relative to exported DAE"
-		"Relative to Maya project workspace"
-		*/
-		static MString mSourceDataFormats[3];
-		static SourceDataFormat mSourceDataFormat;
 
         /** True, if we should a write transform matrix. */
         static bool mBakeTransforms;
@@ -140,9 +125,6 @@ namespace COLLADAMaya
 		static MString getDAEmodelName();
 		static bool exportLOD();
 		static bool exportEncodedNames();
-
-		static SourceDataFormat sourceDataFormat();
-		static MString sourceDataFormatToString();
 
         /** Should the transforms be baked into a single matrix, as opposed to decomposed into 
         primitive collada transforms (e.g. translate, rotate, scale)? Default: FALSE */
