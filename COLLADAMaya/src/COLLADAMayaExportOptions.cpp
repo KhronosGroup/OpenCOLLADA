@@ -26,12 +26,6 @@ namespace COLLADAMaya
 	MString  ExportOptions::mDAEmodelName = "";
 	bool ExportOptions::mEncodedNames = true;
 	bool ExportOptions::mLOD = true;
-	MString ExportOptions::mSourceDataFormats[3] = {
-		MString("Absolute"),
-		MString("Relative to exported DAE"),
-		MString("Relative to Maya project workspace")
-	};
-	ExportOptions::SourceDataFormat ExportOptions::mSourceDataFormat = ExportOptions::RelativeToMayaProjectWorkspace;
     bool ExportOptions::mBakeTransforms = true;
     bool ExportOptions::mRelativePaths = true;
 	bool ExportOptions::mPreserveSourceTree = false;
@@ -78,7 +72,6 @@ namespace COLLADAMaya
 		mDAEmodelName = "";
         
 		// Reset everything to the default value
-		mSourceDataFormat = RelativeToMayaProjectWorkspace;
         mBakeTransforms = false;
         mRelativePaths = true;
 		mPreserveSourceTree = false;
@@ -147,15 +140,7 @@ namespace COLLADAMaya
                     value = false;
 				
                 // Process options.
-				if (optionName == "sourceDataFormat")
-				{
-					for (int i = 0; i < sizeof(mSourceDataFormats) / sizeof(mSourceDataFormats[0]); ++i) {
-						if (decomposedOption[1] == mSourceDataFormats[i]) {
-							mSourceDataFormat = static_cast<SourceDataFormat>(i);
-						}
-					}
-				}
-                else if ( optionName == "bakeTransforms" ) mBakeTransforms = value;
+                if ( optionName == "bakeTransforms" ) mBakeTransforms = value;
                 else if ( optionName == "relativePaths" ) mRelativePaths = value;
 				else if ( optionName == "preserveSourceTree" ) mPreserveSourceTree = value;
                 else if ( optionName == "exportTriangles" ) mExportTriangles = value;
@@ -224,16 +209,6 @@ namespace COLLADAMaya
 	bool ExportOptions::exportEncodedNames()
 	{
 		return mEncodedNames;
-	}
-
-	ExportOptions::SourceDataFormat ExportOptions::sourceDataFormat()
-	{
-		return mSourceDataFormat;
-	}
-
-	MString ExportOptions::sourceDataFormatToString()
-	{
-		return mSourceDataFormats[mSourceDataFormat];
 	}
 
     bool ExportOptions::bakeTransforms()

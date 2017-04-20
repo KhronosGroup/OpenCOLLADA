@@ -77,13 +77,6 @@ global proc int openColladaExporterOpts ( string $parent,
 			frameLayout -cll true -cl false -bv true -bs "etchedIn" -l "General export options" colladaGeneralFrame;
 				columnLayout -adj true colladaGeneralExportOptions;
 
-					optionMenu -l "<source_data> path format:" colladaSourceDataFormat;
-						menuItem -label "Absolute";
-						menuItem -label "Relative to exported DAE";
-						menuItem -label "Relative to Maya project workspace";
-					setParent -m ..;
-					optionMenu -e -select 3 colladaSourceDataFormat;
-
 					checkBoxGrp
 							-l " "
 							-ncb 1
@@ -358,12 +351,7 @@ global proc int openColladaExporterOpts ( string $parent,
 
 // General export options
 //
-				if ($optionBreakDown[0] == "sourceDataFormat")
-				{
-					$strVal = $optionBreakDown[1];
-					optionMenu -e -v $strVal colladaSourceDataFormat;
-				}
-				else if ( $optionBreakDown[0] == "bakeTransforms" )
+				if ( $optionBreakDown[0] == "bakeTransforms" )
 				{
 					$intVal = $optionBreakDown[1];
 					checkBoxGrp -e -v1 $intVal colladaBakeTransforms;
@@ -576,7 +564,6 @@ global proc int openColladaExporterOpts ( string $parent,
 
 // Query general options
 //
-		$currentOptions = $currentOptions + "sourceDataFormat=" + `optionMenu -q -v colladaSourceDataFormat` + ";";
 		$currentOptions = $currentOptions + "bakeTransforms=" + `checkBoxGrp -q -v1 colladaBakeTransforms` + ";";
 		$currentOptions = $currentOptions + "relativePaths=" + `checkBoxGrp -q -v1 colladaRelativePaths` + ";";
 		$currentOptions = $currentOptions + "copyTextures=" + `checkBoxGrp -q -v2 colladaRelativePaths` + ";";
