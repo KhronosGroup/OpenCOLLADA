@@ -4812,11 +4812,17 @@ namespace COLLADAMaya
                 MString command = "optionVar -";
                 switch (mOptions[i].type)
                 {
-                case Integer:   command += "i"; break;
-                case Double:     command += "f"; break;
-                case String:    command += "s"; break;
+                case Integer:	command += "i"; break;
+                case Double:	command += "f"; break;
+                case String:	command += "s"; break;
                 }
-                MGlobal::executeCommand(command + "v \"" + mOptions[i].name + "\" " + mOldValues[i]);
+				command += "v \"" + mOptions[i].name + "\" ";
+				if (mOptions[i].type == String)
+					command += "\"";
+				command += mOldValues[i];
+				if (mOptions[i].type == String)
+					command += "\"";
+                MGlobal::executeCommand(command);
             }
         }
 
