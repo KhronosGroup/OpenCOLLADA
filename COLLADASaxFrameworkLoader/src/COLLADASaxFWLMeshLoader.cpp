@@ -926,7 +926,6 @@ namespace COLLADASaxFWL
     //------------------------------
     bool MeshLoader::initializeTexCoordsOffset ()
     {
-		bool has_errors = false;
         // Check for using tex coordinates 
         const InputSharedArray& inputArray = mMeshPrimitiveInputs.getInputArray ();
         size_t numInputs = inputArray.getCount ();
