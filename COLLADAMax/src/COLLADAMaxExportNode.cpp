@@ -164,6 +164,7 @@ namespace COLLADAMax
 			if (classId == Class_ID(HELIX_CLASS_ID, 0))
 			{
 				// TODO export helix as <geometry>/<mesh>/<linestrips>
+				GetCOREInterface()->Log()->LogEntry(SYSLOG_WARN, FALSE, _M("OpenCOLLADA export"), _M("Helix node type is not supported. Node not exported."));
 				return ExportNode::UNKNOWN;
 			}
 			return SPLINE;
