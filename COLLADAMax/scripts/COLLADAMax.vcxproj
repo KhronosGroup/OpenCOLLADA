@@ -983,7 +983,7 @@
     <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>..\obj\win\$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental>true</LinkIncremental>
-    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
+    <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug_Max2013_static|Win32'">
     <OutDir>..\bin\win\$(Platform)\$(Configuration)\</OutDir>
