@@ -65,6 +65,8 @@ namespace COLLADAMaya
             return rotationParameters;
         }
 
+		bool isIdentity(double tolerance) const;
+
     private:
 
         /**

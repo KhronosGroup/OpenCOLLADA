@@ -30,6 +30,15 @@ namespace COLLADAMaya
         createRotation ();
     }
 
+	// --------------------------------------------
+	bool RotateHelper::isIdentity(double tolerance) const
+	{
+		for (uint i = 0; i < 3; ++i)
+			if (!COLLADABU::Math::Utils::equalsZero(rotationMatrix[i][3], tolerance))
+				return false;
+		return true;
+	}
+
     // --------------------------------------------
     void RotateHelper::createRotation ( )
     {
