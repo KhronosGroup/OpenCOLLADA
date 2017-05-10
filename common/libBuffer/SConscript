@@ -11,7 +11,7 @@ outputDir =  env['libDir']  + env['configurationBaseName'] + '/'
 targetPath = outputDir + libName
 
 
-incDirs = ['include/', '../libftoa/include']
+incDirs = ['include/', '../libftoa/include', '../../Externals/UTF/include']
 
 
 src = []

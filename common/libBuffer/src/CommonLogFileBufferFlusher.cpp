@@ -9,6 +9,33 @@
 */
 
 #include "CommonLogFileBufferFlusher.h"
+#include <stdio.h>
+#include <errno.h>
+
+#ifndef _WIN32
+       FILE *_wfopen(const wchar_t *path, const char *mode)
+       {
+               const wchar_t *src = path;
+               char *path_mbs;
+               int n;
+               FILE *file;
+
+               n = (int)wcsrtombs(NULL, &src, 0, NULL);
+
+               if (n < 0)
+                       return NULL;
+
+               path_mbs = (char *)malloc(n + 1);
+               wcsrtombs(path_mbs, &path, n, NULL);
+               path_mbs[n] = 0;
+
+               file = fopen(path_mbs, mode);
+
+               free(path_mbs);
+
+               return file;
+       }
+#endif
 
 namespace Common
 {
@@ -35,7 +62,7 @@ namespace Common
 #ifdef _WIN32
 		mError = (int)_wfopen_s( &stream, fileName, L"wb" );
 #else
-		stream = _wfopen( fileName, L"wb" );
+               stream = _wfopen( fileName, "wb" );
 		mError = stream ? 0 : errno;
 #endif
 		if ( !mError )
@@ -65,7 +92,7 @@ namespace Common
 #else
 		if ( mUseWideFileName )
 		{
-			stream = _wfopen( mWideFileName.c_str(), L"a" );
+                       stream = _wfopen( mWideFileName.c_str(), "a" );
 		}
 		else
 		{
