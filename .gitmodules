@@ -1,0 +1,3 @@
+[submodule "OpenCOLLADAtests"]
+	path = OpenCOLLADAtests
+	url = https://github.com/fl4re/OpenCOLLADAtests.git
