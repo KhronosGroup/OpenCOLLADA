@@ -11,6 +11,7 @@
 #include "CommonFWriteBufferFlusher.h"
 
 #include <cerrno>
+#include <stdio.h>
 
 namespace Common
 {

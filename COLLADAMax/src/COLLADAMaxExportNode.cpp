@@ -27,6 +27,7 @@
 #include <modstack.h>
 #include <cs/bipexp.h>
 #include <surf_api.h>
+#include <plugapi.h>
 
 namespace COLLADAMax
 {
@@ -160,10 +161,13 @@ namespace COLLADAMax
 				// We do not support NURBS here and use mesh instead
 				//return NURBS_CURVE;
 			}
-			else
+			if (classId == Class_ID(HELIX_CLASS_ID, 0))
 			{
-				return SPLINE;
+				// TODO export helix as <geometry>/<mesh>/<linestrips>
+				GetCOREInterface()->Log()->LogEntry(SYSLOG_WARN, FALSE, _M("OpenCOLLADA export"), _M("Helix node type is not supported. Node not exported."));
+				return ExportNode::UNKNOWN;
 			}
+			return SPLINE;
 		case HELPER_CLASS_ID: 
 			return (classId.PartA() == BONE_CLASS_ID) ? BONE : HELPER;
 		
