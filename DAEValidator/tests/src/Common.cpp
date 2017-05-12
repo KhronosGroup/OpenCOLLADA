@@ -1,6 +1,6 @@
 #include "Common.h"
 
-#define CODE_COVERAGE 1
+#define CODE_COVERAGE 0
 
 #if CODE_COVERAGE
 #include <CodeCoverage/CodeCoverage.h>
