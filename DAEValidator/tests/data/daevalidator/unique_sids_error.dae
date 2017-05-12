@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<asset>
+		<created>2017-03-08T13:35:39</created>
+		<modified>2017-03-08T13:35:39</modified>
+	</asset>
+	<library_animations>
+		<animation>
+			<source id="source_0">
+				<float_array id="float_array_0" count="1">0</float_array>
+				<technique_common>
+					<accessor source="#float_array_0" count="1"/>
+				</technique_common>
+			</source>
+			<source id="source_2">
+				<IDREF_array count="1">node_2</IDREF_array>
+			</source>
+			<sampler id="sampler_0">
+				<input semantic="INPUT" source="#source_0"/>
+			</sampler>
+			<channel source="#sampler_0" target="node_1/translate.X"/>
+		</animation>
+	</library_animations>
+	<library_cameras>
+		<camera id="camera_0">
+			<optics>
+				<technique_common>
+					<perspective>
+						<xfov>90</xfov>
+						<yfov>90</yfov>
+						<znear>1</znear>
+						<zfar>INF</zfar>
+					</perspective>
+				</technique_common>
+			</optics>
+		</camera>
+	</library_cameras>
+	<library_controllers>
+		<controller id="controller_0">
+			<skin source="#geometry_0">
+				<source id="joints">
+					<Name_array id="name_array_0" count="1">Root</Name_array>
+					<technique_common>
+						<accessor source="#name_array_0" count="1"/>
+					</technique_common>
+				</source>
+				<source id="weights">
+					<float_array id="float_array_1" count="1">0</float_array>
+					<technique_common>
+						<accessor source="#float_array_1" count="1"/>
+					</technique_common>
+				</source>
+				<source id="inv_bind_mats">
+					<float_array id="float_array_2" count="16">1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</float_array>
+					<technique_common>
+						<accessor source="#float_array_2" count="1"/>
+					</technique_common>
+				</source>
+				<joints>
+					<input semantic="JOINT" source="#joints"/>
+					<input semantic="INV_BIND_MATRIX" source="#inv_bind_mats"/>
+				</joints>
+				<vertex_weights count="1">
+					<input offset="0" semantic="JOINT" source="#joints"/>
+					<input offset="0" semantic="WEIGHT" source="#weights"/>
+					<vcount>1</vcount>
+					<v>0 0</v>
+				</vertex_weights>
+			</skin>
+		</controller>
+	</library_controllers>
+	<library_effects>
+		<effect id="effect_0">
+			<profile_GLSL>
+				<include sid="shader" url="./shader.glsl"/>
+				<technique sid="shaded">
+					<pass/>
+				</technique>
+			</profile_GLSL>
+		</effect>
+	</library_effects>
+	<library_geometries>
+		<geometry id="geometry_0">
+			<mesh>
+				<source id="source_1">
+					<float_array id="float_array_3" count="1">0</float_array>
+					<technique_common>
+						<accessor source="#float_array_3" count="1" stride="1">
+							<param name="X" type="float"/>
+						</accessor>
+					</technique_common>
+				</source>
+				<vertices id="vertices_0">
+					<input semantic="POSITION" source="#float_array_3"/>
+				</vertices>
+				<triangles material="initialShadingGroup" count="1">
+					<input semantic="VERTEX" source="#float_array_3" offset="0"/>
+					<p>0 0 0</p>
+				</triangles>
+			</mesh>
+		</geometry>
+		<geometry id="geometry_1">
+			<convex_mesh convex_hull_of="#geometry_0"/>
+		</geometry>
+	</library_geometries>
+	<library_images>
+		<image>
+			<init_from>./image.jpg</init_from>
+		</image>
+		<image>
+			<init_from></init_from>
+		</image>
+	</library_images>
+	<library_nodes>
+		<node id="node_0"/>
+	</library_nodes>
+	<library_physics_models>
+		<physics_model id="physics_model_0">
+			<rigid_body sid="rigid_body_a">
+				<technique_common>
+					<dynamic>0</dynamic>
+					<mass>1</mass>
+					<mass_frame>
+						<translate sid="translate">0 0 0</translate>
+						<translate sid="translate">1 1 1</translate>
+					</mass_frame>
+					<inertia>1 1 1</inertia>
+					<physics_material id="physics_material_0">
+						<technique_common>
+							<dynamic_friction>0.5</dynamic_friction>
+							<restitution>0.5</restitution>
+							<static_friction>0.5</static_friction>
+						</technique_common>
+					</physics_material>
+					<shape>
+						<density>1</density>
+						<box>
+							<half_extents>1 1 1</half_extents>
+						</box>
+					</shape>
+				</technique_common>
+			</rigid_body>
+		</physics_model>
+	</library_physics_models>
+	<library_physics_scenes>
+		<physics_scene id="physics_scene_0">
+			<instance_physics_model url="#physics_model_0" parent="#physics_model_0">
+				<instance_rigid_body body="rigid_body_a" target="#node_1">
+					<technique_common/>
+				</instance_rigid_body>
+			</instance_physics_model>
+			<technique_common>
+				<gravity>0 -9.81 0</gravity>
+			</technique_common>
+		</physics_scene>
+	</library_physics_scenes>
+	<library_visual_scenes>
+		<visual_scene>
+			<node id="node_1">
+				<translate sid="translate">0 0 0</translate>
+				<instance_node url="#node_0"/>
+			</node>
+			<node id="node_2">
+				<instance_controller url="#controller_0">
+					<skeleton>#node_3</skeleton>
+				</instance_controller>
+				<node id="node_3" sid="Root"/>
+			</node>
+			<evaluate_scene>
+				<render camera_node="#camera_0"/>
+			</evaluate_scene>
+		</visual_scene>
+	</library_visual_scenes>
+</COLLADA>

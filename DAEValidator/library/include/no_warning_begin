@@ -1,0 +1,24 @@
+#include "Macros.h"
+#if defined(_WIN32)
+#	pragma warning(push)
+#	pragma warning(disable:4668)
+#	pragma warning(disable:5031)
+#	if defined(_MSC_VER) && defined(_DEBUG)
+#		pragma warning(disable:4548)
+#	endif
+#	if IS_MSVC_AND_MSVC_VERSION_LT(1900)
+#		pragma warning(disable:4350)
+#	endif
+#	if IS_MSVC_AND_MSVC_VERSION_GTE(1910)
+#		pragma warning(disable:4365)
+#		pragma warning(disable:4061)
+#		pragma warning(disable:4571)
+#		pragma warning(disable:4623)
+#		pragma warning(disable:4625)
+#		pragma warning(disable:4626)
+#		pragma warning(disable:4774)
+#		pragma warning(disable:4987)
+#		pragma warning(disable:5026)
+#		pragma warning(disable:5027)
+#	endif
+#endif

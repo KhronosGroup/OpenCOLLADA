@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<asset>
+		<created>2017-03-08T13:35:39</created>
+		<modified>2017-03-08T13:35:39</modified>
+	</asset>
+	<extra>
+		<technique profile="TestProfile" xmlns:t="test_ns" xsi:schemaLocation="test_ns test_schema.xsd">
+			<t:el/>
+		</technique>
+		<technique profile="TestProfile2" xmlns:t="test_ns" xsi:schemaLocation="test_ns test_schema.xsd">
+			<t:el2/>
+		</technique>
+	</extra>
+</COLLADA>
