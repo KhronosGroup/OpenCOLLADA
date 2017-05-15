@@ -23,6 +23,8 @@
 #include <max.h>
 #include "COLLADAMaxXRefIncludes.h"
 
+#include "COLLADASWException.h"
+
 namespace COLLADAMax
 {
 
@@ -165,6 +167,12 @@ namespace COLLADAMax
 		// resolve nested
 		IDerivedObject* source = (IDerivedObject*) xRefObjectInterface->GetSrcItem(false);
 		
+
+		//If failed to get XRef data
+		if (!source){
+			throw COLLADASW::StreamWriterException(COLLADASW::StreamWriterException::ERROR_TYPE_UNKNOWN, "Failed to resolve XRef");
+		}
+
 		INode* bb1 = source->GetWorldSpaceObjectNode();
 
 

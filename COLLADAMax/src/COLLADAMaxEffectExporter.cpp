@@ -40,6 +40,9 @@
 #include <shaders.h>
 #include <imtl.h> 
 
+
+#include "COLLADASWException.h"
+
 namespace COLLADAMax
 {
 
@@ -179,9 +182,13 @@ namespace COLLADAMax
 			}
 			else
 			{
-				assert(false);
-//				xRefedMaterialList.push_back(mat);
-				return;
+				std::ostringstream err;
+				err << "Failed to get XRef for this material:\n";
+				err << material->GetName();
+				err << "\napplied for this object:\n";
+				err << exportNode->getId();
+
+				throw COLLADASW::StreamWriterException(err.str());
 			}
 		}
 
