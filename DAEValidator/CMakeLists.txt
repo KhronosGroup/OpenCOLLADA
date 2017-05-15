@@ -128,7 +128,7 @@ macro(configure_files srcDir destDir)
     endforeach(templateFile)
 endmacro(configure_files)
 
-if (WIN32)
+if (WIN32 AND ${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}.${CMAKE_PATCH_VERSION} GREATER 3.0.1)
 	set(DAEValidatorTestsSources
 		tests/src/ArgumentParserTests.cpp
 		tests/src/Common.cpp
