@@ -520,6 +520,30 @@ namespace COLLADASW
         static const String CSW_FX_FUNCTION_GEQUAL;
         static const String CSW_FX_FUNCTION_ALWAYS;
 
+        static const String CSW_FX_BLEND_FUNCTION_ZERO;
+        static const String CSW_FX_BLEND_FUNCTION_ONE;
+        static const String CSW_FX_BLEND_FUNCTION_SRC_COLOR;
+        static const String CSW_FX_BLEND_FUNCTION_ONE_MINUS_SRC_COLOR;
+        static const String CSW_FX_BLEND_FUNCTION_DEST_COLOR;
+        static const String CSW_FX_BLEND_FUNCTION_ONE_MINUS_DST_COLOR;
+        static const String CSW_FX_BLEND_FUNCTION_SRC_ALPHA;
+        static const String CSW_FX_BLEND_FUNCTION_ONE_MINUS_SRC_ALPHA;
+        static const String CSW_FX_BLEND_FUNCTION_DST_ALPHA;
+        static const String CSW_FX_BLEND_FUNCTION_ONE_MINUS_DST_ALPHA;
+        static const String CSW_FX_BLEND_FUNCTION_CONSTANT_COLOR;
+        static const String CSW_FX_BLEND_FUNCTION_ONE_MINUS_CONSTANT_COLOR;
+        static const String CSW_FX_BLEND_FUNCTION_ALPHA;
+        static const String CSW_FX_BLEND_FUNCTION_CONSTANT_ALPHA;
+        static const String CSW_FX_BLEND_FUNCTION_ONE_MINUS_CONSTANT_ALPHA;
+        static const String CSW_FX_BLEND_FUNCTION_SRC_ALPHA_SATURATE;
+
+        static const String CSW_FX_BLEND_EQUATION_FUNC_ADD;
+        static const String CSW_FX_BLEND_EQUATION_FUNC_SUBTRACT;
+        static const String CSW_FX_BLEND_EQUATION_FUNC_REVERSE_SUBTRACT;
+        static const String CSW_FX_BLEND_EQUATION_MIN;
+        static const String CSW_FX_BLEND_EQUATION_MAX;
+
+
         static const String CSW_FX_ANNOTATION_RESOURCE_NAME;
         static const String CSW_FX_ANNOTATION_RESOURCE_TYPE;
         static const String CSW_FX_SHADER_STAGE_VERTEX;

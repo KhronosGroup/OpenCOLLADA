@@ -176,6 +176,38 @@ namespace COLLADASW
             PASS_STATE_FN_INVALID /**< An invalid function. */
         };
 
+        enum PassStateBlendFunction
+        {
+            PASS_STATE_BLEND_FN_ZERO,
+            PASS_STATE_BLEND_FN_ONE ,
+            PASS_STATE_BLEND_FN_SRC_COLOR,
+            PASS_STATE_BLEND_FN_ONE_MINUS_SRC_COLOR,
+            PASS_STATE_BLEND_FN_DEST_COLOR,
+            PASS_STATE_BLEND_FN_ONE_MINUS_DST_COLOR,
+            PASS_STATE_BLEND_FN_SRC_ALPHA,
+            PASS_STATE_BLEND_FN_ONE_MINUS_SRC_ALPHA,
+            PASS_STATE_BLEND_FN_DST_ALPHA,
+            PASS_STATE_BLEND_FN_ONE_MINUS_DST_ALPHA,
+            PASS_STATE_BLEND_FN_CONSTANT_COLOR,
+            PASS_STATE_BLEND_FN_ONE_MINUS_CONSTANT_COLOR,
+            PASS_STATE_BLEND_FN_CONSTANT_ALPHA,
+            PASS_STATE_BLEND_FN_ONE_MINUS_CONSTANT_ALPHA,
+            PASS_STATE_BLEND_FN_SRC_ALPHA_SATURATE,
+
+            PASS_STATE_BLEND_FN_INVALID
+        };
+
+        enum PassStateBlendEquation
+        {
+            PASS_STATE_BLEND_EQ_FUNC_ADD,
+            PASS_STATE_BLEND_EQ_FUNC_SUBTRACT,
+            PASS_STATE_BLEND_EQ_FUNC_REVERSE_SUBTRACT,
+            PASS_STATE_BLEND_EQ_MIN,
+            PASS_STATE_BLEND_EQ_MAX,
+
+            PASS_STATE_BLEND_EQ_INVALID
+        };
+
     public:
 
         /** The render states for effect passes. */
@@ -215,6 +247,37 @@ namespace COLLADASW
         @param fn The render state function type.
         @return The render state function string. */
         static const String& getColladaPassStateString ( const PassStateFunction& fn );
+
+        /** Returns the enumeration type of the current CG state. */
+        static const PassStateBlendFunction getPassStateBlendFuncFromCgName ( const char* cgName );
+
+        /** Converts the COLLADASW render state blend function string to the render state blend function type.
+        @param value The render state function string.
+        @return The render state function type. */
+        static const PassStateBlendFunction getPassStateBlendFunction ( const char* val );
+        inline const PassStateBlendFunction getPassStateBlendFunction ( const String& value ) 
+        { return getPassStateBlendFunction ( value.c_str() ); } /**< See above. */
+
+        /** Converts the render state blend function type to its COLLADASW render state blend function string.
+        @param fn The render state function type.
+        @return The render state function string. */
+        static const String& getColladaPassStateBlendFunctionString ( const PassStateBlendFunction& fn );
+
+
+        /** Returns the enumeration type of the current CG state. */
+        static const PassStateBlendEquation getPassStateBlendEquationFromCgName ( const char* cgName );
+
+        /** Converts the COLLADASW render state blend equation string to the render state blend equation type.
+        @param value The render state equation string.
+        @return The render state equation type. */
+        static const PassStateBlendEquation getPassStateBlendEquation ( const char* val );
+        inline const PassStateBlendEquation getPassStateBlendEquation ( const String& value ) 
+        { return getPassStateBlendEquation( value.c_str() ); } /**< See above. */
+
+        /** Converts the render state blend function type to its COLLADASW render state blend equation string.
+        @param fn The render state equation type.
+        @return The render state equation string. */
+        static const String& getColladaPassStateBlendEquationString ( const PassStateBlendEquation& fn );
 
     };
 }
