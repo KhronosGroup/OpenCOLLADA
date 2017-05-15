@@ -45,6 +45,8 @@
 #include <maya/MFileIO.h>
 #include <maya/MFnAttribute.h>
 
+#include <maya/MFnStringArrayData.h>
+
 #include "COLLADASWNode.h"
 #include "COLLADASWInstanceGeometry.h"
 #include "COLLADASWInstanceController.h"
@@ -599,6 +601,184 @@ namespace COLLADAMaya
                     String texCoordName = EffectExporter::TEXCOORD_BASE + COLLADASW::Utils::toString ( i );
                     COLLADASW::BindVertexInput bindVertexInput ( texCoordName, COLLADASW::CSWC::CSW_SEMANTIC_TEXCOORD, uvSetIndex );
                     materialInstance.push_back ( bindVertexInput );
+                }
+
+                //Export pair of varying parameter and geometry input.
+                MStringArray VertexAttributeList;
+                MStringArray VertexAttributeSource;
+                
+                DagHelper::getPlugValue( shader, "vertexAttributeList", VertexAttributeList, &status );
+                if( status == MStatus::kSuccess )
+                {
+                    unsigned int len;
+
+                    len = VertexAttributeList.length();
+                    for ( unsigned int i = 0; i < len; ++i )
+                    {
+                        const MString& val = VertexAttributeList[i];
+                    }
+
+                    DagHelper::getPlugValue( shader, "vertexAttributeSource", VertexAttributeSource, &status );
+                    if( status != MStatus::kSuccess ) continue;
+                    len = VertexAttributeSource.length();
+                    for ( unsigned int i = 0; i < len; ++i )
+                    {
+                        const MString& val = VertexAttributeSource[i];
+                    }
+
+                    len = VertexAttributeSource.length();
+                    for( unsigned int i = 0; i < len; ++i )
+                    {
+                        String semanticName=VertexAttributeList[i*4+3].asChar();    //3 is semantics
+
+                        String inputSemanticName;
+                        int inputSet = -1;    //-1 mean not set.
+
+                        //see cgfxshader plugin's code. void cgfxShaderNode::analyseVertexAttributes
+                        {
+                            // Work out where this attribute should come from
+                            MString sourceName = VertexAttributeSource[i];
+
+                            if( sourceName.length() == 0)
+                            {
+                                //error.
+                                continue;
+                            }
+
+                            MString sourceName2 = sourceName;
+                            sourceName2.toLowerCase();
+                            if( sourceName2 == "position")
+                            {
+                                inputSemanticName = COLLADAFW::Constants::SEMANTIC_POSITION;
+                                inputSet = -1;  //-1 mean not set.
+                            }
+                            else if( sourceName2 == "normal")
+                            {
+                                inputSemanticName = COLLADAFW::Constants::SEMANTIC_NORMAL;
+                                inputSet = -1;  //-1 mean not set.
+                            }
+                            else
+                            {
+                                // Try and pull off the type
+
+                                MString typeName;
+                                MString setName ;
+
+                                int colon = sourceName.index( ':');
+                                if( colon > 0)
+                                {
+                                    typeName = sourceName.substring( 0, colon - 1);
+                                    
+                                    //Do n't convert lowercase.
+                                    setName = sourceName.substring( colon + 1, sourceName.length() - 1 );
+                                }
+                                else
+                                {
+                                    typeName = sourceName;
+                                }
+                                typeName.toLowerCase();
+
+                                // Now, work out what kind of set we have here
+                                if( typeName == "uv")
+                                {
+                                    inputSemanticName = COLLADAFW::Constants::SEMANTIC_TEXCOORD;
+                                }
+                                else if( typeName == "tangent")
+                                {
+                                    inputSemanticName = COLLADAFW::Constants::SEMANTIC_TEXTANGENT;
+                                }
+                                else if( typeName == "binormal")
+                                {
+                                    inputSemanticName = COLLADAFW::Constants::SEMANTIC_TEXBINORMAL;
+                                }
+                                else if( typeName == "color")
+                                {
+                                    inputSemanticName = COLLADAFW::Constants::SEMANTIC_COLOR;
+                                }
+                                else
+                                {
+                                    //error.
+                                    continue;
+                                }
+
+                                if( typeName == "color" )
+                                {
+                                    // Get ColorSet's input set no.
+                                    {
+                                        MStringArray colorSetNames;
+                                        fnMesh.getColorSetNames ( colorSetNames );
+                                        size_t numColorSets = colorSetNames.length ();
+                                        uint realIndex=0;
+
+                                        for ( ; realIndex<numColorSets; ++realIndex )
+                                        {
+                                            const MString mColorSetName = colorSetNames [realIndex];
+                                            String colorSetName = mColorSetName.asChar ();
+                                            if ( colorSetName.length() == 0 ) continue;
+
+                                            // Retrieve the color set data
+                                            MColorArray colorArray;
+                                            fnMesh.getColors ( colorArray, &mColorSetName );
+                                            size_t numColorValues = colorArray.length ();
+                                            if ( numColorValues == 0 ) continue;
+
+                                            if( String(setName.asChar()) != colorSetName ) continue;
+
+                                            //matched.
+                                            break;
+                                        }
+
+                                        if( realIndex>=numColorSets )
+                                        {
+                                            //error.
+                                            continue;
+                                        }
+
+                                        inputSet = realIndex;
+                                    }
+                                }
+                                else
+                                {
+                                    //uv,tangent,binoraml
+                                    
+                                    //get UVSet's input set no.
+                                    {
+                                        // Figure out the real index for this texture coordinate set
+                                        MPlug uvSetPlug = fnMesh.findPlug( ATTR_UV_SET );
+                                        uint numElements = uvSetPlug.numElements();
+                                        uint realIndex=0;
+                                        for ( ; realIndex<numElements; ++realIndex )
+                                        {
+                                            // get uvSet[<index>] and uvSet[<index>].uvSetName
+                                            MPlug uvSetElememtPlug = uvSetPlug.elementByPhysicalIndex ( realIndex );
+                                            MPlug uvSetNamePlug = uvSetElememtPlug.child ( 0 );
+
+                                            // get value of plug (uvSet's name)
+                                            MString uvSetNamePlugValue;
+                                            uvSetNamePlug.getValue ( uvSetNamePlugValue );
+
+                                            if ( setName == uvSetNamePlugValue )
+                                                break;
+                                        }
+
+                                        if( realIndex>=numElements )
+                                        {
+                                            //error.
+                                            continue;
+                                        }
+
+                                        inputSet = realIndex;
+                                    }
+                                }
+
+                            }
+                        }
+
+                        //String inputSemanticName  = VertexAttributeSource[i].asChar();        //
+
+                        COLLADASW::BindVertexInput bindVertexInput( semanticName, inputSemanticName, inputSet );
+                        materialInstance.push_back ( bindVertexInput );
+                    }
                 }
 
                 instanceMaterialList.push_back ( materialInstance );

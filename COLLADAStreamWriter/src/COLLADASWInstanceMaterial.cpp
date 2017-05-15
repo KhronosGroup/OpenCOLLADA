@@ -44,7 +44,10 @@ namespace COLLADASW
 		sw->openElement ( CSWC::CSW_ELEMENT_BIND_VERTEX_INPUT);
 		sw->appendAttribute ( CSWC::CSW_ATTRIBUTE_SEMANTIC, getSemantic() );
 		sw->appendAttribute ( CSWC::CSW_ATTRIBUTE_INPUT_SEMANTIC, getInputSemantic() );
-		sw->appendAttribute ( CSWC::CSW_ATTRIBUTE_INPUT_SET, getInputSet() );
+		if( 0 <= getInputSet() )
+		{
+			sw->appendAttribute ( CSWC::CSW_ATTRIBUTE_INPUT_SET, getInputSet() );
+		}
 		sw->closeElement();
 	}
 } //namespace COLLADASW
