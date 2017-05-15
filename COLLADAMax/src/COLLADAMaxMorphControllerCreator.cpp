@@ -145,7 +145,8 @@ namespace COLLADAMax
 			morphChannel* channel = &mMorphModifier->chanBank[i];
 			if ( targetINode )
 			{
-				channel->buildFromNode(targetINode);
+				//morpher crash colladamax on 3dsmax 2014
+				//channel->buildFromNode(targetINode);
 				channel->mConnection = targetINode;
 			}
 			else
