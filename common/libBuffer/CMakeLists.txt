@@ -4,10 +4,7 @@ project(${name})
 set(libBuffer_include_dirs
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 
-	# TODO, this needs to be fixed but get it working first.
-	# the way this variable is set its not really correct I think - campbell
-	#  ${libUTF_include_dirs} # XXX, this is not available so hard code the path
-	../../Externals/UTF/include
+	${libUTF_include_dirs}
 )
 
 set(libBuffer_include_dirs ${libBuffer_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
@@ -28,7 +25,7 @@ set(SRC
 	include/performanceTest/performanceTest.h
 )
 
-set(TARGET_LIBS ftoa)
+set(TARGET_LIBS ftoa UTF)
 
 include_directories(
 	${libBuffer_include_dirs}
