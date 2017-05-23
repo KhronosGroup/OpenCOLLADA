@@ -58,7 +58,7 @@
 	</xs:complexType>
 	<xs:element name="px_shape" type="px_shape_type"/>
 	<!-- px_shape_override -->
-	<xs:complexType name= "px_shape_override_type">
+	<xs:complexType name="px_shape_override_type">
 		<xs:sequence>
 			<xs:element name="local_pose" type="px_transform" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="simulation_filter_data" type="c:int4" minOccurs="0" maxOccurs="1"/>
