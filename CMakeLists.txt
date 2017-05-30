@@ -271,8 +271,8 @@ endif ()
 
 # building required libs
 add_subdirectory(common/libftoa)
-add_subdirectory(common/libBuffer)
 add_subdirectory(${EXTERNAL_LIBRARIES}/UTF)
+add_subdirectory(common/libBuffer)
 add_subdirectory(${EXTERNAL_LIBRARIES}/MathMLSolver)
 add_subdirectory(${EXTERNAL_LIBRARIES}/zlib)
 
