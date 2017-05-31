@@ -1,0 +1,5 @@
+#include "no_warning_begin"
+
+#include <vector>
+
+#include "no_warning_end"
