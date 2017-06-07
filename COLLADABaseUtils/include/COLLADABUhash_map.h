@@ -60,7 +60,7 @@
         #define COLLADABU_HASH_NAMESPACE_CLOSE }
         #define COLLADABU_HASH_FUN hash
     #endif
-#elif defined(__FreeBSD__) && defined(_LIBCPP_VERSION)
+#elif (defined(__APPLE__) || defined(__FreeBSD__)) && defined(_LIBCPP_VERSION)
     #include <unordered_map>
     #include <unordered_set>
     #define COLLADABU_HASH_MAP std::unordered_map
@@ -70,7 +70,7 @@
     #define COLLADABU_HASH_NAMESPACE_CLOSE
     #define COLLADABU_HASH_FUN hash
 #else   // Linux or Mac or FreeBSD with GCC
-    #if __GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 3)
+    #if !defined(__clang__) && (__GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 3))
         #include <ext/hash_map>
         #include <ext/hash_set>
     #if !(defined(__APPLE__) && defined(__MACH__))

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2008/03/COLLADASchema" version="1.5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<asset>
+		<created>2017-03-08T13:35:39</created>
+		<modified>2017-03-08T13:35:39</modified>
+	</asset>
+	<library_images>
+		<image>
+			<init_from><ref>./image.jpg</ref></init_from>
+		</image>
+	</library_images>
+	<library_nodes>
+		<node id="lib_node0"/>
+		<node id="lib_node1"/>
+	</library_nodes>
+	<library_visual_scenes>
+		<visual_scene>
+			<node id="node0">
+				<instance_node url="#lib_node0" proxy="lib_node1"/>
+			</node>
+		</visual_scene>
+	</library_visual_scenes>
+</COLLADA>

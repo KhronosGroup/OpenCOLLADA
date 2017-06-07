@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <asset>
+    <created>2017-03-08T13:35:39</created>
+    <modified>2017-03-08T13:35:39</modified>
+  </asset>
+  <library_visual_scenes>
+    <visual_scene>
+      <node id="node0">
+	    <instance_node url="./MoveConstructorTestRef.dae#node0"/>
+	  </node>
+    </visual_scene>
+  </library_visual_scenes>
+</COLLADA>
