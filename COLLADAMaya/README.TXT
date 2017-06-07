@@ -66,3 +66,16 @@ Extra attributes are exported in <extra>/<technique profile="OpenCOLLADAMaya"> s
 		. "bool" (Maya extra attribute type: Boolean)
 		. "double3" (Maya extra attribute type: Vector)
 	. attribute_value is the extra attribute value as text.
+
+
+- Physics
+
+OpenCOLLADAMaya plugin currently supports export of PhysX scenes created with nVidia PhysX plugin. PhysX scene data is exported using several extensions described here:
+
+https://www.khronos.org/collada/wiki/Physics_material_OpenCOLLADA_extension
+https://www.khronos.org/collada/wiki/Rigid_body_OpenCOLLADA_extension
+https://www.khronos.org/collada/wiki/Rigid_constraint_OpenCOLLADA_extension
+https://www.khronos.org/collada/wiki/Shape_OpenCOLLADA_extension
+
+An additional parameter is exported in OpenCOLLADAMaya profile for <rigid_body> element:
+<force_to_sleep>: boolean. True if rigid body is initially sleeping when physics simulation starts. False if rigid body is awake when physics simulation starts.
