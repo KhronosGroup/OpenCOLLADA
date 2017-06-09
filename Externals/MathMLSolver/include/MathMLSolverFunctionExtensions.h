@@ -99,7 +99,7 @@ namespace MathML
         //-------------------------------------------------------------------------------------------
         inline static void abs( MathML::AST::ConstantExpression& result, const ScalarList& paramlist, ErrorHandler* errorHandler )
         {
-            result.setValue( ( double ) ::abs( paramlist.at( 0 ).getDoubleValue() ) );
+            result.setValue( ( double ) std::abs( paramlist.at( 0 ).getDoubleValue() ) );
         }
 
         //-------------------------------------------------------------------------------------------

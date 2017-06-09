@@ -17,7 +17,7 @@
 #include <vector>
 #include <sstream>
 #include <algorithm>
-#include <math.h>
+#include <cmath>
 #include <string>
 #include <iostream>
 
