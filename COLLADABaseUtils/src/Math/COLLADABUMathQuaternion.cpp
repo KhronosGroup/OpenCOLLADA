@@ -15,6 +15,7 @@
 #include "Math/COLLADABUMathVector3.h"
 
 
+
 namespace COLLADABU
 {
 
@@ -362,7 +363,7 @@ namespace COLLADABU
             Quaternion kResult;
             kResult.w = cos( fAngle_radian );
 
-            if ( abs( fSin ) >= ms_fEpsilon )
+            if ( std::abs( fSin ) >= ms_fEpsilon )
             {
                 Real fCoeff = fSin / fAngle_radian;
                 kResult.x = fCoeff * x;
@@ -390,12 +391,12 @@ namespace COLLADABU
             Quaternion kResult;
             kResult.w = 0.0;
 
-            if ( abs( w ) < 1.0 )
+            if ( std::abs( w ) < 1.0 )
             {
                 Real fAngle_radian ( acos( w ) );
                 Real fSin = sin( fAngle_radian );
 
-                if ( abs( fSin ) >= ms_fEpsilon )
+                if ( std::abs( fSin ) >= ms_fEpsilon )
                 {
                     Real fCoeff = fAngle_radian / fSin;
                     kResult.x = fCoeff * x;

@@ -238,7 +238,7 @@ namespace COLLADABU
                 m[ 0 ][ 1 ] * rkInverse[ 1 ][ 0 ] +
                 m[ 0 ][ 2 ] * rkInverse[ 2 ][ 0 ];
 
-            if ( abs( fDet ) <= fTolerance )
+            if ( std::abs( fDet ) <= fTolerance )
                 return false;
 
             Real fInvDet = 1.0 / fDet;
@@ -414,8 +414,8 @@ namespace COLLADABU
             Real fRoot2 = 0.5 * ( fTrace - fDiscr );
 
             // adjust right
-            Real fY = kA[ 0 ][ 0 ] - ( abs( fRoot1 - fT22 ) <=
-                                       abs( fRoot2 - fT22 ) ? fRoot1 : fRoot2 );
+            Real fY = kA[ 0 ][ 0 ] - ( std::abs( fRoot1 - fT22 ) <=
+                                       std::abs( fRoot2 - fT22 ) ? fRoot1 : fRoot2 );
             Real fZ = kA[ 0 ][ 1 ];
             Real fInvLength = 1/sqrt( fY * fY + fZ * fZ );
             Real fSin = fZ * fInvLength;
@@ -553,10 +553,10 @@ namespace COLLADABU
                 Real fSin0, fCos0, fTan0;
                 Real fSin1, fCos1, fTan1;
 
-                bool bTest1 = ( abs( kA[ 0 ][ 1 ] ) <=
-                                ms_fSvdEpsilon * ( abs( kA[ 0 ][ 0 ] ) + abs( kA[ 1 ][ 1 ] ) ) );
-                bool bTest2 = ( abs( kA[ 1 ][ 2 ] ) <=
-                                ms_fSvdEpsilon * ( abs( kA[ 1 ][ 1 ] ) + abs( kA[ 2 ][ 2 ] ) ) );
+                bool bTest1 = ( std::abs( kA[ 0 ][ 1 ] ) <=
+                                ms_fSvdEpsilon * ( std::abs( kA[ 0 ][ 0 ] ) + std::abs( kA[ 1 ][ 1 ] ) ) );
+                bool bTest2 = ( std::abs( kA[ 1 ][ 2 ] ) <=
+                                ms_fSvdEpsilon * ( std::abs( kA[ 1 ][ 1 ] ) + std::abs( kA[ 2 ][ 2 ] ) ) );
 
                 if ( bTest1 )
                 {
@@ -897,13 +897,13 @@ namespace COLLADABU
             if ( fPoly < 0.0 )
             {
                 // uses a matrix norm to find an upper bound on maximum root
-                fX = abs( afCoeff[ 0 ] );
-                Real fTmp = 1.0 + abs( afCoeff[ 1 ] );
+                fX = std::abs( afCoeff[ 0 ] );
+                Real fTmp = 1.0 + std::abs( afCoeff[ 1 ] );
 
                 if ( fTmp > fX )
                     fX = fTmp;
 
-                fTmp = 1.0 + abs( afCoeff[ 2 ] );
+                fTmp = 1.0 + std::abs( afCoeff[ 2 ] );
 
                 if ( fTmp > fX )
                     fX = fTmp;
@@ -916,7 +916,7 @@ namespace COLLADABU
             {
                 fPoly = afCoeff[ 0 ] + fX * ( afCoeff[ 1 ] + fX * ( afCoeff[ 2 ] + fX ) );
 
-                if ( abs( fPoly ) <= fEpsilon )
+                if ( std::abs( fPoly ) <= fEpsilon )
                     return fX;
 
                 Real fDeriv = afCoeff[ 1 ] + fX * ( fTwoC2 + 3.0 * fX );
@@ -1492,7 +1492,7 @@ namespace COLLADABU
             afDiag[ 0 ] = fA;
             afSubDiag[ 2 ] = 0.0;
 
-            if ( abs( fC ) >= EPSILON )
+            if ( std::abs( fC ) >= EPSILON )
             {
                 Real fLength = sqrt( fB * fB + fC * fC );
                 Real fInvLength = 1.0 / fLength;
@@ -1549,10 +1549,10 @@ namespace COLLADABU
 
                     for ( i1 = i0; i1 <= 1; i1++ )
                     {
-                        Real fSum = abs( afDiag[ i1 ] ) +
-                                    abs( afDiag[ i1 + 1 ] );
+                        Real fSum = std::abs( afDiag[ i1 ] ) +
+                                    std::abs( afDiag[ i1 + 1 ] );
 
-                        if ( abs( afSubDiag[ i1 ] ) + fSum == fSum )
+                        if ( std::abs( afSubDiag[ i1 ] ) + fSum == fSum )
                             break;
                     }
 
@@ -1579,7 +1579,7 @@ namespace COLLADABU
                         Real fTmp3 = fSin * afSubDiag[ i2 ];
                         Real fTmp4 = fCos * afSubDiag[ i2 ];
 
-                        if ( abs( fTmp3 ) >= abs( fTmp0 ) )
+                        if ( std::abs( fTmp3 ) >= std::abs( fTmp0 ) )
                         {
                             fCos = fTmp0 / fTmp3;
                             fTmp1 = sqrt( fCos * fCos + 1.0 );
