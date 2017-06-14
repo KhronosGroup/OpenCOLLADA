@@ -27,7 +27,7 @@ namespace COLLADAFW
     The <vertices> element under <mesh> is used to describe mesh-vertices. Polygons, triangles, and 
     so forth index mesh-vertices, not positions directly. Mesh-vertices must have at least one 
     <input> (unshared) element with a semantic attribute whose value is POSITION.
-    For texture coordinates, COLLADA’s right-handed coordinate system applies; therefore, an ST 
+    For texture coordinates, COLLADA's right-handed coordinate system applies; therefore, an ST 
     texture coordinate of [0,0] maps to the lower-left texel of a texture image, when loaded in a 
     professional 2-D texture viewer/editor.
     */

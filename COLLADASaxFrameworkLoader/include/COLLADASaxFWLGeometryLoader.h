@@ -24,9 +24,9 @@ namespace COLLADASaxFWL
 
     /** 
     Base class that describes geometric data. Must be exactly one of:
-     • <convex_mesh>
-     • <mesh>
-     • <spline> 
+     - <convex_mesh>
+     - <mesh>
+     - <spline> 
     More about, read the class Geometry documentation.
     */
     class GeometryLoader : public FilePartLoader

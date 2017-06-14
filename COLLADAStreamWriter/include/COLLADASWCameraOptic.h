@@ -42,7 +42,7 @@ namespace COLLADASW
         /** The aspect ratio of the field of view. If the <aspect_ratio> 
         element is not specified, it is calculated from the <xfov> or <yfov> 
         elements and the current viewport. The aspect ratio is defined as the 
-        ratio of the field of view’s width over its height. */
+        ratio of the field of view's width over its height. */
         float mAspectRatio;
         String mAspectRatioSid;
 
@@ -119,7 +119,7 @@ namespace COLLADASW
         /** The aspect ratio of the field of view. If the <aspect_ratio> 
         element is not specified, it is calculated from the <xfov> or <yfov> 
         elements and the current viewport. The aspect ratio is defined as the 
-        ratio of the field of view’s width over its height. */
+        ratio of the field of view's width over its height. */
         void setAspectRatio ( float val, const bool useDefaultSid = false, const String& sid="" );
 
         /** The horizontal field of view in degrees - used for the perspective camera. */

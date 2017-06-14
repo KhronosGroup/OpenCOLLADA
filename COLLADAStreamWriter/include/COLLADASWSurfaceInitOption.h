@@ -97,7 +97,7 @@ namespace COLLADASW
 
         /** An xs:unsignedInt that specifies which 2D layer within a
         volume to initialize. There are anywhere from 0 to n slices in a volume,
-        where n is the volume�s depth slice. This attribute is used in combination
+        where n is the volume's depth slice. This attribute is used in combination
         with mip because a volume might have MIPmaps The default is 0. */
         unsigned int mSlice;
 
@@ -180,7 +180,7 @@ namespace COLLADASW
 
         /** An xs:unsignedInt that specifies which 2D layer within a
         volume to initialize. There are anywhere from 0 to n slices in a volume,
-        where n is the volume�s depth slice. This attribute is used in combination
+        where n is the volume's depth slice. This attribute is used in combination
         with mip because a volume might have MIPmaps The default is 0. */
         const unsigned int getSlice () const { return mSlice; }
         void setSlice ( const unsigned int val ) { mSlice = val; }
@@ -220,12 +220,12 @@ namespace COLLADASW
         behavior unless <mipmap_generate> is responsible for initializing the remaining
         subsurfaces.
         All attributes are optional:
-        � mip: An xs:unsignedInt that specifies the MIP level. The default is 0.
-        � slice: An xs:unsignedInt that specifies which 2D layer within a
+        - mip: An xs:unsignedInt that specifies the MIP level. The default is 0.
+        - slice: An xs:unsignedInt that specifies which 2D layer within a
         volume to initialize. There are anywhere from 0 to n slices in a volume,
-        where n is the volume�s depth slice. This attribute is used in combination
+        where n is the volume's depth slice. This attribute is used in combination
         with mip because a volume might have MIPmaps The default is 0.
-        � face: An enumerated value of type fx_surface_face_enum that
+        - face: An enumerated value of type fx_surface_face_enum that
         specifies which surface of a cube to initialize from the specified image.
         This attribute is used in combination with mip because a cubemap might
         have MIPmaps. The default is POSITIVE_X. */
@@ -234,7 +234,7 @@ namespace COLLADASW
         /** Initializes this surface with a 1D, 2D, RECT, or DEPTH from a compound image
         such as DDS.
         Must include:
-        � <all>: Initializes the surface with one compound image such as DDS.
+        - <all>: Initializes the surface with one compound image such as DDS.
         This element contains no data; the ref attribute, referencing an image, is
         required. */
         void addInitPlanar ( StreamWriter* sw ) const;
@@ -242,18 +242,18 @@ namespace COLLADASW
         /** Initializes this surface with a 3D from a compound image such as DDS.
         Choose one of the following; for both, the ref attribute, referencing an image, is
         required:
-        � <all>: Initializes the surface with one compound image such as DDS.
-        � <primary>: Initializes MIP level 0 of the surface with one compound
+        - <all>: Initializes the surface with one compound image such as DDS.
+        - <primary>: Initializes MIP level 0 of the surface with one compound
         image such as DDS. Use of this element expects the surface to have
         element <mip_levels>=0 or <mipmap_generate>. */
         void addInitVolume ( StreamWriter* sw ) const;
 
         /** Initializes the entire surface with a CUBE from a compound image such as DDS.
         Contains one of:
-        � <all>: Initializes the surface with one compound image such as DDS.
+        - <all>: Initializes the surface with one compound image such as DDS.
         This element contains no data; the ref attribute, referencing an image, is
         required.
-        � <primary>: Initializes all primary MIP level 0 subsurfaces with one
+        - <primary>: Initializes all primary MIP level 0 subsurfaces with one
         compound image such as DDS. Its ref attribute, referencing an image, is
         required. Use of this element expects the surface to have element
         <mip_levels>=0 or <mipmap_generate>.
@@ -270,7 +270,7 @@ namespace COLLADASW
         <order>NEGATIVE_X</order>
         <order>NEGATIVE_Y</order>
         <order>NEGATIVE_Z</order>
-        � </primary><face>: Occurs 6 times. Initializes each face MIP chain
+        - </primary><face>: Occurs 6 times. Initializes each face MIP chain
         with one compound image such as DDS. This element contains no data;
         the ref attribute, referencing an image, is required. */
         void addInitCube ( StreamWriter* sw ) const;

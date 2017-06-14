@@ -35,20 +35,20 @@ namespace COLLADASW
 			BINORMAL=0, /** Geometric binormal (bitangent) vector */
 			BINDMATRIX, 
 			COLOR, /** Color coordinate vector. Color inputs are RGB (float3) */
-			CONTINUITY, /** Continuity constraint at the control vertex (CV). See also "Curve Interpolation" in Chapter 4: Programming Guide. */
+			CONTINUITY, /** Continuity constraint at the control vertex (CV). See also *Curve Interpolation* in Chapter 4: Programming Guide. */
 			IMAGE, /** Raster or MIP-level input. */
-			INPUT, /** Sampler input. See also "Curve Interpolation" in Chapter 4: Programming Guide. */
-			IN_TANGENT, /** Tangent vector for preceding control point. See also "Curve Interpolation" in Chapter 4: Programming Guide. */
-			INTERPOLATION, /** Sampler interpolation type. See also "Curve Interpolation" in Chapter 4: Programming Guide. */
+			INPUT, /** Sampler input. See also *Curve Interpolation* in Chapter 4: Programming Guide. */
+			IN_TANGENT, /** Tangent vector for preceding control point. See also *Curve Interpolation* in Chapter 4: Programming Guide. */
+			INTERPOLATION, /** Sampler interpolation type. See also *Curve Interpolation* in Chapter 4: Programming Guide. */
 			INV_BIND_MATRIX, /** Inverse of local-to-world matrix. */
 			JOINT, /** Skin influence identifier */
-			LINEAR_STEPS, /** Number of piece-wise linear approximation steps to use for the spline segment that follows this CV. See also Curve Interpolation in Chapter 4: Programming Guide. */
+			LINEAR_STEPS, /** Number of piece-wise linear approximation steps to use for the spline segment that follows this CV. See also *Curve Interpolation* in Chapter 4: Programming Guide. */
 			MORPH_TARGET, /** Morph targets for mesh morphing */
 			MORPH_WEIGHT, /** Weights for mesh morphing */
 			NORMAL, /** Normal vector */
-			OUTPUT, /** Sampler output. See also Curve Interpolation in Chapter 4: Programming Guide. */
-			OUT_TANGENT, /** Tangent vector for succeeding control point. See also "Curve Interpolation" in Chapter 4: Programming Guide. */
-			POSITION, /** Geometric coordinate vector. See also "Curve Interpolation" in Chapter 4: Programming Guide. */
+			OUTPUT, /** Sampler output. See also *Curve Interpolation* in Chapter 4: Programming Guide. */
+			OUT_TANGENT, /** Tangent vector for succeeding control point. See also *Curve Interpolation* in Chapter 4: Programming Guide. */
+			POSITION, /** Geometric coordinate vector. See also *Curve Interpolation* in Chapter 4: Programming Guide. */
 			TANGENT, /** Geometric tangent vector */
 			TEXBINORMAL, /** Texture binormal (bitangent) vector */
 			TEXCOORD, /** Texture coordinate vector */

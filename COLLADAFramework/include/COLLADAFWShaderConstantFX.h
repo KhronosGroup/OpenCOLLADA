@@ -27,7 +27,7 @@ namespace COLLADAFW
     The reflected color is calculated as:
     color = <emission> + <ambient> * al
     where:
-    • al — A constant amount of ambient light contribution coming from the scene. In the COMMON
+    - al - A constant amount of ambient light contribution coming from the scene. In the COMMON
     profile, this is the sum of all the <light><technique_common><ambient><color> values in
     the <visual_scene>.
     */

@@ -88,7 +88,7 @@ namespace COLLADAMaya
         /**
          * The writer() method provides a message through the script editor and
          * returns a status to indicate the results.
-         * In this example, only ‘export all’ and ‘export selection’ options are
+         * In this example, only "export all" and "export selection" options are
          * allowed when trying to save data. Other options will result in the
          * display of a failure message through the script editor and returns a
          * MS:kFailure, which indicates that the file type cannot be understood

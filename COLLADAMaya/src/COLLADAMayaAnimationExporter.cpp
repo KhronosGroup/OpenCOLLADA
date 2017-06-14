@@ -2582,13 +2582,13 @@ namespace COLLADAMaya
         // In COLLADA, the <input> semantics IN_TANGENT and OUT_TANGENT 
         // for Bezier curves are used to store the control points.
         // 
-        // In COLLADA, a geometry vector for Bézier segment[i] is defined by:
-        // • P0 is POSITION[i]
-        // • C0 is OUT_TANGENT[i]
-        // • C1 is IN_TANGENT[i+1]
-        // • P1 is POSITION[i+1]
+        // In COLLADA, a geometry vector for Bezier segment[i] is defined by:
+        // - P0 is POSITION[i]
+        // - C0 is OUT_TANGENT[i]
+        // - C1 is IN_TANGENT[i+1]
+        // - P1 is POSITION[i+1]
         // 
-        // A cubic Bézier spline equation is given by:
+        // A cubic Bezier spline equation is given by:
         // B(s) = P0*(1-s)^3 + 3*C0*s*(1-s)^2 + 3*C1*s^2*(1-s) + P1*s^3
         // 
         // Now the way to the magic factor 3:

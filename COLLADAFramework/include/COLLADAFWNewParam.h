@@ -55,7 +55,7 @@ namespace COLLADAFW
         /** Provides additional information about the volatility or linkage of a <newparam> declaration. */
         Modifier mModifier;
 
-        /** The parameter’s type. Must be exactly one of the following:
+        /** The parameter's type. Must be exactly one of the following:
         <float>, <float2>, <float3>, <float4>, <surface>, <sampler2D> */
         ParamType mParamType;
 

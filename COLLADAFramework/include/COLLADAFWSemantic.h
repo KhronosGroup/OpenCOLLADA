@@ -23,10 +23,10 @@ namespace COLLADAFW
     Semantics describe the intention or purpose of a parameter declaration in an effect, using an 
     overloaded concept. Semantics have been used historically to describe three different type of 
     metainformation:
-    • A hardware resource allocated to a parameter, for example, TEXCOORD2, NORMAL.
-    • A value from the scene graph or graphics API that is being represented by this parameter, for
+    - A hardware resource allocated to a parameter, for example, TEXCOORD2, NORMAL.
+    - A value from the scene graph or graphics API that is being represented by this parameter, for
     example, MODELVIEWMATRIX, CAMERAPOS, VIEWPORTSIZE.
-    • A user-defined value that will be set by the application at run time when the effect is being 
+    - A user-defined value that will be set by the application at run time when the effect is being 
     initialized, for example, DAMAGE_PERCENT, MAGIC_LEVEL.
     Semantics are used by the <instance_geometry> declaration inside <node> to bind effect 
     parameters to values and data sources that can be found in the scene graph, using the 

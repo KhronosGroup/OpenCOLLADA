@@ -29,11 +29,11 @@ namespace COLLADAFW
      primarily, to accept vertex position information with varying degrees of attribution (color, normals, etc.).
      Geometric descriptions provide this vertex data with relative directness or efficiency. Some of the more
      common forms of geometry are:
-     • B-Spline
-     • Bézier
-     • Mesh
-     • NURBS
-     • Patch
+     - B-Spline
+     - Bezier
+     - Mesh
+     - NURBS
+     - Patch
      This is by no means an exhaustive list. Currently, COLLADA supports only polygonal meshes and splines.
     */
 	class Geometry : public ObjectTemplate < COLLADA_TYPE::GEOMETRY >

@@ -37,13 +37,13 @@ namespace COLLADAFW
     color = <emission> + <ambient> * al + <diffuse> * max ( N * L, 0 ) + <specular> * max ( H * N, 0 )^<shininess>
 
     where:
-    • al — A constant amount of ambient light contribution coming from the scene. In the COMMON
+    - al - A constant amount of ambient light contribution coming from the scene. In the COMMON
     profile, this is the sum of all the <light><technique_common><ambient> values in the
     <visual_scene>.
-    • N — Normal vector (normalized)
-    • L — Light vector (normalized)
-    • I — Eye vector (normalized)
-    • H — Half-angle vector,calculated as halfway between the unit Eye and Light vectors, using the
+    - N - Normal vector (normalized)
+    - L - Light vector (normalized)
+    - I - Eye vector (normalized)
+    - H - Half-angle vector,calculated as halfway between the unit Eye and Light vectors, using the
     equation H= normalize(I+L)
     */
 	class ShaderBlinn : public ShaderPhong 

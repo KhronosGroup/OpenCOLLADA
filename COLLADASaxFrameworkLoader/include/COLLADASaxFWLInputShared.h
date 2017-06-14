@@ -32,7 +32,7 @@ namespace COLLADASaxFWL
      * desired semantic information.
      * The <source> and <input> elements are part of the COLLADA dataflow model. This model is also
      * known as stream processing, pipe, or producer-consumer. An input connection is the dataflow 
-     * path from a <source> to a sink (the dataflow consumers, which are <input>�s parents, such as 
+     * path from a <source> to a sink (the dataflow consumers, which are <input>'s parents, such as 
      * <polylist>).
      * In COLLADA, all inputs are driven by index values. A consumer samples an input by supplying 
      * an index value to an input. Some consumers have multiple inputs that can share the same 
@@ -46,7 +46,7 @@ namespace COLLADASaxFWL
 
     private:
 
-        /** The offset into the list of indices defined by the parent element�s <p> or
+        /** The offset into the list of indices defined by the parent element's <p> or
         <v> subelement. If two <input> elements share the same offset, they are
         indexed the same. This is a simple form of compression for the list of
         indices and also defines the order in which the inputs are used. Required. */
@@ -97,7 +97,7 @@ namespace COLLADASaxFWL
         /** Destructor. */
         virtual ~InputShared() {}
 
-        /** The offset into the list of indices defined by the parent element�s <p> or
+        /** The offset into the list of indices defined by the parent element's <p> or
         <v> subelement. If two <input> elements share the same offset, they are
         indexed the same. This is a simple form of compression for the list of
         indices and also defines the order in which the inputs are used. Required. */
