@@ -1249,26 +1249,6 @@ namespace COLLADAMaya
 		}
 
     private:
-        static const std::set<MString, MStringComp>& GetAttributes()
-        {
-            if (mAttributes.size() == 0)
-            {
-                // Attributes we want to export in <extra> section
-                mAttributes.insert(ATTR_SHAPE_TYPE);
-                mAttributes.insert(ATTR_SIZE);
-                mAttributes.insert(ATTR_RADIUS);
-                mAttributes.insert(ATTR_HEIGHT);
-                mAttributes.insert(ATTR_BEST_FIT);
-                mAttributes.insert(ATTR_OUT_PHYSICS_SHAPE);
-                mAttributes.insert(ATTR_CONNECT_TO_CLOTH_SPHERE);
-                mAttributes.insert(ATTR_INFLATE);
-                mAttributes.insert(ATTR_USE_MASS_OR_DENSITY);
-                mAttributes.insert(ATTR_MASS);
-                mAttributes.insert(ATTR_DENSITY);
-            }
-            return mAttributes;
-        }
-
 		void exportPxShape(const PhysXXML::PxShape & shape)
 		{
 			if (!PxShape::HasDefaultValues(shape))
@@ -2618,6 +2598,28 @@ namespace COLLADAMaya
 		}
 	};
 
+	class ForceToSleep : public Element
+	{
+	public:
+		ForceToSleep(PhysXExporter& exporter, const MObject & rigidBody, bool forceToSleep)
+			: Element(exporter, CSWC::CSW_ELEMENT_FORCE_TO_SLEEP)
+		{
+			getStreamWriter().appendValues(forceToSleep);
+		}
+
+		static bool DefaultValue()
+		{
+			return false;
+		}
+
+		static bool GetForceToSleep(const MObject & rb)
+		{
+			bool forceToSleep = false;
+			DagHelper::getPlugValue(rb, ATTR_FORCE_TO_SLEEP, forceToSleep);
+			return forceToSleep;
+		}
+	};
+
     class RigidBodyTechnique : public Element
     {
     public:
@@ -2628,6 +2630,7 @@ namespace COLLADAMaya
 			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XMLNS + ":" + CSWC::CSW_PREFIX_PX, PhysXExporter::GetXMLNS());
 			getStreamWriter().appendAttribute(CSWC::CSW_ATTRIBUTE_XSI_SCHEMALOCATION, PhysXExporter::GetXSISchemaLocation());
             if (profile == PROFILE_MAYA) {
+				exportForceToSleep(rigidBody);
 				exporter.exportExtraAttributes(rigidBody);
 			}
 			else if (profile == PhysXExporter::GetPhysXProfile()) {
@@ -2643,49 +2646,21 @@ namespace COLLADAMaya
 			}
 			else if (profile == PROFILE_MAYA)
 			{
-				return !PhysXExporter::HasExtraAttributes(rigidBody);
+				return ForceToSleep::GetForceToSleep(rigidBody) == ForceToSleep::DefaultValue() &&
+					!PhysXExporter::HasExtraAttributes(rigidBody);
 			}
 			return true;
 		}
 
     private:
-        static const std::set<MString, MStringComp>& GetAttributes()
-        {
-            if (mAttributes.size() == 0)
-            {
-                // Attributes we want to export in <extra> section
-                mAttributes.insert(ATTR_SIMULATION_TYPE);
-                mAttributes.insert(ATTR_SWITCH_TO_DYNAMIC);
-                mAttributes.insert(ATTR_SWITCH_AT_FRAME);
-                mAttributes.insert(ATTR_ENABLE_GRAVITY);
-                mAttributes.insert(ATTR_FORCE_TO_SLEEP);
-                mAttributes.insert(ATTR_OVERRIDE_MASS_OR_DENSITY);
-                mAttributes.insert(ATTR_MASS);
-                mAttributes.insert(ATTR_DENSITY);
-                mAttributes.insert(ATTR_BOUNCINESS);
-                mAttributes.insert(ATTR_STATIC_FRICTION);
-                mAttributes.insert(ATTR_DYNAMIC_FRICTION);
-                mAttributes.insert(ATTR_OVERRIDE_GLOBAL_ITERATION_COUNT);
-                mAttributes.insert(ATTR_POSITION_ITERATION_COUNT);
-                mAttributes.insert(ATTR_VELOCITY_ITERATION_COUNT);
-                mAttributes.insert(ATTR_CONTACT_SHELL_OVERRIDE);
-                mAttributes.insert(ATTR_CONTACT_SHELL_DEPTH);
-                mAttributes.insert(ATTR_CONTACT_SHELL_OFFSET);
-                mAttributes.insert(ATTR_SLEEP_THRESHOLDS_OVERRIDE);
-                mAttributes.insert(ATTR_SLEEP_ENERGY_THRESHOLD);
-                mAttributes.insert(ATTR_LINEAR_DAMPING);
-                mAttributes.insert(ATTR_ANGULAR_DAMPING);
-                mAttributes.insert(ATTR_CENTER_OF_MASS_MODE);
-                mAttributes.insert(ATTR_CENTER_OF_MASS_OVERRIDE);
-                mAttributes.insert(ATTR_INITIAL_VELOCITY);
-                mAttributes.insert(ATTR_INITIAL_SPIN);
-                mAttributes.insert(ATTR_INITIAL_POSITION);
-                mAttributes.insert(ATTR_INITIAL_ORIENTATION);
-                mAttributes.insert(ATTR_ENABLE_CCD);
-                mAttributes.insert(ATTR_CCD_MOTION_THRESHOLD);
-            }
-            return mAttributes;
-        }
+		void exportForceToSleep(const MObject & rigidBody)
+		{
+			bool forceToSleep = ForceToSleep::GetForceToSleep(rigidBody);
+			if (forceToSleep != ForceToSleep::DefaultValue())
+			{
+				ForceToSleep e(getPhysXExporter(), rigidBody, forceToSleep);
+			}
+		}
 
 		void exportPxRigidBody(const PhysXXML::PxRigidBody & rb)
 		{
@@ -2706,9 +2681,7 @@ namespace COLLADAMaya
 		RigidBodyExtra(PhysXExporter& exporter, const MObject & rigidBody, const PhysXXML::PxRigidBody & pxRigidBody)
             : Element(exporter, CSWC::CSW_ELEMENT_EXTRA)
         {
-			if (PhysXExporter::HasExtraAttributes(rigidBody)) {
-				exportProfile(rigidBody, pxRigidBody, PROFILE_MAYA);
-			}
+			exportProfile(rigidBody, pxRigidBody, PROFILE_MAYA);
 			exportProfile(rigidBody, pxRigidBody, PhysXExporter::GetPhysXProfile());
         }
 
@@ -3914,72 +3887,6 @@ namespace COLLADAMaya
 		}
 
     private:
-        static const std::set<MString, MStringComp>& GetAttributes()
-        {
-            if (mAttributes.size() == 0)
-            {
-                // Attributes we want to export in <extra> section
-                mAttributes.insert(ATTR_CONSTRAIN);
-                mAttributes.insert(ATTR_USE_ACCELERATION);
-                mAttributes.insert(ATTR_INTERPENETRATE);
-                mAttributes.insert(ATTR_TRANSLATE);
-                mAttributes.insert(ATTR_ROTATE);
-                mAttributes.insert(ATTR_RADIUS_SCALE);
-                mAttributes.insert(ATTR_ORIENTATION_MODE);
-                mAttributes.insert(ATTR_MOTION_SWING_Y);
-                mAttributes.insert(ATTR_MOTION_SWING_Z);
-                mAttributes.insert(ATTR_SWING_1_LIMIT_VALUE);
-                mAttributes.insert(ATTR_SWING_1_LIMIT_RESTITUTION);
-                mAttributes.insert(ATTR_SWING_1_LIMIT_SPRING);
-                mAttributes.insert(ATTR_SWING_1_LIMIT_DAMPING);
-                mAttributes.insert(ATTR_SWING_2_LIMIT_VALUE);
-                mAttributes.insert(ATTR_SWING_2_LIMIT_RESTITUTION);
-                mAttributes.insert(ATTR_SWING_2_LIMIT_SPRING);
-                mAttributes.insert(ATTR_SWING_2_LIMIT_DAMPING);
-                mAttributes.insert(ATTR_MOTION_TWIST);
-                mAttributes.insert(ATTR_TWIST_LOW_LIMIT_VALUE);
-                mAttributes.insert(ATTR_TWIST_LOW_LIMIT_RESTITUTION);
-                mAttributes.insert(ATTR_TWIST_LOW_LIMIT_SPRING);
-                mAttributes.insert(ATTR_TWIST_LOW_LIMIT_DAMPING);
-                mAttributes.insert(ATTR_TWIST_HIGH_LIMIT_VALUE);
-                mAttributes.insert(ATTR_TWIST_HIGH_LIMIT_RESTITUTION);
-                mAttributes.insert(ATTR_TWIST_HIGH_LIMIT_SPRING);
-                mAttributes.insert(ATTR_TWIST_HIGH_LIMIT_DAMPING);
-                mAttributes.insert(ATTR_MOTION_X);
-                mAttributes.insert(ATTR_MOTION_Y);
-                mAttributes.insert(ATTR_MOTION_Z);
-                mAttributes.insert(ATTR_LINEAR_LIMIT_VALUE);
-                mAttributes.insert(ATTR_LINEAR_LIMIT_RESTITUTION);
-                mAttributes.insert(ATTR_LINEAR_LIMIT_SPRING);
-                mAttributes.insert(ATTR_LINEAR_LIMIT_DAMPING);
-                mAttributes.insert(ATTR_DRIVE_DAMPING_X);
-                mAttributes.insert(ATTR_DRIVE_DAMPING_Y);
-                mAttributes.insert(ATTR_DRIVE_DAMPING_Z);
-                mAttributes.insert(ATTR_DRIVE_DAMPING_SWING);
-                mAttributes.insert(ATTR_DRIVE_DAMPING_TWIST);
-                mAttributes.insert(ATTR_DRIVE_DAMPING_SLERP);
-                mAttributes.insert(ATTR_GOAL_SPACE);
-                mAttributes.insert(ATTR_GOAL_POSITION);
-                mAttributes.insert(ATTR_GOAL_ORIENTATION);
-                mAttributes.insert(ATTR_DRIVE_SPRING_X);
-                mAttributes.insert(ATTR_DRIVE_SPRING_Y);
-                mAttributes.insert(ATTR_DRIVE_SPRING_Z);
-                mAttributes.insert(ATTR_DRIVE_SPRING_SWING);
-                mAttributes.insert(ATTR_DRIVE_SPRING_TWIST);
-                mAttributes.insert(ATTR_DRIVE_SPRING_SLERP);
-                mAttributes.insert(ATTR_BREAKABLE_FORCE);
-                mAttributes.insert(ATTR_MAX_FORCE);
-                mAttributes.insert(ATTR_BREAKABLE_TORQUE);
-                mAttributes.insert(ATTR_MAX_TORQUE);
-                mAttributes.insert(ATTR_REVERSE);
-                mAttributes.insert(ATTR_PROJECTION_MODE);
-                mAttributes.insert(ATTR_PROJECTION_DISTANCE);
-                mAttributes.insert(ATTR_PROJECTION_ANGLE);
-                mAttributes.insert(ATTR_ANGULAR_DRIVE_MODE);
-            }
-            return mAttributes;
-        }
-
 		void exportPxD6Joint(const PhysXXML::PxD6Joint & joint)
 		{
 			if (!PxD6Joint::HasDefaultValues(joint))
@@ -5279,9 +5186,12 @@ namespace COLLADAMaya
 
     void PhysXExporter::exportExtraAttributes(const MObject & object)
     {
-        local::ExtraAttributeExporter extraAttributeExporter(mStreamWriter, object);
-		MFnDependencyNode node(object);
-        AttributeParser::parseAttributes(node, extraAttributeExporter);
+		if (HasExtraAttributes(object))
+		{
+			local::ExtraAttributeExporter extraAttributeExporter(mStreamWriter, object);
+			MFnDependencyNode node(object);
+			AttributeParser::parseAttributes(node, extraAttributeExporter);
+		}
     }
 
     void PhysXExporter::exportRotate(const MVector & axis, double angle, const String & sid)
