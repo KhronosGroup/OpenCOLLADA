@@ -2440,7 +2440,7 @@
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(OutDir)COLLADAMaxNew.dle" "$(ADSK_3DSMAX_x64_2017)plugins\ColladaMaxNew.dle"</Command>
+      <Command>copy "$(OutDir)COLLADAMaxNew.dle" "$(ADSK_3DSMAX_x64_2018)plugins\ColladaMaxNew.dle"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug_Max2013_static|Win32'">
@@ -2949,7 +2949,7 @@
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(OutDir)COLLADAMaxNew.dle" "$(ADSK_3DSMAX_x64_2017)plugins\ColladaMaxNew.dle"</Command>
+      <Command>copy "$(OutDir)COLLADAMaxNew.dle" "$(ADSK_3DSMAX_x64_2018)plugins\ColladaMaxNew.dle"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_Max2013|Win32'">
@@ -3580,7 +3580,7 @@
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(OutDir)COLLADAMaxNew.dle" "$(ADSK_3DSMAX_x64_2017)plugins\ColladaMaxNew.dle"</Command>
+      <Command>copy "$(OutDir)COLLADAMaxNew.dle" "$(ADSK_3DSMAX_x64_2018)plugins\ColladaMaxNew.dle"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_Max2013_static|Win32'">
@@ -4129,7 +4129,7 @@
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(OutDir)COLLADAMaxNew.dle" "$(ADSK_3DSMAX_x64_2017)plugins\ColladaMaxNew.dle"</Command>
+      <Command>copy "$(OutDir)COLLADAMaxNew.dle" "$(ADSK_3DSMAX_x64_2018)plugins\ColladaMaxNew.dle"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
