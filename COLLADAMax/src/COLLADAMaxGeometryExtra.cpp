@@ -552,7 +552,7 @@ namespace COLLADAMax
 #ifdef MAX_2018_OR_NEWER
         IParamBlock2 * paramBlock = ( ( SimpleObject2 * ) mObject ) ->GetParamBlock(0);
 #else
-        IParamBlock2 * paramBlock = ((SimpleObject2 *)mObject)->pblock2;
+        IParamBlock2 * paramBlock = ( ( SimpleObject2 * ) mObject ) ->pblock2;
 #endif
 		addParamBlockAnimatedExtraParameters(elementName, extraParameters, extraParametersCount, paramBlock, mGeometryId);
     }
