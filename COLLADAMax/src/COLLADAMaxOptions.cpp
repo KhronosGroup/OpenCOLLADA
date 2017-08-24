@@ -288,7 +288,7 @@ namespace COLLADAMax
 		{
 			// record exp instance pointer for subsequent callbacks
 			exp = (Options*) lParam;
-			SetWindowLongPtr(hWnd, GWLP_USERDATA, (LONG)lParam); 
+			SetWindowLongPtr(hWnd, GWLP_USERDATA, lParam); 
 		}
 		else
 		{
