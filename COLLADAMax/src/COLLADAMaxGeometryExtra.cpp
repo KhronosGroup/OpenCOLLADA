@@ -6,10 +6,10 @@
     Portions of the code are:
     Copyright (c) 2005-2007 Feeling Software Inc.
     Copyright (c) 2005-2007 Sony Computer Entertainment America
-    
+
     Based on the 3dsMax COLLADASW Tools:
     Copyright (c) 2005-2006 Autodesk Media Entertainment
-	
+
     Licensed under the MIT Open Source License, 
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
@@ -24,15 +24,19 @@
 #include <simpobj.h>
 
 // class ids of the non standard primitives
-#define CHAMFERBOX_CLASS_ID Class_ID( 0x1AD73F40,0x48EA0F97 )
+
+#ifndef MAX_2018_OR_NEWER
+    #define CHAMFERBOX_CLASS_ID Class_ID( 0x1AD73F40,0x48EA0F97 )
+    #define PRISM_CLASS_ID  Class_ID( 0x63705FAC,0x5C1F553F )
+    #define CHAMFERCYL_CLASS_ID  Class_ID( 0x7B9A546E,0x21A446A1 )
+    #define CAPSULE_CLASS_ID  Class_ID( 0x6D3D77AC,0x79C939A9 )
+#endif
+
 #define OILTANK_CLASS_ID Class_ID( 0x210E642A,0x22F11EF8 )
 #define SPINDLE_CLASS_ID  Class_ID( 0x130B141B,0x04B35AFE )
 #define GENGON_CLASS_ID  Class_ID( 0x49BF599F,0x35F945AB )
 #define RINGWAVE_CLASS_ID  Class_ID( 0x28E41F64,0x124B5312 )
-#define PRISM_CLASS_ID  Class_ID( 0x63705FAC,0x5C1F553F )
 #define TORUSKNOT_CLASS_ID  Class_ID( 0x00000720,0x00000000 )
-#define CHAMFERCYL_CLASS_ID  Class_ID( 0x7B9A546E,0x21A446A1 )
-#define CAPSULE_CLASS_ID  Class_ID( 0x6D3D77AC,0x79C939A9 )
 #define L_EXT_CLASS_ID  Class_ID( 0x09E73A08,0x08693067 )
 #define C_EXT_CLASS_ID  Class_ID( 0x33B1284D,0x7AF0200D )
 #define HOSE_CLASS_ID  Class_ID( 0x69F96A5D,0x235C430A )
@@ -41,14 +45,8 @@
 #define SPIRALSTAIR_CLASS_ID  Class_ID( 0x589D2C12,0x3D713EC9 )
 #define UTYPESTAIR_CLASS_ID  Class_ID( 0x5D56671C,0x20264CEB )
 
-
-
 namespace COLLADAMax
 {
-
-
-
-
     const String GeometryExtra::ELEMENT_BOX = "max_box";
     const String GeometryExtra::ELEMENT_SPHERE = "max_sphere";
     const String GeometryExtra::ELEMENT_CYLINDER = "max_cylinder";
@@ -388,9 +386,9 @@ namespace COLLADAMax
     //---------------------------------------------------------------
     GeometryExtra::GeometryExtra ( COLLADASW::StreamWriter * streamWriter, DocumentExporter * documentExporter, Object * object, const String& geometryId )
             : Extra ( streamWriter,  documentExporter),
-			mStreamWriter(streamWriter),
+            mStreamWriter(streamWriter),
             mObject ( object ),
-			mGeometryId(geometryId)
+            mGeometryId(geometryId)
     {}
 
     //---------------------------------------------------------------
@@ -398,8 +396,10 @@ namespace COLLADAMax
     {
         Class_ID id = mObject->ClassID();
 
-		setExtraTechnique(this);
+        setExtraTechnique(this);
 
+        //TODO: At least on 3DS MAX 2018 many parameters are no longer exported
+        // e.g. radiuses on cone
         if ( id == Class_ID ( BOXOBJ_CLASS_ID, 0 ) )
             exportParamBlock ( ELEMENT_BOX, BOXPARAMETERS, BOXPARAMETERSCOUNT );
         else if ( id == Class_ID ( SPHERE_CLASS_ID, 0 ) )
@@ -409,6 +409,8 @@ namespace COLLADAMax
         else if ( id == Class_ID ( TORUS_CLASS_ID, 0 ) )
             exportParamBlock ( ELEMENT_TORUS, TORUSPARAMETERS, TORUSPARAMETERSCOUNT );
         else if ( id == Class_ID ( TEAPOT_CLASS_ID1, TEAPOT_CLASS_ID2 ) )
+            // Note that teapot class ID consists of two parts - ID1 & ID2.
+            // Thats one long ID...
             exportParamBlock ( ELEMENT_TEAPOT, TEAPOTPARAMETERS, TEAPOTPARAMETERSCOUNT );
         else if ( id == Class_ID ( CONE_CLASS_ID, 0 ) )
             exportParamBlock ( ELEMENT_CONE, CONEPARAMETERS, CONEPARAMETERSCOUNT );
@@ -535,22 +537,33 @@ namespace COLLADAMax
         fb.close();
 
 #endif
-		addExtraTechniques(mStreamWriter);
+        addExtraTechniques(mStreamWriter);
     }
 
 
     //---------------------------------------------------------------
     void GeometryExtra::exportParamBlock ( const String & elementName, const ExtraParameter extraParameters[], int extraParametersCount )
     {
+#ifdef MAX_2018_OR_NEWER
+        // For some reason on 3DS MAX 2018 all info required for extras is in
+        // same block. Separate methods are still required for older 3DS MAXes.
+        exportParamBlock2(elementName, extraParameters, extraParametersCount);
+        return;
+#else
         IParamBlock * paramBlock = mObject->GetParamBlock() ->GetParamBlock();
-		addParamBlockAnimatedExtraParameters(elementName, extraParameters, extraParametersCount, paramBlock, mGeometryId);
+        addParamBlockAnimatedExtraParameters(elementName, extraParameters, extraParametersCount, paramBlock, mGeometryId);
+#endif
     }
 
     //---------------------------------------------------------------
     void GeometryExtra::exportParamBlock2 ( const String & elementName, const ExtraParameter extraParameters[], int extraParametersCount )
     {
+#ifdef MAX_2018_OR_NEWER
+        IParamBlock2 * paramBlock = ( ( SimpleObject2 * ) mObject ) ->GetParamBlock(0);
+#else
         IParamBlock2 * paramBlock = ( ( SimpleObject2 * ) mObject ) ->pblock2;
-		addParamBlockAnimatedExtraParameters(elementName, extraParameters, extraParametersCount, paramBlock, mGeometryId);
+#endif
+        addParamBlockAnimatedExtraParameters(elementName, extraParameters, extraParametersCount, paramBlock, mGeometryId);
     }
 
 }

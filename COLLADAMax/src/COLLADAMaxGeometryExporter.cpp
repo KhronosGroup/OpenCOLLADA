@@ -317,7 +317,6 @@ namespace COLLADAMax
 	//---------------------------------------------------------------
 	void GeometryExporter::doExportMesh()
 	{
-
 		if( !mMorphControllerHelperGeometry && !(mExportNode->getIsInVisualScene() || mExportNode->getIsReferenced()) )
 			return;
 

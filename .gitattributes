@@ -1,0 +1,2 @@
+# This is so people without core.autocrlf set could work properly with project files.
+*.vcxproj text eol=crlf

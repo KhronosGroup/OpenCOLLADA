@@ -34,7 +34,6 @@ namespace COLLADAMax
 		, mFileMenu(mMenuManager ? mMenuManager->GetMainMenuBar()->GetItem(0)->GetSubMenu() : 0)
 		, mWarehouseItem(0)
 	{
-
 	}
 
 	const ActionTableId googleWarehouseTableActions = 0x7ff73cb5;
@@ -51,7 +50,6 @@ namespace COLLADAMax
 	//------------------------------
 	DWORD GoogleWarehouse::Start()
 	{
-
 		if ( !mWarehouseItem )
 		{
 			mWarehouseItem= GetIMenuItem(); 
@@ -90,8 +88,17 @@ namespace COLLADAMax
 		mWarehouseItem->SetVisible( true );
 		mWarehouseItem->SetEnabled( true );
 
-		// add warehouse item before import
+		// Add warehouse item before import, note that changing order of menu
+		// items after menu has been edited at least once requires removal of
+		// Workspace*.mnux from UI\Workspaces and UI\Workspaces\usersave to see
+		// the changes.
+		//TODO: Inserting at hardcoded index is fragile. Code should instead
+		// search for menu item (by ID) over which to insert.
+#ifdef MAX_2018_OR_NEWER
+		mFileMenu->AddItem(mWarehouseItem, 12);
+#else
 		mFileMenu->AddItem(mWarehouseItem, 29);
+#endif
 
 		mMenuManager->RegisterMenu(mFileMenu, 0);
 
