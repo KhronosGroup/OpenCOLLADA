@@ -4071,6 +4071,7 @@ copy "$(ProjectDir)*.mel" "%25MAYA_PATH2016_X64%25\scripts\others"
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>COLLADAMayaStableHeaders.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
+      <DisableSpecificWarnings>4477</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <AdditionalOptions>/export:initializePlugin /export:uninitializePlugin %(AdditionalOptions)</AdditionalOptions>
