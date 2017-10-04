@@ -658,10 +658,12 @@ Global
 		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Debug_Max2017|Win32.ActiveCfg = Debug_LibXML_NoValidation_v110|Win32
 		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Debug_Max2017|x64.ActiveCfg = Debug_LibXML_NoValidation_v140|x64
 		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Debug_Max2017|x64.Build.0 = Debug_LibXML_NoValidation_v140|x64
-		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Debug_Max2018_static|Win32.ActiveCfg = Debug_Max2018_static|Win32
+		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Debug_Max2018_static|Win32.ActiveCfg = Debug_LibXML_static|Win32
+		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Debug_Max2018_static|Win32.Build.0 = Debug_LibXML_static|Win32
 		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Debug_Max2018_static|x64.ActiveCfg = Debug_LibXML_NoValidation_static_v140|x64
 		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Debug_Max2018_static|x64.Build.0 = Debug_LibXML_NoValidation_static_v140|x64
-		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Debug_Max2018|Win32.ActiveCfg = Debug_Max2018|Win32
+		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Debug_Max2018|Win32.ActiveCfg = Debug_LibXML_static|Win32
+		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Debug_Max2018|Win32.Build.0 = Debug_LibXML_static|Win32
 		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Debug_Max2018|x64.ActiveCfg = Debug_LibXML_NoValidation_v140|x64
 		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Debug_Max2018|x64.Build.0 = Debug_LibXML_NoValidation_v140|x64
 		{8628A8F8-BD50-4463-9EE7-F9118CBA194A}.Release_Max2011_static|Win32.ActiveCfg = Release_LibXML_NoValidation_static_v90|Win32
@@ -1029,8 +1031,8 @@ Global
 		{71A48A24-8603-49FB-9458-CB4E97309378}.Debug_Max2017|x64.Build.0 = Debug_v140|x64
 		{71A48A24-8603-49FB-9458-CB4E97309378}.Debug_Max2018_static|Win32.ActiveCfg = Debug_static_v140|Win32
 		{71A48A24-8603-49FB-9458-CB4E97309378}.Debug_Max2018_static|Win32.Build.0 = Debug_static_v140|Win32
-		{71A48A24-8603-49FB-9458-CB4E97309378}.Debug_Max2018_static|x64.ActiveCfg = Release_static_v140|x64
-		{71A48A24-8603-49FB-9458-CB4E97309378}.Debug_Max2018_static|x64.Build.0 = Release_static_v140|x64
+		{71A48A24-8603-49FB-9458-CB4E97309378}.Debug_Max2018_static|x64.ActiveCfg = Debug_static_v140|x64
+		{71A48A24-8603-49FB-9458-CB4E97309378}.Debug_Max2018_static|x64.Build.0 = Debug_static_v140|x64
 		{71A48A24-8603-49FB-9458-CB4E97309378}.Debug_Max2018|Win32.ActiveCfg = Debug_static_v140|Win32
 		{71A48A24-8603-49FB-9458-CB4E97309378}.Debug_Max2018|Win32.Build.0 = Debug_static_v140|Win32
 		{71A48A24-8603-49FB-9458-CB4E97309378}.Debug_Max2018|x64.ActiveCfg = Debug_v140|x64
@@ -1525,8 +1527,8 @@ Global
 		{F1DEFC38-6AA9-4799-983B-96610117CAF7}.Debug_Max2017|x64.Build.0 = Debug_v140|x64
 		{F1DEFC38-6AA9-4799-983B-96610117CAF7}.Debug_Max2018_static|Win32.ActiveCfg = Debug_static_v140|Win32
 		{F1DEFC38-6AA9-4799-983B-96610117CAF7}.Debug_Max2018_static|Win32.Build.0 = Debug_static_v140|Win32
-		{F1DEFC38-6AA9-4799-983B-96610117CAF7}.Debug_Max2018_static|x64.ActiveCfg = Debug_static|x64
-		{F1DEFC38-6AA9-4799-983B-96610117CAF7}.Debug_Max2018_static|x64.Build.0 = Debug_static|x64
+		{F1DEFC38-6AA9-4799-983B-96610117CAF7}.Debug_Max2018_static|x64.ActiveCfg = Debug_static_v140|x64
+		{F1DEFC38-6AA9-4799-983B-96610117CAF7}.Debug_Max2018_static|x64.Build.0 = Debug_static_v140|x64
 		{F1DEFC38-6AA9-4799-983B-96610117CAF7}.Debug_Max2018|Win32.ActiveCfg = Debug_static_v140|Win32
 		{F1DEFC38-6AA9-4799-983B-96610117CAF7}.Debug_Max2018|Win32.Build.0 = Debug_static_v140|Win32
 		{F1DEFC38-6AA9-4799-983B-96610117CAF7}.Debug_Max2018|x64.ActiveCfg = Debug_v140|x64
