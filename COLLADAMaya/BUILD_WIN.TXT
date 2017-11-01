@@ -10,12 +10,17 @@ Supported versions of Autodesk Maya are:
 	Autodesk Maya 2013
 	Autodesk Maya 2014
 	Autodesk Maya 2015
+	Autodesk Maya 2016
+	Autodesk Maya 2017
+	Autodesk Maya 2018
 
 -	Microsoft Visual Studio 2013 (for loading the solution, 2012 may work too)
     AND additioal versions of Visual Studio depending of the Maya version:
         Visual 2008 for Maya 2011-2012
 	Visual 2010 for Maya 2013-2014
-	Visual 2012 for Maya 2014-2015
+	Visual 2012 for Maya 2014-2016
+	Visual 2012 update 4 for Maya 2017
+        Visual Studio 2015 update 3 for Maya 2018
 
 
 You find the MVS solution file in COLLADAMaya/COLLADAMaya.sln

@@ -2641,7 +2641,11 @@ namespace COLLADAMaya
         // --------------------------------
         // In-tangent
 
+#if MAYA_API_VERSION >= 20180000
+		double slopeX, slopeY;
+#else
         float slopeX, slopeY;
+#endif
         animCurveFn.getTangent ( keyPosition, slopeX, slopeY, true /*keyPosition>0*/ );
 
         if ( !isWeightedCurve )
@@ -2659,12 +2663,12 @@ namespace COLLADAMaya
             slopeX /= 3.0f;
             slopeY /= 3.0f; 
         }
-        bkey->inTangent = TangentPoint ( bkey->input - slopeX, bkey->output - slopeY );
+        bkey->inTangent = TangentPoint ( (float)(bkey->input - slopeX), (float)(bkey->output - slopeY) );
 
         // --------------------------------
         // Out-tangent
 
-        animCurveFn.getTangent ( keyPosition, slopeX, slopeY, false /*keyPosition>=keyCount-1*/ );
+		animCurveFn.getTangent(keyPosition, slopeX, slopeY, false /*keyPosition>=keyCount-1*/);
 
         if ( !isWeightedCurve )
         {
@@ -2682,7 +2686,7 @@ namespace COLLADAMaya
             slopeY /= 3.0f;
         }
 
-        bkey->outTangent = TangentPoint ( bkey->input + slopeX, bkey->output + slopeY );
+        bkey->outTangent = TangentPoint ( (float)(bkey->input + slopeX), (float)(bkey->output + slopeY) );
     }
 
     // ------------------------------------------------------------
