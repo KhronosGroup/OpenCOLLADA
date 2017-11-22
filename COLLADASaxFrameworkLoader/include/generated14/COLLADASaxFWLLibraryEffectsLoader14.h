@@ -46,6 +46,16 @@ virtual bool begin__profile_COMMON( const COLLADASaxFWL14::profile_COMMON__Attri
 
 virtual bool end__profile_COMMON();
 
+virtual bool begin__image(const COLLADASaxFWL14::image__AttributeData& attributeData);
+
+virtual bool end__image();
+
+virtual bool begin__init_from____anyURI();
+
+virtual bool end__init_from____anyURI();
+
+virtual bool data__init_from____anyURI(COLLADABU::URI value);
+
 virtual bool begin__newparam____fx_newparam_common( const COLLADASaxFWL14::newparam____fx_newparam_common__AttributeData& attributeData );
 
 virtual bool begin__newparam____common_newparam_type( const COLLADASaxFWL14::newparam____common_newparam_type__AttributeData& attributeData );

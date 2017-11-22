@@ -127,6 +127,9 @@ namespace COLLADASaxFWL
 		/** The current profile.*/
 		Profile mCurrentProfile;
 
+		/** The current image.*/
+		COLLADAFW::Image* mCurrentImage;
+
 		/** The type of the current shader parameter.*/
 		ShaderParameterTypes mCurrentShaderParameterType;
 
@@ -224,6 +227,21 @@ namespace COLLADASaxFWL
 
 		/** Set the current profile to unknown.*/
 		virtual bool end__profile_COMMON();
+
+		/** Creates a new image.*/
+		virtual bool begin__image(const image__AttributeData& attributeData);
+
+		/** Sends image to the writer.*/
+		virtual bool end__image();
+
+		/** Set source type.*/
+		virtual bool begin__init_from____anyURI();
+
+		/** Set the image uri.*/
+		virtual bool end__init_from____anyURI();
+
+		/** Set the image uri.*/
+		virtual bool data__init_from____anyURI(COLLADABU::URI value);
 
 
 		/** Store the sid of the new param.*/
