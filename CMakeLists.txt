@@ -37,13 +37,40 @@ cmake_policy(SET CMP0010 NEW)
 # Input directories must have CMakeLists.txt
 cmake_policy(SET CMP0014 NEW)
 
-# avoid having empty buildtype
-set(CMAKE_BUILD_TYPE_INIT "Release")
 
-set(CMAKE_CONFIGURATION_TYPES "Debug;Release" CACHE STRING "Only do Release and Debug" FORCE )
-mark_as_advanced(CMAKE_CONFIGURATION_TYPES)
+# Set Release type for builds where CMAKE_BUILD_TYPE is unset
+# This is usually a good default as this implictly enables
+#
+#   CXXFLAGS = -O3 -DNDEBUG
+#
+if( NOT CMAKE_BUILD_TYPE )
+	set( CMAKE_BUILD_TYPE "Release" )
+endif()
 
 SET(CMAKE_DEBUG_POSTFIX ""  CACHE STRING "Add this string to as suffix to Debug libraries, e.g.: xml2_d.lib " )
+
+# Adhere to GNU filesystem layout conventions
+include( GNUInstallDirs )
+
+
+# #-----------------------------------------------------------------------------
+# Initialize project.
+
+project(OPENCOLLADA)  # must be after setting cmake_configuration_types
+
+set(EXTERNAL_LIBRARIES        	   ${OPENCOLLADA_SOURCE_DIR}/Externals)  # external libraries
+set(CMAKE_MODULE_PATH "${EXTERNAL_LIBRARIES}/cmake-modules")
+
+set(OPENCOLLADA_VERSION_MAJOR 1)
+set(OPENCOLLADA_VERSION_MINOR 6)
+set(OPENCOLLADA_VERSION_PATCH 63)
+set(OPENCOLLADA_VERSION ${OPENCOLLADA_VERSION_MAJOR}.${OPENCOLLADA_VERSION_MINOR}.${OPENCOLLADA_VERSION_PATCH})
+
+if(NOT SOVERSION)
+	set(SOVERSION ${OPENCOLLADA_VERSION_MAJOR}.${OPENCOLLADA_VERSION_MINOR}
+		CACHE STRING "Set the SO version in the SO name of the output library")
+endif()
+
 
 #-----------------------------------------------------------------------------
 # Macro's
@@ -58,7 +85,7 @@ macro(opencollada_add_lib
 
 	if (USE_STATIC)
 		add_library(${name}_static STATIC ${sources})
-		set_target_properties(${name}_static PROPERTIES OUTPUT_NAME ${name})
+		set_target_properties(${name}_static PROPERTIES OUTPUT_NAME ${name} SOVERSION ${SOVERSION})
 		foreach(target_lib ${target_libs})
 			if(TARGET ${target_lib}_static)
 				target_link_libraries(${name}_static ${target_lib}_static)
@@ -84,7 +111,7 @@ macro(opencollada_add_lib
 			message(${name} " WARNING: Shared library support implemented for UNIX-like OS only")
 		endif ()
 		add_library(${name}_shared SHARED ${sources})
-		set_target_properties(${name}_shared PROPERTIES OUTPUT_NAME ${name})
+		set_target_properties(${name}_shared PROPERTIES OUTPUT_NAME ${name} SOVERSION ${SOVERSION})
 		foreach(target_lib ${target_libs})
 			if(TARGET ${target_lib}_shared)
 				target_link_libraries(${name}_shared ${target_lib}_shared)
@@ -145,19 +172,6 @@ endmacro()
 # end copy
 # --------
 
-#-----------------------------------------------------------------------------
-# Initialize project.
-
-project(OPENCOLLADA)  # must be after setting cmake_configuration_types
-
-set(EXTERNAL_LIBRARIES        	   ${OPENCOLLADA_SOURCE_DIR}/Externals)  # external libraries
-set(CMAKE_MODULE_PATH "${EXTERNAL_LIBRARIES}/cmake-modules")
-
-set(OPENCOLLADA_VERSION_MAJOR 0)
-set(OPENCOLLADA_VERSION_MINOR 1)
-set(OPENCOLLADA_VERSION_PATCH 0)
-set(OPENCOLLADA_VERSION ${OPENCOLLADA_VERSION_MAJOR}.${OPENCOLLADA_VERSION_MINOR}.${OPENCOLLADA_VERSION_PATCH})
-
 
 #-----------------------------------------------------------------------------
 # Compiler warnings.
@@ -190,9 +204,9 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX_WARNINGS}")
 #-----------------------------------------------------------------------------
 # Install vars
 
-set(OPENCOLLADA_INST_INCLUDE ${CMAKE_INSTALL_PREFIX}/include/opencollada)
-set(OPENCOLLADA_INST_LIBRARY ${CMAKE_INSTALL_PREFIX}/lib/opencollada)
-set(OPENCOLLADA_INST_CMAKECONFIG ${OPENCOLLADA_INST_LIBRARY}/cmake)
+set(OPENCOLLADA_INST_INCLUDE ${CMAKE_INSTALL_FULL_INCLUDEDIR}/opencollada)
+set(OPENCOLLADA_INST_LIBRARY ${CMAKE_INSTALL_FULL_LIBDIR}/opencollada)
+set(OPENCOLLADA_INST_CMAKECONFIG ${CMAKE_INSTALL_FULL_LIBDIR}/cmake/OpenCOLLADA)
 
 
 #-----------------------------------------------------------------------------
