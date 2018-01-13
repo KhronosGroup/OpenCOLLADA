@@ -32,7 +32,7 @@ namespace COLLADABU
 
 
 
-	const char HEX2DEC[256] = 
+	const signed char HEX2DEC[256] = 
 	{
 		/*       0  1  2  3   4  5  6  7   8  9  A  B   C  D  E  F */
 		/* 0 */ -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1, -1,-1,-1,-1,
@@ -107,9 +107,9 @@ namespace COLLADABU
 		{
 			if (*pSrc == '%')
 			{
-				char dec1, dec2;
-				if (    (char)(-1) != (dec1 = HEX2DEC[*(pSrc + 1)])
-				     && (char)(-1) != (dec2 = HEX2DEC[*(pSrc + 2)]))
+				signed char dec1, dec2;
+				if (    (signed char)(-1) != (dec1 = HEX2DEC[*(pSrc + 1)])
+				     && (signed char)(-1) != (dec2 = HEX2DEC[*(pSrc + 2)]))
 				{
 					*pEnd++ = (dec1 << 4) + dec2;
 					pSrc += 3;
