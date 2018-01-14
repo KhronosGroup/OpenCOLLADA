@@ -38,6 +38,7 @@ namespace COLLADASaxFWL
         , mInSurface (false)
         , mSurfaceIndex (0)
         , mInSampler2D (false)
+		, mCurrentImage(0)
 	{
 	}
 	
@@ -696,6 +697,63 @@ namespace COLLADASaxFWL
         mInProfileCommonTechnique = false;
 
         return true;
+	}
+
+	//------------------------------
+	bool LibraryEffectsLoader::begin__image(const image__AttributeData& attributeData)
+	{
+		mCurrentImage = FW_NEW COLLADAFW::Image(createUniqueIdFromId(attributeData.id, COLLADAFW::Image::ID()));
+
+		if (attributeData.name)
+			mCurrentImage->setName((const char*)attributeData.name);
+		else if (attributeData.id)
+			mCurrentImage->setName((const char*)attributeData.id);
+
+		if (attributeData.id)
+			mCurrentImage->setOriginalId((const char*)attributeData.id);
+
+		if (attributeData.format)
+			mCurrentImage->setFormat(attributeData.format);
+
+		mCurrentImage->setHeight((unsigned long)attributeData.height);
+		mCurrentImage->setWidth((unsigned long)attributeData.width);
+		mCurrentImage->setDepth((unsigned long)attributeData.depth);
+
+		return true;
+	}
+
+	//------------------------------
+	bool LibraryEffectsLoader::end__image()
+	{
+		bool success = true;
+		if ((getObjectFlags() & Loader::IMAGE_FLAG) != 0)
+		{
+			success = writer()->writeImage(mCurrentImage);
+		}
+		FW_DELETE mCurrentImage;
+		mCurrentImage = 0;
+		return success;
+	}
+
+	//------------------------------
+	bool LibraryEffectsLoader::begin__init_from____anyURI()
+	{
+		mCurrentImage->setSourceType(COLLADAFW::Image::SOURCE_TYPE_URI);
+		return true;
+	}
+
+	//------------------------------
+	bool LibraryEffectsLoader::end__init_from____anyURI()
+	{
+		// we don't need to do anything here
+		return true;
+	}
+
+	//------------------------------
+	bool LibraryEffectsLoader::data__init_from____anyURI(COLLADABU::URI value)
+	{
+		mCurrentImage->setImageURI(value);
+		return true;
 	}
 
 	//------------------------------

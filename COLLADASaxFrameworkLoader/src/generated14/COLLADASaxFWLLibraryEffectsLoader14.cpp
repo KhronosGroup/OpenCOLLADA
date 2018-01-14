@@ -56,6 +56,55 @@ SaxVirtualFunctionTest14(end__profile_COMMON());
 return mLoader->end__profile_COMMON();
 }
 
+bool LibraryEffectsLoader14::begin__image(const COLLADASaxFWL14::image__AttributeData& attributeData)
+{
+	SaxVirtualFunctionTest14(begin__image(attributeData));
+	COLLADASaxFWL::image__AttributeData attrData;
+	attrData.present_attributes = 0;
+	attrData.id = attributeData.id;
+	attrData.name = attributeData.name;
+	attrData.sid = 0;
+	attrData.format = attributeData.format;
+	attrData.depth = attributeData.depth;
+	if ((attributeData.present_attributes & COLLADASaxFWL14::image__AttributeData::ATTRIBUTE_HEIGHT_PRESENT) == COLLADASaxFWL14::image__AttributeData::ATTRIBUTE_HEIGHT_PRESENT) {
+		attrData.height = attributeData.height;
+		attrData.present_attributes |= COLLADASaxFWL::image__AttributeData::ATTRIBUTE_HEIGHT_PRESENT;
+	}
+	if ((attributeData.present_attributes & COLLADASaxFWL14::image__AttributeData::ATTRIBUTE_WIDTH_PRESENT) == COLLADASaxFWL14::image__AttributeData::ATTRIBUTE_WIDTH_PRESENT) {
+		attrData.width = attributeData.width;
+		attrData.present_attributes |= COLLADASaxFWL::image__AttributeData::ATTRIBUTE_WIDTH_PRESENT;
+	}
+	return mLoader->begin__image(attrData);
+}
+
+
+bool LibraryEffectsLoader14::end__image()
+{
+	SaxVirtualFunctionTest14(end__image());
+	return mLoader->end__image();
+}
+
+
+bool LibraryEffectsLoader14::begin__init_from____anyURI()
+{
+	SaxVirtualFunctionTest14(begin__init_from____anyURI());
+	return mLoader->begin__init_from____anyURI();
+}
+
+
+bool LibraryEffectsLoader14::end__init_from____anyURI()
+{
+	SaxVirtualFunctionTest14(end__init_from____anyURI());
+	return mLoader->end__init_from____anyURI();
+}
+
+
+bool LibraryEffectsLoader14::data__init_from____anyURI(COLLADABU::URI value)
+{
+	SaxVirtualFunctionTest14(data__init_from____anyURI(value));
+	return mLoader->data__init_from____anyURI(value);
+}
+
 
 bool LibraryEffectsLoader14::begin__newparam____fx_newparam_common( const COLLADASaxFWL14::newparam____fx_newparam_common__AttributeData& attributeData )
 {
