@@ -1556,7 +1556,11 @@ namespace GeneratedSaxParser
 #ifdef isnan
         return isnan( value );
 #else
+#if defined(COLLADABU_OS_MAC)
+		return isnan( value );
+#else
         return std::isnan(value);
+#endif
 #endif
 #endif
     }
