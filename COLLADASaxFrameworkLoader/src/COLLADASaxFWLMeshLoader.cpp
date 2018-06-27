@@ -54,6 +54,9 @@ namespace COLLADASaxFWL
 		, mUseNormals ( false )
         , mUseTangents ( false )
         , mUseBinormals ( false )
+        , mBatchIdsOffset (0)
+        , mBatchIdsIndexOffset (0)
+        , mUseBatchIds (false)
         , mColorList (0)
         , mTexCoordList (0)
 		, mCurrentPrimitiveType(NONE)
@@ -161,12 +164,40 @@ namespace COLLADASaxFWL
         case InputSemantic::TEXBINORMAL:
             retValue = loadTexBinormalSourceElement( input );
             break;
+        case InputSemantic::BATCHID:
+            retValue = loadTexBATCHIDSourceElement( input );
+            break;
         default:
             // Not implemented source
 //            std::cerr << "Source with semantic " << semantic << "not implemented!" << std::endl;
             retValue = false;
         }
 
+        return retValue;
+    }
+    bool MeshLoader::loadTexBATCHIDSourceElement( const InputShared& input){
+        // Get the semantic of the current input element.
+        InputSemantic::Semantic semantic = input.getSemantic ();
+        bool retValue = true;
+        if ( semantic != InputSemantic::BATCHID )
+        {
+            std::cerr << "The current input element is not a POSITION element!" << std::endl;
+            return false;
+        }
+
+        // Get the source element with the uri of the input element.
+        COLLADABU::URI inputUrl = input.getSource ();
+        String sourceId = inputUrl.getFragment ();
+        SourceBase* sourceBase = getSourceById ( sourceId );
+        if ( sourceBase == 0 ) return false;
+        
+        // Check if the source element is already loaded.
+        if ( sourceBase->isLoadedInputElement ( semantic ) ) return false;
+
+        COLLADAFW::MeshVertexData& batchId = mMesh->getBatchIds();
+        retValue = appendVertexValues(sourceBase, batchId);
+
+        sourceBase->addLoadedInputElement(semantic);
         return retValue;
     }
 
@@ -398,7 +429,7 @@ namespace COLLADASaxFWL
         // Set the source base as loaded element.
         sourceBase->addLoadedInputElement ( semantic );
 
-        return retValue;
+        return true;
     }
 
     bool MeshLoader::loadTexTangentSourceElement( const InputShared& input )
@@ -529,6 +560,14 @@ namespace COLLADASaxFWL
 
                 break;
             }
+        case SourceBase::DATA_TYPE_INT:
+            {
+                IntSource* source = ( IntSource* ) sourceBase;
+                IntArrayElement& arrayElement = source->getArrayElement();
+                COLLADAFW::ArrayPrimitiveType<int>& valuesArray = arrayElement.getValues();
+
+                 vertexData.appendValues(valuesArray, source->getId(), (size_t) source->getStride());
+            }
         default:
             std::cerr << "Source has an other datatype as float or double! " << dataType << std::endl;
             retValue = false;
@@ -618,6 +657,12 @@ namespace COLLADASaxFWL
             {
                 COLLADAFW::UIntValuesArray& binormalIndices = mCurrentMeshPrimitive->getBinormalIndices();
                 binormalIndices.append ( index + mBinormalsIndexOffset );
+            }
+
+            if( mUseBatchIds && (mCurrentOffset == mBatchIdsOffset))
+            {
+                COLLADAFW::UIntValuesArray& BatchIdIndices = mCurrentMeshPrimitive->getBatchIdIndices();
+                BatchIdIndices.append ( index + mBatchIdsIndexOffset );
             }
 
 
@@ -720,6 +765,7 @@ namespace COLLADASaxFWL
         mUseNormals = false;
         mUseTangents = false;
         mUseBinormals = false;
+        mUseBatchIds = false;
         mTexCoordList.clear ();
         mColorList.clear ();
 
@@ -734,6 +780,7 @@ namespace COLLADASaxFWL
         has_errors |= initializeTexCoordsOffset();
         initializeTangentsOffset();
         initializeBinormalsOffset();
+        initializeBatchIdsOffset(); 
         return has_errors;
 	}
 
@@ -883,6 +930,43 @@ namespace COLLADASaxFWL
         }
     }
 
+    //------------------------------
+    void MeshLoader::initializeBatchIdsOffset ()
+    {
+        // Check for using normals
+        const InputShared* batchIdInput = mMeshPrimitiveInputs.getBatchIdInput ();
+        if ( batchIdInput != 0 ) 
+        {
+            // Get the offset value, the initial index values and alloc the memory.
+            mBatchIdsOffset = batchIdInput->getOffset ();
+            const SourceBase* sourceBase = getSourceById ( batchIdInput->getSource ().getFragment () );
+            if ( !sourceBase )
+            {
+                mBatchIdsIndexOffset = 0;
+                mUseBatchIds = false;
+            }
+            else 
+            {
+                // only stride 3 makes sense for normals
+                unsigned long long stride = sourceBase->getStride();
+                if ( stride == 3 )
+                {
+                    mBatchIdsIndexOffset = (unsigned int)(sourceBase->getInitialIndex() / stride);
+                    mUseBatchIds = true;
+                }
+                else
+                {
+                    mBatchIdsIndexOffset = 0;
+                    mUseBatchIds = false;
+                }
+            }
+        }
+        else
+        {
+            mBatchIdsIndexOffset = 0;
+            mUseBatchIds = false;
+        }
+    }
     //------------------------------
     bool MeshLoader::initializeColorsOffset ()
     {
@@ -1054,6 +1138,11 @@ namespace COLLADASaxFWL
             if ( mUseBinormals )
             {
                 mCurrentMeshPrimitive->getBinormalIndices().reallocMemory((size_t)attributeData.count);
+            }
+            
+            if ( mUseBatchIds ) 
+            {
+                mCurrentMeshPrimitive->getBatchIdIndices().reallocMemory((size_t)attributeData.count);
             }
 
 			// TODO pre-alloc memory for uv indices

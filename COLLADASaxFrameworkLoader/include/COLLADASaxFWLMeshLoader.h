@@ -149,6 +149,10 @@ namespace COLLADASaxFWL
         unsigned int mBinormalsIndexOffset; 
         bool mUseBinormals;
 
+        unsigned long long mBatchIdsOffset;
+        unsigned long long mBatchIdsIndexOffset;
+        bool mUseBatchIds;
+
         /** Multiple colors. */
         std::vector<PrimitiveInput> mColorList;
 
@@ -369,6 +373,7 @@ namespace COLLADASaxFWL
         void initializeNormalsOffset ();
         void initializeTangentsOffset ();
         void initializeBinormalsOffset ();
+        void initializeBatchIdsOffset ();
         bool initializePositionsOffset ();
 
 		/** Writes all the indices in data into the indices array of the current mesh primitive.*/
@@ -379,6 +384,7 @@ namespace COLLADASaxFWL
          */
         size_t getNumOfPrimitiveIndices ( const MeshPrimitiveInputList* polyBaseElement );
 
+        bool loadTexBATCHIDSourceElement( const InputShared& input);
         /**
          * Go through the list of input elements of the current poly base and get the 
          * source data of the input elements and write it into the source elements.

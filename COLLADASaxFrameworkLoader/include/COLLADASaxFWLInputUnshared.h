@@ -29,6 +29,7 @@ namespace COLLADASaxFWL
         enum Semantic
         {
             BINORMAL=0, /** Geometric binormal (bitangent) vector */
+            BATCHID, /** Batch id */
             COLOR, /** Color coordinate vector. Color inputs are RGB (float3) */
             CONTINUITY, /** Continuity constraint at the control vertex (CV). See also *Curve Interpolation* in Chapter 4: Programming Guide. */
             IMAGE, /** Raster or MIP-level input. */
@@ -55,6 +56,7 @@ namespace COLLADASaxFWL
         };
 
 		static const size_t BINORMAL_HASH = 238318908;
+        static const size_t BATCHID_HASH = 107510932;
 		static const size_t COLOR_HASH = 4735298;
 		static const size_t CONTINUITY_HASH = 149363369;
 		static const size_t IMAGE_HASH = 5117365;

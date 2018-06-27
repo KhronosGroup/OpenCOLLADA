@@ -130,6 +130,12 @@ namespace COLLADASaxFWL
 		/** Sax callback function for the float data of a float array element.*/
 		virtual bool data__float_array( const float* data, size_t length );
 
+		virtual bool begin__int_array( const int_array__AttributeData& attribute );
+
+		virtual bool end__int_array();
+
+		virtual bool data__int_array( const int* data, size_t length);
+
 
 		/** Sax callback function for the beginning of a technique_common element.*/
 		virtual bool begin__animation__source__technique_common();

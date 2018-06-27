@@ -42,6 +42,12 @@ virtual bool end__float_array();
 
 virtual bool data__float_array( const float* data, size_t length );
 
+virtual bool begin__int_array( const COLLADASaxFWL15::int_array__AttributeData& attributeData);
+
+virtual bool end__int_array();
+
+virtual bool data__int_array( const int* data, size_t length);
+
 virtual bool begin__source_type____technique_common();
 
 virtual bool end__source_type____technique_common();

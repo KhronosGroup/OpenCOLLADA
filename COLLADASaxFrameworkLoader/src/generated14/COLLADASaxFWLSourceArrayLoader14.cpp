@@ -47,6 +47,31 @@ SaxVirtualFunctionTest14(data__float_array(data, length));
 return mLoader->data__float_array(data, length);
 }
 
+bool SourceArrayLoader14::begin__int_array( const COLLADASaxFWL14::int_array__AttributeData& attributeData){
+    // SaxVirtualFunctionTest14(begin__int_array(attributeData));
+    COLLADASaxFWL::int_array__AttributeData attrData;
+    attrData.present_attributes = 0;
+    attrData.id = attributeData.id;
+    attrData.name = attributeData.name;
+    attrData.minInclusive = attributeData.minInclusive;
+    attrData.maxInclusive = attributeData.maxInclusive;
+    if ( (attributeData.present_attributes & COLLADASaxFWL14::int_array__AttributeData::ATTRIBUTE_COUNT_PRESENT) == COLLADASaxFWL14::int_array__AttributeData::ATTRIBUTE_COUNT_PRESENT ) {
+        attrData.count = attributeData.count;
+        attrData.present_attributes |= COLLADASaxFWL::int_array__AttributeData::ATTRIBUTE_COUNT_PRESENT;
+}
+return mLoader->begin__int_array(attrData);
+
+}
+bool SourceArrayLoader14::end__int_array()
+{
+    // SaxVirtualFunctionTest14(end__int_array);
+    return mLoader->end__int_array();   
+}
+bool SourceArrayLoader14::data__int_array( const int* data, size_t length)
+{
+    // SaxVirtualFunctionTest14(data__int_array);
+    return mLoader->data__int_array(data, length);
+}
 
 bool SourceArrayLoader14::begin__animation__source__technique_common()
 {

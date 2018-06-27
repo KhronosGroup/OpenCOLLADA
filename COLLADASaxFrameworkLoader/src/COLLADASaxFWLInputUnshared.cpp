@@ -38,6 +38,7 @@ namespace COLLADASaxFWL
         switch ( semantic )
         {
         case InputSemantic::BINORMAL: return Constants::SEMANTIC_BINORMAL;
+		case InputSemantic::BATCHID: return Constants::SEMANTIC_BATCHID;
         case InputSemantic::COLOR: return Constants::SEMANTIC_COLOR;
         case InputSemantic::CONTINUITY: return Constants::SEMANTIC_CONTINUITY;
         case InputSemantic::IMAGE: return Constants::SEMANTIC_IMAGE;
@@ -68,11 +69,13 @@ namespace COLLADASaxFWL
     // ----------------------------
     const InputSemantic::Semantic InputUnshared::getSemanticFromString ( const String& semanticStr )
     {
-		size_t hash = COLLADABU::calculateHashUpper( semanticStr );
+		size_t hash = COLLADABU::calculateHashUpper( semanticStr ); //107510932
 		switch ( hash )
 		{
 		case InputSemantic::BINORMAL_HASH: 
 			return InputSemantic::BINORMAL;
+		case InputSemantic::BATCHID_HASH:
+			return InputSemantic::BATCHID;
 		case InputSemantic::COLOR_HASH: 
 			return InputSemantic::COLOR;
 		case InputSemantic::CONTINUITY_HASH: 

@@ -19,6 +19,7 @@ namespace COLLADAFW
     const String Constants::ERR_UNKNOWN_INPUT = "UNKNOWN INPUT ERROR";
 
     const String Constants::SEMANTIC_BINORMAL = "BINORMAL";
+    const String Constants::SEMANTIC_BATCHID = "BATCHID";
     const String Constants::SEMANTIC_COLOR = "COLOR";
     const String Constants::SEMANTIC_CONTINUITY = "CONTINUITY";
     const String Constants::SEMANTIC_IMAGE = "IMAGE";

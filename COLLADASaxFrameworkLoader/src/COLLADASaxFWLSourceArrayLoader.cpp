@@ -192,6 +192,26 @@ namespace COLLADASaxFWL
 	}
 
 	//------------------------------
+	bool SourceArrayLoader::begin__int_array( const int_array__AttributeData&  attributeData )
+	{
+		return beginArray<IntSource>( attributeData.count, attributeData.id ) != 0;
+	}
+
+	//------------------------------
+	bool SourceArrayLoader::end__int_array()
+	{
+		return true;
+	}
+	
+	//------------------------------
+	bool SourceArrayLoader::data__int_array( const int* data, size_t length )
+	{
+		IntSource* source = (IntSource*)mCurrentSoure;
+		COLLADAFW::IntValuesArray& array = source->getArrayElement().getValues();
+		array.appendValues(data, length);
+		return true;
+	}
+	//------------------------------
 	bool SourceArrayLoader::begin__animation__source__technique_common()
 	{
 		//we don't need to do anything here

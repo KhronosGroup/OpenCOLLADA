@@ -42,6 +42,12 @@ virtual bool end__float_array();
 
 virtual bool data__float_array( const float* data, size_t length );
 
+virtual bool begin__int_array( const COLLADASaxFWL14::int_array__AttributeData& attributeData);
+
+virtual bool end__int_array();
+
+virtual bool data__int_array( const int* data, size_t length);
+
 virtual bool begin__animation__source__technique_common();
 
 virtual bool end__animation__source__technique_common();
