@@ -102,6 +102,7 @@ namespace COLLADAFW
         virtual ~Mesh ();
 
         MeshVertexData& getBatchIds()  { return mBatchIds; }
+        const MeshVertexData& getBatchIds () const { return mBatchIds; }
 
         /** 
         * The positions array. 

@@ -232,7 +232,7 @@ namespace DAE2Ogre
 		{
 			mOgreIndices.append( mTupleMap[tuple] = mNextTupleIndex++ );
 
-			if ( mMeshPositions.getType() == COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE )
+			if ( mMeshPositions.getType() == COLLADAFW::DFI::DATA_TYPE_DOUBLE )
 			{
 				const double* positionsArray = mMeshPositions.getDoubleValues()->getData();
 				positionsArray += 3*tuple.positionIndex;
@@ -255,7 +255,7 @@ namespace DAE2Ogre
 
 			if ( mHasNormals )
 			{
-				if ( mMeshNormals.getType() == COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE )
+				if ( mMeshNormals.getType() == COLLADAFW::DFI::DATA_TYPE_DOUBLE )
 				{
 					const double* normalsArray = mMeshNormals.getDoubleValues()->getData();
 					normalsArray += 3*tuple.normalIndex;
@@ -281,7 +281,7 @@ namespace DAE2Ogre
 
 			if ( mHasUVCoords )
 			{
-				if ( mMeshUVCoordinates.getType() == COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE )
+				if ( mMeshUVCoordinates.getType() == COLLADAFW::DFI::DATA_TYPE_DOUBLE )
 				{
 					const double* uVCoordinateArray = mMeshUVCoordinates.getDoubleValues()->getData();
 					uVCoordinateArray += mMeshUVCoordinates.getStride(0)*tuple.textureIndex;

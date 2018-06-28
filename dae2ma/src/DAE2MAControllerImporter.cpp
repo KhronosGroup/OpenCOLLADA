@@ -309,8 +309,8 @@ namespace DAE2MA
         }
         else
         {
-            const COLLADAFW::FloatOrDoubleArray::DataType& inputDataType = morphWeights.getType ();
-            if ( inputDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT )
+            const COLLADAFW::DFI::DataType& inputDataType = morphWeights.getType ();
+            if ( inputDataType == COLLADAFW::DFI::DATA_TYPE_FLOAT )
             {
                 COLLADAFW::FloatArray* floatArray = morphWeights.getFloatValues ();
                 blendShape->setWeight ( 0, numMorphWeights-1, floatArray->getData () );

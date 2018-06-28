@@ -384,7 +384,7 @@ namespace COLLADASaxFWL
          */
         size_t getNumOfPrimitiveIndices ( const MeshPrimitiveInputList* polyBaseElement );
 
-        bool loadTexBATCHIDSourceElement( const InputShared& input);
+        bool loadBATCHIDSourceElement( const InputShared& input);
         /**
          * Go through the list of input elements of the current poly base and get the 
          * source data of the input elements and write it into the source elements.

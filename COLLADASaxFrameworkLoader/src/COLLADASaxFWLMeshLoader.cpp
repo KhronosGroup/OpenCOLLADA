@@ -165,7 +165,7 @@ namespace COLLADASaxFWL
             retValue = loadTexBinormalSourceElement( input );
             break;
         case InputSemantic::BATCHID:
-            retValue = loadTexBATCHIDSourceElement( input );
+            retValue = loadBATCHIDSourceElement( input );
             break;
         default:
             // Not implemented source
@@ -175,13 +175,12 @@ namespace COLLADASaxFWL
 
         return retValue;
     }
-    bool MeshLoader::loadTexBATCHIDSourceElement( const InputShared& input){
+    bool MeshLoader::loadBATCHIDSourceElement( const InputShared& input){
         // Get the semantic of the current input element.
         InputSemantic::Semantic semantic = input.getSemantic ();
-        bool retValue = true;
         if ( semantic != InputSemantic::BATCHID )
         {
-            std::cerr << "The current input element is not a POSITION element!" << std::endl;
+            std::cerr << "The current input element is not a BATCHID element!" << std::endl;
             return false;
         }
 
@@ -194,11 +193,36 @@ namespace COLLADASaxFWL
         // Check if the source element is already loaded.
         if ( sourceBase->isLoadedInputElement ( semantic ) ) return false;
 
-        COLLADAFW::MeshVertexData& batchId = mMesh->getBatchIds();
-        retValue = appendVertexValues(sourceBase, batchId);
+        // Get the source input array
+        const SourceBase::DataType& dataType = sourceBase->getDataType ();
+        // Get the values array from the source
+        IntSource* source = ( IntSource* ) sourceBase;
+        IntArrayElement& arrayElement = source->getArrayElement ();
+        COLLADAFW::ArrayPrimitiveType<int>& valuesArray = arrayElement.getValues ();
 
-        sourceBase->addLoadedInputElement(semantic);
-        return retValue;
+
+        // Check if there are already some values in the batchid list.
+        // If so, we have to store the last index to increment the following indexes.
+        COLLADAFW::MeshVertexData& batchids = mMesh->getBatchIds ();
+        const size_t initialIndex = batchids.getValuesCount ();
+        sourceBase->setInitialIndex ( initialIndex );
+
+        // Push the new batchids into the list of batchids.
+        batchids.setType ( COLLADAFW::DFI::DATA_TYPE_INT );
+        if ( initialIndex != 0 ) 
+        {
+            batchids.appendValues ( valuesArray );
+        }
+        else
+        {
+            batchids.setData ( valuesArray.getData (), valuesArray.getCount () );
+            valuesArray.yieldOwnerShip();
+        }
+
+        // Set the source base as loaded element.
+        sourceBase->addLoadedInputElement ( semantic );
+
+        return true;
     }
 
 	//------------------------------
@@ -242,7 +266,7 @@ namespace COLLADASaxFWL
                 sourceBase->setInitialIndex ( initialIndex );
 
                 // Push the new positions into the list of positions.
-                positions.setType ( COLLADAFW::MeshVertexData::DATA_TYPE_FLOAT );
+                positions.setType ( COLLADAFW::DFI::DATA_TYPE_FLOAT );
                 if ( initialIndex != 0 ) 
 				{
 					positions.appendValues ( valuesArray );
@@ -272,7 +296,7 @@ namespace COLLADASaxFWL
                 sourceBase->setInitialIndex ( initialIndex );
 
                 // Push the new positions into the list of positions.
-                positions.setType ( COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE );
+                positions.setType ( COLLADAFW::DFI::DATA_TYPE_DOUBLE );
                 if ( initialIndex != 0 ) 
 				{
 					positions.appendValues ( valuesArray );
@@ -334,7 +358,7 @@ namespace COLLADASaxFWL
                 sourceBase->setInitialIndex ( initialIndex );
 
                 // Push the new positions into the list of positions.
-                normals.setType ( COLLADAFW::MeshVertexData::DATA_TYPE_FLOAT );
+                normals.setType ( COLLADAFW::DFI::DATA_TYPE_FLOAT );
                 if ( initialIndex != 0 ) 
 				{
 					normals.appendValues ( valuesArray );
@@ -364,7 +388,7 @@ namespace COLLADASaxFWL
                 sourceBase->setInitialIndex ( initialIndex );
 
                 // Push the new positions into the list of positions.
-                normals.setType ( COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE );
+                normals.setType ( COLLADAFW::DFI::DATA_TYPE_DOUBLE );
                 if ( initialIndex != 0 ) 
 				{
 					normals.appendValues ( valuesArray );
@@ -567,6 +591,7 @@ namespace COLLADASaxFWL
                 COLLADAFW::ArrayPrimitiveType<int>& valuesArray = arrayElement.getValues();
 
                  vertexData.appendValues(valuesArray, source->getId(), (size_t) source->getStride());
+                 break;
             }
         default:
             std::cerr << "Source has an other datatype as float or double! " << dataType << std::endl;
@@ -947,9 +972,9 @@ namespace COLLADASaxFWL
             }
             else 
             {
-                // only stride 3 makes sense for normals
+                // only stride 1 makes sense for batchIds.
                 unsigned long long stride = sourceBase->getStride();
-                if ( stride == 3 )
+                if ( stride == 1 )
                 {
                     mBatchIdsIndexOffset = (unsigned int)(sourceBase->getInitialIndex() / stride);
                     mUseBatchIds = true;

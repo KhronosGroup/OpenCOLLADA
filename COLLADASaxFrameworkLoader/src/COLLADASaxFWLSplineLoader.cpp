@@ -186,7 +186,7 @@ namespace COLLADASaxFWL
                     sourceBase->setInitialIndex ( initialIndex );
 
                     // Push the new positions into the list of positions.
-                    positions.setType ( COLLADAFW::MeshVertexData::DATA_TYPE_FLOAT );
+                    positions.setType ( COLLADAFW::DFI::DATA_TYPE_FLOAT );
                     if ( initialIndex != 0 ) 
                     {
                         positions.appendValues ( valuesArray );
@@ -216,7 +216,7 @@ namespace COLLADASaxFWL
                     sourceBase->setInitialIndex ( initialIndex );
 
                     // Push the new positions into the list of positions.
-                    positions.setType ( COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE );
+                    positions.setType ( COLLADAFW::DFI::DATA_TYPE_DOUBLE );
                     if ( initialIndex != 0 ) 
                     {
                         positions.appendValues ( valuesArray );
@@ -278,7 +278,7 @@ namespace COLLADASaxFWL
                     sourceBase->setInitialIndex ( initialIndex );
 
                     // Push the new positions into the list of positions.
-                    positions.setType ( COLLADAFW::MeshVertexData::DATA_TYPE_FLOAT );
+                    positions.setType ( COLLADAFW::DFI::DATA_TYPE_FLOAT );
                     if ( initialIndex != 0 ) 
                     {
                         positions.appendValues ( valuesArray );
@@ -308,7 +308,7 @@ namespace COLLADASaxFWL
                     sourceBase->setInitialIndex ( initialIndex );
 
                     // Push the new positions into the list of positions.
-                    positions.setType ( COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE );
+                    positions.setType ( COLLADAFW::DFI::DATA_TYPE_DOUBLE );
                     if ( initialIndex != 0 ) 
                     {
                         positions.appendValues ( valuesArray );
@@ -370,7 +370,7 @@ namespace COLLADASaxFWL
                     sourceBase->setInitialIndex ( initialIndex );
 
                     // Push the new positions into the list of positions.
-                    positions.setType ( COLLADAFW::MeshVertexData::DATA_TYPE_FLOAT );
+                    positions.setType ( COLLADAFW::DFI::DATA_TYPE_FLOAT );
                     if ( initialIndex != 0 ) 
                     {
                         positions.appendValues ( valuesArray );
@@ -400,7 +400,7 @@ namespace COLLADASaxFWL
                     sourceBase->setInitialIndex ( initialIndex );
 
                     // Push the new positions into the list of positions.
-                    positions.setType ( COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE );
+                    positions.setType ( COLLADAFW::DFI::DATA_TYPE_DOUBLE );
                     if ( initialIndex != 0 ) 
                     {
                         positions.appendValues ( valuesArray );
