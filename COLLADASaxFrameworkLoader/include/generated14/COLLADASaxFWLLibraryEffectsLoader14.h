@@ -15,7 +15,7 @@
 
 #include "COLLADASaxFWLPrerequisites.h"
 #include "COLLADASaxFWLLibraryEffectsLoader.h"
-#include "COLLADASaxFWLIParserImpl14.h"
+#include "COLLADASaxFWLLibraryImagesLoader14.h"
 
 
 namespace COLLADASaxFWL
@@ -25,14 +25,14 @@ namespace COLLADASaxFWL
 class IFilePartLoader;
 
 
-class LibraryEffectsLoader14 : public IParserImpl14
+class LibraryEffectsLoader14 : public LibraryImagesLoader14
 {
 private:
 LibraryEffectsLoader* mLoader;
 
 public:
 LibraryEffectsLoader14(LibraryEffectsLoader* loader)
- : mLoader(loader)
+ : LibraryImagesLoader14(static_cast<LibraryImagesLoader*>(loader)), mLoader(loader)
 {}
 
 

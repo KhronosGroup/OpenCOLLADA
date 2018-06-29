@@ -11,9 +11,7 @@
 #ifndef __COLLADASAXFWL_LIBRARYEFFECTSSLOADER_H__
 #define __COLLADASAXFWL_LIBRARYEFFECTSSLOADER_H__
 
-#include "COLLADASaxFWLPrerequisites.h"
-#include "COLLADASaxFWLFilePartLoader.h"
-#include "COLLADASaxFWLXmlTypes.h"
+#include "COLLADASaxFWLLibraryImagesLoader.h"
 
 #include "COLLADAFWEffectCommon.h"
 #include "COLLADAFWTypes.h"
@@ -32,7 +30,7 @@ namespace COLLADASaxFWL
 {
 
     /** TODO Documentation */
-	class LibraryEffectsLoader : public FilePartLoader
+	class LibraryEffectsLoader : public LibraryImagesLoader
 	{
     public:
 		enum ShaderParameterTypes
@@ -224,7 +222,6 @@ namespace COLLADASaxFWL
 
 		/** Set the current profile to unknown.*/
 		virtual bool end__profile_COMMON();
-
 
 		/** Store the sid of the new param.*/
 		virtual bool begin__newparam____common_newparam_type( const newparam____common_newparam_type__AttributeData& attributeData );
