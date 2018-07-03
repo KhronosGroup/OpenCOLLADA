@@ -1,7 +1,6 @@
 
 #include "COLLADAFWStableHeaders.h"
 #include "COLLADAFWIntArray.h"
-#include "COLLADAFWFloatOrDoubleArray.h"
 
 
 namespace COLLADAFW

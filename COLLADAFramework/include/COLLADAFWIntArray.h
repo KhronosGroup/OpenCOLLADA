@@ -5,7 +5,7 @@
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWTypes.h"
 #include "COLLADAFWAnimatable.h"
-#include "COLLADAFWFloatOrDoubleArray.h"
+#include "COLLADAFWDoubleFloatOrIntType.h"
 
 
 namespace COLLADAFW

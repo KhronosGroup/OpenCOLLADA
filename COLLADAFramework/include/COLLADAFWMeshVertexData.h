@@ -13,9 +13,9 @@
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWArrayPrimitiveType.h"
+#include "COLLADAFWDoubleFloatOrIntType.h"
 #include "COLLADAFWFloatOrDoubleArray.h"
 #include "COLLADAFWIntArray.h"
-#include "COLLADAFWDoubleFloatOrIntType.h"
 
 #include <assert.h>
 
