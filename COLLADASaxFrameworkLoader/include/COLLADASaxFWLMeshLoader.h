@@ -150,7 +150,7 @@ namespace COLLADASaxFWL
         bool mUseBinormals;
 
         unsigned long long mBatchIdsOffset;
-        unsigned long long mBatchIdsIndexOffset;
+        unsigned int mBatchIdsIndexOffset;
         bool mUseBatchIds;
 
         /** Multiple colors. */

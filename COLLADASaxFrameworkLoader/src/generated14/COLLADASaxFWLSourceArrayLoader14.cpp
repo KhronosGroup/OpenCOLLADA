@@ -48,7 +48,7 @@ return mLoader->data__float_array(data, length);
 }
 
 bool SourceArrayLoader14::begin__int_array( const COLLADASaxFWL14::int_array__AttributeData& attributeData){
-    // SaxVirtualFunctionTest14(begin__int_array(attributeData));
+    SaxVirtualFunctionTest14(begin__int_array(attributeData));
     COLLADASaxFWL::int_array__AttributeData attrData;
     attrData.present_attributes = 0;
     attrData.id = attributeData.id;
@@ -67,7 +67,7 @@ bool SourceArrayLoader14::end__int_array()
     // SaxVirtualFunctionTest14(end__int_array);
     return mLoader->end__int_array();   
 }
-bool SourceArrayLoader14::data__int_array( const int* data, size_t length)
+bool SourceArrayLoader14::data__int_array( const sint64* data, size_t length)
 {
     // SaxVirtualFunctionTest14(data__int_array);
     return mLoader->data__int_array(data, length);

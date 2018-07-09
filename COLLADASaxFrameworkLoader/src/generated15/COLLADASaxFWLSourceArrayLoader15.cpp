@@ -66,7 +66,7 @@ bool SourceArrayLoader15::end__int_array()
 //    SaxVirtualFunctionTest15(end__int_array);
     return mLoader->end__int_array();   
 }
-bool SourceArrayLoader15::data__int_array( const int* data, size_t length)
+bool SourceArrayLoader15::data__int_array( const sint64* data, size_t length)
 {
 //    SaxVirtualFunctionTest15(data__int_array);
     return mLoader->data__int_array(data, length);

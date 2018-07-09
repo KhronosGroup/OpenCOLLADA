@@ -204,11 +204,11 @@ namespace COLLADASaxFWL
 	}
 	
 	//------------------------------
-	bool SourceArrayLoader::data__int_array( const int* data, size_t length )
+	bool SourceArrayLoader::data__int_array( const sint64* data, size_t length )
 	{
 		IntSource* source = (IntSource*)mCurrentSoure;
 		COLLADAFW::IntValuesArray& array = source->getArrayElement().getValues();
-		array.appendValues(data, length);
+		array.appendValues((const int*)data, length);
 		return true;
 	}
 	//------------------------------

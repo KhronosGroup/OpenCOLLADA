@@ -135,7 +135,7 @@ namespace COLLADASaxFWL
 
 		virtual bool end__int_array();
 
-		virtual bool data__int_array( const int* data, size_t length);
+		virtual bool data__int_array( const sint64* data, size_t length);
 
 
 		/** Sax callback function for the beginning of a technique_common element.*/

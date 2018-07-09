@@ -46,7 +46,7 @@ virtual bool begin__int_array( const COLLADASaxFWL14::int_array__AttributeData& 
 
 virtual bool end__int_array();
 
-virtual bool data__int_array( const int* data, size_t length);
+virtual bool data__int_array( const sint64* data, size_t length);
 
 virtual bool begin__animation__source__technique_common();
 
