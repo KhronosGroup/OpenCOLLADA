@@ -47,6 +47,8 @@ namespace COLLADASW
             return CSWC::CSW_SEMANTIC_VERTEX;
         case InputSemantic::NORMAL:
             return CSWC::CSW_SEMANTIC_NORMAL;
+        case InputSemantic::BATCHID:
+            return CSWC::CSW_SEMANTIC_BATCHID;
 		case InputSemantic::TEXCOORD:
 			return CSWC::CSW_SEMANTIC_TEXCOORD;
 		case InputSemantic::TANGENT:

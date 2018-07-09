@@ -120,6 +120,7 @@ namespace COLLADASW
         static const String CSW_ELEMENT_INSTANCE_NODE;
         static const String CSW_ELEMENT_INSTANCE_VISUAL_SCENE;
 		static const String CSW_ELEMENT_INSTANCE_PHYSICS_SCENE;
+        static const String CSW_ELEMENT_INT_ARRAY;
         static const String CSW_ELEMENT_JOINTS;
         static const String CSW_ELEMENT_KEYWORDS;
         static const String CSW_ELEMENT_LAMBERT;
@@ -395,6 +396,7 @@ namespace COLLADASW
         static const String CSW_SEMANTIC_MORPH_WEIGHT;
         static const String CSW_SEMANTIC_MORPH_TARGET;
         static const String CSW_SEMANTIC_NORMAL;
+        static const String CSW_SEMANTIC_BATCHID;
         static const String CSW_SEMANTIC_OUTPUT;
         static const String CSW_SEMANTIC_OUT_TANGENT;
         static const String CSW_SEMANTIC_POSITION;

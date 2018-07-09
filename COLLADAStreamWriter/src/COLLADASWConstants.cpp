@@ -109,6 +109,7 @@ namespace COLLADASW
     const String CSWC::CSW_ELEMENT_INSTANCE_NODE = "instance_node";
     const String CSWC::CSW_ELEMENT_INSTANCE_VISUAL_SCENE = "instance_visual_scene";
 	const String CSWC::CSW_ELEMENT_INSTANCE_PHYSICS_SCENE = "instance_physics_scene";
+    const String CSWC::CSW_ELEMENT_INT_ARRAY = "int_array";
     const String CSWC::CSW_ELEMENT_JOINTS = "joints";
     const String CSWC::CSW_ELEMENT_KEYWORDS = "keywords";
     const String CSWC::CSW_ELEMENT_LAMBERT = "lambert";
@@ -385,6 +386,7 @@ namespace COLLADASW
     const String CSWC::CSW_SEMANTIC_MORPH_WEIGHT = "MORPH_WEIGHT";
     const String CSWC::CSW_SEMANTIC_MORPH_TARGET = "MORPH_TARGET";
     const String CSWC::CSW_SEMANTIC_NORMAL = "NORMAL";
+    const String CSWC::CSW_SEMANTIC_BATCHID = "BATCHID";
     const String CSWC::CSW_SEMANTIC_OUTPUT = "OUTPUT";
     const String CSWC::CSW_SEMANTIC_OUT_TANGENT = "OUT_TANGENT";
     const String CSWC::CSW_SEMANTIC_POSITION = "POSITION";
