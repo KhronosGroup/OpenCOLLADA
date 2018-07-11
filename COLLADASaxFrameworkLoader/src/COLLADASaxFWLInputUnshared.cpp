@@ -38,7 +38,7 @@ namespace COLLADASaxFWL
         switch ( semantic )
         {
         case InputSemantic::BINORMAL: return Constants::SEMANTIC_BINORMAL;
-		case InputSemantic::BATCHID: return Constants::SEMANTIC_BATCHID;
+		case InputSemantic::_BATCHID: return Constants::SEMANTIC__BATCHID;
         case InputSemantic::COLOR: return Constants::SEMANTIC_COLOR;
         case InputSemantic::CONTINUITY: return Constants::SEMANTIC_CONTINUITY;
         case InputSemantic::IMAGE: return Constants::SEMANTIC_IMAGE;
@@ -74,8 +74,8 @@ namespace COLLADASaxFWL
 		{
 		case InputSemantic::BINORMAL_HASH: 
 			return InputSemantic::BINORMAL;
-		case InputSemantic::BATCHID_HASH:
-			return InputSemantic::BATCHID;
+		case InputSemantic::_BATCHID_HASH:
+			return InputSemantic::_BATCHID;
 		case InputSemantic::COLOR_HASH: 
 			return InputSemantic::COLOR;
 		case InputSemantic::CONTINUITY_HASH: 

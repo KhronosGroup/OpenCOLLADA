@@ -34,7 +34,7 @@ namespace COLLADASW
 		{
 			BINORMAL=0, /** Geometric binormal (bitangent) vector */
 			BINDMATRIX, 
-            BATCHID,
+            _BATCHID,
 			COLOR, /** Color coordinate vector. Color inputs are RGB (float3) */
 			CONTINUITY, /** Continuity constraint at the control vertex (CV). See also *Curve Interpolation* in Chapter 4: Programming Guide. */
 			IMAGE, /** Raster or MIP-level input. */

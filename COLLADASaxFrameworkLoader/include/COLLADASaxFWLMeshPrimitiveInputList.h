@@ -147,7 +147,7 @@ namespace COLLADASaxFWL
 
         const InputShared* getBatchIdInput() const
         {
-            return getInputBySemantic ( InputSemantic::BATCHID );
+            return getInputBySemantic ( InputSemantic::_BATCHID );
         }
 
     };

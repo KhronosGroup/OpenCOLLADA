@@ -396,7 +396,7 @@ namespace COLLADASW
         static const String CSW_SEMANTIC_MORPH_WEIGHT;
         static const String CSW_SEMANTIC_MORPH_TARGET;
         static const String CSW_SEMANTIC_NORMAL;
-        static const String CSW_SEMANTIC_BATCHID;
+        static const String CSW_SEMANTIC__BATCHID;
         static const String CSW_SEMANTIC_OUTPUT;
         static const String CSW_SEMANTIC_OUT_TANGENT;
         static const String CSW_SEMANTIC_POSITION;

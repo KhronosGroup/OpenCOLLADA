@@ -164,8 +164,8 @@ namespace COLLADASaxFWL
         case InputSemantic::TEXBINORMAL:
             retValue = loadTexBinormalSourceElement( input );
             break;
-        case InputSemantic::BATCHID:
-            retValue = loadBATCHIDSourceElement( input );
+        case InputSemantic::_BATCHID:
+            retValue = load_BATCHIDSourceElement( input );
             break;
         default:
             // Not implemented source
@@ -175,12 +175,12 @@ namespace COLLADASaxFWL
 
         return retValue;
     }
-    bool MeshLoader::loadBATCHIDSourceElement( const InputShared& input){
+    bool MeshLoader::load_BATCHIDSourceElement( const InputShared& input){
         // Get the semantic of the current input element.
         InputSemantic::Semantic semantic = input.getSemantic ();
-        if ( semantic != InputSemantic::BATCHID )
+        if ( semantic != InputSemantic::_BATCHID )
         {
-            std::cerr << "The current input element is not a BATCHID element!" << std::endl;
+            std::cerr << "The current input element is not a _BATCHID element!" << std::endl;
             return false;
         }
 

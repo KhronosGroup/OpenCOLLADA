@@ -39,7 +39,7 @@ namespace COLLADASW
         static const String VERTICES_ID_SUFFIX;
         static const String TANGENT_ID_SUFFIX;
         static const String BINORMAL_ID_SUFFIX;
-        static const String BATCHID_ID_SUFFIX;
+        static const String _BATCHID_ID_SUFFIX;
 
     private:
 
