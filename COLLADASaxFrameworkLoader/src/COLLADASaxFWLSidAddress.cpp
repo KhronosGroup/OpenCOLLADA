@@ -12,8 +12,6 @@ http://www.opensource.org/licenses/mit-license.php
 #include "COLLADASaxFWLSidAddress.h"
 #include "COLLADABUPcreCompiledPattern.h"
 
-#include "pcre.h"
-
 
 namespace COLLADASaxFWL
 {
