@@ -69,7 +69,7 @@ namespace COLLADASaxFWL
     // ----------------------------
     const InputSemantic::Semantic InputUnshared::getSemanticFromString ( const String& semanticStr )
     {
-		size_t hash = COLLADABU::calculateHashUpper( semanticStr ); //107510932
+		size_t hash = COLLADABU::calculateHashUpper( semanticStr ); //
 		switch ( hash )
 		{
 		case InputSemantic::BINORMAL_HASH: 

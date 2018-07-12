@@ -30,7 +30,7 @@ namespace COLLADASW
     const String LibraryGeometries::VERTICES_ID_SUFFIX = "-vertices";
     const String LibraryGeometries::TANGENT_ID_SUFFIX = "-tangents";
     const String LibraryGeometries::BINORMAL_ID_SUFFIX = "-binormals";
-    const String LibraryGeometries::_BATCHID_ID_SUFFIX = "-batchid";
+    const String LibraryGeometries::_BATCHID_ID_SUFFIX = "-_batchid";
 
 
     //---------------------------------------------------------------

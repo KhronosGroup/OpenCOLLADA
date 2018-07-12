@@ -56,7 +56,7 @@ namespace COLLADASaxFWL
         };
 
 		static const size_t BINORMAL_HASH = 238318908;
-        static const size_t _BATCHID_HASH = 107510932;
+        static const size_t _BATCHID_HASH = 107510500;
 		static const size_t COLOR_HASH = 4735298;
 		static const size_t CONTINUITY_HASH = 149363369;
 		static const size_t IMAGE_HASH = 5117365;
