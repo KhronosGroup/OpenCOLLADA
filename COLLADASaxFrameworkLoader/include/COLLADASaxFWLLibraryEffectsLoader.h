@@ -3,7 +3,7 @@
 
     This file is part of COLLADASaxFrameworkLoader.
 
-    Licensed under the MIT Open Source License, 
+    Licensed under the MIT Open Source License,
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
@@ -11,9 +11,7 @@
 #ifndef __COLLADASAXFWL_LIBRARYEFFECTSSLOADER_H__
 #define __COLLADASAXFWL_LIBRARYEFFECTSSLOADER_H__
 
-#include "COLLADASaxFWLPrerequisites.h"
-#include "COLLADASaxFWLFilePartLoader.h"
-#include "COLLADASaxFWLXmlTypes.h"
+#include "COLLADASaxFWLLibraryImagesLoader.h"
 
 #include "COLLADAFWEffectCommon.h"
 #include "COLLADAFWTypes.h"
@@ -32,7 +30,7 @@ namespace COLLADASaxFWL
 {
 
     /** TODO Documentation */
-	class LibraryEffectsLoader : public FilePartLoader
+	class LibraryEffectsLoader : public LibraryImagesLoader
 	{
     public:
 		enum ShaderParameterTypes
@@ -218,7 +216,7 @@ namespace COLLADASaxFWL
         /** Store the sid of the new param.*/
         virtual bool begin__newparam____cg_newparam( const newparam____cg_newparam__AttributeData& attributeData );
 
-		/** Set the current profile to PROFILE_COMMON. Create and append common effect to current 
+		/** Set the current profile to PROFILE_COMMON. Create and append common effect to current
 		effect.*/
 		virtual bool begin__profile_COMMON( const profile_COMMON__AttributeData& attributeData );
 
@@ -258,7 +256,7 @@ namespace COLLADASaxFWL
         virtual bool begin__minfilter(){return true;}
         virtual bool end__minfilter(){return true;}
         virtual bool data__minfilter( const ENUM__fx_sampler_filter_common value );
-        
+
 		/** We don't need to do anything here.*/
 		virtual bool begin__source____NCName(){return true;}
 
@@ -289,7 +287,7 @@ namespace COLLADASaxFWL
 		/** Resolve all the samplers and copy them to the current effect.*/
 		virtual bool begin__profile_COMMON__technique( const profile_COMMON__technique__AttributeData& attributeData );
 
-        /** Iterate over the list of used samplers in the current effect profile and push them 
+        /** Iterate over the list of used samplers in the current effect profile and push them
             in the sampler array. */
         bool fillSamplerArray();
 
@@ -377,7 +375,7 @@ namespace COLLADASaxFWL
 
 	private:
 		/** Set the shader type of the current profile.*/
-		bool setCommonEffectShaderType( COLLADAFW::EffectCommon::ShaderType shaderType); 
+		bool setCommonEffectShaderType( COLLADAFW::EffectCommon::ShaderType shaderType);
 
 		/** Stores color data into the correct color object.*/
 		bool handleColorData( const float* value, size_t length );
@@ -391,7 +389,7 @@ namespace COLLADASaxFWL
 		bool handleExtraEffectTextures( const COLLADAFW::PointerArray<COLLADAFW::TextureAttributes>& effectTextures );
 
         /**
-         * Luminance is the function, based on the ISO/CIE color standards (see ITU-R 
+         * Luminance is the function, based on the ISO/CIE color standards (see ITU-R
          * Recommendation BT.709-4), that averages the color channels into one value.
          */
         double calculateLuminance ( const COLLADAFW::Color& color );
