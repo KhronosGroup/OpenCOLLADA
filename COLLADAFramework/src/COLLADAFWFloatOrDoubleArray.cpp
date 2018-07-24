@@ -22,13 +22,13 @@ namespace COLLADAFW
 
 	//------------------------------
 	FloatOrDoubleArray::FloatOrDoubleArray() 
-		: mType ( DoubleFloatOrIntArray::DataType::DATA_TYPE_UNKNOWN )
+		: mType ( FloatDoubleOrIntArray::DataType::DATA_TYPE_UNKNOWN )
 		, mValuesF(FloatArray::OWNER)
 		, mValuesD(DoubleArray::OWNER)
 	{}
 
 	//------------------------------
-	FloatOrDoubleArray::FloatOrDoubleArray( DoubleFloatOrIntArray::DataType type ) 
+	FloatOrDoubleArray::FloatOrDoubleArray( FloatDoubleOrIntArray::DataType type ) 
 		: mType ( type )
 		, mValuesF(FloatArray::OWNER)
 		, mValuesD(DoubleArray::OWNER)
@@ -41,11 +41,11 @@ namespace COLLADAFW
 		, mValuesF(FloatArray::OWNER)
 		, mValuesD(DoubleArray::OWNER)
 	{
-		if ( mType == DoubleFloatOrIntArray::DataType::DATA_TYPE_FLOAT )
+		if ( mType == FloatDoubleOrIntArray::DataType::DATA_TYPE_FLOAT )
 		{
 			pre.mValuesF.cloneArray( mValuesF );
 		}
-		else if ( mType == DoubleFloatOrIntArray::DataType::DATA_TYPE_DOUBLE )
+		else if ( mType == FloatDoubleOrIntArray::DataType::DATA_TYPE_DOUBLE )
 		{
 			pre.mValuesD.cloneArray( mValuesD );
 		}
@@ -54,11 +54,11 @@ namespace COLLADAFW
 	//------------------------------
 	size_t FloatOrDoubleArray::getValuesCount() const
 	{
-		if ( mType == DoubleFloatOrIntArray::DataType::DATA_TYPE_FLOAT )
+		if ( mType == FloatDoubleOrIntArray::DataType::DATA_TYPE_FLOAT )
 		{
 			return mValuesF.getCount();
 		}
-		if ( mType == DoubleFloatOrIntArray::DataType::DATA_TYPE_DOUBLE ) 
+		if ( mType == FloatDoubleOrIntArray::DataType::DATA_TYPE_DOUBLE ) 
 		{
 			return mValuesD.getCount();
 		}
@@ -68,11 +68,11 @@ namespace COLLADAFW
 	//------------------------------
 	void FloatOrDoubleArray::clear()
 	{
-		if( mType == DoubleFloatOrIntArray::DataType::DATA_TYPE_FLOAT )
+		if( mType == FloatDoubleOrIntArray::DataType::DATA_TYPE_FLOAT )
 		{
 			mValuesF.clear();
 		}
-		if( mType == DoubleFloatOrIntArray::DataType::DATA_TYPE_DOUBLE )
+		if( mType == FloatDoubleOrIntArray::DataType::DATA_TYPE_DOUBLE )
 		{
 			mValuesD.clear();
 		}
@@ -81,7 +81,7 @@ namespace COLLADAFW
 	//------------------------------
 	const FloatArray* FloatOrDoubleArray::getFloatValues() const
 	{
-		if ( mType == DoubleFloatOrIntArray::DataType::DATA_TYPE_FLOAT )
+		if ( mType == FloatDoubleOrIntArray::DataType::DATA_TYPE_FLOAT )
 		{
 			return ( ArrayPrimitiveType<float>* ) &mValuesF;
 		}
@@ -91,7 +91,7 @@ namespace COLLADAFW
 	//------------------------------
 	FloatArray* FloatOrDoubleArray::getFloatValues()
 	{
-		if ( mType == DoubleFloatOrIntArray::DataType::DATA_TYPE_FLOAT )
+		if ( mType == FloatDoubleOrIntArray::DataType::DATA_TYPE_FLOAT )
 		{
 			return ( ArrayPrimitiveType<float>* ) &mValuesF;
 		}
@@ -101,7 +101,7 @@ namespace COLLADAFW
 	//------------------------------
 	const DoubleArray* FloatOrDoubleArray::getDoubleValues() const
 	{
-		if ( mType == DoubleFloatOrIntArray::DataType::DATA_TYPE_DOUBLE )
+		if ( mType == FloatDoubleOrIntArray::DataType::DATA_TYPE_DOUBLE )
 		{
 			return ( ArrayPrimitiveType<double>* ) &mValuesD;
 		}
@@ -111,7 +111,7 @@ namespace COLLADAFW
 	//------------------------------
 	DoubleArray* FloatOrDoubleArray::getDoubleValues()
 	{
-		if ( mType == DoubleFloatOrIntArray::DataType::DATA_TYPE_DOUBLE )
+		if ( mType == FloatDoubleOrIntArray::DataType::DATA_TYPE_DOUBLE )
 		{
 			return ( ArrayPrimitiveType<double>* ) &mValuesD;
 		}
@@ -121,7 +121,7 @@ namespace COLLADAFW
 	//------------------------------
 	void FloatOrDoubleArray::setData( float* data, const size_t count )
 	{
-		if ( mType == DoubleFloatOrIntArray::DataType::DATA_TYPE_FLOAT ) 
+		if ( mType == FloatDoubleOrIntArray::DataType::DATA_TYPE_FLOAT ) 
 		{
 			mValuesF.setData( data, count );
 		}
@@ -130,7 +130,7 @@ namespace COLLADAFW
 	//------------------------------
 	void FloatOrDoubleArray::setData( double* data, const size_t count )
 	{
-		if ( mType == DoubleFloatOrIntArray::DataType::DATA_TYPE_DOUBLE ) 
+		if ( mType == FloatDoubleOrIntArray::DataType::DATA_TYPE_DOUBLE ) 
 		{
 			mValuesD.setData( data, count );
 		}
@@ -139,7 +139,7 @@ namespace COLLADAFW
 	//------------------------------
 	bool FloatOrDoubleArray::appendValues( const FloatArray& valuesArray )
 	{
-		if ( mType == DoubleFloatOrIntArray::DataType::DATA_TYPE_FLOAT )
+		if ( mType == FloatDoubleOrIntArray::DataType::DATA_TYPE_FLOAT )
 		{
 			mValuesF.appendValues( valuesArray );
 			return true;
@@ -150,7 +150,7 @@ namespace COLLADAFW
 	//------------------------------
 	bool FloatOrDoubleArray::appendValues( const DoubleArray& valuesArray )
 	{
-		if ( mType == DoubleFloatOrIntArray::DataType::DATA_TYPE_DOUBLE )
+		if ( mType == FloatDoubleOrIntArray::DataType::DATA_TYPE_DOUBLE )
 		{
 			mValuesD.appendValues( valuesArray );
 			return true;

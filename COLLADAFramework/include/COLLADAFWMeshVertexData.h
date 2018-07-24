@@ -13,7 +13,7 @@
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWArrayPrimitiveType.h"
-#include "COLLADAFWDoubleFloatOrIntType.h"
+#include "COLLADAFWFloatDoubleOrIntType.h"
 #include "COLLADAFWFloatOrDoubleArray.h"
 #include "COLLADAFWIntArray.h"
 
@@ -56,7 +56,7 @@ namespace COLLADAFW
         {}
 
         /** Constructor. */
-		MeshVertexData ( DoubleFloatOrIntArray::DataType type )
+		MeshVertexData ( FloatDoubleOrIntArray::DataType type )
             : FloatOrDoubleArray(type)
             , IntArray(type)
 			, mInputInfosArray (0)
@@ -90,7 +90,7 @@ namespace COLLADAFW
         */
         void appendValues ( const FloatArray& valuesArray, const String& name, const size_t stride )
         {
-            FloatOrDoubleArray::setType ( DoubleFloatOrIntArray::DataType::DATA_TYPE_FLOAT );
+            FloatOrDoubleArray::setType ( FloatDoubleOrIntArray::DataType::DATA_TYPE_FLOAT );
 			FloatOrDoubleArray::appendValues ( valuesArray );
 
             InputInfos* info = new InputInfos();
@@ -110,7 +110,7 @@ namespace COLLADAFW
         */
         void appendValues ( const DoubleArray& valuesArray, const String& name, const size_t stride )
         {
-            FloatOrDoubleArray::setType ( DoubleFloatOrIntArray::DataType::DATA_TYPE_DOUBLE );
+            FloatOrDoubleArray::setType ( FloatDoubleOrIntArray::DataType::DATA_TYPE_DOUBLE );
 			FloatOrDoubleArray::appendValues ( valuesArray );
 
             InputInfos* info = new InputInfos();
@@ -130,7 +130,7 @@ namespace COLLADAFW
         */
         void appendValues ( const IntValuesArray& valuesArray, const String& name, const size_t stride )
         {
-            IntArray::setType ( DoubleFloatOrIntArray::DataType::DATA_TYPE_INT );
+            IntArray::setType ( FloatDoubleOrIntArray::DataType::DATA_TYPE_INT );
 			IntArray::appendValues ( valuesArray );
 
             InputInfos* info = new InputInfos();
@@ -190,22 +190,22 @@ namespace COLLADAFW
 			return IntArray::appendValues ( valuesArray );
 		}
 
-        DoubleFloatOrIntArray::DataType getType() const 
+        FloatDoubleOrIntArray::DataType getType() const 
         {
-            if ( IntArray::getType() == DoubleFloatOrIntArray::DataType::DATA_TYPE_INT ) return IntArray::getType();
+            if ( IntArray::getType() == FloatDoubleOrIntArray::DataType::DATA_TYPE_INT ) return IntArray::getType();
             else return FloatOrDoubleArray::getType();
         }
 
-        void setType( DoubleFloatOrIntArray::DataType type ) 
+        void setType( FloatDoubleOrIntArray::DataType type ) 
         {
-            if( type == DoubleFloatOrIntArray::DataType::DATA_TYPE_INT )
+            if( type == FloatDoubleOrIntArray::DataType::DATA_TYPE_INT )
             {
                 IntArray::setType(type);
-                FloatOrDoubleArray::setType(DoubleFloatOrIntArray::DataType::DATA_TYPE_UNKNOWN);
+                FloatOrDoubleArray::setType(FloatDoubleOrIntArray::DataType::DATA_TYPE_UNKNOWN);
             }
             else
             {
-                IntArray::setType(DoubleFloatOrIntArray::DataType::DATA_TYPE_UNKNOWN);
+                IntArray::setType(FloatDoubleOrIntArray::DataType::DATA_TYPE_UNKNOWN);
                 FloatOrDoubleArray::setType(type);
 
             }
@@ -213,13 +213,13 @@ namespace COLLADAFW
 
         size_t getValuesCount() const 
         {
-            if ( IntArray::getType() == DoubleFloatOrIntArray::DataType::DATA_TYPE_INT ) return IntArray::getValuesCount();
+            if ( IntArray::getType() == FloatDoubleOrIntArray::DataType::DATA_TYPE_INT ) return IntArray::getValuesCount();
             else return FloatOrDoubleArray::getValuesCount();
         }
 
         bool empty() const
         {
-            if ( IntArray::getType() == DoubleFloatOrIntArray::DataType::DATA_TYPE_INT) return  IntArray::empty();
+            if ( IntArray::getType() == FloatDoubleOrIntArray::DataType::DATA_TYPE_INT) return  IntArray::empty();
             else return FloatOrDoubleArray::empty();
         }
 
@@ -231,7 +231,7 @@ namespace COLLADAFW
 
         template <class T>
         ArrayPrimitiveType<T>& getValues(){
-            if( IntArray::getType() == DoubleFloatOrIntArray::DataType::DATA_TYPE_INT ) 
+            if( IntArray::getType() == FloatDoubleOrIntArray::DataType::DATA_TYPE_INT ) 
             {
                 return IntArray::getValues<int>();
             }

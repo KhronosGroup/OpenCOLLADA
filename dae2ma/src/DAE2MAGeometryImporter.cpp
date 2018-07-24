@@ -718,10 +718,10 @@ namespace DAE2MA
                                 unsigned int pos = triIndices[n] * (unsigned int)stride;                            
 
                                 // Write the normal values on the index values.
-                                const COLLADAFW::DoubleFloatOrIntArray::DataType type = normals.getType ();
+                                const COLLADAFW::FloatDoubleOrIntArray::DataType type = normals.getType ();
                                 switch ( type )
                                 {
-                                case COLLADAFW::DoubleFloatOrIntArray::DATA_TYPE_FLOAT:
+                                case COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT:
                                     {
                                         const COLLADAFW::ArrayPrimitiveType<float>* values = normals.getFloatValues ();
                                         meshNode.appendNormals ( (*values)[pos] );
@@ -729,7 +729,7 @@ namespace DAE2MA
                                         meshNode.appendNormals ( (*values)[pos+2] );
                                     }
                                     break;
-                                case COLLADAFW::DoubleFloatOrIntArray::DATA_TYPE_DOUBLE:
+                                case COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE:
                                     {
                                         const COLLADAFW::ArrayPrimitiveType<double>* values = normals.getDoubleValues ();
                                         meshNode.appendNormals ( (float)(*values)[pos] );
@@ -807,10 +807,10 @@ namespace DAE2MA
                                 unsigned int pos = triIndices[n] * (unsigned int)stride;                            
 
                                 // Write the normal values on the index values.
-                                const COLLADAFW::DoubleFloatOrIntArray::DataType type = normals.getType ();
+                                const COLLADAFW::FloatDoubleOrIntArray::DataType type = normals.getType ();
                                 switch ( type )
                                 {
-                                case COLLADAFW::DoubleFloatOrIntArray::DATA_TYPE_FLOAT:
+                                case COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT:
                                     {
                                         const COLLADAFW::ArrayPrimitiveType<float>* values = normals.getFloatValues ();
                                         meshNode.appendNormals ( (*values)[pos] );
@@ -818,7 +818,7 @@ namespace DAE2MA
                                         meshNode.appendNormals ( (*values)[pos+2] );
                                     }
                                     break;
-                                case COLLADAFW::DoubleFloatOrIntArray::DATA_TYPE_DOUBLE:
+                                case COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE:
                                     {
                                         const COLLADAFW::ArrayPrimitiveType<double>* values = normals.getDoubleValues ();
                                         meshNode.appendNormals ( (float)(*values)[pos] );
@@ -864,10 +864,10 @@ namespace DAE2MA
                         }
 
                         // Write the normal values on the index values.
-                        const COLLADAFW::DoubleFloatOrIntArray::DataType type = normals.getType ();
+                        const COLLADAFW::FloatDoubleOrIntArray::DataType type = normals.getType ();
                         switch ( type )
                         {
-                        case COLLADAFW::DoubleFloatOrIntArray::DATA_TYPE_FLOAT:
+                        case COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT:
                             {
                                 const COLLADAFW::ArrayPrimitiveType<float>* values = normals.getFloatValues ();
                                 meshNode.appendNormals ( (*values)[pos] );
@@ -875,7 +875,7 @@ namespace DAE2MA
                                 meshNode.appendNormals ( (*values)[pos+2] );
                             }
                             break;
-                        case COLLADAFW::DoubleFloatOrIntArray::DATA_TYPE_DOUBLE:
+                        case COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE:
                             {
                                 const COLLADAFW::ArrayPrimitiveType<double>* values = normals.getDoubleValues ();
                                 meshNode.appendNormals ( (float)(*values)[pos] );
@@ -1051,16 +1051,16 @@ namespace DAE2MA
         unsigned int pos = normalIndex * (unsigned int)stride;
 
         // Write the normal values on the index values.
-        const COLLADAFW::DoubleFloatOrIntArray::DataType type = normals.getType ();
+        const COLLADAFW::FloatDoubleOrIntArray::DataType type = normals.getType ();
         switch ( type )
         {
-        case COLLADAFW::DoubleFloatOrIntArray::DATA_TYPE_FLOAT:
+        case COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT:
             {
                 const COLLADAFW::ArrayPrimitiveType<float>* values = normals.getFloatValues ();
                 meshNode.setVertexFaceNormalXYZ ( vertexIndex, globalFaceIndex, MayaDM::float3 ((*values)[pos],(*values)[pos+1],(*values)[pos+2]) );
             }
             break;
-        case COLLADAFW::DoubleFloatOrIntArray::DATA_TYPE_DOUBLE:
+        case COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE:
             {
                 const COLLADAFW::ArrayPrimitiveType<double>* values = normals.getDoubleValues ();
                 meshNode.setVertexFaceNormalXYZ ( vertexIndex, globalFaceIndex, MayaDM::float3 ((float)(*values)[pos],(float)(*values)[pos+1],(float)(*values)[pos+2]) );
@@ -1302,16 +1302,16 @@ namespace DAE2MA
                 meshNode.startVrts ( index, endPosition ); 
             }
 
-            const COLLADAFW::DoubleFloatOrIntArray::DataType type = positions.getType ();
+            const COLLADAFW::FloatDoubleOrIntArray::DataType type = positions.getType ();
             switch ( type )
             {
-            case COLLADAFW::DoubleFloatOrIntArray::DATA_TYPE_FLOAT:
+            case COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT:
                 {
                     const COLLADAFW::ArrayPrimitiveType<float>* values = positions.getFloatValues ();
                     toLinearUnit ( (*values)[i], (*values)[i+1], (*values)[i+2], converted );
                 }
                 break;
-            case COLLADAFW::DoubleFloatOrIntArray::DATA_TYPE_DOUBLE:
+            case COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE:
                 {
                     const COLLADAFW::ArrayPrimitiveType<double>* values = positions.getDoubleValues ();
                     toLinearUnit ( (*values)[i], (*values)[i+1], (*values)[i+2], converted );
@@ -1387,17 +1387,17 @@ namespace DAE2MA
                     }
 
                     // Write the values 
-                    const COLLADAFW::DoubleFloatOrIntArray::DataType type = uvCoords.getType ();
+                    const COLLADAFW::FloatDoubleOrIntArray::DataType type = uvCoords.getType ();
                     switch ( type )
                     {
-                    case COLLADAFW::DoubleFloatOrIntArray::DATA_TYPE_FLOAT:
+                    case COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT:
                         {
                             const COLLADAFW::ArrayPrimitiveType<float>* values = uvCoords.getFloatValues ();
                             meshNode.appendUvSetPoints ( toLinearUnit ((*values)[initialIndex+j]) );
                             meshNode.appendUvSetPoints ( toLinearUnit ((*values)[initialIndex+j+1]) );
                         }
                         break;
-                    case COLLADAFW::DoubleFloatOrIntArray::DATA_TYPE_DOUBLE:
+                    case COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE:
                         {
                             const COLLADAFW::ArrayPrimitiveType<double>* values = uvCoords.getDoubleValues ();
                             meshNode.appendUvSetPoints ( (float) toLinearUnit ((*values)[initialIndex+j]) );
@@ -1474,16 +1474,16 @@ namespace DAE2MA
                     for ( size_t j=0; j<stride; ++j ) 
                     {
                         // Write the values 
-                        const COLLADAFW::DoubleFloatOrIntArray::DataType type = colors.getType ();
+                        const COLLADAFW::FloatDoubleOrIntArray::DataType type = colors.getType ();
                         switch ( type )
                         {
-                        case COLLADAFW::DoubleFloatOrIntArray::DATA_TYPE_FLOAT:
+                        case COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT:
                             {
                                 const COLLADAFW::ArrayPrimitiveType<float>* values = colors.getFloatValues ();
                                 meshNode.appendColorSetPoints ( (*values)[initialIndex+i+j] );
                             }
                             break;
-                        case COLLADAFW::DoubleFloatOrIntArray::DATA_TYPE_DOUBLE:
+                        case COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE:
                             {
                                 const COLLADAFW::ArrayPrimitiveType<double>* values = colors.getDoubleValues ();
                                 meshNode.appendColorSetPoints ( ( float ) (*values)[initialIndex+i+j] );
@@ -2539,13 +2539,13 @@ namespace DAE2MA
 
         // Get the vertex position values of the start position of the current edge.
         double dx, dy, dz; 
-        if ( meshPositions.getType () == COLLADAFW::DoubleFloatOrIntArray::DATA_TYPE_FLOAT )
+        if ( meshPositions.getType () == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT )
         {
             dx = (double)((*(meshPositions.getFloatValues ()))[(vertexIndex*3)]);
             dy = (double)((*(meshPositions.getFloatValues ()))[(vertexIndex*3)+1]);
             dz = (double)((*(meshPositions.getFloatValues ()))[(vertexIndex*3)+2]);
         }
-        else if ( meshPositions.getType () == COLLADAFW::DoubleFloatOrIntArray::DATA_TYPE_DOUBLE )
+        else if ( meshPositions.getType () == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE )
         {
             dx = (*(meshPositions.getDoubleValues ()))[(vertexIndex*3)];
             dy = (*(meshPositions.getDoubleValues ()))[(vertexIndex*3)+1];

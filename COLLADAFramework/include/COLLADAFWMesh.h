@@ -15,7 +15,7 @@
 #include "COLLADAFWGeometry.h"
 #include "COLLADAFWMeshVertexData.h"
 #include "COLLADAFWMeshPrimitive.h"
-#include "COLLADAFWDoubleFloatOrIntType.h"
+#include "COLLADAFWFloatDoubleOrIntType.h"
 
 #include "COLLADABUUtils.h"
 
