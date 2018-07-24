@@ -51,7 +51,7 @@ namespace COLLADAFW
 		template <class T>
 		ArrayPrimitiveType<T>& getValues()
 		{
-            if( mType == FloatDoubleOrIntArray::DataType::DATA_TYPE_INT ) return mValuesI; 
+            if( mType == FloatDoubleOrIntArray::DATA_TYPE_INT ) return mValuesI; 
 			return 0;
 		}
 

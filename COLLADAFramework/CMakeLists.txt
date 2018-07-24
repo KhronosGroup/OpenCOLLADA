@@ -24,12 +24,12 @@ set(INST_SRC
 	include/COLLADAFWColorOrTexture.h
 	include/COLLADAFWConstants.h
 	include/COLLADAFWController.h
-	include/COLLADAFWDoubleFloatOrIntType.h
 	include/COLLADAFWEdge.h
 	include/COLLADAFWEffect.h
 	include/COLLADAFWEffectCommon.h
 	include/COLLADAFWException.h
 	include/COLLADAFWFileInfo.h
+	include/COLLADAFWFloatDoubleOrIntType.h
 	include/COLLADAFWFloatOrDoubleArray.h
 	include/COLLADAFWFloatOrParam.h
 	include/COLLADAFWFormula.h
