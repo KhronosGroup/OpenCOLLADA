@@ -25,7 +25,7 @@
 #include "COLLADAFWColorOrTexture.h"
 #include "COLLADAFWConstants.h"
 #include "COLLADAFWController.h"
-#include "COLLADAFWDoubleFloatOrIntType.h"
+#include "COLLADAFWFloatDoubleOrIntType.h"
 #include "COLLADAFWEdge.h"
 #include "COLLADAFWEffect.h"
 #include "COLLADAFWEffectCommon.h"

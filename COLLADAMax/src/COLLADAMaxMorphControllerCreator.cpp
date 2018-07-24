@@ -157,11 +157,11 @@ namespace COLLADAMax
 			if ( !morphWeightsAnimationList )
 			{
 				float weight = 0;
-				if ( morphWeights.getType() == COLLADAFW::DFI::DATA_TYPE_FLOAT )
+				if ( morphWeights.getType() == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT )
 				{
 					weight = (*morphWeights.getFloatValues())[i];
 				}
-				else if ( morphWeights.getType() == COLLADAFW::DFI::DATA_TYPE_DOUBLE )
+				else if ( morphWeights.getType() == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE )
 				{
 					weight = (float)(*morphWeights.getDoubleValues())[i];
 				}

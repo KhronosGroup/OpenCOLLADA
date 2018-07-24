@@ -13,12 +13,12 @@ namespace COLLADAFW
 
 	//------------------------------
 	IntArray::IntArray() 
-		: mType ( DFI::DataType::DATA_TYPE_UNKNOWN )
+		: mType ( FloatDoubleOrIntArray::DATA_TYPE_UNKNOWN )
         , mValuesI(IntValuesArray::OWNER)
 	{}
 
 	//------------------------------
-	IntArray::IntArray( DFI::DataType type ) 
+	IntArray::IntArray( FloatDoubleOrIntArray::DataType type ) 
 		: mType ( type )
         , mValuesI(IntValuesArray::OWNER)
 	{}
@@ -35,7 +35,7 @@ namespace COLLADAFW
 	//------------------------------
 	size_t IntArray::getValuesCount() const
 	{
-        if( mType == DFI::DataType::DATA_TYPE_INT )
+        if( mType == FloatDoubleOrIntArray::DATA_TYPE_INT )
         {
             return mValuesI.getCount();
         }
@@ -45,7 +45,7 @@ namespace COLLADAFW
 	//------------------------------
 	void IntArray::clear()
 	{
-        if( mType == DFI::DataType::DATA_TYPE_INT )
+        if( mType == FloatDoubleOrIntArray::DATA_TYPE_INT )
         {
             mValuesI.clear();
         }
@@ -54,7 +54,7 @@ namespace COLLADAFW
 	//------------------------------
     const IntValuesArray* IntArray::getIntValues() const
     {
-        if ( mType == DFI::DataType::DATA_TYPE_INT )
+        if ( mType == FloatDoubleOrIntArray::DATA_TYPE_INT )
         {
             return ( ArrayPrimitiveType<int>* ) &mValuesI;
         }
@@ -64,15 +64,17 @@ namespace COLLADAFW
 	//------------------------------
     IntValuesArray* IntArray::getIntValues()
     {
-        if (mType == DFI::DataType::DATA_TYPE_INT )
+        if (mType == FloatDoubleOrIntArray::DATA_TYPE_INT )
         {
             return ( ArrayPrimitiveType<int>* ) &mValuesI;
         }
+
+		return 0;
     }
 	//------------------------------
 	void IntArray::setData( int* data, const size_t count )
 	{
-		if ( mType == DFI::DataType::DATA_TYPE_INT ) 
+		if ( mType == FloatDoubleOrIntArray::DATA_TYPE_INT ) 
 		{
 			mValuesI.setData( data, count );
 		}
@@ -82,7 +84,7 @@ namespace COLLADAFW
 	//------------------------------
 	bool IntArray::appendValues( const IntValuesArray& valuesArray )
 	{
-		if ( mType == DFI::DataType::DATA_TYPE_INT )
+		if ( mType == FloatDoubleOrIntArray::DATA_TYPE_INT )
 		{
 			mValuesI.appendValues( valuesArray );
 			return true;
