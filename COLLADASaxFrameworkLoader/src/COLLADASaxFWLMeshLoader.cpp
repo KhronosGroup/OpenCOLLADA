@@ -208,7 +208,7 @@ namespace COLLADASaxFWL
         sourceBase->setInitialIndex ( initialIndex );
 
         // Push the new batchids into the list of batchids.
-        batchids.setType ( COLLADAFW::DFI::DATA_TYPE_INT );
+        batchids.setType ( COLLADAFW::DoubleFloatOrIntArray::DATA_TYPE_INT );
         if ( initialIndex != 0 ) 
         {
             batchids.appendValues ( valuesArray );
@@ -266,7 +266,7 @@ namespace COLLADASaxFWL
                 sourceBase->setInitialIndex ( initialIndex );
 
                 // Push the new positions into the list of positions.
-                positions.setType ( COLLADAFW::DFI::DATA_TYPE_FLOAT );
+                positions.setType ( COLLADAFW::DoubleFloatOrIntArray::DATA_TYPE_FLOAT );
                 if ( initialIndex != 0 ) 
 				{
 					positions.appendValues ( valuesArray );
@@ -296,7 +296,7 @@ namespace COLLADASaxFWL
                 sourceBase->setInitialIndex ( initialIndex );
 
                 // Push the new positions into the list of positions.
-                positions.setType ( COLLADAFW::DFI::DATA_TYPE_DOUBLE );
+                positions.setType ( COLLADAFW::DoubleFloatOrIntArray::DATA_TYPE_DOUBLE );
                 if ( initialIndex != 0 ) 
 				{
 					positions.appendValues ( valuesArray );
@@ -358,7 +358,7 @@ namespace COLLADASaxFWL
                 sourceBase->setInitialIndex ( initialIndex );
 
                 // Push the new positions into the list of positions.
-                normals.setType ( COLLADAFW::DFI::DATA_TYPE_FLOAT );
+                normals.setType ( COLLADAFW::DoubleFloatOrIntArray::DATA_TYPE_FLOAT );
                 if ( initialIndex != 0 ) 
 				{
 					normals.appendValues ( valuesArray );
@@ -388,7 +388,7 @@ namespace COLLADASaxFWL
                 sourceBase->setInitialIndex ( initialIndex );
 
                 // Push the new positions into the list of positions.
-                normals.setType ( COLLADAFW::DFI::DATA_TYPE_DOUBLE );
+                normals.setType ( COLLADAFW::DoubleFloatOrIntArray::DATA_TYPE_DOUBLE );
                 if ( initialIndex != 0 ) 
 				{
 					normals.appendValues ( valuesArray );

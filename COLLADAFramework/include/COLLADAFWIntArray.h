@@ -16,7 +16,7 @@ namespace COLLADAFW
 	private:
 		/** The data type of the stored position values. */
 		// DataType mType;
-		DFI::DataType mType;
+		DoubleFloatOrIntArray::DataType mType;
 
 		/** The position values. */
         IntValuesArray mValuesI;
@@ -26,16 +26,16 @@ namespace COLLADAFW
 		/** Constructor. */
 		IntArray();
 
-		IntArray(DFI::DataType type);
+		IntArray(DoubleFloatOrIntArray::DataType type);
 
 		/** Default copy ctor. */
 		IntArray( const IntArray& pre );
 
 		/** The data type of the stored values. */
-		DFI::DataType getType() const { return mType; }
+		DoubleFloatOrIntArray::DataType getType() const { return mType; }
 
 		/** The data type of the stored values. */
-		void setType( DFI::DataType Type ) { mType = Type; }
+		void setType( DoubleFloatOrIntArray::DataType Type ) { mType = Type; }
 
 		/** Returns the count of stored elements in the array. For DATA_TYPE_UNKNOWN 0 is returned.*/
 		size_t getValuesCount() const;
@@ -51,7 +51,7 @@ namespace COLLADAFW
 		template <class T>
 		ArrayPrimitiveType<T>& getValues()
 		{
-            if( mType == DFI::DataType::DATA_TYPE_INT ) return mValuesI; 
+            if( mType == DoubleFloatOrIntArray::DataType::DATA_TYPE_INT ) return mValuesI; 
 			return 0;
 		}
 

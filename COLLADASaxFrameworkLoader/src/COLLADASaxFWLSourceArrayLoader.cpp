@@ -16,9 +16,9 @@ namespace COLLADASaxFWL
 {
 
 #ifdef COLLADASAXFWL_REAL_IS_FLOAT
-	const COLLADAFW::DFI::DataType SourceArrayLoader::DATA_TYPE_REAL = COLLADAFW::DFI::DATA_TYPE_FLOAT;
+	const COLLADAFW::DoubleFloatOrIntArray::DataType SourceArrayLoader::DATA_TYPE_REAL = COLLADAFW::DoubleFloatOrIntArray::DATA_TYPE_FLOAT;
 #else
-	const COLLADAFW::DFI::DataType SourceArrayLoader::DATA_TYPE_REAL = COLLADAFW::DFI::DATA_TYPE_DOUBLE;
+	const COLLADAFW::DoubleFloatOrIntArray::DataType SourceArrayLoader::DATA_TYPE_REAL = COLLADAFW::DoubleFloatOrIntArray::DATA_TYPE_DOUBLE;
 #endif
 
 
@@ -64,7 +64,7 @@ namespace COLLADASaxFWL
 	{
 		if (sourceBase->getDataType() == SourceBase::DATA_TYPE_FLOAT)
 		{
-			floatOrDoubleArray.setType( COLLADAFW::DFI::DATA_TYPE_FLOAT);
+			floatOrDoubleArray.setType( COLLADAFW::DoubleFloatOrIntArray::DATA_TYPE_FLOAT);
 			COLLADAFW::FloatArray* values = floatOrDoubleArray.getFloatValues();
 			FloatSource* source = ( FloatSource* ) sourceBase;
 			FloatArrayElement& arrayElement = source->getArrayElement();
@@ -75,7 +75,7 @@ namespace COLLADASaxFWL
 		}
 		else if (sourceBase->getDataType() == SourceBase::DATA_TYPE_DOUBLE)
 		{
-			floatOrDoubleArray.setType( COLLADAFW::DFI::DATA_TYPE_DOUBLE);
+			floatOrDoubleArray.setType( COLLADAFW::DoubleFloatOrIntArray::DATA_TYPE_DOUBLE);
 			COLLADAFW::DoubleArray* values = floatOrDoubleArray.getDoubleValues();
 			DoubleSource* source = ( DoubleSource* ) sourceBase;
 			DoubleArrayElement& arrayElement = source->getArrayElement();

@@ -214,7 +214,7 @@ namespace COLLADAMax
 
 			vertexBones.SetCount((int) pairCount);
 			vertexWeights.SetCount((int) pairCount);
-			if ( weights.getType() == COLLADAFW::DFI::DATA_TYPE_FLOAT )
+			if ( weights.getType() == COLLADAFW::DoubleFloatOrIntArray::DATA_TYPE_FLOAT )
 			{
 				const COLLADAFW::FloatArray* floatWeights = weights.getFloatValues();
 				for (size_t j = 0; j < pairCount; ++j, ++index)
@@ -223,7 +223,7 @@ namespace COLLADAMax
 					vertexWeights[j] = (*floatWeights)[weightIndices[index]];
 				}
 			}
-			else if ( weights.getType() == COLLADAFW::DFI::DATA_TYPE_DOUBLE )
+			else if ( weights.getType() == COLLADAFW::DoubleFloatOrIntArray::DATA_TYPE_DOUBLE )
 			{
 				const COLLADAFW::DoubleArray* doubleWeights = weights.getDoubleValues();
 				for (size_t j = 0; j < pairCount; ++j, ++index)

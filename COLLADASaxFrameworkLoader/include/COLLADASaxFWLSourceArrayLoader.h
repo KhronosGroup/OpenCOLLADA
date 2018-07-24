@@ -31,7 +31,7 @@ namespace COLLADASaxFWL
     class SourceArrayLoader : public FilePartLoader
     {
 	public:
-		static const COLLADAFW::DFI::DataType DATA_TYPE_REAL;
+		static const COLLADAFW::DoubleFloatOrIntArray::DataType DATA_TYPE_REAL;
 
 	protected:
 	
