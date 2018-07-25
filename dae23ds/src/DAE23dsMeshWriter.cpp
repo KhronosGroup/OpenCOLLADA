@@ -232,7 +232,7 @@ namespace DAE23ds
 	bool MeshWriter::writeVertices(const COLLADABU::Math::Matrix4& worldMatrix)
 	{
 
-		if ( mMeshPositions.getType() == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT )
+		if ( mMeshPositions.getType() == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT )
 		{
 			const COLLADAFW::FloatArray* floatArray = mMeshPositions.getFloatValues();
 			if ( getApplyTransformationsToMeshes() && multiplyMeshes )
@@ -264,7 +264,7 @@ namespace DAE23ds
 				mBuffer.copyToBuffer(floatArray->getData(), floatArray->getCount());
 			}
 		}
-		else if ( mMeshPositions.getType() == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE )
+		else if ( mMeshPositions.getType() == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE )
 		{
 			const COLLADAFW::DoubleArray* doubleArray = mMeshPositions.getDoubleValues();
 			if ( getApplyTransformationsToMeshes() && multiplyMeshes )
@@ -299,7 +299,7 @@ namespace DAE23ds
 	//------------------------------
 	bool MeshWriter::writeVerticesForMultipleObjects(size_t firstTriangleIndex, CountType trianglesCount, const COLLADABU::Math::Matrix4& worldMatrix)
 	{
-		if ( mMeshPositions.getType() == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT )
+		if ( mMeshPositions.getType() == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT )
 		{
 			MeshAccessor::TriangleType triangle = mMeshAccessor.getTriangle(firstTriangleIndex);
 			const COLLADAFW::FloatArray* floatArray = mMeshPositions.getFloatValues();
@@ -348,7 +348,7 @@ namespace DAE23ds
 				}
 			}
 		}
-		else if ( mMeshPositions.getType() == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE )
+		else if ( mMeshPositions.getType() == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE )
 		{
 			// we need to cast the values from double to float
 			const COLLADAFW::DoubleArray* doubleArray = mMeshPositions.getDoubleValues();

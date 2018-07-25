@@ -143,16 +143,16 @@ namespace DAE2MA
         if ( position > numInputValues - 1 )
             std::cerr << "Out of range error!" << std::endl;
 
-        const COLLADAFW::FloatOrDoubleArray::DataType& inputDataType = inputValuesArray.getType ();
+        const COLLADAFW::FloatDoubleOrIntArray::DataType& inputDataType = inputValuesArray.getType ();
         switch ( inputDataType )
         {
-        case COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE:
+        case COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE:
             {
                 const COLLADAFW::DoubleArray* inputValues = inputValuesArray.getDoubleValues ();
                 inputValue = (*inputValues) [position];
             }
             break;
-        case COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT:
+        case COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT:
             {
                 const COLLADAFW::FloatArray* inputValues = inputValuesArray.getFloatValues ();
                 inputValue = (double)(*inputValues) [position];
@@ -176,16 +176,16 @@ namespace DAE2MA
         if ( position > numInputValues - 1 )
             std::cerr << "Out of range error!" << std::endl;
 
-        const COLLADAFW::FloatOrDoubleArray::DataType& inputDataType = inputValuesArray.getType ();
+        const COLLADAFW::FloatDoubleOrIntArray::DataType& inputDataType = inputValuesArray.getType ();
         switch ( inputDataType )
         {
-        case COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE:
+        case COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE:
             {
                 const COLLADAFW::DoubleArray* inputValues = inputValuesArray.getDoubleValues ();
                 inputValue = (float)(*inputValues) [position];
             }
             break;
-        case COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT:
+        case COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT:
             {
                 const COLLADAFW::FloatArray* inputValues = inputValuesArray.getFloatValues ();
                 inputValue = (*inputValues) [position];

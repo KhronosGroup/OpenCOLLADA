@@ -29,6 +29,7 @@ set(INST_SRC
 	include/COLLADAFWEffectCommon.h
 	include/COLLADAFWException.h
 	include/COLLADAFWFileInfo.h
+	include/COLLADAFWFloatDoubleOrIntType.h
 	include/COLLADAFWFloatOrDoubleArray.h
 	include/COLLADAFWFloatOrParam.h
 	include/COLLADAFWFormula.h
@@ -52,6 +53,7 @@ set(INST_SRC
 	include/COLLADAFWInstanceNode.h
 	include/COLLADAFWInstanceSceneGraph.h
 	include/COLLADAFWInstanceVisualScene.h
+	include/COLLADAFWIntArray.h
 	include/COLLADAFWJoint.h
 	include/COLLADAFWJointPrimitive.h
 	include/COLLADAFWKinematicsController.h
@@ -154,6 +156,7 @@ set(SRC
 	src/COLLADAFWSampler.cpp
 	src/COLLADAFWScale.cpp
 	src/COLLADAFWFloatOrDoubleArray.cpp
+	src/COLLADAFWIntArray.cpp
 	src/COLLADAFWGeometry.cpp
 	src/COLLADAFWTranslate.cpp
 	src/COLLADAFWAxisInfo.cpp

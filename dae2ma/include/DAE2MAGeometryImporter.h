@@ -35,7 +35,7 @@
 #ifdef __GNUC__
 #include <ext/hash_map>
 #else
-#include <hash_map>
+#include "COLLADABUhash_map.h"
 #endif
 
 
@@ -56,7 +56,7 @@ namespace DAE2MA
 
         /** The map for searching edge indices. */
 #ifndef __GNUC__
-        typedef stdext::hash_map<COLLADAFW::Edge,size_t> EdgeMap;
+        typedef COLLADABU_HASH_MAP<COLLADAFW::Edge,size_t> EdgeMap;
 #else        
         typedef __gnu_cxx::hash_map<COLLADAFW::Edge,size_t> EdgeMap;
 #endif

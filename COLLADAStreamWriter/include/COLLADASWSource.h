@@ -246,6 +246,8 @@ namespace COLLADASW
     typedef Source < double, &CSWC::CSW_ELEMENT_FLOAT_ARRAY, &CSWC::CSW_VALUE_TYPE_FLOAT > FloatSource;
     /** Param type "FLOAT" source with float values. */
     typedef Source < float, &CSWC::CSW_ELEMENT_FLOAT_ARRAY, &CSWC::CSW_VALUE_TYPE_FLOAT > FloatSourceF;
+    /** Param type "INT" source with int values. */
+    typedef Source < int , &CSWC::CSW_ELEMENT_INT_ARRAY, &CSWC::CSW_VALUE_TYPE_INT > IntSource;
 
     /** Param type "FLOAT4x4" source with double values. */
     typedef Source < double, &CSWC::CSW_ELEMENT_FLOAT_ARRAY, &CSWC::CSW_VALUE_TYPE_FLOAT4x4 > Float4x4Source;

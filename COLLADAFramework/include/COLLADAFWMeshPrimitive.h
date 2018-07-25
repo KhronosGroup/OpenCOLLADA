@@ -117,6 +117,8 @@ namespace COLLADAFW
         * The index list of the binormal array (support of multiple uv sets). 
         */
         UIntValuesArray mBinormalIndices;
+
+        UIntValuesArray mBatchIdIndices;
         
 
         /** 
@@ -246,6 +248,13 @@ namespace COLLADAFW
 
 		/**Returns true if the mesh primitive has normals.*/
 		bool hasBinormalIndices() const { return !mBinormalIndices.empty(); }
+
+        UIntValuesArray& getBatchIdIndices() { return mBatchIdIndices;}
+        const UIntValuesArray& getBatchIdIndices() const { return mBatchIdIndices;}
+        
+        void setBatchIdIndices(const UIntValuesArray& BatchIdIndices) {mBatchIdIndices = BatchIdIndices;}
+
+        bool hasBatchIdIndices() const {return !mBatchIdIndices.empty();}
 
         /** 
         * The index list of the colors array. 

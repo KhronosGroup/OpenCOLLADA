@@ -13,7 +13,9 @@
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWArrayPrimitiveType.h"
+#include "COLLADAFWFloatDoubleOrIntType.h"
 #include "COLLADAFWFloatOrDoubleArray.h"
+#include "COLLADAFWIntArray.h"
 
 #include <assert.h>
 
@@ -22,7 +24,7 @@ namespace COLLADAFW
 {
 
     /** Base class for mesh input elements, like positions, normals, colors, texcoord, ... */
-	class MeshVertexData : public FloatOrDoubleArray
+	class MeshVertexData : public FloatOrDoubleArray, public IntArray
     {
     public:
 
@@ -41,19 +43,24 @@ namespace COLLADAFW
 
         /** Array with additional informations about multiple input elements. */
         InputInfosArray mInputInfosArray;
+        // IntArray mIntArray;
 
 	public:
 
         /** Constructor. */
         MeshVertexData ()
             : FloatOrDoubleArray()
+            , IntArray()
 			, mInputInfosArray (0)
+            // , mIntArray()
         {}
 
         /** Constructor. */
-		MeshVertexData ( DataType type )
+		MeshVertexData ( FloatDoubleOrIntArray::DataType type )
             : FloatOrDoubleArray(type)
+            , IntArray(type)
 			, mInputInfosArray (0)
+            // , mIntArray(type)
         {}
 
         /** Destructor. */
@@ -83,7 +90,7 @@ namespace COLLADAFW
         */
         void appendValues ( const FloatArray& valuesArray, const String& name, const size_t stride )
         {
-            setType ( DATA_TYPE_FLOAT );
+            FloatOrDoubleArray::setType ( FloatDoubleOrIntArray::DATA_TYPE_FLOAT );
 			FloatOrDoubleArray::appendValues ( valuesArray );
 
             InputInfos* info = new InputInfos();
@@ -103,8 +110,28 @@ namespace COLLADAFW
         */
         void appendValues ( const DoubleArray& valuesArray, const String& name, const size_t stride )
         {
-            setType ( DATA_TYPE_DOUBLE );
+            FloatOrDoubleArray::setType ( FloatDoubleOrIntArray::DATA_TYPE_DOUBLE );
 			FloatOrDoubleArray::appendValues ( valuesArray );
+
+            InputInfos* info = new InputInfos();
+            info->mLength = valuesArray.getCount ();
+            info->mName = name;
+            info->mStride = stride;
+
+            mInputInfosArray.append ( info );
+        }
+
+        /**
+        * Appends the values in the array on the list of values and stores the information
+        * of the current input.
+        * @param const FloatArray& valuesArray The list of values.
+        * @param const String& name The name of the current element.
+        * @param const size_t stride The data stride.
+        */
+        void appendValues ( const IntValuesArray& valuesArray, const String& name, const size_t stride )
+        {
+            IntArray::setType ( FloatDoubleOrIntArray::DATA_TYPE_INT );
+			IntArray::appendValues ( valuesArray );
 
             InputInfos* info = new InputInfos();
             info->mLength = valuesArray.getCount ();
@@ -155,7 +182,79 @@ namespace COLLADAFW
 			return FloatOrDoubleArray::appendValues ( valuesArray );
 		}
 
+		/** Appends the values of the input array to the end of values array.
+		The programmer must ensure, that the memory allocated,
+		was large enough to hold another element. No new memory is allocated.*/
+		bool appendValues ( const IntValuesArray& valuesArray )
+		{
+			return IntArray::appendValues ( valuesArray );
+		}
 
+        FloatDoubleOrIntArray::DataType getType() const 
+        {
+            if ( IntArray::getType() == FloatDoubleOrIntArray::DATA_TYPE_INT ) return IntArray::getType();
+            else return FloatOrDoubleArray::getType();
+        }
+
+        void setType( FloatDoubleOrIntArray::DataType type ) 
+        {
+            if( type == FloatDoubleOrIntArray::DATA_TYPE_INT )
+            {
+                IntArray::setType(type);
+                FloatOrDoubleArray::setType(FloatDoubleOrIntArray::DATA_TYPE_UNKNOWN);
+            }
+            else
+            {
+                IntArray::setType(FloatDoubleOrIntArray::DATA_TYPE_UNKNOWN);
+                FloatOrDoubleArray::setType(type);
+
+            }
+        }
+
+        size_t getValuesCount() const 
+        {
+            if ( IntArray::getType() == FloatDoubleOrIntArray::DATA_TYPE_INT ) return IntArray::getValuesCount();
+            else return FloatOrDoubleArray::getValuesCount();
+        }
+
+        bool empty() const
+        {
+            if ( IntArray::getType() == FloatDoubleOrIntArray::DATA_TYPE_INT) return  IntArray::empty();
+            else return FloatOrDoubleArray::empty();
+        }
+
+        void clear() 
+        {
+            IntArray::clear();
+            FloatOrDoubleArray::clear();
+        }
+
+        template <class T>
+        ArrayPrimitiveType<T>& getValues(){
+            if( IntArray::getType() == FloatDoubleOrIntArray::DATA_TYPE_INT ) 
+            {
+                return IntArray::getValues<int>();
+            }
+            else
+            {
+                return FloatOrDoubleArray::getValues<T>();   
+            }
+            
+        }
+		void setData( float* data, const size_t count )
+        {
+            FloatOrDoubleArray::setData(data, count);
+        }
+
+		void setData( double* data, const size_t count )
+        {
+            FloatOrDoubleArray::setData(data, count);
+        }
+
+        void setData( int* data, const size_t count ) 
+        {
+            IntArray::setData(data, count);
+        }
 	private:
 
 		/** Disable default copy ctor. */
@@ -165,6 +264,19 @@ namespace COLLADAFW
 		const MeshVertexData& operator= ( const MeshVertexData& pre );
 
 	};
+        // template<>
+        // ArrayPrimitiveType<double>& MeshVetexData::getValues<double>() {
+        //     return FloatOrDoubleArray::getValues<double>();
+        // }
+
+        // template<>
+        // ArrayPrimitiveType<float>& MeshVetexData::getValues<float>() {
+        //     return FloatOrDoubleArray::getValues<float>();
+        // }
+        // template<>
+        // ArrayPrimitiveType<int>& MeshVetexData::getValues<int>() {
+        //     return IntArray::getValues<int>();
+        // }
 
 } // namespace COLLADAFW
 

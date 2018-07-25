@@ -142,6 +142,7 @@ namespace COLLADASaxFWL
      */
     typedef BaseArrayElement < int > IntArrayElement;
 
+
     /**
     * Stores a homogenous array of integer values.
     * The <int_array> element stores the data values for generic use within 

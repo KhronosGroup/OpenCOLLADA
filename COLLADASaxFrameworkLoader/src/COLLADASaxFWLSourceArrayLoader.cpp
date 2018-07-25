@@ -16,9 +16,9 @@ namespace COLLADASaxFWL
 {
 
 #ifdef COLLADASAXFWL_REAL_IS_FLOAT
-	const COLLADAFW::FloatOrDoubleArray::DataType SourceArrayLoader::DATA_TYPE_REAL = COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT;
+	const COLLADAFW::FloatDoubleOrIntArray::DataType SourceArrayLoader::DATA_TYPE_REAL = COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT;
 #else
-	const COLLADAFW::FloatOrDoubleArray::DataType SourceArrayLoader::DATA_TYPE_REAL = COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE;
+	const COLLADAFW::FloatDoubleOrIntArray::DataType SourceArrayLoader::DATA_TYPE_REAL = COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE;
 #endif
 
 
@@ -64,7 +64,7 @@ namespace COLLADASaxFWL
 	{
 		if (sourceBase->getDataType() == SourceBase::DATA_TYPE_FLOAT)
 		{
-			floatOrDoubleArray.setType( COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT);
+			floatOrDoubleArray.setType( COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT);
 			COLLADAFW::FloatArray* values = floatOrDoubleArray.getFloatValues();
 			FloatSource* source = ( FloatSource* ) sourceBase;
 			FloatArrayElement& arrayElement = source->getArrayElement();
@@ -75,7 +75,7 @@ namespace COLLADASaxFWL
 		}
 		else if (sourceBase->getDataType() == SourceBase::DATA_TYPE_DOUBLE)
 		{
-			floatOrDoubleArray.setType( COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE);
+			floatOrDoubleArray.setType( COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE);
 			COLLADAFW::DoubleArray* values = floatOrDoubleArray.getDoubleValues();
 			DoubleSource* source = ( DoubleSource* ) sourceBase;
 			DoubleArrayElement& arrayElement = source->getArrayElement();
@@ -191,6 +191,26 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
+	//------------------------------
+	bool SourceArrayLoader::begin__int_array( const int_array__AttributeData&  attributeData )
+	{
+		return beginArray<IntSource>( attributeData.count, attributeData.id ) != 0;
+	}
+
+	//------------------------------
+	bool SourceArrayLoader::end__int_array()
+	{
+		return true;
+	}
+	
+	//------------------------------
+	bool SourceArrayLoader::data__int_array( const sint64* data, size_t length )
+	{
+		IntSource* source = (IntSource*)mCurrentSoure;
+		COLLADAFW::IntValuesArray& array = source->getArrayElement().getValues();
+		array.appendValues((const int*)data, length);
+		return true;
+	}
 	//------------------------------
 	bool SourceArrayLoader::begin__animation__source__technique_common()
 	{

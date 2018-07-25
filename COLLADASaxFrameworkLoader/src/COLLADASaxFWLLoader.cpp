@@ -120,6 +120,11 @@ namespace COLLADASaxFWL
 	}
 
 	//---------------------------------
+	const COLLADASaxFWL::Loader::URIUniqueIdMap& Loader::getUniqueIdMap(void) const
+	{
+		return mURIUniqueIdMap;
+	}
+	//---------------------------------
 	COLLADAFW::FileId Loader::getFileId( const COLLADABU::URI& uri )
 	{
 		// check if the uri is relative
