@@ -30,6 +30,7 @@ namespace COLLADASW
     const String LibraryGeometries::VERTICES_ID_SUFFIX = "-vertices";
     const String LibraryGeometries::TANGENT_ID_SUFFIX = "-tangents";
     const String LibraryGeometries::BINORMAL_ID_SUFFIX = "-binormals";
+    const String LibraryGeometries::_BATCHID_ID_SUFFIX = "-_batchid";
 
 
     //---------------------------------------------------------------
@@ -64,6 +65,9 @@ namespace COLLADASW
             break;
         case InputSemantic::BINORMAL:
             suffix = LibraryGeometries::BINORMAL_ID_SUFFIX;
+            break;
+        case InputSemantic::_BATCHID:
+            suffix = LibraryGeometries::_BATCHID_ID_SUFFIX;
             break;
         default:
             suffix = "unknown";

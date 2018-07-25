@@ -601,7 +601,7 @@ namespace DAE23ds
 				//_Log("positions.getValuesCount()="<<positions.getValuesCount());
 				{
 					//position
-					if(COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT==positions.getType())
+					if(COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT==positions.getType())
 					{
 						const COLLADAFW::FloatArray* pos = positions.getFloatValues();
 						_Log("FloatArray pos count="<<pos->getCount());
@@ -611,7 +611,7 @@ namespace DAE23ds
 							_3dsmesh->vertices[i][1] =  (*pos)[3*i+1];
 							_3dsmesh->vertices[i][2] =  (*pos)[3*i+2];
 						}
-					}else if(COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE==positions.getType()){
+					}else if(COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE==positions.getType()){
 						const COLLADAFW::DoubleArray* pos = positions.getDoubleValues();
 						_Log("DoubleArray pos count="<<pos->getCount());
 						for (size_t i = 0; i < positions.getValuesCount()/3; ++i) 
@@ -629,7 +629,7 @@ namespace DAE23ds
 					const size_t UVLEN = min(positions.getValuesCount()/3, uvs.getValuesCount()/2);
 					//const size_t UVLEN = uvs.getValuesCount()/2;
 					_Log("UVLEN ="<< UVLEN<<",min("<<positions.getValuesCount()/3<<","<< uvs.getValuesCount()/2<<")");
-					if(COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT==uvs.getType())
+					if(COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT==uvs.getType())
 					{
 						const COLLADAFW::FloatArray* uv = uvs.getFloatValues();
 
@@ -640,7 +640,7 @@ namespace DAE23ds
 							_3dsmesh->texcos[i][1] =  (*uv)[2*i+1];
 							//_Log("uv<"<<_3dsmesh->texcos[i][0]<<","<<_3dsmesh->texcos[i][1]<<">");
 						}
-					}else if(COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE==uvs.getType()){
+					}else if(COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE==uvs.getType()){
 						const COLLADAFW::DoubleArray* uv = uvs.getDoubleValues();
 						_Log("DoubleArray uv count="<<uv->getCount());
 						for (size_t i = 0; i < UVLEN/*uvs.getValuesCount()/2*/; ++i) 

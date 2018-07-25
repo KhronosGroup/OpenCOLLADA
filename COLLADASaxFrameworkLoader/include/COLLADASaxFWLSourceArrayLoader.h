@@ -16,6 +16,7 @@
 #include "COLLADASaxFWLFilePartLoader.h"
 #include "COLLADASaxFWLXmlTypes.h"
 #include "COLLADAFWFloatOrDoubleArray.h"
+#include "COLLADAFWFloatDoubleOrIntType.h"
 
 
 namespace COLLADASaxFWL
@@ -30,7 +31,7 @@ namespace COLLADASaxFWL
     class SourceArrayLoader : public FilePartLoader
     {
 	public:
-		static const COLLADAFW::FloatOrDoubleArray::DataType DATA_TYPE_REAL;
+		static const COLLADAFW::FloatDoubleOrIntArray::DataType DATA_TYPE_REAL;
 
 	protected:
 	
@@ -129,6 +130,12 @@ namespace COLLADASaxFWL
 
 		/** Sax callback function for the float data of a float array element.*/
 		virtual bool data__float_array( const float* data, size_t length );
+
+		virtual bool begin__int_array( const int_array__AttributeData& attribute );
+
+		virtual bool end__int_array();
+
+		virtual bool data__int_array( const sint64* data, size_t length);
 
 
 		/** Sax callback function for the beginning of a technique_common element.*/

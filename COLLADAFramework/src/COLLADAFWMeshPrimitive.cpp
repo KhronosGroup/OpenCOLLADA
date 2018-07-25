@@ -31,6 +31,7 @@ namespace COLLADAFW
 		, mMaterialId(0)
 		, mPositionIndices(UIntValuesArray::OWNER)
 		, mNormalIndices(UIntValuesArray::OWNER)
+        , mBatchIdIndices(UIntValuesArray::OWNER)
 		, mColorIndicesArray(UIntValuesArray::OWNER)
 		, mUVCoordIndicesArray(UIntValuesArray::OWNER)
 	{
@@ -44,6 +45,7 @@ namespace COLLADAFW
 		, mMaterialId(0)
 		, mPositionIndices(UIntValuesArray::OWNER)
 		, mNormalIndices(UIntValuesArray::OWNER)
+        , mBatchIdIndices(UIntValuesArray::OWNER)
 		, mColorIndicesArray(UIntValuesArray::OWNER)
 		, mUVCoordIndicesArray(UIntValuesArray::OWNER)
 	{

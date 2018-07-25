@@ -129,34 +129,34 @@ namespace COLLADAMax
 		maxKeyController->SetNumKeys((int) keyCount);
 
 		const COLLADAFW::FloatOrDoubleArray& inputValues = animationCurve->getInputValues();
-		COLLADAFW::FloatOrDoubleArray::DataType inputValuesDataType = inputValues.getType();
+		COLLADAFW::FloatDoubleOrIntArray::DataType inputValuesDataType = inputValues.getType();
 
 		const COLLADAFW::FloatOrDoubleArray& outputValues = animationCurve->getOutputValues();
-		COLLADAFW::FloatOrDoubleArray::DataType outputValuesDataType = outputValues.getType();
+		COLLADAFW::FloatDoubleOrIntArray::DataType outputValuesDataType = outputValues.getType();
 
 		ConversionFunctor* inputConversionFunctor = getConversionFunctorByPhysicalDimension( animationCurve->getInPhysicalDimension() );
 		ConversionFunctor* outputConversionFunctor = getConversionFunctorByPhysicalDimension( animationCurve->getOutPhysicalDimensions()[dimension]);
 
 		if ( isLinear )
 		{
-			if ( inputValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE )
+			if ( inputValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE )
 			{
-				if ( outputValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE )
+				if ( outputValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE )
 				{
 					fillLinearMaxFloatController( maxKeyController, keyCount, dimensions, dimension, *inputValues.getDoubleValues(), *outputValues.getDoubleValues(), inputConversionFunctor, outputConversionFunctor);
 				}
-				else if ( outputValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT)
+				else if ( outputValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT)
 				{
 					fillLinearMaxFloatController( maxKeyController, keyCount, dimensions, dimension, *inputValues.getDoubleValues(), *outputValues.getFloatValues(), inputConversionFunctor, outputConversionFunctor);
 				}
 			}
-			else if ( inputValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT )
+			else if ( inputValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT )
 			{
-				if ( outputValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE )
+				if ( outputValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE )
 				{
 					fillLinearMaxFloatController( maxKeyController, keyCount, dimensions, dimension, *inputValues.getFloatValues(), *outputValues.getDoubleValues(), inputConversionFunctor, outputConversionFunctor);
 				}
-				else if ( outputValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT)
+				else if ( outputValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT)
 				{
 					fillLinearMaxFloatController( maxKeyController, keyCount, dimensions, dimension, *inputValues.getFloatValues(), *outputValues.getFloatValues(), inputConversionFunctor, outputConversionFunctor);
 				}
@@ -168,112 +168,112 @@ namespace COLLADAMax
 			COLLADAFW::AnimationCurve::InterpolationType interpolationType = animationCurve->getInterpolationType();
 
 			const COLLADAFW::FloatOrDoubleArray& inTangentValues = animationCurve->getInTangentValues();
-			COLLADAFW::FloatOrDoubleArray::DataType inTangentValuesDataType = inTangentValues.getType();
+			COLLADAFW::FloatDoubleOrIntArray::DataType inTangentValuesDataType = inTangentValues.getType();
 
 			const COLLADAFW::FloatOrDoubleArray& outTangentValues = animationCurve->getOutTangentValues();
-			COLLADAFW::FloatOrDoubleArray::DataType outTangentValuesDataType = outTangentValues.getType();
+			COLLADAFW::FloatDoubleOrIntArray::DataType outTangentValuesDataType = outTangentValues.getType();
 
 
-			if ( inputValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE )
+			if ( inputValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE )
 			{
-				if ( outputValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE )
+				if ( outputValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE )
 				{
-					if ( inTangentValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE )
+					if ( inTangentValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE )
 					{
-						if ( outTangentValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE )
+						if ( outTangentValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE )
 						{
 							fillBezierMaxFloatController( maxKeyController, keyCount, dimensions, dimension, *inputValues.getDoubleValues(), *outputValues.getDoubleValues(), *inTangentValues.getDoubleValues(), *outTangentValues.getDoubleValues(), interpolationType, interpolationTypes, inputConversionFunctor, outputConversionFunctor);
 						}
-						else if ( outTangentValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT)
+						else if ( outTangentValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT)
 						{
 							fillBezierMaxFloatController( maxKeyController, keyCount, dimensions, dimension, *inputValues.getDoubleValues(), *outputValues.getDoubleValues(), *inTangentValues.getDoubleValues(), *outTangentValues.getFloatValues(), interpolationType, interpolationTypes, inputConversionFunctor, outputConversionFunctor);
 						}
 					}
-					else if ( inTangentValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT)
+					else if ( inTangentValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT)
 					{
-						if ( outTangentValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE )
+						if ( outTangentValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE )
 						{
 							fillBezierMaxFloatController( maxKeyController, keyCount, dimensions, dimension, *inputValues.getDoubleValues(), *outputValues.getDoubleValues(), *inTangentValues.getFloatValues(), *outTangentValues.getDoubleValues(), interpolationType, interpolationTypes, inputConversionFunctor, outputConversionFunctor);
 						}
-						else if ( outTangentValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT)
+						else if ( outTangentValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT)
 						{
 							fillBezierMaxFloatController( maxKeyController, keyCount, dimensions, dimension, *inputValues.getDoubleValues(), *outputValues.getDoubleValues(), *inTangentValues.getFloatValues(), *outTangentValues.getFloatValues(), interpolationType, interpolationTypes, inputConversionFunctor, outputConversionFunctor);
 						}
 					}
 				}
-				else if ( outputValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT)
+				else if ( outputValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT)
 				{
-					if ( inTangentValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE )
+					if ( inTangentValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE )
 					{
-						if ( outTangentValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE )
+						if ( outTangentValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE )
 						{
 							fillBezierMaxFloatController( maxKeyController, keyCount, dimensions, dimension, *inputValues.getDoubleValues(), *outputValues.getFloatValues(), *inTangentValues.getDoubleValues(), *outTangentValues.getDoubleValues(), interpolationType, interpolationTypes, inputConversionFunctor, outputConversionFunctor);
 						}
-						else if ( outTangentValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT)
+						else if ( outTangentValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT)
 						{
 							fillBezierMaxFloatController( maxKeyController, keyCount, dimensions, dimension, *inputValues.getDoubleValues(), *outputValues.getFloatValues(), *inTangentValues.getDoubleValues(), *outTangentValues.getFloatValues(), interpolationType, interpolationTypes, inputConversionFunctor, outputConversionFunctor);
 						}
 					}
-					else if ( inTangentValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT)
+					else if ( inTangentValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT)
 					{
-						if ( outTangentValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE )
+						if ( outTangentValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE )
 						{
 							fillBezierMaxFloatController( maxKeyController, keyCount, dimensions, dimension, *inputValues.getDoubleValues(), *outputValues.getFloatValues(), *inTangentValues.getFloatValues(), *outTangentValues.getDoubleValues(), interpolationType, interpolationTypes, inputConversionFunctor, outputConversionFunctor);
 						}
-						else if ( outTangentValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT)
+						else if ( outTangentValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT)
 						{
 							fillBezierMaxFloatController( maxKeyController, keyCount, dimensions, dimension, *inputValues.getDoubleValues(), *outputValues.getFloatValues(), *inTangentValues.getFloatValues(), *outTangentValues.getFloatValues(), interpolationType, interpolationTypes, inputConversionFunctor, outputConversionFunctor);
 						}
 					}
 				}
 			}
-			else if ( inputValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT )
+			else if ( inputValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT )
 			{
-				if ( outputValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE )
+				if ( outputValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE )
 				{
-					if ( inTangentValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE )
+					if ( inTangentValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE )
 					{
-						if ( outTangentValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE )
+						if ( outTangentValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE )
 						{
 							fillBezierMaxFloatController( maxKeyController, keyCount, dimensions, dimension, *inputValues.getFloatValues(), *outputValues.getDoubleValues(), *inTangentValues.getDoubleValues(), *outTangentValues.getDoubleValues(), interpolationType, interpolationTypes, inputConversionFunctor, outputConversionFunctor);
 						}
-						else if ( outTangentValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT)
+						else if ( outTangentValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT)
 						{
 							fillBezierMaxFloatController( maxKeyController, keyCount, dimensions, dimension, *inputValues.getFloatValues(), *outputValues.getDoubleValues(), *inTangentValues.getDoubleValues(), *outTangentValues.getFloatValues(), interpolationType, interpolationTypes, inputConversionFunctor, outputConversionFunctor);
 						}
 					}
-					else if ( inTangentValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT)
+					else if ( inTangentValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT)
 					{
-						if ( outTangentValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE )
+						if ( outTangentValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE )
 						{
 							fillBezierMaxFloatController( maxKeyController, keyCount, dimensions, dimension, *inputValues.getFloatValues(), *outputValues.getDoubleValues(), *inTangentValues.getFloatValues(), *outTangentValues.getDoubleValues(), interpolationType, interpolationTypes, inputConversionFunctor, outputConversionFunctor);
 						}
-						else if ( outTangentValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT)
+						else if ( outTangentValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT)
 						{
 							fillBezierMaxFloatController( maxKeyController, keyCount, dimensions, dimension, *inputValues.getFloatValues(), *outputValues.getDoubleValues(), *inTangentValues.getFloatValues(), *outTangentValues.getFloatValues(), interpolationType, interpolationTypes, inputConversionFunctor, outputConversionFunctor);
 						}
 					}
 				}
-				else if ( outputValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT)
+				else if ( outputValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT)
 				{
-					if ( inTangentValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE )
+					if ( inTangentValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE )
 					{
-						if ( outTangentValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE )
+						if ( outTangentValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE )
 						{
 							fillBezierMaxFloatController( maxKeyController, keyCount, dimensions, dimension, *inputValues.getFloatValues(), *outputValues.getFloatValues(), *inTangentValues.getDoubleValues(), *outTangentValues.getDoubleValues(), interpolationType, interpolationTypes, inputConversionFunctor, outputConversionFunctor);
 						}
-						else if ( outTangentValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT)
+						else if ( outTangentValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT)
 						{
 							fillBezierMaxFloatController( maxKeyController, keyCount, dimensions, dimension, *inputValues.getFloatValues(), *outputValues.getFloatValues(), *inTangentValues.getDoubleValues(), *outTangentValues.getFloatValues(), interpolationType, interpolationTypes, inputConversionFunctor, outputConversionFunctor);
 						}
 					}
-					else if ( inTangentValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT)
+					else if ( inTangentValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT)
 					{
-						if ( outTangentValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE )
+						if ( outTangentValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE )
 						{
 							fillBezierMaxFloatController( maxKeyController, keyCount, dimensions, dimension, *inputValues.getFloatValues(), *outputValues.getFloatValues(), *inTangentValues.getFloatValues(), *outTangentValues.getDoubleValues(), interpolationType, interpolationTypes, inputConversionFunctor, outputConversionFunctor);
 						}
-						else if ( outTangentValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT)
+						else if ( outTangentValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT)
 						{
 							fillBezierMaxFloatController( maxKeyController, keyCount, dimensions, dimension, *inputValues.getFloatValues(), *outputValues.getFloatValues(), *inTangentValues.getFloatValues(), *outTangentValues.getFloatValues(), interpolationType, interpolationTypes, inputConversionFunctor, outputConversionFunctor);
 						}
@@ -460,10 +460,10 @@ namespace COLLADAMax
 		//maxController->SetNumKeys((int) keyCount);
 
 		const COLLADAFW::FloatOrDoubleArray& inputValues = animationCurve->getInputValues();
-		COLLADAFW::FloatOrDoubleArray::DataType inputValuesDataType = inputValues.getType();
+		COLLADAFW::FloatDoubleOrIntArray::DataType inputValuesDataType = inputValues.getType();
 
 		const COLLADAFW::FloatOrDoubleArray& outputValues = animationCurve->getOutputValues();
-		COLLADAFW::FloatOrDoubleArray::DataType outputValuesDataType = outputValues.getType();
+		COLLADAFW::FloatDoubleOrIntArray::DataType outputValuesDataType = outputValues.getType();
 
 		ConversionFunctor* inputConversionFunctor = getConversionFunctorByPhysicalDimension( animationCurve->getInPhysicalDimension() );
 		ConversionFunctor* outputConversionFunctors[16];
@@ -472,24 +472,24 @@ namespace COLLADAMax
 			outputConversionFunctors[i] = getConversionFunctorByPhysicalDimension( animationCurve->getOutPhysicalDimensions()[i]);
 		}
 
-		if ( inputValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE )
+		if ( inputValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE )
 		{
-			if ( outputValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE )
+			if ( outputValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE )
 			{
 				fillLinearMaxTransformationController( maxController, keyCount, *inputValues.getDoubleValues(), *outputValues.getDoubleValues(), inputConversionFunctor, outputConversionFunctors);
 			}
-			else if ( outputValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT)
+			else if ( outputValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT)
 			{
 				fillLinearMaxTransformationController( maxController, keyCount, *inputValues.getDoubleValues(), *outputValues.getFloatValues(), inputConversionFunctor, outputConversionFunctors);
 			}
 		}
-		else if ( inputValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT )
+		else if ( inputValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT )
 		{
-			if ( outputValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_DOUBLE )
+			if ( outputValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE )
 			{
 				fillLinearMaxTransformationController( maxController, keyCount, *inputValues.getFloatValues(), *outputValues.getDoubleValues(), inputConversionFunctor, outputConversionFunctors);
 			}
-			else if ( outputValuesDataType == COLLADAFW::FloatOrDoubleArray::DATA_TYPE_FLOAT)
+			else if ( outputValuesDataType == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT)
 			{
 				fillLinearMaxTransformationController( maxController, keyCount, *inputValues.getFloatValues(), *outputValues.getFloatValues(), inputConversionFunctor, outputConversionFunctors);
 			}

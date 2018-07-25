@@ -15,6 +15,7 @@
 #include "COLLADAFWGeometry.h"
 #include "COLLADAFWMeshVertexData.h"
 #include "COLLADAFWMeshPrimitive.h"
+#include "COLLADAFWFloatDoubleOrIntType.h"
 
 #include "COLLADABUUtils.h"
 
@@ -83,6 +84,7 @@ namespace COLLADAFW
 
         MeshVertexData mBinormals;
 
+        MeshVertexData mBatchIds;
         /**
         * Geometric primitives, which assemble values from the inputs into vertex attribute data. 
         * Each primitive element holds the index arrays of the used input elements
@@ -91,6 +93,7 @@ namespace COLLADAFW
         */
         MeshPrimitiveArray mMeshPrimitives;
 
+
     public:
 
         /** Constructor. */
@@ -98,6 +101,9 @@ namespace COLLADAFW
 
         /** Destructor. */
         virtual ~Mesh ();
+
+        MeshVertexData& getBatchIds()  { return mBatchIds; }
+        const MeshVertexData& getBatchIds () const { return mBatchIds; }
 
         /** 
         * The positions array. 

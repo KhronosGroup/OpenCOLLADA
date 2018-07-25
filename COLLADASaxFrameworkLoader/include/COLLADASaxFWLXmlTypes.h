@@ -265,6 +265,18 @@ namespace COLLADASaxFWL
         sint16 digits;
         sint16 magnitude;
     };
+    struct int_array__AttributeData
+    {
+    static const uint32 ATTRIBUTE_COUNT_PRESENT = 0x1;
+
+    uint32 present_attributes;
+
+    const ParserChar* id;
+    const ParserChar* name;
+    uint64 count;
+    sint64 minInclusive;
+    sint64 maxInclusive;
+    };
     struct accessor__AttributeData
     {
         static const uint32 ATTRIBUTE_COUNT_PRESENT = 0x1;

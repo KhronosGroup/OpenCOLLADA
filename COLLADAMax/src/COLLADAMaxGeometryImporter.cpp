@@ -136,7 +136,7 @@ namespace COLLADAMax
 
 		triangleMesh.setNumVerts(positionsCount);
 
-		if ( meshPositions.getType() == COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE )
+		if ( meshPositions.getType() == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE )
 		{
 			const COLLADAFW::DoubleArray* positionsArray = meshPositions.getDoubleValues();
 			for ( int i = 0; i < positionsCount; ++i)
@@ -276,7 +276,7 @@ namespace COLLADAMax
 
 		normalsSpecifier->SetNumNormals(normalCount);
 
-		if ( meshNormals.getType() == COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE )
+		if ( meshNormals.getType() == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE )
 		{
 			const COLLADAFW::DoubleArray* normalsArray = meshNormals.getDoubleValues();
 			for ( int i = 0; i < normalCount; ++i)
@@ -482,7 +482,7 @@ namespace COLLADAMax
 
 		meshMap.setNumVerts((int)vertsCount);
 
-		if ( uvCoordinates.getType() == COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE )
+		if ( uvCoordinates.getType() == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE )
 		{
 			const COLLADAFW::DoubleArray& uvArray = *uvCoordinates.getDoubleValues();
 			setTriangleMeshUVVertices(uvArray, meshMap, stride, startPosition, vertsCount);
@@ -772,7 +772,7 @@ namespace COLLADAMax
 
 		polgonMesh.setNumVerts(positionsCount);
 
-		if ( meshPositions.getType() == COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE )
+		if ( meshPositions.getType() == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE )
 		{
 			const COLLADAFW::DoubleArray* positionsArray = meshPositions.getDoubleValues();
 			for ( int i = 0; i < positionsCount; ++i)
@@ -958,7 +958,7 @@ namespace COLLADAMax
 
 		normalsSpecifier->SetNumNormals(normalCount);
 
-		if ( meshNormals.getType() == COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE )
+		if ( meshNormals.getType() == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE )
 		{
 			const COLLADAFW::DoubleArray* normalsArray = meshNormals.getDoubleValues();
 			for ( int i = 0; i < normalCount; ++i)
@@ -1405,7 +1405,7 @@ namespace COLLADAMax
 		meshMap->setNumVerts((int)vertsCount);
 
 
-		if ( uvCoordinates.getType() == COLLADAFW::MeshVertexData::DATA_TYPE_DOUBLE )
+		if ( uvCoordinates.getType() == COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE )
 		{
 			const COLLADAFW::DoubleArray& uvArray = *uvCoordinates.getDoubleValues();
 			setPolygonMeshUVVertices(uvArray, meshMap, stride, startPosition, vertsCount);

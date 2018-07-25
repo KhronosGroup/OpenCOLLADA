@@ -46,6 +46,31 @@ bool SourceArrayLoader15::data__float_array( const float* data, size_t length )
 SaxVirtualFunctionTest15(data__float_array(data, length));
 return mLoader->data__float_array(data, length);
 }
+bool SourceArrayLoader15::begin__int_array( const COLLADASaxFWL15::int_array__AttributeData& attributeData){
+//    SaxVirtualFunctionTest15(begin__int_array(attributeData));
+    COLLADASaxFWL::int_array__AttributeData attrData;
+    attrData.present_attributes = 0;
+    attrData.id = attributeData.id;
+    attrData.name = attributeData.name;
+    attrData.minInclusive = attributeData.minInclusive;
+    attrData.maxInclusive = attributeData.maxInclusive;
+    if ( (attributeData.present_attributes & COLLADASaxFWL15::int_array__AttributeData::ATTRIBUTE_COUNT_PRESENT) == COLLADASaxFWL15::int_array__AttributeData::ATTRIBUTE_COUNT_PRESENT ) {
+        attrData.count = attributeData.count;
+        attrData.present_attributes |= COLLADASaxFWL::int_array__AttributeData::ATTRIBUTE_COUNT_PRESENT;
+}
+return mLoader->begin__int_array(attrData);
+
+}
+bool SourceArrayLoader15::end__int_array()
+{
+//    SaxVirtualFunctionTest15(end__int_array);
+    return mLoader->end__int_array();   
+}
+bool SourceArrayLoader15::data__int_array( const sint64* data, size_t length)
+{
+//    SaxVirtualFunctionTest15(data__int_array);
+    return mLoader->data__int_array(data, length);
+}
 
 
 bool SourceArrayLoader15::begin__source_type____technique_common()

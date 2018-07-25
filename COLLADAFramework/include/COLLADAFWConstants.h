@@ -29,6 +29,7 @@ namespace COLLADAFW
         static const String ERR_UNKNOWN_INPUT;
 
         static const String SEMANTIC_BINORMAL;
+        static const String SEMANTIC__BATCHID;
         static const String SEMANTIC_COLOR;
         static const String SEMANTIC_CONTINUITY;
         static const String SEMANTIC_IMAGE;
