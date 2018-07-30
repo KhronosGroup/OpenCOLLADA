@@ -208,7 +208,11 @@ namespace COLLADASaxFWL
 	{
 		IntSource* source = (IntSource*)mCurrentSoure;
 		COLLADAFW::IntValuesArray& array = source->getArrayElement().getValues();
-		array.appendValues((const int*)data, length);
+		array.reallocMemory(array.getCount() + length);
+		
+		for(int i = 0; i < length; i++){
+			array.append(static_cast<const int>(data[i]));
+		}
 		return true;
 	}
 	//------------------------------
