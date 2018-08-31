@@ -91,7 +91,7 @@ endif ()
 target_link_libraries(DAEValidatorExecutable ${Libraries})
 set_target_properties(DAEValidatorExecutable PROPERTIES OUTPUT_NAME DAEValidator)
 
-if (WIN32)
+if (MSVC)
 # C4505: 'function' : unreferenced local function has been removed
 # C4514: 'function' : unreferenced inline function has been removed
 # C4592: symbol will be dynamically initialized (implementation limitation)
@@ -149,8 +149,10 @@ if (WIN32 AND ${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION}.${CMAKE_PATCH_VERSIO
 
 		tests/include/Common.h
 	)
-	string(REGEX REPLACE "/Common7/IDE/devenv.com" "/VC" VCINSTALLDIR ${CMAKE_VS_DEVENV_COMMAND})
-	link_directories(${VCINSTALLDIR}/UnitTest/lib)
+	if (MSVC)
+	  string(REGEX REPLACE "/Common7/IDE/devenv.com" "/VC" VCINSTALLDIR ${CMAKE_VS_DEVENV_COMMAND})
+	  link_directories(${VCINSTALLDIR}/UnitTest/lib)
+	endif ()
 	add_library(DAEValidatorTests SHARED ${DAEValidatorTestsSources})
 	add_dependencies(DAEValidatorTests DAEValidatorLibrary)
 	target_include_directories(DAEValidatorTests PRIVATE ${VCINSTALLDIR}/UnitTest/include tests/include)
