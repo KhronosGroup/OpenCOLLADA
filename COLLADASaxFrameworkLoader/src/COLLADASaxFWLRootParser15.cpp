@@ -22,6 +22,7 @@
 #include "COLLADASaxFWLLibraryCamerasLoader15.h"
 #include "COLLADASaxFWLLibraryLightsLoader15.h"
 #include "COLLADASaxFWLLibraryImagesLoader15.h"
+#include "COLLADASaxFWLLibraryAnimationClipsLoader15.h"
 #include "COLLADASaxFWLLibraryAnimationsLoader15.h"
 #include "COLLADASaxFWLLibraryControllersLoader15.h"
 #include "COLLADASaxFWLMeshLoader15.h"
@@ -162,6 +163,14 @@ namespace COLLADASaxFWL
     {
         SaxVirtualFunctionTest15(begin__library_images(attributeData));
 		beginCommonWithId<LibraryImagesLoader, LibraryImagesLoader15>(attributeData.id);
+        return true;
+    }
+
+    //-----------------------------
+    bool RootParser15::begin__library_animation_clips( const COLLADASaxFWL15::library_animation_clips__AttributeData& attributeData )
+    {
+        SaxVirtualFunctionTest15(begin__library_animation_clips(attributeData));
+        beginCommonWithId<LibraryAnimationClipsLoader, LibraryAnimationClipsLoader15>(attributeData.id);
         return true;
     }
 

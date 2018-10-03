@@ -41,6 +41,7 @@ set(INST_SRC
 	include/COLLADASaxFWLJointsLoader.h
 	include/COLLADASaxFWLKinematicsIntermediateData.h
 	include/COLLADASaxFWLKinematicsSceneCreator.h
+	include/COLLADASaxFWLLibraryAnimationClipsLoader.h
 	include/COLLADASaxFWLLibraryAnimationsLoader.h
 	include/COLLADASaxFWLLibraryArticulatedSystemsLoader.h
 	include/COLLADASaxFWLLibraryCamerasLoader.h
@@ -94,6 +95,7 @@ set(INST_GEN14_SRC
 	include/generated14/COLLADASaxFWLColladaParserAutoGen14Private.h
 	include/generated14/COLLADASaxFWLColladaParserAutoGen14ValidationData.h
 	include/generated14/COLLADASaxFWLGeometryLoader14.h
+	include/generated14/COLLADASaxFWLLibraryAnimationClipsLoader14.h
 	include/generated14/COLLADASaxFWLLibraryAnimationsLoader14.h
 	include/generated14/COLLADASaxFWLLibraryCamerasLoader14.h
 	include/generated14/COLLADASaxFWLLibraryControllersLoader14.h
@@ -120,6 +122,7 @@ set(INST_GEN15_SRC
 	include/generated15/COLLADASaxFWLColladaParserAutoGen15ValidationData.h
 	include/generated15/COLLADASaxFWLFormulasLoader15.h
 	include/generated15/COLLADASaxFWLGeometryLoader15.h
+	include/generated15/COLLADASaxFWLLibraryAnimationClipsLoader15.h
 	include/generated15/COLLADASaxFWLLibraryAnimationsLoader15.h
 	include/generated15/COLLADASaxFWLLibraryArticulatedSystemsLoader15.h
 	include/generated15/COLLADASaxFWLLibraryCamerasLoader15.h
@@ -143,6 +146,7 @@ set(INST_GEN15_SRC
 set(SRC
 	src/COLLADASaxFWLLibraryArticulatedSystemsLoader.cpp
 	src/COLLADASaxFWLCOLLADACsymbol.cpp
+	src/COLLADASaxFWLLibraryAnimationClipsLoader.cpp
 	src/COLLADASaxFWLLibraryAnimationsLoader.cpp
 	src/COLLADASaxFWLIParserImpl14.cpp
 	src/COLLADASaxFWLTransformationLoader.cpp
@@ -208,6 +212,7 @@ set(SRC
 	src/generated14/COLLADASaxFWLColladaParserAutoGen14PrivateFunctionMap.cpp
 	src/generated14/COLLADASaxFWLLibraryMaterialsLoader14.cpp
 	src/generated14/COLLADASaxFWLColladaParserAutoGen14PrivateFindElementHash.cpp
+	src/generated14/COLLADASaxFWLLibraryAnimationClipsLoader14.cpp
 	src/generated14/COLLADASaxFWLLibraryAnimationsLoader14.cpp
 	src/generated14/COLLADASaxFWLSceneLoader14.cpp
 	src/generated14/COLLADASaxFWLAssetLoader14.cpp
@@ -230,6 +235,7 @@ set(SRC
 	src/generated15/COLLADASaxFWLLibraryArticulatedSystemsLoader15.cpp
 	src/generated15/COLLADASaxFWLColladaParserAutoGen15PrivateFindElementHash.cpp
 	src/generated15/COLLADASaxFWLColladaParserAutoGen15PrivateFunctionMapFactory.cpp
+	src/generated15/COLLADASaxFWLLibraryAnimationClipsLoader15.cpp	
 	src/generated15/COLLADASaxFWLLibraryAnimationsLoader15.cpp
 	src/generated15/COLLADASaxFWLLibraryJointsLoader15.cpp
 	src/generated15/COLLADASaxFWLLibraryNodesLoader15.cpp
