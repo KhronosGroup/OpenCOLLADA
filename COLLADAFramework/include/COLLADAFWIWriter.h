@@ -28,6 +28,7 @@ namespace COLLADAFW
 	class Light;
 	class Animation;
 	class AnimationList;
+	class AnimationClip;
 	class SkinControllerData;
 	class Controller;
     class Formulas;
