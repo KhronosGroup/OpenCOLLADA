@@ -299,9 +299,9 @@ namespace COLLADABU
 		{
 			// if path exists
 			if (_wchdir((*iPath).c_str()) == 0) {
-        _wchdir(currentPath);
+				_wchdir(currentPath);
 				continue;
-      }
+			}
 
 			// path does not exist, try to create it
 			_wmkdir((*iPath).c_str());
@@ -352,9 +352,9 @@ namespace COLLADABU
 		{
 			// if path exists
 			if (_chdir((*iPath).c_str()) == 0) {
-        _chdir(currentPath);
+				_chdir(currentPath);
 				continue;
-      }
+			}
 
 			// path does not exist, try to create it
 			_mkdir((*iPath).c_str());
