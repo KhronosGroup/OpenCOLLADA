@@ -205,7 +205,7 @@ namespace COLLADABU
             start = text.find_first_not_of(separators, stop+1);
         }
     }
-    
+
 #ifdef COLLADABU_OS_WIN
 	//--------------------------------
 	bool Utils::createDirectoryIfNeeded( const WideString &pathString )
@@ -232,7 +232,7 @@ namespace COLLADABU
 
 	}
 #endif
-    
+
 	//--------------------------------
 	bool Utils::createDirectoryIfNeeded( const String &pathString )
 	{
@@ -298,12 +298,14 @@ namespace COLLADABU
 		for (std::list<WideString>::const_iterator iPath = paths.begin(); iPath != paths.end(); ++iPath)
 		{
 			// if path exists
-			if (_wchdir((*iPath).c_str()) == 0)
+			if (_wchdir((*iPath).c_str()) == 0) {
+				_wchdir(currentPath);
 				continue;
+			}
 
 			// path does not exist, try to create it
 			_wmkdir((*iPath).c_str());
-			
+
 			if (_wchdir((*iPath).c_str()) != 0)
 			{
 				pathExists = false;
@@ -316,7 +318,7 @@ namespace COLLADABU
 		return pathExists;
 	}
 #endif
-    
+
 	//--------------------------------
 	bool Utils::createDirectoryRecursive( const String &pathString )
 	{
@@ -349,12 +351,14 @@ namespace COLLADABU
 		for (std::list<String>::const_iterator iPath = paths.begin(); iPath != paths.end(); ++iPath)
 		{
 			// if path exists
-			if (_chdir((*iPath).c_str()) == 0)
+			if (_chdir((*iPath).c_str()) == 0) {
+				_chdir(currentPath);
 				continue;
+			}
 
 			// path does not exist, try to create it
 			_mkdir((*iPath).c_str());
-			
+
 			if (_chdir((*iPath).c_str()) != 0)
 			{
 				pathExists = false;
@@ -378,7 +382,7 @@ namespace COLLADABU
 
 			// path does not exist, try to create it
 			mkdir((*iPath).c_str(), 0755);
-			
+
 			if (chdir((*iPath).c_str()) != 0)
 			{
 				pathExists = false;
@@ -391,7 +395,7 @@ namespace COLLADABU
 #endif
 		return pathExists;
 	}
-    
+
 #ifdef COLLADABU_OS_WIN
 	//--------------------------------
 	bool Utils::directoryExists( const WideString &pathString )
@@ -412,7 +416,7 @@ namespace COLLADABU
 
 	}
 #endif
-    
+
 	//--------------------------------
 	bool Utils::directoryExists( const String &pathString )
 	{
@@ -437,7 +441,7 @@ namespace COLLADABU
         struct stat st;
         if(stat(pathString.c_str(),&st) == 0)
             pathExists = true;
-        
+
 #endif
 
 		return pathExists;
@@ -471,8 +475,8 @@ namespace COLLADABU
         size_t length = strlen(command);
         if( length > 4096)
             return false;
-        
-        
+
+
         int status = system(command);
         copystatus = (status == 0 ? true : false);
 #endif

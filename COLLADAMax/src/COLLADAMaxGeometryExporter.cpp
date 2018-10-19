@@ -1325,8 +1325,11 @@ namespace COLLADAMax
 		maxobj->MakeBezier(0, shape);
 
 		// for each curve
+#ifdef MAX_2019_OR_NEWER
+		int splinesCount = min(shape.SplineCount(), maxobj->NumberOfCurves(0));
+#else
 		int splinesCount = min(shape.SplineCount(), maxobj->NumberOfCurves());
-		
+#endif		
 		if( splinesCount < 1 )
 		{
 			// no spline to export
