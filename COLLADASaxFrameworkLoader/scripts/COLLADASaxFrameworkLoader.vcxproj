@@ -2473,6 +2473,7 @@
     <ClCompile Include="..\src\COLLADASaxFWLJointsLoader.cpp" />
     <ClCompile Include="..\src\COLLADASaxFWLKinematicsIntermediateData.cpp" />
     <ClCompile Include="..\src\COLLADASaxFWLKinematicsSceneCreator.cpp" />
+    <ClCompile Include="..\src\COLLADASaxFWLLibraryAnimationClipsLoader.cpp" />
     <ClCompile Include="..\src\COLLADASaxFWLLibraryAnimationsLoader.cpp" />
     <ClCompile Include="..\src\COLLADASaxFWLLibraryArticulatedSystemsLoader.cpp" />
     <ClCompile Include="..\src\COLLADASaxFWLLibraryCamerasLoader.cpp" />
@@ -2617,6 +2618,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release_LibXML_NoValidation|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\src\generated14\COLLADASaxFWLGeometryLoader14.cpp" />
+    <ClCompile Include="..\src\generated14\COLLADASaxFWLLibraryAnimationClipsLoader14.cpp" />
     <ClCompile Include="..\src\generated14\COLLADASaxFWLLibraryAnimationsLoader14.cpp" />
     <ClCompile Include="..\src\generated14\COLLADASaxFWLLibraryCamerasLoader14.cpp" />
     <ClCompile Include="..\src\generated14\COLLADASaxFWLLibraryControllersLoader14.cpp" />
@@ -2676,6 +2678,7 @@
     </ClCompile>
     <ClCompile Include="..\src\generated15\COLLADASaxFWLFormulasLoader15.cpp" />
     <ClCompile Include="..\src\generated15\COLLADASaxFWLGeometryLoader15.cpp" />
+    <ClCompile Include="..\src\generated15\COLLADASaxFWLLibraryAnimationClipsLoader15.cpp" />
     <ClCompile Include="..\src\generated15\COLLADASaxFWLLibraryAnimationsLoader15.cpp" />
     <ClCompile Include="..\src\generated15\COLLADASaxFWLLibraryArticulatedSystemsLoader15.cpp" />
     <ClCompile Include="..\src\generated15\COLLADASaxFWLLibraryCamerasLoader15.cpp" />
@@ -2727,6 +2730,7 @@
     <ClInclude Include="..\include\COLLADASaxFWLJointsLoader.h" />
     <ClInclude Include="..\include\COLLADASaxFWLKinematicsIntermediateData.h" />
     <ClInclude Include="..\include\COLLADASaxFWLKinematicsSceneCreator.h" />
+    <ClInclude Include="..\include\COLLADASaxFWLLibraryAnimationClipsLoader.h" />
     <ClInclude Include="..\include\COLLADASaxFWLLibraryAnimationsLoader.h" />
     <ClInclude Include="..\include\COLLADASaxFWLLibraryArticulatedSystemsLoader.h" />
     <ClInclude Include="..\include\COLLADASaxFWLLibraryCamerasLoader.h" />
@@ -2776,6 +2780,7 @@
     <ClInclude Include="..\include\generated14\COLLADASaxFWLColladaParserAutoGen14Private.h" />
     <CustomBuild Include="..\include\generated14\COLLADASaxFWLColladaParserAutoGen14ValidationData.h" />
     <ClInclude Include="..\include\generated14\COLLADASaxFWLGeometryLoader14.h" />
+    <ClInclude Include="..\include\generated14\COLLADASaxFWLLibraryAnimationClipsLoader14.h" />
     <ClInclude Include="..\include\generated14\COLLADASaxFWLLibraryAnimationsLoader14.h" />
     <ClInclude Include="..\include\generated14\COLLADASaxFWLLibraryCamerasLoader14.h" />
     <ClInclude Include="..\include\generated14\COLLADASaxFWLLibraryControllersLoader14.h" />
@@ -2798,6 +2803,7 @@
     <CustomBuild Include="..\include\generated15\COLLADASaxFWLColladaParserAutoGen15ValidationData.h" />
     <ClInclude Include="..\include\generated15\COLLADASaxFWLFormulasLoader15.h" />
     <ClInclude Include="..\include\generated15\COLLADASaxFWLGeometryLoader15.h" />
+    <ClInclude Include="..\include\generated15\COLLADASaxFWLLibraryAnimationClipsLoader15.h" />
     <ClInclude Include="..\include\generated15\COLLADASaxFWLLibraryAnimationsLoader15.h" />
     <ClInclude Include="..\include\generated15\COLLADASaxFWLLibraryArticulatedSystemsLoader15.h" />
     <ClInclude Include="..\include\generated15\COLLADASaxFWLLibraryCamerasLoader15.h" />
