@@ -57,7 +57,7 @@ namespace COLLADABU
 		WideCharToMultiByte( CP_ACP, 0, (LPCWSTR)wideString.c_str(), -1, dest, multibyteLength, 0, 0 );
 		this->assign( dest );
 		delete[] dest;
-#elif defined (COLLADABU_OS_LINUX) || defined (COLLADABU_OS_MAC)
+#elif defined (COLLADABU_OS_LINUX) || defined (COLLADABU_OS_MAC) || defined (__GLIBC__)
 //# error check if this really works on linux
 		size_t maxStringLength = wcstombs( 0, wideString.c_str(), 0 ) + 1; // wideString.length()*MB_CUR_MAX + 1;
 		char* dest = new char[ maxStringLength ];
@@ -80,7 +80,7 @@ namespace COLLADABU
 		WideString returnValue( dest );
 		delete[] dest;
 		return returnValue;
-#elif defined (COLLADABU_OS_LINUX) || defined (COLLADABU_OS_MAC)
+#elif defined (COLLADABU_OS_LINUX) || defined (COLLADABU_OS_MAC) || defined (__GLIBC__)
 //# error check if this really works on linux
 
 		size_t maxStringLength = length() + 1;

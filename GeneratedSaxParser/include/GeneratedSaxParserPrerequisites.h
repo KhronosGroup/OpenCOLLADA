@@ -62,7 +62,7 @@ namespace GeneratedSaxParser
     typedef unsigned int uint32;
     typedef unsigned long long uint64;
 
-#elif defined COLLADABU_OS_LINUX
+#elif defined COLLADABU_OS_LINUX || defined __GLIBC__
     typedef signed char sint8;
     typedef signed short sint16;
     typedef signed int sint32;
