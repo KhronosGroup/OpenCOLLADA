@@ -269,11 +269,12 @@ namespace COLLADASaxFWL
                 positions.setType ( COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT );
                 if ( initialIndex != 0 ) 
 				{
-					positions.appendValues ( valuesArray );
+					positions.appendValues ( valuesArray, source->getId(), (size_t) source->getStride() );
 				}
                 else
 				{
-					positions.setData ( valuesArray.getData (), valuesArray.getCount () );
+					positions.setData ( valuesArray.getData (), valuesArray.getCount (),
+									   source->getId(), (size_t) source->getStride() );
 					valuesArray.yieldOwnerShip();
 				}
 
@@ -299,11 +300,12 @@ namespace COLLADASaxFWL
                 positions.setType ( COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE );
                 if ( initialIndex != 0 ) 
 				{
-					positions.appendValues ( valuesArray );
+					positions.appendValues ( valuesArray, source->getId(), (size_t) source->getStride() );
 				}
                 else 
 				{
-					positions.setData ( valuesArray.getData (), valuesArray.getCount () );
+					positions.setData ( valuesArray.getData (), valuesArray.getCount (),
+									   source->getId(), (size_t) source->getStride() );
 					valuesArray.yieldOwnerShip();
 				}
                 
@@ -361,11 +363,12 @@ namespace COLLADASaxFWL
                 normals.setType ( COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_FLOAT );
                 if ( initialIndex != 0 ) 
 				{
-					normals.appendValues ( valuesArray );
+					normals.appendValues ( valuesArray, source->getId(), (size_t) source->getStride() );
 				}
                 else 
 				{
-					normals.setData ( valuesArray.getData (), valuesArray.getCount () );
+					normals.setData ( valuesArray.getData (), valuesArray.getCount (),
+									 source->getId(), (size_t) source->getStride() );
 					valuesArray.yieldOwnerShip();
 				}
 
@@ -391,11 +394,12 @@ namespace COLLADASaxFWL
                 normals.setType ( COLLADAFW::FloatDoubleOrIntArray::DATA_TYPE_DOUBLE );
                 if ( initialIndex != 0 ) 
 				{
-					normals.appendValues ( valuesArray );
+					normals.appendValues ( valuesArray, source->getId(), (size_t) source->getStride() );
 				}
                 else 
 				{ 
-					normals.setData ( valuesArray.getData (), valuesArray.getCount () );
+					normals.setData ( valuesArray.getData (), valuesArray.getCount (),
+									 source->getId(), (size_t) source->getStride() );
 					valuesArray.yieldOwnerShip();
 				}
 
