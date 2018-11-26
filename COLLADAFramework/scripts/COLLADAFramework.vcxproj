@@ -1200,6 +1200,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\COLLADAFWAnimationClip.cpp" />
     <ClCompile Include="..\src\COLLADAFWAxisInfo.cpp" />
     <ClCompile Include="..\src\COLLADAFWCamera.cpp" />
     <ClCompile Include="..\src\COLLADAFWColor.cpp" />
@@ -1278,6 +1279,7 @@
     <ClInclude Include="..\include\COLLADAFWAnimatable.h" />
     <ClInclude Include="..\include\COLLADAFWAnimatableFloat.h" />
     <ClInclude Include="..\include\COLLADAFWAnimation.h" />
+    <ClInclude Include="..\include\COLLADAFWAnimationClip.h" />
     <ClInclude Include="..\include\COLLADAFWAnimationCurve.h" />
     <ClInclude Include="..\include\COLLADAFWAnimationList.h" />
     <ClInclude Include="..\include\COLLADAFWAnnotate.h" />

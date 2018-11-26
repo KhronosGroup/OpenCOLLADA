@@ -12,6 +12,7 @@ set(INST_SRC
 	include/COLLADAFWAnimatable.h
 	include/COLLADAFWAnimatableFloat.h
 	include/COLLADAFWAnimation.h
+	include/COLLADAFWAnimationClip.h
 	include/COLLADAFWAnimationCurve.h
 	include/COLLADAFWAnimationList.h
 	include/COLLADAFWAnnotate.h
@@ -125,6 +126,7 @@ set(INST_SRC
 
 
 set(SRC
+	src/COLLADAFWAnimationClip.cpp
 	src/COLLADAFWLight.cpp
 	src/COLLADAFWEffectCommon.cpp
 	src/COLLADAFWInstanceKinematicsScene.cpp

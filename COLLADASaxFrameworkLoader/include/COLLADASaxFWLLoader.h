@@ -88,8 +88,9 @@ namespace COLLADASaxFWL
 			CONTROLLER_FLAG            = 1<<13,
 			FORMULA_FLAG               = 1<<14,
 			KINEMATICS_FLAG            = 1<<15,
+			ANIMATION_CLIP_FLAG        = 1<<16,
 
-			ALL_OBJECTS_MASK           = (1<<16) - 1,
+			ALL_OBJECTS_MASK           = (1<<17) - 1,
 		};
 
 	public:

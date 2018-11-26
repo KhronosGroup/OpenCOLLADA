@@ -28,6 +28,7 @@ namespace COLLADAFW
 	class Light;
 	class Animation;
 	class AnimationList;
+	class AnimationClip;
 	class SkinControllerData;
 	class Controller;
     class Formulas;
@@ -108,6 +109,10 @@ namespace COLLADAFW
 		/** When this method is called, the writer must write the AnimationList.
 		@return The writer should return true, if writing succeeded, false otherwise.*/
 		virtual bool writeAnimationList( const AnimationList* animationList ) = 0;
+
+		/** When this method is called, the writer must write the AnimationClip.
+		@return The writer should return true, of writing succeeded, false otherwise.*/
+		virtual bool writeAnimationClip( const AnimationClip* animationClip ) = 0;
 
 		/** When this method is called, the writer must write the skin controller data.
 		@return The writer should return true, if writing succeeded, false otherwise.*/

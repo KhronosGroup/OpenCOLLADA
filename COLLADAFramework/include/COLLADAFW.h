@@ -15,6 +15,7 @@
 #include "COLLADAFWAnimatable.h"
 #include "COLLADAFWAnimatableFloat.h"
 #include "COLLADAFWAnimation.h"
+#include "COLLADAFWAnimationClip.h"
 #include "COLLADAFWAnimationCurve.h"
 #include "COLLADAFWAnimationList.h"
 #include "COLLADAFWAnnotate.h"

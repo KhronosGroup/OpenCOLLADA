@@ -71,6 +71,9 @@ namespace COLLADASaxFWL
         /** Starts loading a library images.*/
         virtual bool begin__library_images( const COLLADASaxFWL15::library_images__AttributeData& attributeData );
 
+        /** Starts loading a library animation clips. */
+        virtual bool begin__library_animation_clips( const COLLADASaxFWL15::library_animation_clips__AttributeData& attributeData );
+
         /** Starts loading a library animations.*/
         virtual bool begin__library_animations( const COLLADASaxFWL15::library_animations__AttributeData& attributeData );
 

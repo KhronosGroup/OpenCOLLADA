@@ -381,6 +381,21 @@ namespace COLLADASaxFWL
         uint64 count;
         const ParserChar* material;
     };
+    struct animation_clip__AttributeData
+    {
+        const ParserChar* id;
+        const ParserChar* name;
+    };
+    struct instance_animation__AttributeData
+    {
+        static const uint32 ATTRIBUTE_URL_PRESENT = 0x1;
+
+        uint32 present_attributes;
+
+        COLLADABU::URI url;
+        const ParserChar* sid;
+        const ParserChar* name;
+    };
     struct animation__AttributeData
     {
         const ParserChar* id;
