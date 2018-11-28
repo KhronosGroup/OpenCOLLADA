@@ -241,21 +241,51 @@ namespace COLLADAFW
             }
             
         }
-		void setData( float* data, const size_t count )
+
+        void setData( float* data, const size_t count )
         {
             FloatOrDoubleArray::setData(data, count);
         }
 
-		void setData( double* data, const size_t count )
+        void setData( float* data, const size_t count, const String& name, const size_t stride )
+        {
+            FloatOrDoubleArray::setData(data, count);
+            setInfo(count, name, stride);
+        }
+
+        void setData( double* data, const size_t count )
         {
             FloatOrDoubleArray::setData(data, count);
         }
 
-        void setData( int* data, const size_t count ) 
+        void setData( double* data, const size_t count, const String& name, const size_t stride )
+        {
+            FloatOrDoubleArray::setData(data, count);
+            setInfo(count, name, stride);
+        }
+
+        void setData( int* data, const size_t count )
         {
             IntArray::setData(data, count);
         }
+
+        void setData( int* data, const size_t count, const String& name, const size_t stride )
+        {
+            IntArray::setData(data, count);
+            setInfo(count, name, stride);
+        }
+
 	private:
+
+        void setInfo( const size_t length, const String& name, const size_t stride )
+        {
+            InputInfos* info = new InputInfos();
+            info->mLength = length;
+            info->mName = name;
+            info->mStride = stride;
+
+            mInputInfosArray.append ( info );
+        }
 
 		/** Disable default copy ctor. */
 		MeshVertexData( const MeshVertexData& pre );
