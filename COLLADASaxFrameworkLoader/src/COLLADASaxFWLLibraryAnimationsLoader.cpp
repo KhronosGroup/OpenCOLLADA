@@ -368,7 +368,7 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryAnimationsLoader::begin__sampler( const sampler__AttributeData& attributeData )
 	{
-		mCurrentAnimationCurve = FW_NEW COLLADAFW::AnimationCurve(createUniqueIdFromId(attributeData.id, COLLADAFW::Animation::ID()));
+		mCurrentAnimationCurve = FW_NEW COLLADAFW::AnimationCurve(createUniqueIdFromId(mOriginalId.c_str(), COLLADAFW::Animation::ID()));
 
 		mCurrentAnimationCurve->setName ( mName );
         mCurrentAnimationCurve->setOriginalId ( mOriginalId );
