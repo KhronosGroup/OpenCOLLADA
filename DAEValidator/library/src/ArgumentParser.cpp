@@ -6,10 +6,10 @@
 
 using namespace std;
 
-#ifdef _MSC_VER
-#define NOEXCEPT _NOEXCEPT
-#else
+#ifndef _NOEXCEPT
 #define NOEXCEPT noexcept
+#else
+#define NOEXCEPT _NOEXCEPT
 #endif
 
 namespace opencollada
