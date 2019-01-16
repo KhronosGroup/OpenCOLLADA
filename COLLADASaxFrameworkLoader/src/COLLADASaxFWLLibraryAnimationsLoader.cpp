@@ -357,10 +357,12 @@ namespace COLLADASaxFWL
 		return true;
 	}
 
+	bool first = true;
 	//------------------------------
 	bool LibraryAnimationsLoader::end__animation()
 	{
         mOriginalId = COLLADABU::Utils::EMPTY_STRING;
+		first = true;
 
 		return true;
 	}
@@ -368,7 +370,13 @@ namespace COLLADASaxFWL
 	//------------------------------
 	bool LibraryAnimationsLoader::begin__sampler( const sampler__AttributeData& attributeData )
 	{
-		mCurrentAnimationCurve = FW_NEW COLLADAFW::AnimationCurve(createUniqueIdFromId(mOriginalId.c_str(), COLLADAFW::Animation::ID()));
+		const char* id = attributeData.id;
+		if (first) {
+			id = mOriginalId.c_str();
+			first = false;
+		}
+
+		mCurrentAnimationCurve = FW_NEW COLLADAFW::AnimationCurve(createUniqueIdFromId(id, COLLADAFW::Animation::ID()));
 
 		mCurrentAnimationCurve->setName ( mName );
         mCurrentAnimationCurve->setOriginalId ( mOriginalId );
