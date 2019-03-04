@@ -9,9 +9,9 @@
 */
 
 #include "GeneratedSaxParserUtils.h"
-#include <math.h>
+#include <cmath>
 #include <memory>
-#include <string.h>
+#include <cstring>
 #include <limits>
 #include <algorithm>
 
