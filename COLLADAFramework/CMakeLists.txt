@@ -174,12 +174,14 @@ set(SRC
 set(TARGET_LIBS
 	OpenCOLLADABaseUtils
 	MathMLSolver
+	${PCRE_LIBRARIES}
 )
 
 include_directories(
 	${libFramework_include_dirs}
 	${libBaseUtils_include_dirs}
 	${libMathMLSolver_include_dirs}
+	${PCRE_INCLUDE_DIR}
 )
 opencollada_add_lib(${name} "${SRC}" "${TARGET_LIBS}")
 

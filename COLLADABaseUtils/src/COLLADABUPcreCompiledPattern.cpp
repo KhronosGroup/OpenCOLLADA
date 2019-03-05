@@ -11,8 +11,6 @@
 #include "COLLADABUStableHeaders.h"
 #include "COLLADABUPcreCompiledPattern.h"
 
-#include "pcre.h"
-
 namespace COLLADABU
 {
 
