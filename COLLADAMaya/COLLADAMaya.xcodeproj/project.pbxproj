@@ -790,6 +790,14 @@
 		CE8D7C580F98C055007F8DF9 /* GeneratedSaxParserRawUnknownElementHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE8D7C550F98C055007F8DF9 /* GeneratedSaxParserRawUnknownElementHandler.cpp */; };
 		CE8D7C7E0F98C0A1007F8DF9 /* GeneratedSaxParserIUnknownElementHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = CE8D7C7B0F98C0A1007F8DF9 /* GeneratedSaxParserIUnknownElementHandler.h */; };
 		CE8D7C7F0F98C0A1007F8DF9 /* GeneratedSaxParserRawUnknownElementHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = CE8D7C7C0F98C0A1007F8DF9 /* GeneratedSaxParserRawUnknownElementHandler.h */; };
+		D4E84DF021A47A9D003AAB34 /* COLLADAFWAnimationClip.h in Headers */ = {isa = PBXBuildFile; fileRef = D4E84DEF21A47A9C003AAB34 /* COLLADAFWAnimationClip.h */; };
+		D4E84DF321A47AC7003AAB34 /* COLLADAFWAnimationClip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E84DF121A47AAA003AAB34 /* COLLADAFWAnimationClip.cpp */; };
+		D4E84DF721A47AFC003AAB34 /* COLLADASaxFWLLibraryAnimationClipsLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E84DF621A47AFB003AAB34 /* COLLADASaxFWLLibraryAnimationClipsLoader.cpp */; };
+		D4E84DF821A47B3A003AAB34 /* COLLADASaxFWLLibraryAnimationClipsLoader14.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E84DF421A47AE5003AAB34 /* COLLADASaxFWLLibraryAnimationClipsLoader14.cpp */; };
+		D4E84DFA21A47B54003AAB34 /* COLLADASaxFWLLibraryAnimationClipsLoader15.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4E84DF921A47B53003AAB34 /* COLLADASaxFWLLibraryAnimationClipsLoader15.cpp */; };
+		D4E84DFC21A47B78003AAB34 /* COLLADASaxFWLLibraryAnimationClipsLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = D4E84DFB21A47B78003AAB34 /* COLLADASaxFWLLibraryAnimationClipsLoader.h */; };
+		D4E84DFE21A47B8E003AAB34 /* COLLADASaxFWLLibraryAnimationClipsLoader15.h in Headers */ = {isa = PBXBuildFile; fileRef = D4E84DFD21A47B8E003AAB34 /* COLLADASaxFWLLibraryAnimationClipsLoader15.h */; };
+		D4E84E0021A47B9A003AAB34 /* COLLADASaxFWLLibraryAnimationClipsLoader14.h in Headers */ = {isa = PBXBuildFile; fileRef = D4E84DFF21A47B9A003AAB34 /* COLLADASaxFWLLibraryAnimationClipsLoader14.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1746,6 +1754,14 @@
 		CE8D7DAA0F98D435007F8DF9 /* COLLADASaxFWLTypes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADASaxFWLTypes.cpp; path = ../COLLADASaxFrameworkLoader/src/COLLADASaxFWLTypes.cpp; sourceTree = SOURCE_ROOT; };
 		CE8D7DAB0F98D435007F8DF9 /* COLLADASaxFWLVisualSceneLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADASaxFWLVisualSceneLoader.cpp; path = ../COLLADASaxFrameworkLoader/src/COLLADASaxFWLVisualSceneLoader.cpp; sourceTree = SOURCE_ROOT; };
 		D2AAC09D05546B4700DB518D /* COLLADAMaya.bundle */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = COLLADAMaya.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4E84DEF21A47A9C003AAB34 /* COLLADAFWAnimationClip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADAFWAnimationClip.h; path = ../COLLADAFramework/include/COLLADAFWAnimationClip.h; sourceTree = "<group>"; };
+		D4E84DF121A47AAA003AAB34 /* COLLADAFWAnimationClip.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADAFWAnimationClip.cpp; path = ../COLLADAFramework/src/COLLADAFWAnimationClip.cpp; sourceTree = "<group>"; };
+		D4E84DF421A47AE5003AAB34 /* COLLADASaxFWLLibraryAnimationClipsLoader14.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADASaxFWLLibraryAnimationClipsLoader14.cpp; path = ../COLLADASaxFrameworkLoader/src/generated14/COLLADASaxFWLLibraryAnimationClipsLoader14.cpp; sourceTree = "<group>"; };
+		D4E84DF621A47AFB003AAB34 /* COLLADASaxFWLLibraryAnimationClipsLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADASaxFWLLibraryAnimationClipsLoader.cpp; path = ../COLLADASaxFrameworkLoader/src/COLLADASaxFWLLibraryAnimationClipsLoader.cpp; sourceTree = "<group>"; };
+		D4E84DF921A47B53003AAB34 /* COLLADASaxFWLLibraryAnimationClipsLoader15.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = COLLADASaxFWLLibraryAnimationClipsLoader15.cpp; path = ../COLLADASaxFrameworkLoader/src/generated15/COLLADASaxFWLLibraryAnimationClipsLoader15.cpp; sourceTree = "<group>"; };
+		D4E84DFB21A47B78003AAB34 /* COLLADASaxFWLLibraryAnimationClipsLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COLLADASaxFWLLibraryAnimationClipsLoader.h; path = ../COLLADASaxFrameworkLoader/include/COLLADASaxFWLLibraryAnimationClipsLoader.h; sourceTree = "<group>"; };
+		D4E84DFD21A47B8E003AAB34 /* COLLADASaxFWLLibraryAnimationClipsLoader15.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COLLADASaxFWLLibraryAnimationClipsLoader15.h; sourceTree = "<group>"; };
+		D4E84DFF21A47B9A003AAB34 /* COLLADASaxFWLLibraryAnimationClipsLoader14.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COLLADASaxFWLLibraryAnimationClipsLoader14.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1907,6 +1923,7 @@
 		CE2272E4104D1DD100C4F29B /* generated15 */ = {
 			isa = PBXGroup;
 			children = (
+				D4E84DFD21A47B8E003AAB34 /* COLLADASaxFWLLibraryAnimationClipsLoader15.h */,
 				CE27BA6816D5132900C109C3 /* COLLADASaxFWLAssetLoader15.h */,
 				CE27BA6916D5132900C109C3 /* COLLADASaxFWLColladaParserAutoGen15.h */,
 				CE27BA6A16D5132900C109C3 /* COLLADASaxFWLColladaParserAutoGen15Attributes.h */,
@@ -1942,6 +1959,7 @@
 		CE227319104D1DF800C4F29B /* generated14 */ = {
 			isa = PBXGroup;
 			children = (
+				D4E84DFF21A47B9A003AAB34 /* COLLADASaxFWLLibraryAnimationClipsLoader14.h */,
 				CE7820A70FF112A800A767EA /* COLLADASaxFWLAssetLoader14.h */,
 				CE22731B104D1DF800C4F29B /* COLLADASaxFWLColladaParserAutoGen14.h */,
 				CE22731C104D1DF900C4F29B /* COLLADASaxFWLColladaParserAutoGen14Attributes.h */,
@@ -2135,6 +2153,7 @@
 		CE7290AE10AC751300AE5662 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				D4E84DFB21A47B78003AAB34 /* COLLADASaxFWLLibraryAnimationClipsLoader.h */,
 				CE27BA9E16D513B100C109C3 /* COLLADASaxFWLAccessor.h */,
 				CE27BA9F16D513B100C109C3 /* COLLADASaxFWLArrayElement.h */,
 				CE27BAA016D513B200C109C3 /* COLLADASaxFWLAssetLoader.h */,
@@ -2217,8 +2236,8 @@
 		CE7290AF10AC751900AE5662 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				D4E84DF621A47AFB003AAB34 /* COLLADASaxFWLLibraryAnimationClipsLoader.cpp */,
 				CE27BA4416D4F7D400C109C3 /* COLLADASaxFWLSplineLoader.cpp */,
-				24FFE6C814A525E000D718C2 /* COLLADASaxFWLLibraryKinematicsScenesLoader15.cpp */,
 				24FFE6BF14A525CC00D718C2 /* COLLADASaxFWLInstanceArticulatedSystemLoader.cpp */,
 				24FFE6C014A525CC00D718C2 /* COLLADASaxFWLInstanceKinematicsModelLoader.cpp */,
 				24FFE6C114A525CC00D718C2 /* COLLADASaxFWLLibraryKinematicsScenesLoader.cpp */,
@@ -2336,6 +2355,7 @@
 		CE72910210AC7FD300AE5662 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				D4E84DF121A47AAA003AAB34 /* COLLADAFWAnimationClip.cpp */,
 				24FFE6CB14A5269600D718C2 /* COLLADAFWInstanceKinematicsScene.cpp */,
 				CE787CB20F58400C0019C2D7 /* COLLADAFWMaterial.cpp */,
 				CE787CB30F58400C0019C2D7 /* COLLADAFWMatrix.cpp */,
@@ -2498,6 +2518,7 @@
 		CE72910910AC805600AE5662 /* generated14 */ = {
 			isa = PBXGroup;
 			children = (
+				D4E84DF421A47AE5003AAB34 /* COLLADASaxFWLLibraryAnimationClipsLoader14.cpp */,
 				CE27BA4216D4F7A200C109C3 /* COLLADASaxFWLSplineLoader14.cpp */,
 				CE7821560FF1137C00A767EA /* COLLADASaxFWLLibraryAnimationsLoader14.cpp */,
 				CE7821550FF1137C00A767EA /* COLLADASaxFWLGeometryLoader14.cpp */,
@@ -2530,6 +2551,8 @@
 		CE72910A10AC806D00AE5662 /* generated15 */ = {
 			isa = PBXGroup;
 			children = (
+				D4E84DF921A47B53003AAB34 /* COLLADASaxFWLLibraryAnimationClipsLoader15.cpp */,
+				24FFE6C814A525E000D718C2 /* COLLADASaxFWLLibraryKinematicsScenesLoader15.cpp */,
 				CE78218B0FF1139E00A767EA /* COLLADASaxFWLSourceArrayLoader15.cpp */,
 				CE7821800FF1139E00A767EA /* COLLADASaxFWLLibraryAnimationsLoader15.cpp */,
 				CE71CDD4104D183800368D98 /* COLLADASaxFWLLibraryArticulatedSystemsLoader15.cpp */,
@@ -2817,6 +2840,7 @@
 		CE72911810AC82DE00AE5662 /* include */ = {
 			isa = PBXGroup;
 			children = (
+				D4E84DEF21A47A9C003AAB34 /* COLLADAFWAnimationClip.h */,
 				CE71CD10104D0A1500368D98 /* COLLADAFW.h */,
 				CE8D7C350F98BFED007F8DF9 /* COLLADAFWAnimatable.h */,
 				CE79CF051020B7E900A3A027 /* COLLADAFWAnimatableFloat.h */,
@@ -3467,6 +3491,7 @@
 				95AF1A811CCFC236009B9B7D /* COLLADAMayaLODExporter.h in Headers */,
 				CE0B3ED50F56AFD8004F8570 /* COLLADAMayaAnimationClipExporter.h in Headers */,
 				CE0B3ED60F56AFD8004F8570 /* COLLADAMayaAnimationCurves.h in Headers */,
+				D4E84E0021A47B9A003AAB34 /* COLLADASaxFWLLibraryAnimationClipsLoader14.h in Headers */,
 				CE0B3ED70F56AFD8004F8570 /* COLLADAMayaAnimationElement.h in Headers */,
 				CE0B3ED80F56AFD8004F8570 /* COLLADAMayaAnimationExporter.h in Headers */,
 				CE0B3ED90F56AFD8004F8570 /* COLLADAMayaAnimationHelper.h in Headers */,
@@ -3495,6 +3520,7 @@
 				CE0B3EF40F56AFD8004F8570 /* COLLADAMayaImportOptions.h in Headers */,
 				CE0B3EF50F56AFD8004F8570 /* COLLADAMayaLightExporter.h in Headers */,
 				95133F5B1AA8BA37003AC4E2 /* COLLADASWInstancePhysicsModel.h in Headers */,
+				D4E84DFE21A47B8E003AAB34 /* COLLADASaxFWLLibraryAnimationClipsLoader15.h in Headers */,
 				87D7EAFB1B0E979B000436DA /* COLLADAMayaLightProbeExporter.h in Headers */,
 				CE0B3EF70F56AFD8004F8570 /* COLLADAMayaMaterialExporter.h in Headers */,
 				CE0B3EFA0F56AFD8004F8570 /* COLLADAMayaMorphController.h in Headers */,
@@ -3514,7 +3540,9 @@
 				CE0B3F0A0F56AFD8004F8570 /* COLLADAMayaSyntax.h in Headers */,
 				871C5B3A1BCEC138008B84FF /* COLLADAMayaPhysXExporter.h in Headers */,
 				CE0B3F0B0F56AFD8004F8570 /* COLLADAMayaTangentPoint.h in Headers */,
+				D4E84DF021A47A9D003AAB34 /* COLLADAFWAnimationClip.h in Headers */,
 				CE0B3F0C0F56AFD8004F8570 /* COLLADAMayaVisualSceneExporter.h in Headers */,
+				D4E84DFC21A47B78003AAB34 /* COLLADASaxFWLLibraryAnimationClipsLoader.h in Headers */,
 				879D18E01AE8070F005C246C /* COLLADAMayaAttributeParser.h in Headers */,
 				95133F5D1AA8BA37003AC4E2 /* COLLADASWLibraryPhysicsModels.h in Headers */,
 				CE7D40150FF1308D00849CFA /* COLLADAMayaBaseAnimation.h in Headers */,
@@ -3961,6 +3989,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4E84DF321A47AC7003AAB34 /* COLLADAFWAnimationClip.cpp in Sources */,
 				CE3E66B60FD54FA7003D1AD2 /* COLLADAFWSkinController.cpp in Sources */,
 				CE787CC30F58400C0019C2D7 /* COLLADAFWCamera.cpp in Sources */,
 				CE787CC40F58400C0019C2D7 /* COLLADAFWColor.cpp in Sources */,
@@ -4099,6 +4128,7 @@
 				CE71CEA7104D1A0B00368D98 /* COLLADASaxFWLSourceArrayLoader15.cpp in Sources */,
 				CE71CEA8104D1A0B00368D98 /* COLLADASaxFWLTransformationLoader.cpp in Sources */,
 				CE71CEA9104D1A0B00368D98 /* COLLADASaxFWLTypes.cpp in Sources */,
+				D4E84DF821A47B3A003AAB34 /* COLLADASaxFWLLibraryAnimationClipsLoader14.cpp in Sources */,
 				CE71CEAA104D1A0B00368D98 /* COLLADASaxFWLVersionParser.cpp in Sources */,
 				CE71CEAB104D1A0B00368D98 /* COLLADASaxFWLVisualSceneLoader.cpp in Sources */,
 				CE71CEAC104D1A0B00368D98 /* COLLADASaxFWLVisualSceneLoader14.cpp in Sources */,
@@ -4122,6 +4152,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE72916810ACA1F800AE5662 /* COLLADAMayaAnimationClipExporter.cpp in Sources */,
+				D4E84DFA21A47B54003AAB34 /* COLLADASaxFWLLibraryAnimationClipsLoader15.cpp in Sources */,
 				95AF1A831CCFC257009B9B7D /* COLLADAMayaLODExporter.cpp in Sources */,
 				CE72916910ACA1F800AE5662 /* COLLADAMayaAnimationCurves.cpp in Sources */,
 				CE72916A10ACA1F800AE5662 /* COLLADAMayaAnimationElement.cpp in Sources */,
@@ -4146,6 +4177,7 @@
 				871C5B3C1BCEC149008B84FF /* COLLADAMayaPhysXExporter.cpp in Sources */,
 				CE72917A10ACA1F800AE5662 /* COLLADAMayaGeometryExporter.cpp in Sources */,
 				CE72917B10ACA1F800AE5662 /* COLLADAMayaGeometryPolygonExporter.cpp in Sources */,
+				D4E84DF721A47AFC003AAB34 /* COLLADASaxFWLLibraryAnimationClipsLoader.cpp in Sources */,
 				CE72917C10ACA1F800AE5662 /* COLLADAMayaHwShaderExporter.cpp in Sources */,
 				CE72917D10ACA1F800AE5662 /* COLLADAMayaImageExporter.cpp in Sources */,
 				CE72917E10ACA1F800AE5662 /* COLLADAMayaImportOptions.cpp in Sources */,

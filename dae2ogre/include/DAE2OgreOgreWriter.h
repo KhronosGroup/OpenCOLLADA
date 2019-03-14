@@ -155,6 +155,10 @@ namespace DAE2Ogre
 		@return True on succeeded, false otherwise.*/
 		virtual bool writeAnimationList( const COLLADAFW::AnimationList* animationList );
 
+		/** Writes the animation clip.
+		@return True on succeeded, flase otherwise.*/
+		virtual bool writeAnimationClip( const COLLADAFW::AnimationClip* animationClip ) { return true; }
+
 		/** Writes the skin controller data.
 		@return True on succeeded, false otherwise.*/
 		virtual bool writeSkinControllerData( const COLLADAFW::SkinControllerData* skinControllerData );

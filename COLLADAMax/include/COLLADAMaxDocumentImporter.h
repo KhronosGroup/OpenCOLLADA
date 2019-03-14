@@ -416,6 +416,10 @@ namespace COLLADAMax
 		@return True on succeeded, false otherwise.*/
 		virtual bool writeAnimationList( const COLLADAFW::AnimationList* animationList );
 
+		/** Writes the animation clip.
+		@return True on succeeded, flase otherwise.*/
+		virtual bool writeAnimationClip( const COLLADAFW::AnimationClip* animationClip ) { return true; }
+
 		/** When this method is called, the writer must write the skin controller data.
 		@return The writer should return true, if writing succeeded, false otherwise.*/
 		virtual bool writeSkinControllerData( const COLLADAFW::SkinControllerData* skinControllerData );

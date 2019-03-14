@@ -92,6 +92,9 @@
     <ClCompile Include="..\src\COLLADASaxFWLKinematicsSceneCreator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\COLLADASaxFWLLibraryAnimationClipsLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="..\src\COLLADASaxFWLLibraryAnimationsLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -218,6 +221,9 @@
     <ClCompile Include="..\src\generated14\COLLADASaxFWLGeometryLoader14.cpp">
       <Filter>Source Files\generated 1.4</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\generated14\COLLADASaxFWLLibraryAnimationClipsLoader14.cpp">
+      <Filter>Source Files\generated 1.4</Filter>
+    </ClCompile>
     <ClCompile Include="..\src\generated14\COLLADASaxFWLLibraryAnimationsLoader14.cpp">
       <Filter>Source Files\generated 1.4</Filter>
     </ClCompile>
@@ -288,6 +294,9 @@
       <Filter>Source Files\generated 1.5</Filter>
     </ClCompile>
     <ClCompile Include="..\src\generated15\COLLADASaxFWLGeometryLoader15.cpp">
+      <Filter>Source Files\generated 1.5</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\generated15\COLLADASaxFWLLibraryAnimationClipsLoader15.cpp">
       <Filter>Source Files\generated 1.5</Filter>
     </ClCompile>
     <ClCompile Include="..\src\generated15\COLLADASaxFWLLibraryAnimationsLoader15.cpp">
@@ -439,6 +448,9 @@
     <ClInclude Include="..\include\COLLADASaxFWLKinematicsSceneCreator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\COLLADASaxFWLLibraryAnimationClipsLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="..\include\COLLADASaxFWLLibraryAnimationsLoader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -583,6 +595,9 @@
     <ClInclude Include="..\include\generated14\COLLADASaxFWLGeometryLoader14.h">
       <Filter>Header Files\generated 1.4</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\generated14\COLLADASaxFWLLibraryAnimationClipsLoader14.h">
+      <Filter>Header Files\generated 1.4</Filter>
+    </ClInclude>
     <ClInclude Include="..\include\generated14\COLLADASaxFWLLibraryAnimationsLoader14.h">
       <Filter>Header Files\generated 1.4</Filter>
     </ClInclude>
@@ -644,6 +659,9 @@
       <Filter>Header Files\generated 1.5</Filter>
     </ClInclude>
     <ClInclude Include="..\include\generated15\COLLADASaxFWLGeometryLoader15.h">
+      <Filter>Header Files\generated 1.5</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\generated15\COLLADASaxFWLLibraryAnimationClipsLoader15.h">
       <Filter>Header Files\generated 1.5</Filter>
     </ClInclude>
     <ClInclude Include="..\include\generated15\COLLADASaxFWLLibraryAnimationsLoader15.h">

@@ -408,6 +408,10 @@ namespace DAE2MA
         @return The writer should return true, if writing succeeded, false otherwise.*/
         virtual bool writeAnimationList( const COLLADAFW::AnimationList* animationList );
 
+        /** When this method is called, the writer must write the AnimationClip.
+        @return The writer should return true, of writing succeeded, false otherwise.*/
+        virtual bool writeAnimationClip( const COLLADAFW::AnimationClip* animationClip ) { return true; }
+
         /** When this method is called, the writer must write the skin controller data.
         @return The writer should return true, if writing succeeded, false otherwise.*/
         virtual bool writeSkinControllerData( const COLLADAFW::SkinControllerData* skinControllerData );

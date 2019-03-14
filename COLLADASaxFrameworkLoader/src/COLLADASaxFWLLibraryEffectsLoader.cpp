@@ -22,7 +22,7 @@ namespace COLLADASaxFWL
 
     //------------------------------
 	LibraryEffectsLoader::LibraryEffectsLoader( IFilePartLoader* callingFilePartLoader )
-		: FilePartLoader(callingFilePartLoader)
+		: LibraryImagesLoader(callingFilePartLoader)
 		, mCurrentEffect(0)
         , mTransparency(1)
 		, mOpaqueMode(UNSPECIFIED_OPAQUE)
