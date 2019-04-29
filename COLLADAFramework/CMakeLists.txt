@@ -86,6 +86,7 @@ set(INST_SRC
 	include/COLLADAFWPassTarget.h
 	include/COLLADAFWPointerArray.h
 	include/COLLADAFWPolygons.h
+	include/COLLADAFWPolylist.h
 	include/COLLADAFWPrerequisites.h
 	include/COLLADAFWRenderDraw.h
 	include/COLLADAFWRenderState.h
