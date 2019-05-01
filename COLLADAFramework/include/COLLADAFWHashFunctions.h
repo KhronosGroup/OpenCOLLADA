@@ -13,6 +13,7 @@
 
 #include "COLLADAFWPrerequisites.h"
 #include "COLLADAFWUniqueId.h"
+#include "COLLADAFWEdge.h"
 #include "COLLADABUhash_map.h"
 
 namespace COLLADABU_HASH_NAMESPACE_OPEN
@@ -27,6 +28,19 @@ namespace COLLADABU_HASH_NAMESPACE_OPEN
         static const size_t min_buckets=8;
 
         bool operator() (const COLLADAFW::UniqueId& uniqueId1, const COLLADAFW::UniqueId& uniqueId2) const { return uniqueId1<uniqueId2; }
+#endif
+    };
+
+    template<>
+    struct COLLADABU_HASH_FUN<COLLADAFW::Edge>
+    {
+        size_t operator() (const COLLADAFW::Edge& edge) const { return edge; }
+
+#if defined(_MSC_VER) && _MSC_VER==1400
+        static const size_t bucket_size=4;
+        static const size_t min_buckets=8;
+
+        bool operator() (const COLLADAFW::Edge& edge1, const COLLADAFW::Edge& edge2) const { return edge1<edge2; }
 #endif
     };
 } COLLADABU_HASH_NAMESPACE_CLOSE

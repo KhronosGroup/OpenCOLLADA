@@ -23,6 +23,7 @@
 
 #include "COLLADAFWMesh.h"
 #include "COLLADAFWController.h"
+#include "COLLADAFWHashFunctions.h"
 
 #include "Math/COLLADABUMathVector3.h"
 

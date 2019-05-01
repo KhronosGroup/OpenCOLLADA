@@ -6,7 +6,7 @@
 
 using namespace std;
 
-#ifdef _MSC_VER
+#ifdef _NOEXCEPT
 #define NOEXCEPT _NOEXCEPT
 #else
 #define NOEXCEPT noexcept
