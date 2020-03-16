@@ -62,7 +62,7 @@ namespace COLLADASW
 
     //---------------------------------------------------------------
     LibraryAnimations::LibraryAnimations ( COLLADASW::StreamWriter * streamWriter )
-            : Library ( streamWriter, CSWC::CSW_ELEMENT_LIBRARY_ANIMATIONS ), mOpenAnimations ( NULL )
+            : Library ( streamWriter, CSWC::CSW_ELEMENT_LIBRARY_ANIMATIONS )
     {}
 
     //---------------------------------------------------------------
