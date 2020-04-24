@@ -2641,7 +2641,7 @@ namespace COLLADAMaya
         // --------------------------------
         // In-tangent
 
-#if MAYA_API_VERSION >= 20180000
+#if MAYA_API_VERSION >= 20170000
 		double slopeX, slopeY;
 #else
         float slopeX, slopeY;
