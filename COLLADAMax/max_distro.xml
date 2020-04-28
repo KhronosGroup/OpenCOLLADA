@@ -94,7 +94,7 @@
 				<param name="name" value="Release_Max2021_static"/>
 			</antcall>
 
-			<copy tofile="jenkins-artifacts/INSTALL_WIN.txt" file="bin/win/INSTALL.TXT"/>
+			<copy tofile="jenkins-artifacts/INSTALL_WIN.txt" file="INSTALL"/>
 	</target>
 
 </project>
