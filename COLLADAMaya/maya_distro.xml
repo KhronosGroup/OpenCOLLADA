@@ -1,0 +1,97 @@
+<project name="Distro Maya" basedir="." default="main">
+	<target name="dir.check">
+		<condition property="dir.exists">
+				<available file="${from}/${name}" type="dir"/>
+		</condition>
+	</target>
+
+	<target name="dir.copy" depends="dir.check" if="dir.exists">
+			<copy todir="jenkins-artifacts/${to}/${name}">
+					<fileset dir="${from}/${name}" includes="*"/>
+			</copy>
+	</target>
+
+	<target name="dir.zip" depends="dir.check" if="dir.exists">
+			<zip destfile="jenkins-artifacts/${name}.zip">
+					<fileset dir="${from}/${name}" includes="*"/>
+			</zip>
+	</target>
+			
+			
+	<target name="main">
+			<delete dir="jenkins-artifacts" verbose="false"/>
+			<property name="from" value="bin\win\x64/"/>
+			<property name="to" value="Maya2018/x64/"/>
+			<antcall target="dir.zip">
+				<param name="name" value="DebugConsole2016"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="ReleaseConsole2016"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="DebugPlugin2016"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="ReleasePlugin2016"/>
+			</antcall>
+
+			<antcall target="dir.zip">
+				<param name="name" value="DebugConsole2017"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="ReleaseConsole2017"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="DebugPlugin2017"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="ReleasePlugin2017"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="DebugConsole2018"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="ReleaseConsole2018"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="DebugPlugin2018"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="ReleasePlugin2018"/>
+			</antcall>
+
+			<antcall target="dir.zip">
+				<param name="name" value="DebugConsole2019"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="ReleaseConsole2019"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="DebugPlugin2019"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="ReleasePlugin2019"/>
+			</antcall>
+			
+			<antcall target="dir.zip">
+				<param name="name" value="DebugConsole2020"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="ReleaseConsole2020"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="DebugPlugin2020"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="ReleasePlugin2020"/>
+			</antcall>
+
+			
+			<zip destfile="jenkins-artifacts/scripts.zip">
+				<fileset dir="scripts" includes="*.mel"/>
+			</zip>
+
+			<copy tofile="jenkins-artifacts/INSTALL_WIN.txt" file="INSTALL_WIN.txt"/>
+	</target>
+
+</project>

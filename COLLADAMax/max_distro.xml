@@ -1,0 +1,100 @@
+<project name="Distro Maya" basedir="." default="main">
+	<target name="dir.check">
+		<condition property="dir.exists">
+				<available file="${from}/${name}" type="dir"/>
+		</condition>
+	</target>
+
+	<target name="dir.zip" depends="dir.check" if="dir.exists">
+			<zip destfile="jenkins-artifacts/${name}.zip">
+					<fileset dir="${from}/${name}" includes="*"/>
+			</zip>
+	</target>
+			
+			
+	<target name="main">
+			<delete dir="jenkins-artifacts" verbose="false"/>
+			<property name="from" value="bin/win/x64/"/>
+			<antcall target="dir.zip">
+					<param name="name" value="Debug_Max2016"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="Debug_Max2016_static"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="Release_Max2016"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="Release_Max2016_static"/>
+			</antcall>
+
+			<antcall target="dir.zip">
+					<param name="name" value="Debug_Max2017"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="Debug_Max2017_static"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="Release_Max2017"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="Release_Max2017_static"/>
+			</antcall>
+
+			<antcall target="dir.zip">
+					<param name="name" value="Debug_Max2018"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="Debug_Max2018_static"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="Release_Max2018"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="Release_Max2018_static"/>
+			</antcall>
+
+
+			<antcall target="dir.zip">
+					<param name="name" value="Debug_Max2019"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="Debug_Max2019_static"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="Release_Max2019"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="Release_Max2019_static"/>
+			</antcall>
+
+			<antcall target="dir.zip">
+					<param name="name" value="Debug_Max2020"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="Debug_Max2020_static"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="Release_Max2020"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="Release_Max2020_static"/>
+			</antcall>
+
+			<antcall target="dir.zip">
+					<param name="name" value="Debug_Max2021"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="Debug_Max2021_static"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="Release_Max2021"/>
+			</antcall>
+			<antcall target="dir.zip">
+				<param name="name" value="Release_Max2021_static"/>
+			</antcall>
+
+			<copy tofile="jenkins-artifacts/INSTALL_WIN.txt" file="bin/win/INSTALL.TXT"/>
+	</target>
+
+</project>

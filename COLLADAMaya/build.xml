@@ -1,0 +1,104 @@
+	<delete dir="jenkins-artifacts" verbose="false"/>
+	
+	<mkdir dir="jenkins-artifacts/Maya2011/Win32" />
+	<mkdir dir="jenkins-artifacts/Maya2011/x64" />
+	<copy todir="jenkins-artifacts/Maya2011/Win32" verbose="false" overwrite="true" force="true">
+	  	<fileset dir="COLLADAMaya/bin/win/Win32" includes="*2011*/**"/>
+	</copy>
+	<copy todir="jenkins-artifacts/Maya2011/x64" verbose="false" overwrite="true" force="true">
+	  	<fileset dir="COLLADAMaya/bin/win/x64" includes="*2011*/**"/>
+	</copy>
+	<copy todir="jenkins-artifacts/Maya2011" verbose="false" overwrite="true" force="true">
+	  	<fileset dir="COLLADAMaya/bin/win" includes="scripts/**" />
+	</copy>
+	<copy todir="jenkins-artifacts/Maya2011" file="COLLADAMaya/bin/win/INSTALL_WIN.TXT" verbose="false" overwrite="true" force="true"/>
+
+	<mkdir dir="jenkins-artifacts/Maya2012/Win32" />
+	<mkdir dir="jenkins-artifacts/Maya2012/x64" />
+	<copy todir="jenkins-artifacts/Maya2012/Win32" verbose="false" overwrite="true" force="true">
+	  	<fileset dir="COLLADAMaya/bin/win/Win32" includes="*2012*/**"/>
+		</copy>
+	<copy todir="jenkins-artifacts/Maya2012/x64" verbose="false" overwrite="true" force="true">
+  	<fileset dir="COLLADAMaya/bin/win/x64" includes="*2012*/**"/>
+	</copy>
+	<copy todir="jenkins-artifacts/Maya2012" verbose="false" overwrite="true" force="true">
+	  	<fileset dir="COLLADAMaya/bin/win" includes="scripts/**" />
+	</copy>
+	<copy todir="jenkins-artifacts/Maya2012" file="COLLADAMaya/bin/win/INSTALL_WIN.TXT" verbose="false" overwrite="true" force="true"/>
+
+	<mkdir dir="jenkins-artifacts/Maya2013/Win32" />
+	<mkdir dir="jenkins-artifacts/Maya2013/x64" />
+	<copy todir="jenkins-artifacts/Maya2013/Win32" verbose="false" overwrite="true" force="true">
+	  	<fileset dir="COLLADAMaya/bin/win/Win32" includes="*2013*/**"/>
+	</copy>
+	<copy todir="jenkins-artifacts/Maya2013/x64" verbose="false" overwrite="true" force="true">
+	  	<fileset dir="COLLADAMaya/bin/win/x64" includes="*2013*/**"/>
+	</copy>
+	<copy todir="jenkins-artifacts/Maya2013" verbose="false" overwrite="true" force="true">
+	  	<fileset dir="COLLADAMaya/bin/win" includes="scripts/**" />
+	</copy>
+	<copy todir="jenkins-artifacts/Maya2013" file="COLLADAMaya/bin/win/INSTALL_WIN.TXT" verbose="false" overwrite="true" force="true"/>
+
+	<mkdir dir="jenkins-artifacts/Maya2014/x64" />
+	<copy todir="jenkins-artifacts/Maya2014/x64" verbose="false" overwrite="true" force="true">
+	  	<fileset dir="COLLADAMaya/bin/win/x64" includes="*2014*/**"/>
+	</copy>
+	<copy todir="jenkins-artifacts/Maya2014" verbose="false" overwrite="true" force="true">
+	  	<fileset dir="COLLADAMaya/bin/win" includes="scripts/**" />
+	</copy>
+	<copy todir="jenkins-artifacts/Maya2014" file="COLLADAMaya/bin/win/INSTALL_WIN.TXT" verbose="false" overwrite="true" force="true"/>
+
+	<mkdir dir="jenkins-artifacts/Maya2015/x64" />
+	<copy todir="jenkins-artifacts/Maya2015/x64" verbose="false" overwrite="true" force="true">
+	  	<fileset dir="COLLADAMaya/bin/win/x64" includes="*2015*/**"/>
+	</copy>
+	<copy todir="jenkins-artifacts/Maya2015" verbose="false" overwrite="true" force="true">
+	  	<fileset dir="COLLADAMaya/bin/win" includes="scripts/**" />
+	</copy>
+	<copy todir="jenkins-artifacts/Maya2015" file="COLLADAMaya/bin/win/INSTALL_WIN.TXT" verbose="false" overwrite="true" force="true"/>
+
+	<mkdir dir="jenkins-artifacts/Maya2016/x64" />
+	<copy todir="jenkins-artifacts/Maya2016/x64" verbose="false" overwrite="true" force="true">
+	  	<fileset dir="COLLADAMaya/bin/win/x64" includes="*2016*/**"/>
+	</copy>
+	<copy todir="jenkins-artifacts/Maya2016" verbose="false" overwrite="true" force="true">
+	  	<fileset dir="COLLADAMaya/bin/win" includes="scripts/**" />
+	</copy>
+	<copy todir="jenkins-artifacts/Maya2016" file="COLLADAMaya/bin/win/INSTALL_WIN.TXT" verbose="false" overwrite="true" force="true"/>
+
+	<mkdir dir="jenkins-artifacts/Maya2017/x64" />
+	<copy todir="jenkins-artifacts/Maya2017/x64" verbose="false" overwrite="true" force="true">
+	  	<fileset dir="COLLADAMaya/bin/win/x64" includes="*2017*/**"/>
+	</copy>
+	<copy todir="jenkins-artifacts/Maya2017" verbose="false" overwrite="true" force="true">
+	  	<fileset dir="COLLADAMaya/bin/win" includes="scripts/**" />
+	</copy>
+	<copy todir="jenkins-artifacts/Maya2017" file="COLLADAMaya/bin/win/INSTALL_WIN.TXT" verbose="false" overwrite="true" force="true"/>
+
+	<mkdir dir="jenkins-artifacts/Maya2018/x64" />
+	<copy todir="jenkins-artifacts/Maya2018/x64" verbose="false" overwrite="true" force="true">
+	  	<fileset dir="COLLADAMaya/bin/win/x64" includes="*2018*/**"/>
+	</copy>
+	<copy todir="jenkins-artifacts/Maya2018" verbose="false" overwrite="true" force="true">
+	  	<fileset dir="COLLADAMaya/bin/win" includes="scripts/**" />
+	</copy>
+	<copy todir="jenkins-artifacts/Maya2018" file="COLLADAMaya/bin/win/INSTALL_WIN.TXT" verbose="false" overwrite="true" force="true"/>
+
+	<mkdir dir="jenkins-artifacts/Maya2019/x64" />
+	<copy todir="jenkins-artifacts/Maya2019/x64" verbose="true" overwrite="true" force="true">
+	  	<fileset dir="COLLADAMaya/bin/win/x64" includes="*2019*/**"/>
+	</copy>
+	<copy todir="jenkins-artifacts/Maya2019" verbose="true" overwrite="true" force="true">
+	  	<fileset dir="COLLADAMaya/bin/win" includes="scripts/**" />
+	</copy>
+	<copy todir="jenkins-artifacts/Maya2019" file="COLLADAMaya/bin/win/INSTALL_WIN.TXT" verbose="true" overwrite="true" force="true"/>
+
+	<mkdir dir="jenkins-artifacts/Maya2020/x64" />
+	<copy todir="jenkins-artifacts/Maya2020/x64" verbose="true" overwrite="true" force="true">
+	  	<fileset dir="COLLADAMaya/bin/win/x64" includes="*2020*/**"/>
+	</copy>
+	<copy todir="jenkins-artifacts/Maya2020" verbose="true" overwrite="true" force="true">
+	  	<fileset dir="COLLADAMaya/bin/win" includes="scripts/**" />
+	</copy>
+	<copy todir="jenkins-artifacts/Maya2020" file="COLLADAMaya/bin/win/INSTALL_WIN.TXT" verbose="true" overwrite="true" force="true"/>
+		

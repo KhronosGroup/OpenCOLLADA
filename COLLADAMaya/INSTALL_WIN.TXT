@@ -11,6 +11,10 @@ Autodesk Maya 2013
 Autodesk Maya 2014
 Autodesk Maya 2015
 Autodesk Maya 2016
+Autodesk Maya 2017
+Autodesk Maya 2018
+Autodesk Maya 2019
+Autodesk Maya 2020
 
 --------
 
@@ -19,10 +23,10 @@ To list all environment variables starting with MAYA, type the following command
 
 prompt>set maya
 
-Find the plug-in binary. It will be in COLLADAMaya\bin\win 
+get the plug-in binary. It will be in COLLADAMaya\bin\win from your build
 Go to Win32 or X64 depending if your installing for Maya 32 or 64 bits
 Then go to the specific build you want to install. 
- Most commonly it will be ReleasePlugin2011-2015 depending of what Maya version you have.
+ Most commonly it will be ReleasePlugin2011-2020 depending of what Maya version you have.
 
 The mel scripts are located in the scripts/ folder.
 
