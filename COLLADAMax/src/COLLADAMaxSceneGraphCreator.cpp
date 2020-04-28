@@ -203,7 +203,7 @@ namespace COLLADAMax
 			parentNode->AttachChild(newNode, FALSE);
 
 			// post process the creation
-			if ( postProcess )
+			if ( postProcess != NULL)
 				(this->*postProcess)(newNode, instance);
 		}
 
@@ -282,7 +282,7 @@ namespace COLLADAMax
 		parentINode->AttachChild(newNode, FALSE);
 
 		// post process the creation
-		if ( postProcess )
+		if ( postProcess != NULL )
 			(this->*postProcess)(newNode, instance);
 
 		return newImportNode;
