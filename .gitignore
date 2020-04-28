@@ -5,6 +5,7 @@
 *.db
 *.opendb
 *.ipch
+*.vs/
 *~
 CMakeFiles
 cmake_install.cmake
@@ -22,3 +23,4 @@ cmake_temp
 CMakeScripts/
 /bin/
 /lib/
+jenkins-artifacts/
