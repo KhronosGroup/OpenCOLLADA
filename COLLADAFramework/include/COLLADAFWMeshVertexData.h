@@ -141,12 +141,19 @@ namespace COLLADAFW
             mInputInfosArray.append ( info );
         }
 
-        /** The stride at the specified index. */
+        /** The name at the specified index. */
         String getName ( size_t index ) const
         {
 			COLLADABU_ASSERT ( index <= mInputInfosArray.getCount() );
             if ( index >= mInputInfosArray.getCount () ) return 0;
             return mInputInfosArray[index]->mName;
+        }
+
+        void setName(size_t index, const String& name)
+        {
+			COLLADABU_ASSERT ( index <= mInputInfosArray.getCount() );
+            if ( index >= mInputInfosArray.getCount () ) return;
+            mInputInfosArray[index]->mName = name;
         }
 
         /** The stride at the specified index. */
