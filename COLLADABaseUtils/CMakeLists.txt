@@ -6,8 +6,6 @@ set(libBaseUtils_include_dirs
 	${CMAKE_CURRENT_SOURCE_DIR}/include/Math
 )
 
-set(libBaseUtils_include_dirs ${libBaseUtils_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
-
 set(INST_SRC
 	include/COLLADABUIDList.h
 	include/COLLADABUStableHeaders.h
@@ -54,16 +52,10 @@ set(SRC
 
 set(TARGET_LIBS
 	UTF
-	${PCRE_LIBRARIES}
+	PCRE::PCRE
 )
 
-include_directories(
-	${libBaseUtils_include_dirs} 
-	${libUTF_include_dirs}
-	${PCRE_INCLUDE_DIR}
-)
-
-opencollada_add_lib(${name} "${SRC}" "${TARGET_LIBS}")
+opencollada_add_lib(${name} "${SRC}" "${TARGET_LIBS}" "${libBaseUtils_include_dirs}" "${OPENCOLLADA_INST_INCLUDE}/COLLADABaseUtils;${OPENCOLLADA_INST_INCLUDE}/COLLADABaseUtils/Math")
 
 install(
 	FILES ${INST_SRC}

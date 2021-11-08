@@ -6,8 +6,6 @@ set(libMathMLSolver_include_dirs
 	${CMAKE_CURRENT_SOURCE_DIR}/include/AST
 )
 
-set(libMathMLSolver_include_dirs ${libMathMLSolver_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
-
 set(SRC
 	src/MathMLEvaluatorVisitor.cpp
 	src/MathMLSolverPrecompiled.cpp
@@ -56,8 +54,4 @@ set(SRC
 
 set(TARGET_LIBS)
 
-include_directories(
-	${libMathMLSolver_include_dirs}
-)
-
-opencollada_add_lib(${name} "${SRC}" "${TARGET_LIBS}")
+opencollada_add_lib(${name} "${SRC}" "${TARGET_LIBS}" "${libMathMLSolver_include_dirs}" "")

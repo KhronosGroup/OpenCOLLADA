@@ -5,8 +5,6 @@ set(libStreamWriter_include_dirs
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-set(libStreamWriter_include_dirs ${libStreamWriter_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
-
 set(INST_SRC
 	include/COLLADASWAnnotation.h
 	include/COLLADASWAsset.h
@@ -134,14 +132,7 @@ set(TARGET_LIBS
 	ftoa
 )
 
-include_directories(
-	${libStreamWriter_include_dirs} 
-	${libBaseUtils_include_dirs} 
-	${libftoa_include_dirs} 
-	${libBuffer_include_dirs}
-)
-
-opencollada_add_lib(${name} "${SRC}" "${TARGET_LIBS}")
+opencollada_add_lib(${name} "${SRC}" "${TARGET_LIBS}" "${libStreamWriter_include_dirs}" "${OPENCOLLADA_INST_INCLUDE}/COLLADAStreamWriter")
 
 install(
 	FILES ${INST_SRC}

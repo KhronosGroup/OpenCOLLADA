@@ -2,8 +2,6 @@ set(name zlib)
 project(${name})
 
 set(zlib_include_dirs ${CMAKE_CURRENT_SOURCE_DIR}/include)
-set(zlib_include_dirs ${zlib_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
-include_directories(${zlib_include_dirs})
 
 set(SRC
 	src/adler32.c
@@ -23,4 +21,4 @@ set(SRC
 
 set(TARGET_LIBS)
 
-opencollada_add_lib(${name} "${SRC}" "${TARGET_LIBS}")
+opencollada_add_lib(${name} "${SRC}" "${TARGET_LIBS}" "${zlib_include_dirs}" "")

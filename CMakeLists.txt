@@ -52,6 +52,8 @@ macro(opencollada_add_lib
 	name
 	sources
 	target_libs
+	internal_target_incs
+	external_target_incs
 	)
 
 	link_directories(${LIBRARY_OUTPUT_PATH})
@@ -71,11 +73,15 @@ macro(opencollada_add_lib
 				endif()
 			endif()
 		endforeach()
+		foreach(target_inc ${internal_target_incs})
+			target_include_directories(${name}_static PUBLIC $<BUILD_INTERFACE:${target_inc}>)
+		endforeach()
 		set(CMAKE_REQUIRED_LIBRARIES "${name}_static;${CMAKE_REQUIRED_LIBRARIES}" PARENT_SCOPE)
 
 		install(
 			TARGETS ${name}_static EXPORT LibraryExport
 			ARCHIVE DESTINATION ${OPENCOLLADA_INST_LIBRARY}
+			INCLUDES DESTINATION ${external_target_incs}
 		)
 	endif ()
 
@@ -97,11 +103,15 @@ macro(opencollada_add_lib
 				endif()
 			endif()
 		endforeach()
+		foreach(target_inc ${internal_target_incs})
+			target_include_directories(${name}_shared PUBLIC $<BUILD_INTERFACE:${target_inc}>)
+		endforeach()
 		set(CMAKE_REQUIRED_LIBRARIES "${name}_shared;${CMAKE_REQUIRED_LIBRARIES}"  PARENT_SCOPE)
 
 		install(
 			TARGETS ${name}_shared EXPORT LibraryExport
 			LIBRARY DESTINATION ${OPENCOLLADA_INST_LIBRARY}
+			INCLUDES DESTINATION ${external_target_incs}
 		)
 	endif ()
 endmacro()
@@ -192,6 +202,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CXX_WARNINGS}")
 
 set(OPENCOLLADA_INST_INCLUDE ${CMAKE_INSTALL_PREFIX}/include/opencollada)
 set(OPENCOLLADA_INST_LIBRARY ${CMAKE_INSTALL_PREFIX}/lib/opencollada)
+set(OPENCOLLADA_INST_SHARE ${CMAKE_INSTALL_PREFIX}/share/opencollada)
 set(OPENCOLLADA_INST_CMAKECONFIG ${OPENCOLLADA_INST_LIBRARY}/cmake)
 set(CMAKE_INSTALL_RPATH ${OPENCOLLADA_INST_LIBRARY})
 set(CMAKE_MACOSX_RPATH ON)
@@ -306,3 +317,6 @@ write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/OpenCOLLADAConfigVe
 # Install the configuration files
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/OpenCOLLADAConfig.cmake ${CMAKE_CURRENT_BINARY_DIR}/OpenCOLLADAConfigVersion.cmake
         DESTINATION ${OPENCOLLADA_INST_CMAKECONFIG})
+
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/Externals/cmake-modules/FindPCRE.cmake
+		DESTINATION ${OPENCOLLADA_INST_SHARE}/cmake/Modules)
