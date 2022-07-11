@@ -1,5 +1,6 @@
 #include "Macros.h"
 
+#include <cstdint>
 #if IS_GNUC_AND_GNUC_VERSION_LT(5,1,1)
 #include <cstring>
 #endif

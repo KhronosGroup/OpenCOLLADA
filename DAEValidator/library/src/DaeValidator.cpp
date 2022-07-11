@@ -4,6 +4,7 @@
 #include "Strings.h"
 #include "StringUtil.h"
 #include <cmath>
+#include <cstdint>
 #include "no_warning_iomanip"
 #include "no_warning_iostream"
 #include <set>
