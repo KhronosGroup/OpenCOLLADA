@@ -20,11 +20,11 @@ namespace COLLADABU
 
     namespace Math
     {
-        /** Class encapsulating a standard 4x4 homogenous matrix.
+        /** Class encapsulating a standard 4x4 homogeneous matrix.
         @remarks
         Math uses column vectors when applying matrix multiplications,
         This means a vector is represented as a single column, 4-row
-        matrix. This has the effect that the tranformations implemented
+        matrix. This has the effect that the transformations implemented
         by the matrices happens right-to-left e.g. if vector V is to be
         transformed by M1 then M2 then M3, the calculation would be
         M3 * M2 * M1 * V. The order that matrices are concatenated is
@@ -354,7 +354,7 @@ namespace COLLADABU
                 return !isEqualTo( m2 );
             }
 
-            /** Tests if the matrix is the identity matrix. This is the prefered method to check for identity*/
+            /** Tests if the matrix is the identity matrix. This is the preferred method to check for identity*/
             inline bool isIdentiy() const
             {
                 if ( mState == UNKNOWN )
