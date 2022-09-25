@@ -60,7 +60,7 @@ namespace COLLADABU
         static bool equals ( const String &str1, const String &str2 );
 
         /**
-        * Returns true, if both strings are equal. The comparison is case intensitive.
+        * Returns true, if both strings are equal. The comparison is case insensitive.
         */
         static bool equalsIgnoreCase ( const String& s1, const String& s2 );
 
@@ -160,7 +160,7 @@ namespace COLLADABU
         static void stringFindAndReplace ( String& source, const String searchString, const String replaceString );
 
         /**
-         * Splits a string by the given seperator string and push the 
+         * Splits a string by the given separator string and push the 
          * parts in a vector.
          * @param String & text
          * @param String & separators

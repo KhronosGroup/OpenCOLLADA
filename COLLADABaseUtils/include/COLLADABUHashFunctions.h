@@ -19,12 +19,12 @@ namespace COLLADABU
 {
 	size_t calculateHash(const String& str);
 
-	/** Converts all lower case ASCII caracters to the corresponding upper case character befor calculating the hash.*/
+	/** Converts all lower case ASCII characters to the corresponding upper case character before calculating the hash.*/
 	size_t calculateHashUpper(const String& str);
 
 	size_t calculateHash(const char* str);
 
-	/** Converts all lower case ASCII caracters to the corresponding upper case character befor calculating the hash.*/
+	/** Converts all lower case ASCII characters to the corresponding upper case character before calculating the hash.*/
 	size_t calculateHashUpper(const char* str);
 
 	size_t calculateHash(const URI& uri);

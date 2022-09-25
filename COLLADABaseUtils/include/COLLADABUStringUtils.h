@@ -39,7 +39,7 @@ namespace COLLADABU
 		}
 
         /**
-        * Returns true, if both strings are equal. The comparison is case intensitive.
+        * Returns true, if both strings are equal. The comparison is case insensitive.
         */
         static bool equalsIgnoreCase ( const WideString& s1, const WideString& s2 );
 
