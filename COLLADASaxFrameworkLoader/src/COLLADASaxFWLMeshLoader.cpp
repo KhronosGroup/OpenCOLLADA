@@ -215,7 +215,8 @@ namespace COLLADASaxFWL
         }
         else
         {
-            batchids.setData ( valuesArray.getData (), valuesArray.getCount () );
+            batchids.setData ( valuesArray.getData (), valuesArray.getCount (), source->getId(),
+			                   (size_t) source->getStride());
             valuesArray.yieldOwnerShip();
         }
 
