@@ -5,8 +5,6 @@ set(libftoa_include_dirs
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-set(libftoa_include_dirs ${libftoa_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
-
 set(SRC
 	src/Commondtoa.cpp
 	src/Commonftoa.cpp
@@ -19,8 +17,4 @@ set(SRC
 
 set(TARGET_LIBS)
 
-include_directories(
-	${libftoa_include_dirs}
-)
-
-opencollada_add_lib(${name} "${SRC}" "${TARGET_LIBS}")
+opencollada_add_lib(${name} "${SRC}" "${TARGET_LIBS}" "${libftoa_include_dirs}" "")

@@ -7,8 +7,6 @@ set(libBuffer_include_dirs
 	${libUTF_include_dirs}
 )
 
-set(libBuffer_include_dirs ${libBuffer_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
-
 set(SRC
 	src/CommonBuffer.cpp
 	src/CommonCharacterBuffer.cpp
@@ -27,9 +25,4 @@ set(SRC
 
 set(TARGET_LIBS ftoa UTF)
 
-include_directories(
-	${libBuffer_include_dirs}
-	${libftoa_include_dirs}
-)
-
-opencollada_add_lib(${name} "${SRC}" "${TARGET_LIBS}")
+opencollada_add_lib(${name} "${SRC}" "${TARGET_LIBS}" "${libBuffer_include_dirs}" "")

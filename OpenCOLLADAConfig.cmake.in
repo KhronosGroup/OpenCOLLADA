@@ -33,10 +33,6 @@ include("@PACKAGE_OPENCOLLADA_INST_CMAKECONFIG@/OpenCOLLADATargets.cmake")
 # Set the library variable
 if(UNIX)
 	set(OPENCOLLADA_LIBRARIES
-		ftoa_shared
-		buffer_shared
-		UTF_shared
-		MathMLSolver_shared
 		OpenCOLLADABaseUtils_shared
 		OpenCOLLADAFramework_shared
 		GeneratedSaxParser_shared
@@ -45,10 +41,6 @@ if(UNIX)
 	)
 else()
 	set(OPENCOLLADA_LIBRARIES
-		ftoa_static
-		buffer_static
-		UTF_static
-		MathMLSolver_static
 		OpenCOLLADABaseUtils_static
 		OpenCOLLADAFramework_static
 		GeneratedSaxParser_static

@@ -5,8 +5,6 @@ set(libFramework_include_dirs
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-set(libFramework_include_dirs ${libFramework_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
-
 set(INST_SRC
 	include/COLLADAFW.h
 	include/COLLADAFWAnimatable.h
@@ -177,16 +175,10 @@ set(SRC
 set(TARGET_LIBS
 	OpenCOLLADABaseUtils
 	MathMLSolver
-	${PCRE_LIBRARIES}
+	PCRE::PCRE
 )
 
-include_directories(
-	${libFramework_include_dirs}
-	${libBaseUtils_include_dirs}
-	${libMathMLSolver_include_dirs}
-	${PCRE_INCLUDE_DIR}
-)
-opencollada_add_lib(${name} "${SRC}" "${TARGET_LIBS}")
+opencollada_add_lib(${name} "${SRC}" "${TARGET_LIBS}" "${libFramework_include_dirs}" "${OPENCOLLADA_INST_INCLUDE}/COLLADAFramework")
 
 install(
 	FILES ${INST_SRC}

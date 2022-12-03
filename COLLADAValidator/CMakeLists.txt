@@ -5,8 +5,6 @@ set(libValidator_include_dirs
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-set(libValidator_include_dirs ${libValidator_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
-
 set(SRC
 	src/main.cpp
 	src/ValidationErrorHandler.cpp
@@ -15,14 +13,29 @@ set(SRC
 	include/Writer.h
 )
 
-set(libValidator_libs
-	OpenCOLLADASaxFrameworkLoader
-	GeneratedSaxParser
-	OpenCOLLADAFramework
-	OpenCOLLADABaseUtils
-	MathMLSolver
-	${PCRE_LIBRARIES}
-	${LIBXML2_LIBRARIES}
+if(USE_SHARED)
+	set(libValidator_libs
+		OpenCOLLADASaxFrameworkLoader_shared
+		GeneratedSaxParser_shared
+		OpenCOLLADAFramework_shared
+		OpenCOLLADABaseUtils_shared
+		MathMLSolver_shared
+	)
+elseif(USE_STATIC)
+	set(libValidator_libs
+		OpenCOLLADASaxFrameworkLoader_static
+		GeneratedSaxParser_static
+		OpenCOLLADAFramework_static
+		OpenCOLLADABaseUtils_static
+		MathMLSolver_static
+	)
+else()
+	message(FATAL_ERROR "Libraries must be static or shared")
+endif()
+
+list(APPEND libValidator_libs
+	PCRE::PCRE
+	LibXml2::LibXml2
 	UTF
 )
 
@@ -32,20 +45,14 @@ if (WIN32)
     )
 endif ()
 
-include_directories(
-	${libValidator_include_dirs}
-	${libBaseUtils_include_dirs}
-	${libFramework_include_dirs}
-	${libSaxFrameworkLoader_include_dirs}
-	${libGeneratedSaxParser_include_dirs}
-)
-
 SET(CMAKE_BUILD_WITH_INSTALL_RPATH TRUE)
 link_directories(${LIBRARY_OUTPUT_PATH})
 
 add_executable(${name} ${SRC})
 target_link_libraries(${name} ${libValidator_libs})
-add_dependencies(${name} ${CMAKE_REQUIRED_LIBRARIES})
+target_include_directories(${name} PRIVATE
+	${libValidator_include_dirs}
+)
 
 if (NOT LIBXML2_FOUND)
 	add_definitions(

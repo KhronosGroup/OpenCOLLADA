@@ -5,10 +5,6 @@ set(libGeneratedSaxParser_include_dirs
 	${CMAKE_CURRENT_SOURCE_DIR}/include/
 )
 
-set(libGeneratedSaxParser_include_dirs ${libGeneratedSaxParser_include_dirs} PARENT_SCOPE) #adding include dirs to a parent scope
-
-
-
 # GeneratedSaxParser
 set(INST_SRC
 	include/GeneratedSaxParser.h
@@ -54,11 +50,8 @@ if (USE_LIBXML)
 	list(APPEND SRC
 		src/GeneratedSaxParserLibxmlSaxParser.cpp
 	)
-	list(APPEND libGeneratedSaxParser_include_dirs
-		${LIBXML2_INCLUDE_DIR}
-	)
 	list(APPEND TARGET_LIBS
-		${LIBXML2_LIBRARIES}
+		LibXml2::LibXml2
 	)
 endif ()
 
@@ -66,20 +59,12 @@ if (USE_EXPAT)
 	list(APPEND SRC
 		src/GeneratedSaxParserExpatSaxParser.cpp
 	)
-	list(APPEND libGeneratedSaxParser_include_dirs
-		${LIBEXPAT_INCLUDE_DIR}
-	)
 	list(APPEND TARGET_LIBS
-		${LIBEXPAT_LIBRARIES}
+		EXPAT::EXPAT
 	)
 endif ()
 
-include_directories(
-	${libGeneratedSaxParser_include_dirs}
-	${libBaseUtils_include_dirs}
-)
-
-opencollada_add_lib(${name} "${SRC}" "${TARGET_LIBS}")
+opencollada_add_lib(${name} "${SRC}" "${TARGET_LIBS}" "${libGeneratedSaxParser_include_dirs}" "${OPENCOLLADA_INST_INCLUDE}/GeneratedSaxParser")
 
 install(
 	FILES ${INST_SRC}

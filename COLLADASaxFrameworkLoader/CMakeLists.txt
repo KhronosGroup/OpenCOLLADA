@@ -7,8 +7,6 @@ set(libSaxFrameworkLoader_include_dirs
 	${CMAKE_CURRENT_SOURCE_DIR}/include/generated15
 )
 
-set(libSaxFrameworkLoader_include_dirs ${libSaxFrameworkLoader_include_dirs} PARENT_SCOPE)  # adding include dirs to a parent scope
-
 set(INST_SRC
 	include/COLLADASaxFWLAccessor.h
 	include/COLLADASaxFWLArrayElement.h
@@ -268,37 +266,18 @@ set(TARGET_LIBS
 	GeneratedSaxParser
 	OpenCOLLADAFramework
 	MathMLSolver
-	${PCRE_LIBRARIES}
+	PCRE::PCRE
 )
 
-# For parallel building.
-if(USE_SHARED)
-    add_dependencies(GeneratedSaxParser_shared OpenCOLLADABaseUtils_shared)
-endif()
-if(USE_STATIC)
-    add_dependencies(GeneratedSaxParser_static OpenCOLLADABaseUtils_static)
-endif()
-
 if (USE_LIBXML)
-	list(APPEND libGeneratedSaxParser_include_dirs ${LIBXML2_INCLUDE_DIR})
-	list(APPEND TARGET_LIBS ${LIBXML2_LIBRARIES})
+	list(APPEND TARGET_LIBS LibXml2::LibXml2)
 endif ()
 
 if (USE_EXPAT)
-	list(APPEND libGeneratedSaxParser_include_dirs ${LIBEXPAT_INCLUDE_DIR})
-	list(APPEND TARGET_LIBS ${LIBEXPAT_LIBRARIES})
+	list(APPEND TARGET_LIBS EXPAT::EXPAT)
 endif ()
 
-include_directories(
-	${libSaxFrameworkLoader_include_dirs}
-	${libMathMLSolver_include_dirs}
-	${libBaseUtils_include_dirs}
-	${libFramework_include_dirs}
-	${libGeneratedSaxParser_include_dirs}
-	${PCRE_INCLUDE_DIR}
-)
-
-opencollada_add_lib(${name} "${SRC}" "${TARGET_LIBS}")
+opencollada_add_lib(${name} "${SRC}" "${TARGET_LIBS}" "${libSaxFrameworkLoader_include_dirs}" "${OPENCOLLADA_INST_INCLUDE}/COLLADASaxFrameworkLoader;${OPENCOLLADA_INST_INCLUDE}/COLLADASaxFrameworkLoader/generated14;${OPENCOLLADA_INST_INCLUDE}/COLLADASaxFrameworkLoader/generated15")
 
 install(
 	FILES ${INST_SRC}
