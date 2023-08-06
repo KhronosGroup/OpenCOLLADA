@@ -126,8 +126,10 @@ namespace COLLADAMax
 				{
 					Class_ID controllerClassId = control->ClassID();
 
-					if (   controllerClassId == BIPSLAVE_CONTROL_CLASS_ID 
-						|| controllerClassId == BIPBODY_CONTROL_CLASS_ID 
+					if (controllerClassId == BIPBODY_CONTROL_CLASS_ID
+#ifndef MAX_2022_OR_NEWER
+						|| controllerClassId == BIPSLAVE_CONTROL_CLASS_ID
+#endif
 						|| controllerClassId == FOOTPRINT_CLASS_ID 
 #ifdef MAX_2008_OR_NEWER
 						|| controllerClassId == BIPED_CLASS_ID 

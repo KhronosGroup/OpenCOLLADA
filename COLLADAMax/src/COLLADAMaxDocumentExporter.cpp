@@ -178,8 +178,11 @@ namespace COLLADAMax
         int systemUnitType;
 
         float systemUnitScale;
-
+#ifdef MAX_2022_OR_NEWER
+		GetSystemUnitInfo(&systemUnitType, &systemUnitScale);
+#else
         GetMasterUnitInfo ( &systemUnitType, &systemUnitScale );
+#endif
 
         switch ( systemUnitType )
         {

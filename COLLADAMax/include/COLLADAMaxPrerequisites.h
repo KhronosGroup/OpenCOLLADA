@@ -147,6 +147,27 @@
 #  define MAX_2021
 #endif
 
+#if ( MAX_VERSION_MAJOR >= 24 )
+#  define MAX_2022_OR_NEWER
+#endif
+#if ( MAX_VERSION_MAJOR == 24 )
+#  define MAX_2022
+#endif
+
+#if ( MAX_VERSION_MAJOR >= 25 )
+#  define MAX_2023_OR_NEWER
+#endif
+#if ( MAX_VERSION_MAJOR == 25 )
+#  define MAX_2023
+#endif
+
+#if ( MAX_VERSION_MAJOR >= 26 )
+#  define MAX_2024_OR_NEWER
+#endif
+#if ( MAX_VERSION_MAJOR == 26 )
+#  define MAX_2024
+#endif
+
 // Max 2009 requires RTTI to be enabled
 #ifdef MAX_2009_OR_NEWER
 #ifndef _CPPRTTI

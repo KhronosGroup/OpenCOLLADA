@@ -323,7 +323,12 @@ namespace COLLADAMax
 
 		// Retrieve the system unit information
 		int systemUnitType = UNITS_CENTIMETERS;
+
+#ifdef MAX_2022_OR_NEWER
+		GetSystemUnitInfo(&systemUnitType, &systemUnitScale);
+#else
 		GetMasterUnitInfo(&systemUnitType, &systemUnitScale);
+#endif
 
 		switch (systemUnitType)
 		{

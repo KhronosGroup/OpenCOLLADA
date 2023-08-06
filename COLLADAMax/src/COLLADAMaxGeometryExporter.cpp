@@ -1325,7 +1325,9 @@ namespace COLLADAMax
 		maxobj->MakeBezier(0, shape);
 
 		// for each curve
-#ifdef MAX_2019_OR_NEWER
+#ifdef MAX_2024_OR_NEWER
+		int splinesCount = std::min(shape.SplineCount(), maxobj->NumberOfCurves(0));
+#elif MAX_2019_OR_NEWER
 		int splinesCount = min(shape.SplineCount(), maxobj->NumberOfCurves(0));
 #else
 		int splinesCount = min(shape.SplineCount(), maxobj->NumberOfCurves());

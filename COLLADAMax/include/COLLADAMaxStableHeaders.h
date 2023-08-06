@@ -56,6 +56,12 @@
 #	pragma message ("Compiling for Max2020")
 #elif defined MAX_2021
 #	pragma message ("Compiling for Max2021")
+#elif defined MAX_2022
+#	pragma message ("Compiling for Max2022")
+#elif defined MAX_2023
+#	pragma message ("Compiling for Max2023")
+#elif defined MAX_2024
+#	pragma message ("Compiling for Max2024")
 #else
 #	error( "Unsupported Max version" )
 #endif
@@ -69,7 +75,11 @@
 #include <MeshNormalSpec.h>
 #include <modstack.h>   // for IDerivedObject
 #include <cs/bipexp.h>   // for BipIface
+#if defined(MAX_2023_OR_NEWER)
+#include <geom/matrix3.h>
+#else
 #include <matrix3.h>
+#endif
 #include <stdmat.h>       // for standard material
 #include <shaders.h>   // for shaders
 #include <decomp.h>    // for decomposition of transformations

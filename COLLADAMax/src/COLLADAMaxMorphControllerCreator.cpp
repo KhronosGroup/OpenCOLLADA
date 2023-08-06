@@ -118,7 +118,11 @@ namespace COLLADAMax
 		// There is a maximum number of channels supported by the 3dsMax morpher:
 		// Calculate the number of channels to process
 		size_t colladaTargetCount = morphTargets.getCount();
-		int channelCount = (int) min(colladaTargetCount, mMorphModifier->chanBank.size());
+#ifdef MAX_2024_OR_NEWER
+		int channelCount = (int)std::min(colladaTargetCount, mMorphModifier->chanBank.size());
+#else
+		int channelCount = (int)min(colladaTargetCount, mMorphModifier->chanBank.size());
+#endif
 
 		const COLLADAFW::UniqueId& morphWeightsAnimationListId = morphWeights.getAnimationList();
 		const COLLADAFW::AnimationList* morphWeightsAnimationList = getAnimationListByUniqueId( morphWeightsAnimationListId );
