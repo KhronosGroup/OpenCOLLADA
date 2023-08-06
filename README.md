@@ -1,4 +1,4 @@
-Updated OpenCOLLADA tools [here](https://github.com/RemiArnaud/OpenCOLLADA/releases).  
+Download OpenCOLLADA binaries [here](https://github.com/RemiArnaud/OpenCOLLADA/releases).  
 
 OpenCOLLADA
 ===========
