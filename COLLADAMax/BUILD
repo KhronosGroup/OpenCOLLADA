@@ -4,14 +4,17 @@ Requirements:
 - Autodesk 3ds Max
   To build the COLLADAMax plug-in you need to have a version of 3ds Max, including the SDK, installed.
   Supported versions are:
-  3ds Max 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018
+  3ds Max 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024
 
 - MS Visual Studio 2015 for loading the solution 
    MS Visual Studio 2008 to compile for Max 2011/2012
    MS Visual Studio 2010 to compile for Max 2013/2014
    MS Visual Studio 2012 to compile for Max 2015/2016
    MS Visual Studio 2015 to compile for Max 2017
-   MS Visual Studio 2015 update 3 with Windows SDK 10.0.10586 for Max 2018
+   MS Visual Studio 2015 update 3 with Windows SDK 10.0.10586 for Max 2018/2019
+   MS Visual Studio 2017 with Windows SDK 10.0.17134.0 for Max 2020/2021/2022
+   MS Visual Studio 2019 with Windows Platform SDK 10.0.19041.0 for Max 2023/2024
+
 
 IMPORTANT : DO NOT let visual studio convert the project files if it ask to when loading the solution.
   It is normal that the solution references different toolchains.

@@ -14,7 +14,7 @@
     for details please see LICENSE file or the website
     http://www.opensource.org/licenses/mit-license.php
 */
-
+#pragma once
 
 #ifndef __COLLADAMAX_EFFECTEXPORTER_H__
 #define __COLLADAMAX_EFFECTEXPORTER_H__

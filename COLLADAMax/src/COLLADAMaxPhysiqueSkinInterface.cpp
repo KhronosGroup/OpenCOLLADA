@@ -256,8 +256,10 @@ namespace COLLADAMax
 
 		// Use the class ID to check to see if we have a biped node
 		Control* c = mInode->GetTMController();
-		if ((c->ClassID() == BIPSLAVE_CONTROL_CLASS_ID) ||
-			(c->ClassID() == BIPBODY_CONTROL_CLASS_ID) ||
+		if ((c->ClassID() == BIPBODY_CONTROL_CLASS_ID) ||
+#ifndef MAX_2022_OR_NEWER
+		    (c->ClassID() == BIPSLAVE_CONTROL_CLASS_ID) ||
+#endif
 			(c->ClassID() == FOOTPRINT_CLASS_ID))
 		{
 
@@ -267,11 +269,21 @@ namespace COLLADAMax
 			// Either remove the non-uniform scale from the biped, 
 			// or add it back in depending on the boolean scale value
 			BipIface->RemoveNonUniformScale(scale);
-			Control* iMaster = (Control *) c->GetInterface(I_MASTER);
+#ifdef MAX_2022_OR_NEWER
+			Control* iMaster = (Control *)c->GetInterface(I_DRIVER);
+#else
+			Control* iMaster = (Control *)c->GetInterface(I_MASTER);
+#endif
+			
 			iMaster->NotifyDependents(FOREVER, PART_TM, REFMSG_CHANGE);
 
 			// Release the interfaces
-			c->ReleaseInterface(I_MASTER,iMaster);
+
+#ifdef MAX_2022_OR_NEWER
+			c->ReleaseInterface(I_DRIVER, iMaster);
+#else
+			c->ReleaseInterface(I_MASTER, iMaster);
+#endif
 			c->ReleaseInterface(I_BIPINTERFACE,BipIface);
 		}
 	}

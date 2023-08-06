@@ -124,6 +124,12 @@ namespace COLLADAMax
         {
             return _T ( "OpenCOLLADAExporter" );
         } // returns fixed parsable name (scripter-visible name)
+#ifdef MAX_2022_OR_NEWER
+		const MCHAR* ClassDesc::NonLocalizedClassName()
+		{
+			return _M("OpenCOLLADAExporter");
+		}
+#endif
 
         HINSTANCE HInstance()
         {

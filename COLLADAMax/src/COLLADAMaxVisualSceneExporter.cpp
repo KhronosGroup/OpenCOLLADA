@@ -159,7 +159,11 @@ namespace COLLADAMax
 
 			if ( hasPivotNode )
 			{
+#if defined MAX_2024_OR_NEWER
+				Matrix3 objectOffsetTransformationMatrix;
+#else
 				Matrix3 objectOffsetTransformationMatrix(true); 
+#endif
 
 				// Calculate the pivot transform. It should already be in local space.
 				calculateObjectOffsetTransformation(node, objectOffsetTransformationMatrix);

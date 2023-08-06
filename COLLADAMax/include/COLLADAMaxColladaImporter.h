@@ -103,6 +103,13 @@ namespace COLLADAMax
 			return __T("OpenCOLLADAImporter");
 		}
 
+#ifdef MAX_2022_OR_NEWER
+		const MCHAR* ClassDesc::NonLocalizedClassName()
+		{
+			return _M("OpenCOLLADAImporter");
+		}
+#endif
+
 		SClass_ID SuperClassID()
 		{
 			return SCENE_IMPORT_CLASS_ID;

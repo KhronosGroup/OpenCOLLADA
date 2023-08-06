@@ -88,6 +88,13 @@ namespace COLLADAMax
 			return __T("GoogleWarehouse");
 		}
 
+#ifdef MAX_2022_OR_NEWER
+		const MCHAR* ClassDesc::NonLocalizedClassName()
+		{
+			return _M("GoogleWarehouse");
+		}
+#endif
+
 		SClass_ID SuperClassID()
 		{
 			return GUP_CLASS_ID;
